@@ -240,5 +240,5 @@ function getElencoSiti() {
 document.addEventListener('deviceready', function() {
 
   initDatabase();
-
+  mapsInitialize();
 });
