@@ -105,7 +105,14 @@ function registraUtente(nome_utente, email, password, cellulare) {
 function logOut() {
 
   removeFromLocalStorage("loggedUser");
-  removeFromLocalStorage("dettaglioUtente");
+  removeFromLocalStorage("id");
+  removeFromLocalStorage("nome_utente");
+  removeFromLocalStorage("cognome");
+  removeFromLocalStorage("nome");
+  removeFromLocalStorage("password");
+  removeFromLocalStorage("cellulare");
+  removeFromLocalStorage("cittadinanza");
+  removeFromLocalStorage("lingua");
 
   if(getValueFromLocalStorage('loggedUser') == 0) {
     showMessage('Logout avvenuto con successo');
@@ -178,11 +185,15 @@ function logIn(login, password) {
           lingua: resultSet.rows.item(0).lingua,
         };
 
-
         saveOnLocalStorage("loggedUser", "1");
-        saveOnLocalStorage("dettaglioUtente", JSON.stringify(user));
-
-        //showMessage("Login: " + user.cognome + " - " + user['cognome']);
+        saveOnLocalStorage("id", user.id);
+        saveOnLocalStorage("nome_utente", user.nome_utente);
+        saveOnLocalStorage("cognome", user.cognome);
+        saveOnLocalStorage("nome", user.nome);
+        saveOnLocalStorage("password", user.password);
+        saveOnLocalStorage("cittadinanza", user.cittadinanza);
+        saveOnLocalStorage("cellulare", user.cellulare);
+        saveOnLocalStorage("lingua", user.lingua);
 
         showMessage('Login avvenuto con successo');
         fn.gotoPage("accesso_effettuato.html");

@@ -3,19 +3,20 @@
     $( document ).ready(function() {
 
       var form = $("#dettaglioForm");
-      var dettaglioUtente = getValueFromLocalStorage('dettaglioUtente');
-      alert("---" + JSON.parse(dettaglioUtente));
-      alert(getValueFromLocalStorage('loggedUser'));
+      var cognome = getValueFromLocalStorage('cognome');
+      var nome = getValueFromLocalStorage('nome');
+      var nome_utente = getValueFromLocalStorage('nome_utente');
+      var cellulare = getValueFromLocalStorage('cellulare');
+
       $('#cognome', form).val(dettaglioUtente.cognome);
-      //$('#cognome'). attr('disabled','disabled');
+      $('#cognome'). attr('disabled','disabled');
       $('#nome', form).val(dettaglioUtente.nome);
-      //$('#nome'). attr('disabled','disabled');
+      $('#nome'). attr('disabled','disabled');
       $('#nome_utente', form).val(dettaglioUtente.nome_utente);
-      //$('#username'). attr('disabled','disabled');
+      $('#username'). attr('disabled','disabled');
       $('#cellulare', form).val(dettaglioUtente.cellulare);
-      //$('#cellulare'). attr('disabled','disabled');
-      $('#cittadinanza', form).val(dettaglioUtente.cittadinanza);
-      //$('#cittadinanza'). attr('disabled','disabled');
+      $('#cellulare'). attr('disabled','disabled');
+
     });
 
   </script>
@@ -62,12 +63,6 @@
 					<input class="input100" id="cellulare" type="cellulare" name="cellulare" placeholder="Cellulare">
 					<label class="label-input100" for="cellulare">
 						<span class="fas fa-mobile-alt"></span>
-					</label>
-				</div>
-        <div class="wrap-input100 validate-input" data-validate="Password obbligatoria">
-					<input class="input100" id="cittadinanza" type="password" name="cittadinanza" placeholder="Cittadinanza">
-					<label class="label-input100" for="cittadinanza">
-						<span class="fas fa-flag"></span>
 					</label>
 				</div>
         </form>
