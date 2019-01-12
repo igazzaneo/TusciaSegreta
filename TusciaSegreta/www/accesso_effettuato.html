@@ -1,7 +1,7 @@
 <ons-page>
   <script>
     let dettaglioUtente = getValueFromLocalStorage('dettaglioUtente');
-showMessage(dettaglioUtente.cognome);
+
     $('#cognome').val(dettaglioUtente.cognome);
     $('#cognome'). attr('disabled','disabled');
     $('#nome').val(dettaglioUtente.nome);
