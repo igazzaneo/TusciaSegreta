@@ -166,21 +166,23 @@ function logIn(login, password) {
 
         // Utente presente e credenziali ok
         showMessage("Benvenuto: " + resultSet.rows.item(0).nome_utente + " - " + resultSet.rows.item(0).email + " - " + resultSet.rows.item(0).password + " - " + resultSet.rows.item(0).cellulare);
-        let user = {};
-        user['id'] = resultSet.rows.item(0).id;
-        user['nome_utente'] = resultSet.rows.item(0).nome_utente;
-        user['cognome'] = resultSet.rows.item(0).cognome;
-        user['nome'] = resultSet.rows.item(0).nome;
-        user['email'] = resultSet.rows.item(0).email;
-        user['password'] = resultSet.rows.item(0).password;
-        user['cittadinanza'] = resultSet.rows.item(0).cittadinanza;
-        user['cellulare'] = resultSet.rows.item(0).cellulare;
-        user['lingua'] = resultSet.rows.item(0).lingua;
+        let user = {
+          id: resultSet.rows.item(0).id,
+          nome_utente: resultSet.rows.item(0).nome_utente,
+          cognome: resultSet.rows.item(0).cognome,
+          nome: resultSet.rows.item(0).nome,
+          email: resultSet.rows.item(0).email,
+          password: resultSet.rows.item(0).password,
+          cittadinanza: resultSet.rows.item(0).cittadinanza,
+          cellulare: resultSet.rows.item(0).cellulare,
+          lingua: resultSet.rows.item(0).lingua,
+        };
+
 
         saveOnLocalStorage("loggedUser", "1");
         saveOnLocalStorage("dettaglioUtente", user);
 
-        showMessage(getValueFromLocalStorage("dettaglioUtente"));
+        showMessage("Login: " + user.cognome + " - " + user['cognome']);
 
         showMessage('Login avvenuto con successo');
         fn.gotoPage("accesso_effettuato.html");
