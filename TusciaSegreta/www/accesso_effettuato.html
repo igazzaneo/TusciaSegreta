@@ -3,8 +3,8 @@
     $( document ).ready(function() {
 
       var form = $("#dettaglioForm");
-      let dettaglioUtente = getValueFromLocalStorage('dettaglioUtente');
-      alert("---" + dettaglioUtente.cognome);
+      var dettaglioUtente = getValueFromLocalStorage('dettaglioUtente');
+      alert("---" + JSON.parse(dettaglioUtente));
       alert(getValueFromLocalStorage('loggedUser'));
       $('#cognome', form).val(dettaglioUtente.cognome);
       //$('#cognome'). attr('disabled','disabled');

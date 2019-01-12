@@ -180,9 +180,9 @@ function logIn(login, password) {
 
 
         saveOnLocalStorage("loggedUser", "1");
-        saveOnLocalStorage("dettaglioUtente", user);
+        saveOnLocalStorage("dettaglioUtente", JSON.stringify(user));
 
-        showMessage("Login: " + user.cognome + " - " + user['cognome']);
+        //showMessage("Login: " + user.cognome + " - " + user['cognome']);
 
         showMessage('Login avvenuto con successo');
         fn.gotoPage("accesso_effettuato.html");
