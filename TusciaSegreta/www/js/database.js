@@ -212,6 +212,7 @@ function getElencoSiti() {
   var elenco = new Array();
 
   database.transaction(function(transaction) {
+
     transaction.executeSql('SELECT * FROM sito', [], function(ignored, resultSet) {
 
       for(var x = 0; x < resultSet.rows.length; x++) {
@@ -237,6 +238,5 @@ function getElencoSiti() {
 document.addEventListener('deviceready', function() {
   alert("initDatabase");
   initDatabase();
-  alert("initMap");
-  initMap();
+  
 });
