@@ -59,6 +59,7 @@ function openDb() {
   //databaseUtente = sqlitePlugin.openDatabase({name: 'utente.db'});
   // method used to populate object
   getElencoSiti();
+  mapsInitialize();
 }
 
 function registrazioneDaApp() {
@@ -208,13 +209,10 @@ function checkUser() {
 
 function getElencoSiti() {
 
-  //showMessage("onGetElencoSiti()");
   var elenco = new Array();
 
   database.transaction(function(transaction) {
     transaction.executeSql('SELECT * FROM sito', [], function(ignored, resultSet) {
-
-      //showMessage("Siti trovati: " + resultSet.rows.length)
 
       for(var x = 0; x < resultSet.rows.length; x++) {
 
@@ -229,7 +227,6 @@ function getElencoSiti() {
         elenco[x] = riga;
       }
       elencoSiti = elenco;
-      //showMessage('Denominazione: ' + resultSet.rows.item(0).denominazione + ' - Video: ' + resultSet.rows.item(0).video + ' - Coordinate: ' + resultSet.rows.item(0).latitudine + " - " + + resultSet.rows.item(0).longitudine);
     });
   }, function(error) {
     showMessage('SELECT error: ' + error.message);
@@ -240,5 +237,5 @@ function getElencoSiti() {
 document.addEventListener('deviceready', function() {
 
   initDatabase();
-  mapsInitialize();
+
 });
