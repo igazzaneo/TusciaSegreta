@@ -1,4 +1,18 @@
 <ons-page>
+  <script>
+    let dettaglioUtente = getValueFromLocalStorage('dettaglioUtente');
+
+    $('#cognome').val(dettaglioUtente.cognome);
+    $('#cognome'). attr('disabled','disabled');
+    $('#nome').val(dettaglioUtente.nome);
+    $('#nome'). attr('disabled','disabled');
+    $('#username').val(dettaglioUtente.nome_utente);
+    $('#username'). attr('disabled','disabled');
+    $('#cellulare').val(dettaglioUtente.cellulare);
+    $('#cellulare'). attr('disabled','disabled');
+    $('#cittadinanza').val(dettaglioUtente.cittadinanza);
+    $('#cittadinanza'). attr('disabled','disabled');
+  </script>
   <ons-toolbar style="background-color: #000000">
     <div class="left" style="width: 50px">
       <ons-toolbar-button onclick="fn.open()">
@@ -25,25 +39,19 @@
 					</label>
 				</div>
         <div class="wrap-input100 validate-input">
-					<input class="input100" id="name" type="text" name="nome" placeholder="Nome">
-					<label class="label-input100" for="name">
+					<input class="input100" id="nome" type="text" name="nome" placeholder="Nome">
+					<label class="label-input100" for="nome">
 						<span class="fas fa-id_card"></span>
 					</label>
 				</div>
-        <div class="wrap-input100 validate-input" data-validate="Username obbligatorio">
+        <div class="wrap-input100 validate-input">
 					<input class="input100" id="username" type="text" name="username" placeholder="Nome utente">
 					<label class="label-input100" for="username">
 						<span class="fas fa-user-alt"></span>
 					</label>
 				</div>
-        <div class="wrap-input100 validate-input" data-validate="Password obbligatoria">
-					<input class="input100" id="password" type="password" name="password" placeholder="Password">
-					<label class="label-input100" for="password">
-						<span class="fas fa-key"></span>
-					</label>
-				</div>
-        <div class="wrap-input100 validate-input" data-validate="Password obbligatoria">
-					<input class="input100" id="cellulare" type="password" name="cellulare" placeholder="Cellulare">
+        <div class="wrap-input100 validate-input">
+					<input class="input100" id="cellulare" type="cellulare" name="cellulare" placeholder="Cellulare">
 					<label class="label-input100" for="cellulare">
 						<span class="fas fa-mobile-alt"></span>
 					</label>

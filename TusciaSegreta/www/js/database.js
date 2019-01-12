@@ -105,6 +105,7 @@ function registraUtente(nome_utente, email, password, cellulare) {
 function logOut() {
 
   removeFromLocalStorage("loggedUser");
+  removeFromLocalStorage("dettaglioUtente");
 
   if(getValueFromLocalStorage('loggedUser') == 0) {
     showMessage('Logout avvenuto con successo');
@@ -165,8 +166,20 @@ function logIn(login, password) {
 
         // Utente presente e credenziali ok
         showMessage("Benvenuto: " + resultSet.rows.item(0).nome_utente + " - " + resultSet.rows.item(0).email + " - " + resultSet.rows.item(0).password + " - " + resultSet.rows.item(0).cellulare);
+        let user = {};
+        user['id'] = resultSet.rows.item(0).id;
+        user['nome_utente'] = resultSet.rows.item(0).nome_utente;
+        user['cognome'] = resultSet.rows.item(0).cognome;
+        user['nome'] = resultSet.rows.item(0).nome;
+        user['email'] = resultSet.rows.item(0).email;
+        user['password'] = resultSet.rows.item(0).password;
+        user['cittadinanza'] = resultSet.rows.item(0).cittadinanza;
+        user['cellulare'] = resultSet.rows.item(0).cellulare;
+        user['lingua'] = resultSet.rows.item(0).lingua;
 
         saveOnLocalStorage("loggedUser", "1");
+        saveOnLocalStorage("dettaglioUtente", user);
+
         showMessage('Login avvenuto con successo');
         fn.gotoPage("accesso_effettuato.html");
 
@@ -238,5 +251,5 @@ function getElencoSiti() {
 document.addEventListener('deviceready', function() {
   alert("initDatabase");
   initDatabase();
-  
+
 });
