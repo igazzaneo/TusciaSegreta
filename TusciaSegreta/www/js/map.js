@@ -29,6 +29,9 @@ function mapsInitialize() {
 
   var percorsi = L.layerGroup();
 
+  if(elencoSiti.length == 0)
+    getElencoSiti();
+
   for(var i=0; i<elencoSiti.length; i++) {
 
       var riga = elencoSiti[i];
