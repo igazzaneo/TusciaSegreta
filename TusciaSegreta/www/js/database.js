@@ -173,27 +173,16 @@ function logIn(login, password) {
 
         // Utente presente e credenziali ok
         showMessage("Benvenuto: " + resultSet.rows.item(0).nome_utente + " - " + resultSet.rows.item(0).email + " - " + resultSet.rows.item(0).password + " - " + resultSet.rows.item(0).cellulare);
-        let user = {
-          id: resultSet.rows.item(0).id,
-          nome_utente: resultSet.rows.item(0).nome_utente,
-          cognome: resultSet.rows.item(0).cognome,
-          nome: resultSet.rows.item(0).nome,
-          email: resultSet.rows.item(0).email,
-          password: resultSet.rows.item(0).password,
-          cittadinanza: resultSet.rows.item(0).cittadinanza,
-          cellulare: resultSet.rows.item(0).cellulare,
-          lingua: resultSet.rows.item(0).lingua,
-        };
-
+        
         saveOnLocalStorage("loggedUser", "1");
-        saveOnLocalStorage("id", user.id);
-        saveOnLocalStorage("nome_utente", user.nome_utente);
-        saveOnLocalStorage("cognome", user.cognome);
-        saveOnLocalStorage("nome", user.nome);
-        saveOnLocalStorage("password", user.password);
-        saveOnLocalStorage("cittadinanza", user.cittadinanza);
-        saveOnLocalStorage("cellulare", user.cellulare);
-        saveOnLocalStorage("lingua", user.lingua);
+        saveOnLocalStorage("id", resultSet.rows.item(0).id);
+        saveOnLocalStorage("nome_utente", resultSet.rows.item(0).nome_utente);
+        saveOnLocalStorage("cognome", resultSet.rows.item(0).cognome);
+        saveOnLocalStorage("nome", resultSet.rows.item(0).nome);
+        saveOnLocalStorage("password", resultSet.rows.item(0).password);
+        saveOnLocalStorage("cittadinanza", resultSet.rows.item(0).cittadinanza);
+        saveOnLocalStorage("cellulare", resultSet.rows.item(0).cellulare);
+        saveOnLocalStorage("lingua", resultSet.rows.item(0).lingua);
 
         showMessage('Login avvenuto con successo');
         fn.gotoPage("accesso_effettuato.html");
