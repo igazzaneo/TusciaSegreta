@@ -59,7 +59,7 @@ function openDb() {
   //databaseUtente = sqlitePlugin.openDatabase({name: 'utente.db'});
   // method used to populate object
   getElencoSiti();
-  mapsInitialize();
+
 }
 
 function registrazioneDaApp() {
@@ -235,7 +235,8 @@ function getElencoSiti() {
 }
 
 document.addEventListener('deviceready', function() {
-
+  alert("initDatabase");
   initDatabase();
-
+  alert("initMap");
+  initMap();
 });

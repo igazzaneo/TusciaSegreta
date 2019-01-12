@@ -1,4 +1,4 @@
-function mapsInitialize() {
+function initMap() {
 
   var roads = L.gridLayer.googleMutant({
     type: 'roadmap'	// valid values are 'roadmap', 'satellite', 'terrain' and 'hybrid'
