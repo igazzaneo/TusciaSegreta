@@ -264,7 +264,6 @@ function getElencoSiti() {
 }
 
 document.addEventListener('deviceready', function() {
-  alert("initDatabase");
   initDatabase();
 
 });

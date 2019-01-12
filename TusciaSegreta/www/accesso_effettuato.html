@@ -4,11 +4,13 @@
 
       var form = $("#dettaglioForm");
       let dettaglioUtente = getValueFromLocalStorage('dettaglioUtente');
+      alert("---" + dettaglioUtente.cognome);
+      alert(getValueFromLocalStorage('loggedUser'));
       $('#cognome', form).val(dettaglioUtente.cognome);
       //$('#cognome'). attr('disabled','disabled');
       $('#nome', form).val(dettaglioUtente.nome);
       //$('#nome'). attr('disabled','disabled');
-      $('#username', form).val(dettaglioUtente.nome_utente);
+      $('#nome_utente', form).val(dettaglioUtente.nome_utente);
       //$('#username'). attr('disabled','disabled');
       $('#cellulare', form).val(dettaglioUtente.cellulare);
       //$('#cellulare'). attr('disabled','disabled');
@@ -51,8 +53,8 @@
 					</label>
 				</div>
         <div class="wrap-input100 validate-input">
-					<input class="input100" id="username" type="text" name="username" placeholder="Nome utente">
-					<label class="label-input100" for="username">
+					<input class="input100" id="nome_utente" type="text" name="nome_utente" placeholder="Nome utente">
+					<label class="label-input100" for="nome_utente">
 						<span class="fas fa-user-alt"></span>
 					</label>
 				</div>
