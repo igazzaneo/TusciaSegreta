@@ -29,20 +29,20 @@ function copyDatabaseFile(dbName) {
     return new Promise(function (resolve, reject) {
       targetDir.getFile(dbName, {}, resolve, reject);
     }).then(function () {
-      showMessage("Database già presente");
+      //showMessage("Database già presente");
     }).catch(function () {
       //showMessage("file doesn't exist, copying it");
       return new Promise(function (resolve, reject) {
         sourceFile.copyTo(targetDir, 'copied_' + dbName, resolve, reject);
       }).then(function () {
-        showMessage("Database copiato");
+        //showMessage("Database copiato");
       });
     });
   });
 }
 // copy DB and open it
 function setupDB() {
-    showMessage("onSetupDB()");
+    //showMessage("onSetupDB()");
     copyDatabaseFile('tusciasegreta.db').then(function () {
       //database = sqlitePlugin.openDatabase({name: 'copied_tusciasegreta.db'});
       openDb();
@@ -208,13 +208,13 @@ function checkUser() {
 
 function getElencoSiti() {
 
-  showMessage("onGetElencoSiti()");
+  //showMessage("onGetElencoSiti()");
   var elenco = new Array();
 
   database.transaction(function(transaction) {
     transaction.executeSql('SELECT * FROM sito', [], function(ignored, resultSet) {
 
-      showMessage("Siti trovati: " + resultSet.rows.length)
+      //showMessage("Siti trovati: " + resultSet.rows.length)
 
       for(var x = 0; x < resultSet.rows.length; x++) {
 
