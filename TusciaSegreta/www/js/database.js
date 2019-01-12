@@ -217,11 +217,22 @@ function checkUser() {
   var logged = getValueFromLocalStorage("loggedUser");
 
   if(logged == 1) {
-    fn.load('accesso_effettuato.html')
+    fn.gotoPage('accesso_effettuato.html');
   } else {
     //showMessage('Utente non loggato');
   }
 
+}
+
+function checkLoggedAndGoToPage(page) {
+
+  var logged = getValueFromLocalStorage("loggedUser");
+
+  if(logged == 1) {
+    fn.gotoPage(page);
+  } else {
+    fn.gotoPage('accesso.html');
+  }
 }
 
 function getElencoSiti() {

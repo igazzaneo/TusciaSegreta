@@ -1,17 +1,21 @@
 <ons-page>
   <script>
-    let dettaglioUtente = getValueFromLocalStorage('dettaglioUtente');
+    $( document ).ready(function() {
 
-    $('#cognome').val(dettaglioUtente.cognome);
-    $('#cognome'). attr('disabled','disabled');
-    $('#nome').val(dettaglioUtente.nome);
-    $('#nome'). attr('disabled','disabled');
-    $('#username').val(dettaglioUtente.nome_utente);
-    $('#username'). attr('disabled','disabled');
-    $('#cellulare').val(dettaglioUtente.cellulare);
-    $('#cellulare'). attr('disabled','disabled');
-    $('#cittadinanza').val(dettaglioUtente.cittadinanza);
-    $('#cittadinanza'). attr('disabled','disabled');
+      let dettaglioUtente = getValueFromLocalStorage('dettaglioUtente');
+
+      $('#cognome').val(dettaglioUtente.cognome);
+      $('#cognome'). attr('disabled','disabled');
+      $('#nome').val(dettaglioUtente.nome);
+      $('#nome'). attr('disabled','disabled');
+      $('#username').val(dettaglioUtente.nome_utente);
+      $('#username'). attr('disabled','disabled');
+      $('#cellulare').val(dettaglioUtente.cellulare);
+      $('#cellulare'). attr('disabled','disabled');
+      $('#cittadinanza').val(dettaglioUtente.cittadinanza);
+      $('#cittadinanza'). attr('disabled','disabled');
+    });
+    
   </script>
   <ons-toolbar style="background-color: #000000">
     <div class="left" style="width: 50px">
