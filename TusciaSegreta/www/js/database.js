@@ -173,7 +173,7 @@ function logIn(login, password) {
 
         // Utente presente e credenziali ok
         showMessage("Benvenuto: " + resultSet.rows.item(0).nome_utente + " - " + resultSet.rows.item(0).email + " - " + resultSet.rows.item(0).password + " - " + resultSet.rows.item(0).cellulare);
-        
+
         saveOnLocalStorage("loggedUser", "1");
         saveOnLocalStorage("id", resultSet.rows.item(0).id);
         saveOnLocalStorage("nome_utente", resultSet.rows.item(0).nome_utente);
@@ -265,5 +265,18 @@ function getElencoSiti() {
 
 document.addEventListener('deviceready', function() {
   initDatabase();
+
+  var exitApp = false, intval = setInterval(function (){exitApp = false;}, 1000);
+  
+  document.addEventListener("backbutton", function (e){
+    e.preventDefault();
+    if (exitApp) {
+      clearInterval(intval)
+      (navigator.app && navigator.app.exitApp()) || (device && device.exitApp())
+    } else {
+      exitApp = true
+      history.back(1);
+    }
+  }, false);
 
 });
