@@ -263,11 +263,33 @@ function getElencoSiti() {
 
 }
 
-document.addEventListener('deviceready', function() {
-  initDatabase();
+function getMapLocation() {
 
+    navigator.geolocation.getCurrentPosition(onMapSuccess, onMapError, { enableHighAccuracy: true });
+}
+
+var onMapSuccess = function (position) {
+
+    //Latitude = position.coords.latitude;
+    //Longitude = position.coords.longitude;
+
+    alert(position.coords.latitude + " - " + position.coords.longitude)
+}
+
+function onMapError(error) {
+    console.log('code: ' + error.code + '\n' +
+        'message: ' + error.message + '\n');
+}
+
+
+document.addEventListener('deviceready', function() {
+
+  initDatabase();
+  getMapLocation();
+
+  /*
   var exitApp = false, intval = setInterval(function (){exitApp = false;}, 1000);
-  
+
   document.addEventListener("backbutton", function (e){
     e.preventDefault();
     if (exitApp) {
@@ -277,6 +299,6 @@ document.addEventListener('deviceready', function() {
       exitApp = true
       history.back(1);
     }
-  }, false);
+  }, false);*/
 
 });
