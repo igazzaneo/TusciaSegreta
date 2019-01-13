@@ -172,7 +172,7 @@ function logIn(login, password) {
       if(trovato > 0) {
 
         // Utente presente e credenziali ok
-        showMessage("Benvenuto: " + resultSet.rows.item(0).nome_utente + " - " + resultSet.rows.item(0).email + " - " + resultSet.rows.item(0).password + " - " + resultSet.rows.item(0).cellulare);
+        //showMessage("Benvenuto: " + resultSet.rows.item(0).nome_utente + " - " + resultSet.rows.item(0).email + " - " + resultSet.rows.item(0).password + " - " + resultSet.rows.item(0).cellulare);
 
         saveOnLocalStorage("loggedUser", "1");
         saveOnLocalStorage("id", resultSet.rows.item(0).id);
