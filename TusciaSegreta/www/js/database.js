@@ -89,9 +89,9 @@ function registraUtente(nome_utente, email, password, cellulare) {
   database.transaction(function(transaction) {
     transaction.executeSql('DELETE FROM utente', []);
     transaction.executeSql('INSERT INTO utente VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)', [1, nome_utente, 'Gazzaneo', 'Italo', email, password, '', cellulare, '']);
-    transaction.executeSql('select count(*) as recordCount from utente', [], function(ignored, resultSet) {
+    /*transaction.executeSql('select count(*) as recordCount from utente', [], function(ignored, resultSet) {
      showMessage("Utenti trovati: " + resultSet.rows.item(0).recordCount)
-   });
+   });*/
 
   }, function(error) {
     showMessage('Errore nella cancellazione: ' + error.message);
