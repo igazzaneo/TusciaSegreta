@@ -270,10 +270,10 @@ function getMapLocation() {
 
 var onMapSuccess = function (position) {
 
-    //Latitude = position.coords.latitude;
-    //Longitude = position.coords.longitude;
+    //alert(position.coords.latitude + " - " + position.coords.longitude);
 
-    alert(position.coords.latitude + " - " + position.coords.longitude)
+    saveOnLocalStorage('latitudine', position.coords.latitude);
+    saveOnLocalStorage('longitudine', position.coords.longitude);
 }
 
 function onMapError(error) {
