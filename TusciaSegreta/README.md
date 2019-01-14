@@ -1,6 +1,6 @@
-# Hello World PhoneGap Template [![bitHound Score][bithound-img]][bithound-url]
+# TusciaSegreta PhoneGap Template [![bitHound Score][bithound-img]][bithound-url]
 
-A PhoneGap Hello World template
+Template per app TusciaSegreta
 
 ## Usage
 
@@ -12,7 +12,7 @@ The hello-world template is the default when you create a new application using 
 
 Create an app using this template specifically:
 
-    phonegap create my-app --template hello-world
+    phonegap create my-app --template tusciasegreta
 
 To see a list of other available PhoneGap templates:
 
