@@ -7,17 +7,31 @@
 
   window.fn.load = function(page) {
 
-    if(window.location.href.indexOf(page) == -1) {
+    if(document.getElementById('mapid') != null)
+    {
+      if(page != 'map.html') {
+        var content = document.getElementById('content');
+        var menu = document.getElementById('menu');
+        content.load(page).then(menu.close.bind(menu));
+      }
+
+    } else {
       var content = document.getElementById('content');
       var menu = document.getElementById('menu');
-      content.load(page)
-        .then(menu.close.bind(menu));
+      content.load(page).then(menu.close.bind(menu));
     }
 
   };
 
   window.fn.gotoPage = function(page) {
-    if(window.location.href.indexOf(page) == -1) {
+    
+    if(document.getElementById('mapid') != null)
+    {
+      if(page != 'map.html') {
+        var content = document.getElementById('content');
+        content.load(page);
+      }
+    } else {
       var content = document.getElementById('content');
       content.load(page);
     }
