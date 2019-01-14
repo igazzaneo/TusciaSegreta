@@ -6,15 +6,21 @@
   };
 
   window.fn.load = function(page) {
-    var content = document.getElementById('content');
-    var menu = document.getElementById('menu');
-    content.load(page)
-      .then(menu.close.bind(menu));
+
+    if(window.location.href.indexOf(page) == -1) {
+      var content = document.getElementById('content');
+      var menu = document.getElementById('menu');
+      content.load(page)
+        .then(menu.close.bind(menu));
+    }
+
   };
 
   window.fn.gotoPage = function(page) {
-    var content = document.getElementById('content');
-    content.load(page);
+    if(window.location.href.indexOf(page) == -1) {
+      var content = document.getElementById('content');
+      content.load(page);
+    }
   };
 
   var login = function() {
@@ -43,5 +49,5 @@
       document.querySelector('#item2').hideExpansion();
       document.querySelector('#item3').showExpansion();
     }
-    
+
   };

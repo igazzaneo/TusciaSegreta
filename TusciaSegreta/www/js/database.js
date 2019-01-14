@@ -10,6 +10,22 @@ function initDatabase() {
 
 }
 
+function getNavigationApp() {
+
+  var platform = device.platform.toLowerCase();
+  if(platform == "android"){
+      platform = launchnavigator.PLATFORM.ANDROID;
+  } else if(platform == "ios"){
+      platform = launchnavigator.PLATFORM.IOS;
+  } else if(platform.match(/win/)){
+      platform = launchnavigator.PLATFORM.WINDOWS;
+  }
+
+  launchnavigator.getAppsForPlatform(platform).forEach(function(app){
+      console.log(launchnavigator.getAppDisplayName(app) + " is supported");
+  });
+}
+
 // copy a database file from www/ in the app directory to the data directory
 function copyDatabaseFile(dbName) {
 
@@ -71,9 +87,11 @@ function registrazioneDaApp() {
   var nome_utente = $("#username", form).val();
   var cellulare   = $("#cellulare", form).val();
   var password    = $("#password", form).val();
+  var cognome     = $("#cognome", form).val();
+  var nome        = $("#nome", form).val();
 
-  if(email != "" && nome_utente != "" && password != '' && cellulare != '')
-    registraUtente(nome_utente, email, password, cellulare);
+  if(email != "" && nome_utente != "" && password != '' && cellulare != '' && cognome != '' && nome != '')
+    registraUtente(nome_utente, email, password, cellulare, cognome, nome);
   else {
     showMessage("Tutti i campi sono obbligatori");
     $("#submitButton").removeAttr("disabled");
@@ -83,15 +101,18 @@ function registrazioneDaApp() {
 
 }
 
-function registraUtente(nome_utente, email, password, cellulare) {
+function registraUtente(nome_utente, email, password, cellulare, cognome, nome) {
 
   // Effettuo la cancellazione preventiva dei record per evitare di avere più di un utente nel DB locale
   database.transaction(function(transaction) {
     transaction.executeSql('DELETE FROM utente', []);
-    transaction.executeSql('INSERT INTO utente VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)', [1, nome_utente, 'Gazzaneo', 'Italo', email, password, '', cellulare, '']);
-    /*transaction.executeSql('select count(*) as recordCount from utente', [], function(ignored, resultSet) {
-     showMessage("Utenti trovati: " + resultSet.rows.item(0).recordCount)
-   });*/
+    transaction.executeSql('INSERT INTO utente VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)', [1, nome_utente, cognome, nome, email, password, '', cellulare, '']);
+    transaction.executeSql('select count(*) as recordCount from utente', [], function(ignored, resultSet) {
+      //showMessage("Utenti trovati: " + resultSet.rows.item(0).recordCount)
+      if(resultSet.rows.item(0).recordCount > 0 ) {
+        logIn(nome_utente, password);
+      }
+    });
 
   }, function(error) {
     showMessage('Errore nella cancellazione: ' + error.message);
@@ -286,6 +307,7 @@ document.addEventListener('deviceready', function() {
 
   initDatabase();
   getMapLocation();
+  //getNavigationApp()
 
   /*
   var exitApp = false, intval = setInterval(function (){exitApp = false;}, 1000);
