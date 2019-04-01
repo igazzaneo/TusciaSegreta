@@ -11,7 +11,7 @@ function initDatabase() {
 }
 
 function getNavigationApp() {
-
+  alert('getNavigationApp()')
   var platform = device.platform.toLowerCase();
   if(platform == "android"){
       platform = launchnavigator.PLATFORM.ANDROID;
@@ -79,9 +79,9 @@ function openDb() {
 }
 
 function registrazioneDaApp() {
-
+showMessage("Submit del form");
   var form = $("#registrazioneForm");
-	$("#submitButton",form).attr("disabled","disabled");
+	//$("#submitButton",form).attr("disabled","disabled");
 
   var email       = $("#email", form).val();
   var nome_utente = $("#username", form).val();
@@ -91,10 +91,14 @@ function registrazioneDaApp() {
   var nome        = $("#nome", form).val();
 
   if(email != "" && nome_utente != "" && password != '' && cellulare != '' && cognome != '' && nome != '')
-    registraUtente(nome_utente, email, password, cellulare, cognome, nome);
+    if(registerUserOnCloud(email, nome_utente, password, cellulare, cognome, nome))
+      showMessage("Submit del form");
+      registraUtente(nome_utente, email, password, cellulare, cognome, nome);
+    else
+      showMessage("Errore nella registrazione. Riprovare!");
   else {
     showMessage("Tutti i campi sono obbligatori");
-    $("#submitButton").removeAttr("disabled");
+    //$("#submitButton").removeAttr("disabled");
   }
 
   return false;
@@ -117,9 +121,36 @@ function registraUtente(nome_utente, email, password, cellulare, cognome, nome) 
   }, function(error) {
     showMessage('Errore nella cancellazione: ' + error.message);
   }, function() {
-    showMessage('Inserimento avvenuto correttamente.');
+    showMessage('Registrazione effettuata.');
     fn.gotoPage('accesso.html');
   });
+
+}
+
+function registerUserOnCloud(email, nome_utente, password, cellulare, cognome, nome) {
+
+    $.ajax({
+      type: "POST",
+      url: "http://51.75.182.195:1880/adduser",
+      dataType: 'json',
+      data: {
+        'email': email,
+        'password': password,
+        'nome': nome,
+        'cognome': cognome,
+        'telefono': telefono,
+        'nome_utente': nome_utente
+      },
+      success: function (responseData, status, xhr) {
+          //console.log(responseData.msg);
+          return true;
+      },
+      error: function (request, status, error) {
+          console.log(request.responseText);
+          return false;
+      }
+
+    })
 
 }
 
@@ -302,11 +333,31 @@ function onMapError(error) {
         'message: ' + error.message + '\n');
 }
 
+function getDBVersion() {
+
+     $.ajax({
+        type: "GET",
+        url: "http://51.75.182.195:1880/checkdb",
+        dataType: 'json',
+        success: function (responseData, status, xhr) {
+            console.log(responseData.versione);
+            alert(responseData.versione);
+        },
+        error: function (request, status, error) {
+            console.log(request.responseText);
+        }
+    });
+}
+
+
+
 
 document.addEventListener('deviceready', function() {
 
-  initDatabase();
-  getMapLocation();
+  //getDBVersion();
+  //registerUserOnCloud();
+  //initDatabase();
+  //getMapLocation();
   //getNavigationApp()
 
   /*
