@@ -16,7 +16,7 @@ function openDb() {
   getLocalDBVersion(database);
 
   var versione;
-  getDBVersionAxios()
+  getServerDBVersion()
     .then(function(response) {
       //showMessage("Versione: " + response.data.versione);
       versione = response.data.versione;
@@ -27,16 +27,22 @@ function openDb() {
     });
 
     var versioneLocale = getValueFromLocalStorage('versione');
-
+    showMessage("Versione cloud: " + versione + " - Versione Locale: " + versioneLocale);
     if(versione != versioneLocale) {
       showMessage('Il db non è aggiornato.');
     }
 }
 
 /* Gestione versione del DB */
-function getDBVersionAxios() {
+function getServerDBVersion() {
 
   const Url = "http://51.75.182.195:1880/checkdb";
+  return axios.get(Url);
+}
+
+function getserverDB() {
+
+  const Url = "http://51.75.182.195:1880/getdb";
   return axios.get(Url);
 }
 
