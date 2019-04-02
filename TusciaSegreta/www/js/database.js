@@ -1,7 +1,6 @@
 var rowCount = 0;
 var database = null;
-var versioneLocale = null;
-var elencoSiti = new Array();
+var versione = null;
 
 function initDatabase() {
 
@@ -15,16 +14,8 @@ function openDb() {
 
   getLocalDBVersion(database);
 
-  var versione;
-  getServerDBVersion()
-    .then(function(response) {
-      //showMessage("Versione: " + response.data.versione);
-      versione = response.data.versione;
-    })
-    .catch(function(response) {
-      //showMessage("Versione: errore");
-      versione = "0.0.0";
-    });
+  //var versione;
+
 
     var versioneLocale = getValueFromLocalStorage('versione');
     showMessage("Versione cloud: " + versione + " - Versione Locale: " + versioneLocale);
@@ -40,7 +31,7 @@ function getServerDBVersion() {
   return axios.get(Url);
 }
 
-function getserverDB() {
+function getServerDB() {
 
   const Url = "http://51.75.182.195:1880/getdb";
   return axios.get(Url);
@@ -48,12 +39,9 @@ function getserverDB() {
 
 function getLocalDBVersion(database) {
 
-  //showMessage("Nel metodo getLocalDBVersion...");
-
   database.transaction(function(transaction) {
 
     transaction.executeSql('SELECT * FROM versione_db', [], function(ignored, resultSet) {
-        //return resultSet.rows.item(0).versione;
         saveOnLocalStorage('versione', resultSet.rows.item(0).versione);
       });
     }, function(error) {
@@ -400,6 +388,16 @@ function onMapError(error) {
 
 /* fine gestione versione del DB */
 document.addEventListener('deviceready', function() {
+
+  getServerDBVersion()
+    .then(function(response) {
+      //showMessage("Versione: " + response.data.versione);
+      versione = response.data.versione;
+    })
+    .catch(function(response) {
+      //showMessage("Versione: errore");
+      versione = "0.0.0";
+    });
 
   initDatabase();
 
