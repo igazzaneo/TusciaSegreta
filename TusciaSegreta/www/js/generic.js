@@ -24,7 +24,7 @@
   };
 
   window.fn.gotoPage = function(page) {
-    
+
     if(document.getElementById('mapid') != null)
     {
       if(page != 'map.html') {
@@ -65,3 +65,5 @@
     }
 
   };
+
+  

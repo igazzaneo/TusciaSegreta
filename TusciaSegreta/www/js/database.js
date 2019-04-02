@@ -74,12 +74,19 @@ function openDb() {
   database = sqlitePlugin.openDatabase({name: 'copied_tusciasegreta.db'});
   //databaseUtente = sqlitePlugin.openDatabase({name: 'utente.db'});
   // method used to populate object
-  getElencoSiti();
+  //getElencoSiti();
 
 }
 
+$("#registerButton").click(function(e) {
+    e.preventDefault();
+
+    registrazioneDaApp();
+
+});
+
 function registrazioneDaApp() {
-showMessage("Submit del form");
+
   var form = $("#registrazioneForm");
 	//$("#submitButton",form).attr("disabled","disabled");
 
@@ -90,13 +97,21 @@ showMessage("Submit del form");
   var cognome     = $("#cognome", form).val();
   var nome        = $("#nome", form).val();
 
-  if(email != "" && nome_utente != "" && password != '' && cellulare != '' && cognome != '' && nome != '')
-    if(registerUserOnCloud(email, nome_utente, password, cellulare, cognome, nome))
-      showMessage("Submit del form");
-      registraUtente(nome_utente, email, password, cellulare, cognome, nome);
-    else
-      showMessage("Errore nella registrazione. Riprovare!");
-  else {
+  if(email != "" && nome_utente != "" && password != '' && cellulare != '' && cognome != '' && nome != '') {
+
+      var esito = registerUserOnCloud(email, nome_utente, password, cellulare, cognome, nome);
+      console.log("Esito: " + esito);
+
+      var jsonObject = JSON.parse(esito);
+
+      if(jsonObject.httpCode == 200) {
+        registraUtente(email, nome_utente, password, cellulare, cognome, nome);
+      } else if(jsonObject.httpCode == 401) {
+        showMessage("Nome utente e/o indirizzo email già presenti.");
+      } else {
+        showMessage("Errore nella registrazione, riprovare più tardi.");
+      }
+  } else {
     showMessage("Tutti i campi sono obbligatori");
     //$("#submitButton").removeAttr("disabled");
   }
@@ -105,7 +120,7 @@ showMessage("Submit del form");
 
 }
 
-function registraUtente(nome_utente, email, password, cellulare, cognome, nome) {
+function registraUtente(email, nome_utente, password, cellulare, cognome, nome) {
 
   // Effettuo la cancellazione preventiva dei record per evitare di avere più di un utente nel DB locale
   database.transaction(function(transaction) {
@@ -129,28 +144,32 @@ function registraUtente(nome_utente, email, password, cellulare, cognome, nome) 
 
 function registerUserOnCloud(email, nome_utente, password, cellulare, cognome, nome) {
 
+    var dataObject = {};
+    dataObject['email'] = email;
+    dataObject['nome_utente'] = nome_utente;
+    dataObject['password'] = password;
+    dataObject['telefono'] = cellulare;
+    dataObject['cognome'] = cognome;
+    dataObject['nome'] = nome;
+
+    console.log("function Called with parameter: " + email + " - " + nome_utente + " - " + password + " - " + cellulare + " - " + cognome + " - " + nome);
+
     $.ajax({
       type: "POST",
       url: "http://51.75.182.195:1880/adduser",
       dataType: 'json',
-      data: {
-        'email': email,
-        'password': password,
-        'nome': nome,
-        'cognome': cognome,
-        'telefono': telefono,
-        'nome_utente': nome_utente
-      },
+      timeout: 2000,
+      data: dataObject,
       success: function (responseData, status, xhr) {
-          //console.log(responseData.msg);
-          return true;
+          console.log("Resp:"  + request.responseText);
+          return request.responseText;
       },
       error: function (request, status, error) {
-          console.log(request.responseText);
-          return false;
+          console.log("Resp2:"  + request.responseText);
+          return request.responseText;
       }
 
-    })
+    });
 
 }
 
@@ -188,6 +207,7 @@ function saveOnLocalStorage(key, value) {
 function removeFromLocalStorage(key) {
   window.localStorage.removeItem(key);
 }
+
 
 function accessoDaApp() {
 
@@ -270,9 +290,9 @@ function checkUser() {
 
   if(logged == 1) {
     fn.gotoPage('accesso_effettuato.html');
-  } else {
-    //showMessage('Utente non loggato');
-  }
+  } /*else {
+    showMessage('Utente non loggato');
+  }*/
 
 }
 
@@ -333,30 +353,61 @@ function onMapError(error) {
         'message: ' + error.message + '\n');
 }
 
-function getDBVersion() {
+/* Gestione versione del DB */
+function getDBVersionAxios() {
 
-     $.ajax({
-        type: "GET",
-        url: "http://51.75.182.195:1880/checkdb",
-        dataType: 'json',
-        success: function (responseData, status, xhr) {
-            console.log(responseData.versione);
-            alert(responseData.versione);
-        },
-        error: function (request, status, error) {
-            console.log(request.responseText);
-        }
+  const Url = "http://51.75.182.195:1880/checkdb";
+  return axios.get(Url);
+}
+
+function getLocalDBVersion() {
+
+  var versioneLocale;
+
+  database.transaction(function(transaction) {
+
+    transaction.executeSql('SELECT * FROM versione_db', [], function(ignored, resultSet) {
+
+      for(var x = 0; x < resultSet.rows.length; x++) {
+console.log("Nel ciclo: " + resultSet.rows.item(x).versione);
+        versioneLocale = resultSet.rows.item(x).versione;
+
+      }
+
     });
+  }, function(error) {
+    showMessage('SELECT error: ' + error.message);
+  });
+
+  showMessage("Versione locale: " + versioneLocale);
 }
 
 
 
-
+/* fine gestione versione del DB */
 document.addEventListener('deviceready', function() {
 
-  //getDBVersion();
-  //registerUserOnCloud();
-  //initDatabase();
+  initDatabase();
+
+  var versione;
+  getDBVersionAxios()
+    .then(function(response) {
+      console.log("Versione: " + response.data.versione);
+      versione = response.data.versione;
+    })
+    .catch(function(response) {
+      console.log("Versione: errore");
+      versione = "0.0.0";
+    });
+
+  getLocalDBVersion();
+
+  if(versione == "0.0.0")
+    alert("Errore")
+  else {
+    alert("da scaricare");
+  }
+
   //getMapLocation();
   //getNavigationApp()
 
@@ -374,4 +425,4 @@ document.addEventListener('deviceready', function() {
     }
   }, false);*/
 
-});
+})
