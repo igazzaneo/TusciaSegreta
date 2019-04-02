@@ -12,6 +12,8 @@ function initDatabase() {
 
 function openDb() {
   database = sqlitePlugin.openDatabase({name: 'copied_tusciasegreta.db'});
+
+  showMessage("Database base aperto: " + database);
   //databaseUtente = sqlitePlugin.openDatabase({name: 'utente.db'});
   // method used to populate object
   //getElencoSiti();
@@ -49,7 +51,7 @@ function copyDatabaseFile(dbName) {
     var sourceFile = files[0];
     var targetDir = files[1];
     return new Promise(function (resolve, reject) {
-      targetDir.getFile(dbName, {}, resolve, reject);
+      targetDir.getFile("copied_" + dbName, {}, resolve, reject);
     }).then(function () {
       showMessage("Database già presente");
     }).catch(function () {
@@ -79,17 +81,9 @@ function getNavigationApp() {
   });
 }
 
-$("#registerButton").click(function(e) {
-    e.preventDefault();
-
-    registrazioneDaApp();
-
-});
-
 function registrazioneDaApp() {
 
   var form = $("#registrazioneForm");
-	//$("#submitButton",form).attr("disabled","disabled");
 
   var email       = $("#email", form).val();
   var nome_utente = $("#username", form).val();
@@ -398,11 +392,11 @@ document.addEventListener('deviceready', function() {
   var versione;
   getDBVersionAxios()
     .then(function(response) {
-      console.log("Versione: " + response.data.versione);
+      showMessage("Versione: " + response.data.versione);
       versione = response.data.versione;
     })
     .catch(function(response) {
-      console.log("Versione: errore");
+      showMessage("Versione: errore");
       versione = "0.0.0";
     });
 
