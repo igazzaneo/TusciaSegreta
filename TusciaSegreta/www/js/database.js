@@ -1,7 +1,7 @@
 var rowCount = 0;
 var database = null;
 var databaseUtente = null;
-
+var versioneLocale = null;
 var elencoSiti = new Array();
 
 function initDatabase() {
@@ -13,7 +13,7 @@ function initDatabase() {
 function openDb() {
   database = sqlitePlugin.openDatabase({name: 'copied_tusciasegreta.db'});
 
-  showMessage("Database base aperto: " + database);
+  //showMessage("Database base aperto: " + database);
   //databaseUtente = sqlitePlugin.openDatabase({name: 'utente.db'});
   // method used to populate object
   //getElencoSiti();
@@ -309,7 +309,7 @@ function checkLoggedAndGoToPage(page) {
   }
 }
 
-function getElencoSiti() {
+function getElencoSiti(database) {
 
   var elenco = new Array();
 
@@ -362,11 +362,9 @@ function getDBVersionAxios() {
   return axios.get(Url);
 }
 
-function getLocalDBVersion(database) {
+function getLocalDBVersion(database, versioneLocale) {
 
   showMessage("Nel metodo getLocalDBVersion...");
-
-  var versioneLocale;
 
   database.transaction(function(transaction) {
 
