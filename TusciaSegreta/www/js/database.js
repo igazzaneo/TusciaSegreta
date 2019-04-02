@@ -55,7 +55,7 @@ function getLocalDBVersion(database) {
         versioneLocale = resultSet.rows.item(0).versione;
       });
     }, dbSelecterror);*/
-  }
+  });
 }
 
 function dbSelecterror(error) {
