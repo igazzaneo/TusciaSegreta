@@ -1,6 +1,7 @@
 var rowCount = 0;
 var database = null;
 var versione = null;
+var versioneLocale = null;
 
 function initDatabase() {
 
@@ -14,22 +15,27 @@ function openDb() {
 
   getLocalDBVersion(database);
 
-  //var versione;
-
-
-    var versioneLocale = getValueFromLocalStorage('versione');
-    showMessage("Versione cloud: " + versione + " - Versione Locale: " + versioneLocale);
-    if(versione != versioneLocale) {
-      showMessage('Il db non è aggiornato.');
-    }
+  //var versioneLocale = getValueFromLocalStorage('versione');
+  showMessage("Versione cloud: " + versione + " - Versione Locale: " + versioneLocale);
+  if(versione != versioneLocale) {
+    showMessage('Il db non è aggiornato.');
+  }
 }
 
 /* Gestione versione del DB */
-function getServerDBVersion() {
 
-  const Url = "http://51.75.182.195:1880/checkdb";
-  return axios.get(Url);
+function getServerDBVersion() {
+    return $.ajax({
+        url:'http://51.75.182.195:1880/checkdb',
+        contentType: "application/json",
+        dataType: "json",
+        async: false
+    }).done(function(response) {
+      versione = response.versione;
+    });
 }
+
+
 
 function getServerDB() {
 
@@ -43,6 +49,8 @@ function getLocalDBVersion(database) {
 
     transaction.executeSql('SELECT * FROM versione_db', [], function(ignored, resultSet) {
         saveOnLocalStorage('versione', resultSet.rows.item(0).versione);
+
+        versioneLocale = resultSet.rows.item(0).versione;
       });
     }, function(error) {
       showMessage('SELECT error: ' + error.message);
@@ -84,17 +92,19 @@ function copyDatabaseFile(dbName) {
     return new Promise(function (resolve, reject) {
       targetDir.getFile("copied_" + dbName, {}, resolve, reject);
     }).then(function () {
-      showMessage("Database già presente");
+      //showMessage("Database già presente");
     }).catch(function () {
-      showMessage("file doesn't exist, copying it");
+      //showMessage("file doesn't exist, copying it");
       return new Promise(function (resolve, reject) {
         sourceFile.copyTo(targetDir, 'copied_' + dbName, resolve, reject);
       }).then(function () {
-        showMessage("Database copiato");
+        //showMessage("Database copiato");
       });
     });
   });
 }
+
+
 
 function getNavigationApp() {
   alert('getNavigationApp()')
@@ -195,6 +205,7 @@ function registerUserOnCloud(email, nome_utente, password, cellulare, cognome, n
       dataType: 'json',
       timeout: 2000,
       data: dataObject,
+      async: false,
       //success: console.log("Ok"),
       //error: processUserAddResponse,
     })
@@ -385,21 +396,30 @@ function onMapError(error) {
 }
 
 
+// Wait for device API libraries to load
+//
+function onLoad() {
 
-/* fine gestione versione del DB */
-document.addEventListener('deviceready', function() {
+  console.log("onLoad...");
 
-  getServerDBVersion()
-    .then(function(response) {
-      //showMessage("Versione: " + response.data.versione);
-      versione = response.data.versione;
-    })
-    .catch(function(response) {
-      //showMessage("Versione: errore");
-      versione = "0.0.0";
-    });
+  document.addEventListener("deviceready", onDeviceReady, false);
+}
+
+// device APIs are available
+//
+function onDeviceReady() {
+  // Now safe to use device APIs
+  console.log("onDeviceReady...");
+
+  getServerDBVersion();
 
   initDatabase();
+}
+
+/* fine gestione versione del DB */
+//document.addEventListener('deviceready', function() {
+
+
 
   //getMapLocation();
   //getNavigationApp()
@@ -418,4 +438,4 @@ document.addEventListener('deviceready', function() {
     }
   }, false);*/
 
-})
+//})
