@@ -1,6 +1,5 @@
 var rowCount = 0;
 var database = null;
-var databaseUtente = null;
 var versioneLocale = null;
 var elencoSiti = new Array();
 
@@ -11,16 +10,52 @@ function initDatabase() {
 }
 
 function openDb() {
-  database = sqlitePlugin.openDatabase({name: 'copied_tusciasegreta.db'});
 
-  //showMessage("Database base aperto: " + database);
-  //databaseUtente = sqlitePlugin.openDatabase({name: 'utente.db'});
-  // method used to populate object
-  //getElencoSiti();
+  database = sqlitePlugin.openDatabase({name: 'copied_tusciasegreta.db'});
 
   getLocalDBVersion(database);
 
+  var versione;
+  getDBVersionAxios()
+    .then(function(response) {
+      //showMessage("Versione: " + response.data.versione);
+      versione = response.data.versione;
+    })
+    .catch(function(response) {
+      //showMessage("Versione: errore");
+      versione = "0.0.0";
+    });
+
+    var versioneLocale = getValueFromLocalStorage('versione');
+
+    if(versione != versioneLocale) {
+      showMessage('Il db non è aggiornato.');
+    }
 }
+
+/* Gestione versione del DB */
+function getDBVersionAxios() {
+
+  const Url = "http://51.75.182.195:1880/checkdb";
+  return axios.get(Url);
+}
+
+function getLocalDBVersion(database) {
+
+  //showMessage("Nel metodo getLocalDBVersion...");
+
+  database.transaction(function(transaction) {
+
+    transaction.executeSql('SELECT * FROM versione_db', [], function(ignored, resultSet) {
+        //return resultSet.rows.item(0).versione;
+        saveOnLocalStorage('versione', resultSet.rows.item(0).versione);
+      });
+    }, function(error) {
+      showMessage('SELECT error: ' + error.message);
+    });
+}
+
+
 
 // copy DB and open it
 function setupDB() {
@@ -355,62 +390,12 @@ function onMapError(error) {
         'message: ' + error.message + '\n');
 }
 
-/* Gestione versione del DB */
-function getDBVersionAxios() {
-
-  const Url = "http://51.75.182.195:1880/checkdb";
-  return axios.get(Url);
-}
-
-function getLocalDBVersion(database) {
-
-  //showMessage("Nel metodo getLocalDBVersion...");
-
-  database.transaction(function(transaction) {
-
-    transaction.executeSql('SELECT * FROM versione_db', [], function(ignored, resultSet) {
-
-        //for(var x = 0; x < resultSet.rows.length; x++) {
-          //alert("Nel ciclo: " + resultSet.rows.item(x).versione);
-          return resultSet.rows.item(0).versione;
-
-        //}
-
-      });
-    }, function(error) {
-      showMessage('SELECT error: ' + error.message);
-    });
-
-    //showMessage("Versione locale: " + versioneLocale);
-}
-
 
 
 /* fine gestione versione del DB */
 document.addEventListener('deviceready', function() {
 
   initDatabase();
-
-  var versione;
-  getDBVersionAxios()
-    .then(function(response) {
-      //showMessage("Versione: " + response.data.versione);
-      versione = response.data.versione;
-    })
-    .catch(function(response) {
-      //showMessage("Versione: errore");
-      versione = "0.0.0";
-    });
-
-  var versioneLocale = getLocalDBVersion();
-    
-  showMessage("Cloud: " + versione + " - Locale: " + versioneLocale);
-
-  /*if(versione == "0.0.0")
-    alert("Errore")
-  else {
-    alert("da scaricare");
-  }*/
 
   //getMapLocation();
   //getNavigationApp()
