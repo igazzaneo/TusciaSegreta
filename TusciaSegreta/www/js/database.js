@@ -402,17 +402,8 @@ document.addEventListener('deviceready', function() {
       versione = "0.0.0";
     });
 
-  var versioneLocale;
-  getLocalDBVersion()
-    .then(function(response) {
-      //showMessage("Versione: " + response.data.versione);
-      versioneLocale = response;
-    })
-    .catch(function(response) {
-      //showMessage("Versione: errore");
-      versioneLocale = "0.0.0";
-    });
-
+  var versioneLocale = getLocalDBVersion();
+    
   showMessage("Cloud: " + versione + " - Locale: " + versioneLocale);
 
   /*if(versione == "0.0.0")
