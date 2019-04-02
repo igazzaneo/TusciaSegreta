@@ -64,6 +64,8 @@ function dbSelecterror(error) {
 
 function saveDBLocalVersion(tx, resultSet) {
   saveOnLocalStorage('versione', resultSet.rows.item(0).versione);
+
+  versioneLocale = resultSet.rows.item(0).versione;
 }
 
 
