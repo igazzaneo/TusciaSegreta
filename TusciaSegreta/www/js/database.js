@@ -362,26 +362,26 @@ function getDBVersionAxios() {
   return axios.get(Url);
 }
 
-function getLocalDBVersion(database, versioneLocale) {
+function getLocalDBVersion(database) {
 
-  showMessage("Nel metodo getLocalDBVersion...");
+  //showMessage("Nel metodo getLocalDBVersion...");
 
   database.transaction(function(transaction) {
 
     transaction.executeSql('SELECT * FROM versione_db', [], function(ignored, resultSet) {
 
-        for(var x = 0; x < resultSet.rows.length; x++) {
-  alert("Nel ciclo: " + resultSet.rows.item(x).versione);
-          versioneLocale = resultSet.rows.item(x).versione;
+        //for(var x = 0; x < resultSet.rows.length; x++) {
+          //alert("Nel ciclo: " + resultSet.rows.item(x).versione);
+          return resultSet.rows.item(0).versione;
 
-        }
+        //}
 
       });
     }, function(error) {
       showMessage('SELECT error: ' + error.message);
     });
 
-    showMessage("Versione locale: " + versioneLocale);
+    //showMessage("Versione locale: " + versioneLocale);
 }
 
 
@@ -402,7 +402,18 @@ document.addEventListener('deviceready', function() {
       versione = "0.0.0";
     });
 
-  //getLocalDBVersion();
+  var versioneLocale;
+  getLocalDBVersion()
+    .then(function(response) {
+      //showMessage("Versione: " + response.data.versione);
+      versioneLocale = response;
+    })
+    .catch(function(response) {
+      //showMessage("Versione: errore");
+      versioneLocale = "0.0.0";
+    });
+
+  showMessage("Cloud: " + versione + " - Locale: " + versioneLocale);
 
   /*if(versione == "0.0.0")
     alert("Errore")
