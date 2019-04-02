@@ -18,20 +18,7 @@ function openDb() {
   // method used to populate object
   //getElencoSiti();
 
-  database.transaction(function(transaction) {
-
-    transaction.executeSql('SELECT * FROM versione_db', [], function(ignored, resultSet) {
-
-        for(var x = 0; x < resultSet.rows.length; x++) {
-  alert("Nel ciclo: " + resultSet.rows.item(x).versione);
-          versioneLocale = resultSet.rows.item(x).versione;
-
-        }
-
-      });
-    }, function(error) {
-      showMessage('SELECT error: ' + error.message);
-    });
+  getLocalDBVersion(database);
 
 }
 
@@ -375,7 +362,7 @@ function getDBVersionAxios() {
   return axios.get(Url);
 }
 
-function getLocalDBVersion() {
+function getLocalDBVersion(database) {
 
   showMessage("Nel metodo getLocalDBVersion...");
 
