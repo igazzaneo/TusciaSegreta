@@ -47,15 +47,25 @@ function getLocalDBVersion(database) {
 
   database.transaction(function(transaction) {
 
-    transaction.executeSql('SELECT * FROM versione_db', [], function(ignored, resultSet) {
+    transaction.executeSql('SELECT * FROM versione_db', [], saveDBLocalVersion, dbSelecterror);
+
+    /*transaction.executeSql('SELECT * FROM versione_db', [], function(ignored, resultSet) {
         saveOnLocalStorage('versione', resultSet.rows.item(0).versione);
 
         versioneLocale = resultSet.rows.item(0).versione;
       });
-    }, function(error) {
-      showMessage('SELECT error: ' + error.message);
-    });
+    }, dbSelecterror);*/
+  }
 }
+
+function dbSelecterror(error) {
+  showMessage('SELECT error: ' + error.message);
+}
+
+function saveDBLocalVersion(tx, resultSet) {
+  saveOnLocalStorage('versione', resultSet.rows.item(0).versione);
+}
+
 
 
 
