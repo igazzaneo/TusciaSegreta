@@ -15,7 +15,7 @@ function openDb() {
 
   getLocalDBVersion(database);
 
-  //var versioneLocale = getValueFromLocalStorage('versione');
+  var versioneLocale = getValueFromLocalStorage('versione');
   showMessage("Versione cloud: " + versione + " - Versione Locale: " + versioneLocale);
   if(versione != versioneLocale) {
     showMessage('Il db non è aggiornato.');
