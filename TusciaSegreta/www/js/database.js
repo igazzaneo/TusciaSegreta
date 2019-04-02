@@ -400,7 +400,7 @@ document.addEventListener('deviceready', function() {
       versione = "0.0.0";
     });
 
-  //getLocalDBVersion();
+  getLocalDBVersion();
 
   /*if(versione == "0.0.0")
     alert("Errore")
