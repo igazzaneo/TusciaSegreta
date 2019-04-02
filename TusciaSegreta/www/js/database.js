@@ -45,13 +45,13 @@ function copyDatabaseFile(dbName) {
     return new Promise(function (resolve, reject) {
       targetDir.getFile(dbName, {}, resolve, reject);
     }).then(function () {
-      //showMessage("Database già presente");
+      showMessage("Database già presente");
     }).catch(function () {
-      //showMessage("file doesn't exist, copying it");
+      showMessage("file doesn't exist, copying it");
       return new Promise(function (resolve, reject) {
         sourceFile.copyTo(targetDir, 'copied_' + dbName, resolve, reject);
       }).then(function () {
-        //showMessage("Database copiato");
+        showMessage("Database copiato");
       });
     });
   });
@@ -99,18 +99,8 @@ function registrazioneDaApp() {
 
   if(email != "" && nome_utente != "" && password != '' && cellulare != '' && cognome != '' && nome != '') {
 
-      var esito = registerUserOnCloud(email, nome_utente, password, cellulare, cognome, nome);
-      console.log("Esito: " + esito);
+    registerUserOnCloud(email, nome_utente, password, cellulare, cognome, nome);
 
-      var jsonObject = JSON.parse(esito);
-
-      if(jsonObject.httpCode == 200) {
-        registraUtente(email, nome_utente, password, cellulare, cognome, nome);
-      } else if(jsonObject.httpCode == 401) {
-        showMessage("Nome utente e/o indirizzo email già presenti.");
-      } else {
-        showMessage("Errore nella registrazione, riprovare più tardi.");
-      }
   } else {
     showMessage("Tutti i campi sono obbligatori");
     //$("#submitButton").removeAttr("disabled");
@@ -120,6 +110,23 @@ function registrazioneDaApp() {
 
 }
 
+function processDone(response) {
+
+  console.log("Done...");
+
+  var esito = JSON.parse(response.responseText).httpCode
+  console.log("risposta: " + esito);
+
+  if(esito == 200) {
+    showMessage("Inserimento avvenuto con successo");
+    registraUtente(email, nome_utente, password, cellulare, cognome, nome);
+  } else if(esito == 401) {
+    showMessage("Nome utente e/o indirizzo email già presenti.");
+  } else {
+    showMessage("Errore nella registrazione, riprovare più tardi.");
+  }
+}
+
 function registraUtente(email, nome_utente, password, cellulare, cognome, nome) {
 
   // Effettuo la cancellazione preventiva dei record per evitare di avere più di un utente nel DB locale
@@ -127,7 +134,7 @@ function registraUtente(email, nome_utente, password, cellulare, cognome, nome) 
     transaction.executeSql('DELETE FROM utente', []);
     transaction.executeSql('INSERT INTO utente VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)', [1, nome_utente, cognome, nome, email, password, '', cellulare, '']);
     transaction.executeSql('select count(*) as recordCount from utente', [], function(ignored, resultSet) {
-      //showMessage("Utenti trovati: " + resultSet.rows.item(0).recordCount)
+      showMessage("Utenti trovati: " + resultSet.rows.item(0).recordCount)
       if(resultSet.rows.item(0).recordCount > 0 ) {
         logIn(nome_utente, password);
       }
@@ -141,6 +148,8 @@ function registraUtente(email, nome_utente, password, cellulare, cognome, nome) 
   });
 
 }
+
+
 
 function registerUserOnCloud(email, nome_utente, password, cellulare, cognome, nome) {
 
@@ -160,17 +169,13 @@ function registerUserOnCloud(email, nome_utente, password, cellulare, cognome, n
       dataType: 'json',
       timeout: 2000,
       data: dataObject,
-      success: function (responseData, status, xhr) {
-          console.log("Resp:"  + request.responseText);
-          return request.responseText;
-      },
-      error: function (request, status, error) {
-          console.log("Resp2:"  + request.responseText);
-          return request.responseText;
-      }
-
-    });
-
+      //success: console.log("Ok"),
+      //error: processUserAddResponse,
+    })
+    .complete(processDone)
+    //.done(processDone)
+    //.fail(processUserAddResponse)
+    ;
 }
 
 function logOut() {
@@ -369,7 +374,7 @@ function getLocalDBVersion() {
     transaction.executeSql('SELECT * FROM versione_db', [], function(ignored, resultSet) {
 
       for(var x = 0; x < resultSet.rows.length; x++) {
-console.log("Nel ciclo: " + resultSet.rows.item(x).versione);
+alert("Nel ciclo: " + resultSet.rows.item(x).versione);
         versioneLocale = resultSet.rows.item(x).versione;
 
       }
@@ -400,7 +405,7 @@ document.addEventListener('deviceready', function() {
       versione = "0.0.0";
     });
 
-  getLocalDBVersion();
+  //getLocalDBVersion();
 
   if(versione == "0.0.0")
     alert("Errore")
