@@ -18,6 +18,21 @@ function openDb() {
   // method used to populate object
   //getElencoSiti();
 
+  database.transaction(function(transaction) {
+
+    transaction.executeSql('SELECT * FROM versione_db', [], function(ignored, resultSet) {
+
+        for(var x = 0; x < resultSet.rows.length; x++) {
+  alert("Nel ciclo: " + resultSet.rows.item(x).versione);
+          versioneLocale = resultSet.rows.item(x).versione;
+
+        }
+
+      });
+    }, function(error) {
+      showMessage('SELECT error: ' + error.message);
+    });
+
 }
 
 // copy DB and open it
@@ -362,24 +377,26 @@ function getDBVersionAxios() {
 
 function getLocalDBVersion() {
 
+  showMessage("Nel metodo getLocalDBVersion...");
+
   var versioneLocale;
 
   database.transaction(function(transaction) {
 
     transaction.executeSql('SELECT * FROM versione_db', [], function(ignored, resultSet) {
 
-      for(var x = 0; x < resultSet.rows.length; x++) {
-alert("Nel ciclo: " + resultSet.rows.item(x).versione);
-        versioneLocale = resultSet.rows.item(x).versione;
+        for(var x = 0; x < resultSet.rows.length; x++) {
+  alert("Nel ciclo: " + resultSet.rows.item(x).versione);
+          versioneLocale = resultSet.rows.item(x).versione;
 
-      }
+        }
 
+      });
+    }, function(error) {
+      showMessage('SELECT error: ' + error.message);
     });
-  }, function(error) {
-    showMessage('SELECT error: ' + error.message);
-  });
 
-  showMessage("Versione locale: " + versioneLocale);
+    showMessage("Versione locale: " + versioneLocale);
 }
 
 
@@ -392,15 +409,15 @@ document.addEventListener('deviceready', function() {
   var versione;
   getDBVersionAxios()
     .then(function(response) {
-      showMessage("Versione: " + response.data.versione);
+      //showMessage("Versione: " + response.data.versione);
       versione = response.data.versione;
     })
     .catch(function(response) {
-      showMessage("Versione: errore");
+      //showMessage("Versione: errore");
       versione = "0.0.0";
     });
 
-  getLocalDBVersion();
+  //getLocalDBVersion();
 
   /*if(versione == "0.0.0")
     alert("Errore")
