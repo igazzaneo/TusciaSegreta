@@ -10,21 +10,27 @@ function initDatabase() {
 
 }
 
-function getNavigationApp() {
-  alert('getNavigationApp()')
-  var platform = device.platform.toLowerCase();
-  if(platform == "android"){
-      platform = launchnavigator.PLATFORM.ANDROID;
-  } else if(platform == "ios"){
-      platform = launchnavigator.PLATFORM.IOS;
-  } else if(platform.match(/win/)){
-      platform = launchnavigator.PLATFORM.WINDOWS;
-  }
+function openDb() {
+  database = sqlitePlugin.openDatabase({name: 'copied_tusciasegreta.db'});
+  //databaseUtente = sqlitePlugin.openDatabase({name: 'utente.db'});
+  // method used to populate object
+  //getElencoSiti();
 
-  launchnavigator.getAppsForPlatform(platform).forEach(function(app){
-      console.log(launchnavigator.getAppDisplayName(app) + " is supported");
-  });
 }
+
+// copy DB and open it
+function setupDB() {
+    //showMessage("onSetupDB()");
+    copyDatabaseFile('tusciasegreta.db').then(function () {
+      //database = sqlitePlugin.openDatabase({name: 'copied_tusciasegreta.db'});
+      openDb();
+    }).catch(function (err) {
+      // error! :(
+      showMessage(err);
+    });
+
+}
+
 
 // copy a database file from www/ in the app directory to the data directory
 function copyDatabaseFile(dbName) {
@@ -56,26 +62,21 @@ function copyDatabaseFile(dbName) {
     });
   });
 }
-// copy DB and open it
-function setupDB() {
-    //showMessage("onSetupDB()");
-    copyDatabaseFile('tusciasegreta.db').then(function () {
-      //database = sqlitePlugin.openDatabase({name: 'copied_tusciasegreta.db'});
-      openDb();
-    }).catch(function (err) {
-      // error! :(
-      showMessage(err);
-    });
 
-}
+function getNavigationApp() {
+  alert('getNavigationApp()')
+  var platform = device.platform.toLowerCase();
+  if(platform == "android"){
+      platform = launchnavigator.PLATFORM.ANDROID;
+  } else if(platform == "ios"){
+      platform = launchnavigator.PLATFORM.IOS;
+  } else if(platform.match(/win/)){
+      platform = launchnavigator.PLATFORM.WINDOWS;
+  }
 
-// db already in dir, this function only open it
-function openDb() {
-  database = sqlitePlugin.openDatabase({name: 'copied_tusciasegreta.db'});
-  //databaseUtente = sqlitePlugin.openDatabase({name: 'utente.db'});
-  // method used to populate object
-  //getElencoSiti();
-
+  launchnavigator.getAppsForPlatform(platform).forEach(function(app){
+      console.log(launchnavigator.getAppDisplayName(app) + " is supported");
+  });
 }
 
 $("#registerButton").click(function(e) {
@@ -405,13 +406,13 @@ document.addEventListener('deviceready', function() {
       versione = "0.0.0";
     });
 
-  getLocalDBVersion();
+  //getLocalDBVersion();
 
-  if(versione == "0.0.0")
+  /*if(versione == "0.0.0")
     alert("Errore")
   else {
     alert("da scaricare");
-  }
+  }*/
 
   //getMapLocation();
   //getNavigationApp()
