@@ -462,11 +462,11 @@ function checkLoggedAndGoToPage(page) {
 
 function getElencoSiti(database) {
 
-  /*database.transaction(function(transaction) {
+  database.transaction(function(transaction) {
 
     transaction.executeSql('SELECT * FROM sito', [],  saveElencoSiti, dbSelecterror);
-  });*/
-
+  });
+/*
   var elenco = new Array();
   for(var x = 0; x < 1; x++) {
 
@@ -483,7 +483,7 @@ function getElencoSiti(database) {
       elenco[x] = riga;
   }
 
-  elencoSiti = elenco;
+  elencoSiti = elenco;*/
 }
 
 function saveElencoSiti(tx, resultSet) {
@@ -552,6 +552,9 @@ function onDeviceReady() {
   //getServerDB();
 
   initDatabase();
+  getElencoSiti(database);
+  //fn.gotoPage('map.html');
+
 }
 
 function onBackKeyDown(e) {

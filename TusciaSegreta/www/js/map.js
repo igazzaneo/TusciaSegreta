@@ -36,8 +36,8 @@ function initMap() {
       var denominazione = riga[1];
       var latitudine = riga[4];
       var longitudine = riga[5];
-
-      L.marker([latitudine, longitudine], {
+      showMessage(denominazione + latitudine + longitudine);
+      L.marker([latitudine,longitudine], {
         icon: L.BeautifyIcon.icon(options),
         draggable: false
       }).bindPopup("<b>" + denominazione +"</b><br /><img src='img/percorsi/eremo/foto2.jpg' width='130px'><br/><div id='trail-rating'><ul class='ratings'><li class='average'><span id='rating' class='rating star3_5'>&nbsp;</span></li></ul></div><br/><div class=\"divTable\"><div class=\"divTableRow\"><div class=\"divTableHead1\">Facile</div><div class=\"divTableHead2\">2,5 Km</div><div class=\"divTableHead3\">2 h</div></div></div><br/><a href='#' onclick=\"fn.load('scheda.html')\">Vai alla scheda</a>").addTo(percorsi);
