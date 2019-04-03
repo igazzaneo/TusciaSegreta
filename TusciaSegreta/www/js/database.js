@@ -554,12 +554,12 @@ function onDeviceReady() {
 
   getServerDBVersion();
   initDatabase();
-  getElencoSiti(database);
 
-  while(!elencoSiti && !elencoSiti.length) {}
-
-  
-  fn.gotoPage('map.html');
+  return new Promise(function (resolve, reject) {
+    getElencoSiti(database);
+  }).then(function () {
+    fn.gotoPage('map.html');
+  });
 
 }
 
