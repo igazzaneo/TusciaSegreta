@@ -28,13 +28,16 @@ function openDb() {
     removeFromLocalStorage('versione');
     saveOnLocalStorage('versione', versione);
 
-    getElencoSiti(database);
+    //getElencoSiti(database);
 
     fn.gotoPage('map.html');
 
   } else {
     fn.gotoPage('map.html');
   }
+
+  getElencoSiti(database);
+  
 }
 
 /* Gestione versione del DB */
@@ -552,7 +555,6 @@ function onDeviceReady() {
   //getServerDB();
 
   initDatabase();
-  getElencoSiti(database);
   //fn.gotoPage('map.html');
 
 }
