@@ -13,9 +13,12 @@ function openDb() {
 
   database = sqlitePlugin.openDatabase({name: 'copied_tusciasegreta.db'});
 
-  getLocalDBVersion(database);
-
   versioneLocale = getValueFromLocalStorage('versione');
+  if(versioneLocale == "0") {
+    getLocalDBVersion(database);
+  }
+
+
   showMessage("Versione cloud: " + versione + " - Versione Locale: " + versioneLocale);
   if(versione != versioneLocale) {
     showMessage('Il db non è aggiornato.');
@@ -157,6 +160,7 @@ function dbSelecterror(error) {
 }
 
 function saveDBLocalVersion(tx, resultSet) {
+  
   saveOnLocalStorage('versione', resultSet.rows.item(0).versione);
 
   versioneLocale = resultSet.rows.item(0).versione;
