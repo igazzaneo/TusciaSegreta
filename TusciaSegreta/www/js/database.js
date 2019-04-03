@@ -14,18 +14,23 @@ function openDb() {
   database = sqlitePlugin.openDatabase({name: 'copied_tusciasegreta.db'});
 
   versioneLocale = getValueFromLocalStorage('versione');
-  showMessage("da localstorage " + versioneLocale);
+  //showMessage("da localstorage " + versioneLocale);
   if(versioneLocale == "0") {
     getLocalDBVersion(database);
-    showMessage("da db " + versioneLocale);
+    //showMessage("da db " + versioneLocale);
   }
 
-  showMessage("Versione cloud: " + versione + " - Versione Locale: " + versioneLocale);
+  //showMessage("Versione cloud: " + versione + " - Versione Locale: " + versioneLocale);
   if(versione != versioneLocale) {
     showMessage('Il db non è aggiornato.');
     getServerDB();
     removeFromLocalStorage('versione');
     saveOnLocalStorage('versione', versione);
+
+    getElencoSiti(database);
+
+    fn.gotoPage('map.html');
+
   } else {
     fn.gotoPage('map.html');
   }
@@ -68,9 +73,6 @@ function elaboraDb(response) {
       popolaTabella(nome_tabella, sql, database);
     }
   });
-
-
-  fn.gotoPage('account.html');
 
 }
 
