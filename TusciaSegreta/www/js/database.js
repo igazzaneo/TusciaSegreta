@@ -55,7 +55,7 @@ function elaboraDb(response) {
   Object.keys(response).forEach(function(key) {
 
     var nome_tabella = key;
-    console.log("Elaborazione tabella: " + nome_tabella);
+    showMessage("Elaborazione tabella: " + nome_tabella);
     if(response[nome_tabella] && response[nome_tabella].length)
       var sql = createSqlQuery(nome_tabella, Object.keys(response[nome_tabella][0]), response[nome_tabella]);
 
@@ -68,16 +68,17 @@ function popolaTabella(nome_tabella, sql, database) {
 
   database.transaction(function(transaction) {
     transaction.executeSql('DELETE FROM ' + nome_tabella, []);
-    transaction.executeSql(sql);
+    transaction.executeSql(sql, []);
   }, function(error) {
     showMessage('Errore nella cancellazione della tabella: ' + nome_tabella + " - " + error.message);
   }, function() {
-    showMessage(denominazione + ' - Dati inseriti.');
+    showMessage(nome_tabella3 + ' - Dati inseriti.');
   });
 
 }
 
 function createSqlQuery(tableName, columns, obj) {
+
     this.generatedSqlQuery = `INSERT INTO ${tableName} `
     let columnList = "";
     columnList = columnList + "("
