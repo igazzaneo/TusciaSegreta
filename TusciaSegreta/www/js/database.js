@@ -510,10 +510,10 @@ function onDeviceReady() {
   // Now safe to use device APIs
   console.log("onDeviceReady...");
 
-  document.addEventListener("backbutton", onBackKeyDown, false);
+  //document.addEventListener("backbutton", onBackKeyDown, false);
 
   getServerDBVersion();
-  getServerDB();
+  //getServerDB();
 
   initDatabase();
 }
