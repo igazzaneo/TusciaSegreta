@@ -461,8 +461,6 @@ function checkLoggedAndGoToPage(page) {
 
 function getElencoSiti(database) {
 
-
-
   database.transaction(function(transaction) {
 
     transaction.executeSql('SELECT * FROM sito', [],  saveElencoSiti, dbSelecterror);
@@ -470,7 +468,7 @@ function getElencoSiti(database) {
 }
 
 function saveElencoSiti(tx, resultSet) {
-  
+
     var elenco = new Array();
 
     for(var x = 0; x < resultSet.rows.length; x++) {
@@ -483,7 +481,7 @@ function saveElencoSiti(tx, resultSet) {
         riga[4] = resultSet.rows.item(x).latitudine;
         riga[5] = resultSet.rows.item(x).longitudine;
 
-        showMessage(riga[1]);
+        showMessage(riga[1]  + " - " + riga[4] + " - " + riga[5]);
 
         elenco[x] = riga;
     }
