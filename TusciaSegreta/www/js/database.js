@@ -553,11 +553,11 @@ function onDeviceReady() {
   getServerDBVersion();
   initDatabase();
 
-  new Promise(function (resolve, reject) {
+  //new Promise(function (resolve, reject) {
     getElencoSiti(database);
-  }).then(function () {
+  //}).then(function () {
     fn.gotoPage('map.html');
-  });
+  //});
 
 }
 
