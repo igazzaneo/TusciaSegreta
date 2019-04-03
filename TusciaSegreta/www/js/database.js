@@ -540,8 +540,6 @@ function onLoad() {
 
   document.addEventListener("deviceready", onDeviceReady, false);
 
-
-
 }
 
 // device APIs are available
@@ -555,7 +553,7 @@ function onDeviceReady() {
   getServerDBVersion();
   initDatabase();
 
-  return new Promise(function (resolve, reject) {
+  new Promise(function (resolve, reject) {
     getElencoSiti(database);
   }).then(function () {
     fn.gotoPage('map.html');
