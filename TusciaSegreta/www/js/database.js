@@ -556,7 +556,9 @@ function onDeviceReady() {
   initDatabase();
   getElencoSiti(database);
 
-  window.setTimeout(3000);
+  while(!elencoSiti && !elencoSiti.length) {}
+
+  
   fn.gotoPage('map.html');
 
 }
