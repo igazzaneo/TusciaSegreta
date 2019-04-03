@@ -2,6 +2,7 @@ var rowCount = 0;
 var database = null;
 var versione = null;
 var versioneLocale = null;
+var elencoSiti = new Array();
 
 function initDatabase() {
 
@@ -461,10 +462,28 @@ function checkLoggedAndGoToPage(page) {
 
 function getElencoSiti(database) {
 
-  database.transaction(function(transaction) {
+  /*database.transaction(function(transaction) {
 
     transaction.executeSql('SELECT * FROM sito', [],  saveElencoSiti, dbSelecterror);
-  });
+  });*/
+
+  var elenco = new Array();
+  for(var x = 0; x < 1; x++) {
+
+      var riga = new Array();
+      riga[0] = x;
+      riga[1] = "denominazione" + x;
+      riga[2] = "descrizione" + x;
+      riga[3] = "http://video.it" + x;
+      riga[4] = "41.912088982214854";
+      riga[5] = "12.501297653124993";
+
+      showMessage(riga[1]  + " - " + riga[4] + " - " + riga[5]);
+
+      elenco[x] = riga;
+  }
+
+  elencoSiti = elenco;
 }
 
 function saveElencoSiti(tx, resultSet) {
