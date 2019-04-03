@@ -1,5 +1,7 @@
 function initMap() {
 
+  getElencoSiti(database);
+
   var roads = L.gridLayer.googleMutant({
     type: 'roadmap'	// valid values are 'roadmap', 'satellite', 'terrain' and 'hybrid'
   })
