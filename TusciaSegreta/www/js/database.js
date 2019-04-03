@@ -20,6 +20,7 @@ function openDb() {
   if(versione != versioneLocale) {
     showMessage('Il db non è aggiornato.');
     getServerDB();
+    saveOnLocalStorage('versione', versione);
   } else {
     fn.gotoPage('map.html');
   }
@@ -57,14 +58,13 @@ function elaboraDb(response) {
   Object.keys(response).forEach(function(key) {
 
     var nome_tabella = key;
-    //showMessage("Elaborazione tabella: " + nome_tabella);
     if(response[nome_tabella] && response[nome_tabella].length) {
       var sql = createSqlQuery(nome_tabella, Object.keys(response[nome_tabella][0]), response[nome_tabella]);
       popolaTabella(nome_tabella, sql, database);
     }
   });
 
-  saveOnLocalStorage('versione', versione);
+
   fn.gotoPage('account.html');
 
 }
