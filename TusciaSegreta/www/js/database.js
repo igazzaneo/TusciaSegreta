@@ -70,9 +70,9 @@ function popolaTabella(nome_tabella, sql, database) {
     transaction.executeSql('DELETE FROM ' + nome_tabella, []);
     transaction.executeSql(sql, []);
   }, function(error) {
-    showMessage('Errore nella cancellazione della tabella: ' + nome_tabella + " - " + error.message);
+    showMessage('Errore nel caricamento dei dati della tabella: ' + nome_tabella + " - " + error.message);
   }, function() {
-    showMessage(nome_tabella + ' - Dati inseriti.');
+    //showMessage(nome_tabella + ' - Dati inseriti.');
   });
 
 }
@@ -98,7 +98,7 @@ function createSqlQuery(tableName, columns, obj) {
         this.generatedSqlQuery = this.generatedSqlQuery + "(";
         for (var key in obj[index]) {
           if (obj[index].hasOwnProperty(key)) {
-            var val = obj[index][key];
+            var val = obj[index][key].replace(/'/g,'');
             this.generatedSqlQuery = this.generatedSqlQuery +"'"+ val + "',";
           }
         }
@@ -118,7 +118,7 @@ function createSqlQuery(tableName, columns, obj) {
         }
         for (var key in obj[index]) {
           if (obj[index].hasOwnProperty(key)) {
-            var val = obj[index][key];
+            var val = obj[index][key].replace(/'/g,'');;
             this.generatedSqlQuery = this.generatedSqlQuery + "'" + val + "',";
           }
         }
