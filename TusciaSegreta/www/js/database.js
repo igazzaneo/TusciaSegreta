@@ -20,6 +20,8 @@ function openDb() {
   if(versione != versioneLocale) {
     showMessage('Il db non è aggiornato.');
     getServerDB();
+  } else {
+    fn.gotoPage('map.html');
   }
 }
 
@@ -62,6 +64,9 @@ function elaboraDb(response) {
     }
   });
 
+  saveOnLocalStorage('versione', versione);
+  fn.gotoPage('account.html');
+
 }
 
 function popolaTabella(nome_tabella, sql, database) {
@@ -72,7 +77,7 @@ function popolaTabella(nome_tabella, sql, database) {
   }, function(error) {
     showMessage('Errore nel caricamento dei dati della tabella: ' + nome_tabella + " - " + error.message);
   }, function() {
-    showMessage(nome_tabella + ' - Dati inseriti.');
+    //showMessage(nome_tabella + ' - Dati inseriti.');
   });
 
 }
