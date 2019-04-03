@@ -22,9 +22,9 @@ function openDb() {
 
   showMessage("Versione cloud: " + versione + " - Versione Locale: " + versioneLocale);
   if(versione != versioneLocale) {
-    //showMessage('Il db non è aggiornato.');
-    //getServerDB();
-    //removeFromLocalStorage('versione');
+    showMessage('Il db non è aggiornato.');
+    getServerDB();
+    removeFromLocalStorage('versione');
     saveOnLocalStorage('versione', versione);
   } else {
     fn.gotoPage('map.html');
