@@ -98,7 +98,7 @@ function createSqlQuery(tableName, columns, obj) {
         this.generatedSqlQuery = this.generatedSqlQuery + "(";
         for (var key in obj[index]) {
           if (obj[index].hasOwnProperty(key)) {
-            var val = obj[index][key].replace(/'/g,'');
+            var val = obj[index][key];
             this.generatedSqlQuery = this.generatedSqlQuery +"'"+ val + "',";
           }
         }
@@ -118,7 +118,7 @@ function createSqlQuery(tableName, columns, obj) {
         }
         for (var key in obj[index]) {
           if (obj[index].hasOwnProperty(key)) {
-            var val = obj[index][key].replace(/'/g,'');
+            var val = obj[index][key];
             this.generatedSqlQuery = this.generatedSqlQuery + "'" + val + "',";
           }
         }
