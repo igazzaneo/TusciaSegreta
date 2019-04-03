@@ -19,6 +19,7 @@ function openDb() {
   showMessage("Versione cloud: " + versione + " - Versione Locale: " + versioneLocale);
   if(versione != versioneLocale) {
     showMessage('Il db non è aggiornato.');
+    getServerDB();
   }
 }
 
@@ -39,9 +40,100 @@ function getServerDBVersion() {
 
 function getServerDB() {
 
-  const Url = "http://51.75.182.195:1880/getdb";
-  return axios.get(Url);
+  return $.ajax({
+      url:'http://51.75.182.195:1880/getdb',
+      contentType: "application/json",
+      dataType: "json",
+      async: false
+  }).done(elaboraDb);
+
 }
+
+function elaboraDb(response) {
+
+  Object.keys(response).forEach(function(key) {
+
+    var nome_tabella = key;
+    console.log("Elaborazione tabella: " + nome_tabella);
+    if(response[nome_tabella] && response[nome_tabella].length)
+      var sql = createSqlQuery(nome_tabella, Object.keys(response[nome_tabella][0]), response[nome_tabella]);
+
+      popolaTabella(nome_tabella, sql, database);
+  });
+
+}
+
+function popolaTabella(nome_tabella, sql, database) {
+
+  database.transaction(function(transaction) {
+    transaction.executeSql('DELETE FROM ' + nome_tabella, []);
+    transaction.executeSql(sql);
+  }, function(error) {
+    showMessage('Errore nella cancellazione: ' + error.message);
+  }, function() {
+    showMessage('Registrazione effettuata.');
+  });
+
+}
+
+function createSqlQuery(tableName, columns, obj) {
+    this.generatedSqlQuery = `INSERT INTO ${tableName} `
+    let columnList = "";
+    columnList = columnList + "("
+    for (let index = 0; index < columns.length; index++) {
+      if (index == columns.length - 1) {
+        columnList = columnList + columns[index];
+      } else {
+        columnList = columnList + columns[index] + ",";
+      }
+    }
+    this.generatedSqlQuery = this.generatedSqlQuery + columnList + ") VALUES ";
+
+    for (let index = 0; index < obj.length; index++) {
+      let item = obj[index];
+
+      if (index == columns.length - 1) {
+        this.generatedSqlQuery = this.generatedSqlQuery + "(";
+        for (var key in obj[index]) {
+          if (obj[index].hasOwnProperty(key)) {
+            var val = obj[index][key];
+            this.generatedSqlQuery = this.generatedSqlQuery +"'"+ val + "',";
+          }
+        }
+        this.generatedSqlQuery = this.generatedSqlQuery.slice(0, -1);
+        this.generatedSqlQuery = this.generatedSqlQuery + ")";
+        if (index == columns.length - 1) {
+          this.generatedSqlQuery = this.generatedSqlQuery + ",";
+        }
+        if (obj.length == 1) {
+          this.generatedSqlQuery = this.generatedSqlQuery.slice(0, -1);
+        }
+      } else {
+        this.generatedSqlQuery = this.generatedSqlQuery + "(";
+        let length = 0;
+        for (var key in obj[index]) {
+          length++;
+        }
+        for (var key in obj[index]) {
+          if (obj[index].hasOwnProperty(key)) {
+            var val = obj[index][key];
+            this.generatedSqlQuery = this.generatedSqlQuery + "'" + val + "',";
+          }
+        }
+        this.generatedSqlQuery = this.generatedSqlQuery.slice(0, -1);
+        this.generatedSqlQuery = this.generatedSqlQuery + "),";
+        if (obj.length == 1) {
+          this.generatedSqlQuery = this.generatedSqlQuery.slice(0, -1);
+        }
+
+      }
+    }
+    if (obj.length > 1) {
+      this.generatedSqlQuery = this.generatedSqlQuery.slice(0, -1);
+    }
+    console.log(generatedSqlQuery);
+    return this.generatedSqlQuery;
+  }
 
 function getLocalDBVersion(database) {
 
@@ -49,12 +141,6 @@ function getLocalDBVersion(database) {
 
     transaction.executeSql('SELECT * FROM versione_db', [], saveDBLocalVersion, dbSelecterror);
 
-    /*transaction.executeSql('SELECT * FROM versione_db', [], function(ignored, resultSet) {
-        saveOnLocalStorage('versione', resultSet.rows.item(0).versione);
-
-        versioneLocale = resultSet.rows.item(0).versione;
-      });
-    }, dbSelecterror);*/
   });
 }
 
@@ -67,9 +153,6 @@ function saveDBLocalVersion(tx, resultSet) {
 
   versioneLocale = resultSet.rows.item(0).versione;
 }
-
-
-
 
 // copy DB and open it
 function setupDB() {
@@ -167,7 +250,7 @@ function processDone(response) {
 
   if(esito == 200) {
     showMessage("Inserimento avvenuto con successo");
-    registraUtente(email, nome_utente, password, cellulare, cognome, nome);
+    registraUtente(email, nome_utente, password, cellulare, cognome, nome, database);
   } else if(esito == 401) {
     showMessage("Nome utente e/o indirizzo email già presenti.");
   } else {
@@ -175,7 +258,7 @@ function processDone(response) {
   }
 }
 
-function registraUtente(email, nome_utente, password, cellulare, cognome, nome) {
+function registraUtente(email, nome_utente, password, cellulare, cognome, nome, database) {
 
   // Effettuo la cancellazione preventiva dei record per evitare di avere più di un utente nel DB locale
   database.transaction(function(transaction) {
@@ -415,6 +498,9 @@ function onLoad() {
   console.log("onLoad...");
 
   document.addEventListener("deviceready", onDeviceReady, false);
+
+
+
 }
 
 // device APIs are available
@@ -423,9 +509,19 @@ function onDeviceReady() {
   // Now safe to use device APIs
   console.log("onDeviceReady...");
 
-  getServerDBVersion();
+  document.addEventListener("backbutton", onBackKeyDown, false);
 
-  initDatabase();
+  getServerDBVersion();
+  getServerDB();
+
+  //initDatabase();
+}
+
+function onBackKeyDown(e) {
+    // Handle the back button
+    e.preventDefault();
+    console.log("onBackKeyDown...");
+    fn.gotoPage('account.html');
 }
 
 /* fine gestione versione del DB */
