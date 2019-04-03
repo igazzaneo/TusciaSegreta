@@ -28,17 +28,15 @@ function openDb() {
     removeFromLocalStorage('versione');
     saveOnLocalStorage('versione', versione);
 
-    getElencoSiti(database);
+    //getElencoSiti(database);
 
     fn.gotoPage('map.html');
 
   } else {
-    getElencoSiti(database);
-    
+    //getElencoSiti(database);
+
     fn.gotoPage('map.html');
   }
-
-
 
 }
 
@@ -265,12 +263,10 @@ function registrazioneDaApp() {
 function processDone(response) {
 
   console.log("Done...");
-
   var esito = JSON.parse(response.responseText).httpCode
   console.log("risposta: " + esito);
 
   if(esito == 200) {
-    showMessage("Inserimento avvenuto con successo");
     registraUtente(email, nome_utente, password, cellulare, cognome, nome, database);
   } else if(esito == 401) {
     showMessage("Nome utente e/o indirizzo email già presenti.");
@@ -468,7 +464,6 @@ function checkLoggedAndGoToPage(page) {
 function getElencoSiti(database) {
 
   database.transaction(function(transaction) {
-
     transaction.executeSql('SELECT * FROM sito', [],  saveElencoSiti, dbSelecterror);
   });
 /*
