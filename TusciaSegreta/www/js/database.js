@@ -28,14 +28,14 @@ function openDb() {
     removeFromLocalStorage('versione');
     saveOnLocalStorage('versione', versione);
 
-    //getElencoSiti(database);
+    getElencoSiti(database);
 
-    fn.gotoPage('map.html');
+    //fn.gotoPage('map.html');
 
   } else {
-    //getElencoSiti(database);
+    getElencoSiti(database);
 
-    fn.gotoPage('map.html');
+    //fn.gotoPage('map.html');
   }
 
 }
@@ -466,6 +466,9 @@ function getElencoSiti(database) {
   database.transaction(function(transaction) {
     transaction.executeSql('SELECT * FROM sito', [],  saveElencoSiti, dbSelecterror);
   });
+
+  fn.gotoPage('map.html');
+
 /*
   var elenco = new Array();
   for(var x = 0; x < 1; x++) {
