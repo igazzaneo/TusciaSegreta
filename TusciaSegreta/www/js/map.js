@@ -28,7 +28,7 @@ function initMap() {
   };
 
   var percorsi = L.layerGroup();
-
+  showMessage(elencoSiti.length);
   for(var i=0; i<elencoSiti.length; i++) {
 
       var riga = elencoSiti[i];
