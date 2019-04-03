@@ -515,7 +515,7 @@ function onDeviceReady() {
   getServerDBVersion();
   getServerDB();
 
-  //initDatabase();
+  initDatabase();
 }
 
 function onBackKeyDown(e) {
