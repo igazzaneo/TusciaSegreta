@@ -461,13 +461,19 @@ function checkLoggedAndGoToPage(page) {
 
 function getElencoSiti(database) {
 
-  var elenco = new Array();
+
 
   database.transaction(function(transaction) {
 
-    transaction.executeSql('SELECT * FROM sito', [], function(ignored, resultSet) {
+    transaction.executeSql('SELECT * FROM sito', [],  saveElencoSiti, dbSelecterror);
+  });
+}
 
-      for(var x = 0; x < resultSet.rows.length; x++) {
+function saveElencoSiti(tx, resultSet) {
+  
+    var elenco = new Array();
+
+    for(var x = 0; x < resultSet.rows.length; x++) {
 
         var riga = new Array();
         riga[0] = resultSet.rows.item(x).id;
@@ -477,15 +483,14 @@ function getElencoSiti(database) {
         riga[4] = resultSet.rows.item(x).latitudine;
         riga[5] = resultSet.rows.item(x).longitudine;
 
-        elenco[x] = riga;
-      }
-      elencoSiti = elenco;
-    });
-  }, function(error) {
-    showMessage('SELECT error: ' + error.message);
-  });
+        showMessage(riga[1]);
 
+        elenco[x] = riga;
+    }
+
+    elencoSiti = elenco;
 }
+
 
 function getMapLocation() {
 
