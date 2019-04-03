@@ -3,6 +3,7 @@ var database = null;
 var versione = null;
 var versioneLocale = null;
 var elencoSiti = new Array();
+var flag == false;
 
 function initDatabase() {
 
@@ -28,12 +29,12 @@ function openDb() {
     removeFromLocalStorage('versione');
     saveOnLocalStorage('versione', versione);
 
-    getElencoSiti(database);
+    //getElencoSiti(database);
 
     //fn.gotoPage('map.html');
 
   } else {
-    getElencoSiti(database);
+    //getElencoSiti(database);
 
     //fn.gotoPage('map.html');
   }
@@ -467,7 +468,7 @@ function getElencoSiti(database) {
     transaction.executeSql('SELECT * FROM sito', [],  saveElencoSiti, dbSelecterror);
   });
 
-  fn.gotoPage('map.html');
+  //fn.gotoPage('map.html');
 
 /*
   var elenco = new Array();
@@ -552,10 +553,11 @@ function onDeviceReady() {
   //document.addEventListener("backbutton", onBackKeyDown, false);
 
   getServerDBVersion();
-  //getServerDB();
-
   initDatabase();
-  //fn.gotoPage('map.html');
+  getElencoSiti(database);
+
+  window.setTimeout(3000);
+  fn.gotoPage('map.html');
 
 }
 
