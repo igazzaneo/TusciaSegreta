@@ -2,6 +2,8 @@ var rowCount = 0;
 var database = null;
 var versione = null;
 var versioneLocale = null;
+var elencoSiti = new Array();
+var flag == false;
 
 function initDatabase() {
 
@@ -13,14 +15,30 @@ function openDb() {
 
   database = sqlitePlugin.openDatabase({name: 'copied_tusciasegreta.db'});
 
-  getLocalDBVersion(database);
-
   versioneLocale = getValueFromLocalStorage('versione');
+  //showMessage("da localstorage " + versioneLocale);
+  if(versioneLocale == "0") {
+    getLocalDBVersion(database);
+    //showMessage("da db " + versioneLocale);
+  }
+
   showMessage("Versione cloud: " + versione + " - Versione Locale: " + versioneLocale);
   if(versione != versioneLocale) {
     showMessage('Il db non è aggiornato.');
     getServerDB();
+    removeFromLocalStorage('versione');
+    saveOnLocalStorage('versione', versione);
+
+    getElencoSiti(database);
+
+    fn.gotoPage('map.html');
+
+  } else {
+    getElencoSiti(database);
+
+    fn.gotoPage('map.html');
   }
+
 }
 
 /* Gestione versione del DB */
@@ -55,11 +73,10 @@ function elaboraDb(response) {
   Object.keys(response).forEach(function(key) {
 
     var nome_tabella = key;
-    showMessage("Elaborazione tabella: " + nome_tabella);
-    if(response[nome_tabella] && response[nome_tabella].length)
+    if(response[nome_tabella] && response[nome_tabella].length) {
       var sql = createSqlQuery(nome_tabella, Object.keys(response[nome_tabella][0]), response[nome_tabella]);
-
       popolaTabella(nome_tabella, sql, database);
+    }
   });
 
 }
@@ -70,9 +87,9 @@ function popolaTabella(nome_tabella, sql, database) {
     transaction.executeSql('DELETE FROM ' + nome_tabella, []);
     transaction.executeSql(sql, []);
   }, function(error) {
-    showMessage('Errore nella cancellazione della tabella: ' + nome_tabella + " - " + error.message);
+    showMessage('Errore nel caricamento dei dati della tabella: ' + nome_tabella + " - " + error.message);
   }, function() {
-    showMessage(nome_tabella3 + ' - Dati inseriti.');
+    //showMessage(nome_tabella + ' - Dati inseriti.');
   });
 
 }
@@ -151,6 +168,7 @@ function dbSelecterror(error) {
 }
 
 function saveDBLocalVersion(tx, resultSet) {
+
   saveOnLocalStorage('versione', resultSet.rows.item(0).versione);
 
   versioneLocale = resultSet.rows.item(0).versione;
@@ -246,12 +264,10 @@ function registrazioneDaApp() {
 function processDone(response) {
 
   console.log("Done...");
-
   var esito = JSON.parse(response.responseText).httpCode
   console.log("risposta: " + esito);
 
   if(esito == 200) {
-    showMessage("Inserimento avvenuto con successo");
     registraUtente(email, nome_utente, password, cellulare, cognome, nome, database);
   } else if(esito == 401) {
     showMessage("Nome utente e/o indirizzo email già presenti.");
@@ -448,13 +464,37 @@ function checkLoggedAndGoToPage(page) {
 
 function getElencoSiti(database) {
 
-  var elenco = new Array();
-
   database.transaction(function(transaction) {
+    transaction.executeSql('SELECT * FROM sito', [],  saveElencoSiti, dbSelecterror);
+  });
 
-    transaction.executeSql('SELECT * FROM sito', [], function(ignored, resultSet) {
+  //fn.gotoPage('map.html');
 
-      for(var x = 0; x < resultSet.rows.length; x++) {
+/*
+  var elenco = new Array();
+  for(var x = 0; x < 1; x++) {
+
+      var riga = new Array();
+      riga[0] = x;
+      riga[1] = "denominazione" + x;
+      riga[2] = "descrizione" + x;
+      riga[3] = "http://video.it" + x;
+      riga[4] = "41.912088982214854";
+      riga[5] = "12.501297653124993";
+
+      showMessage(riga[1]  + " - " + riga[4] + " - " + riga[5]);
+
+      elenco[x] = riga;
+  }
+
+  elencoSiti = elenco;*/
+}
+
+function saveElencoSiti(tx, resultSet) {
+
+    var elenco = new Array();
+
+    for(var x = 0; x < resultSet.rows.length; x++) {
 
         var riga = new Array();
         riga[0] = resultSet.rows.item(x).id;
@@ -464,15 +504,14 @@ function getElencoSiti(database) {
         riga[4] = resultSet.rows.item(x).latitudine;
         riga[5] = resultSet.rows.item(x).longitudine;
 
-        elenco[x] = riga;
-      }
-      elencoSiti = elenco;
-    });
-  }, function(error) {
-    showMessage('SELECT error: ' + error.message);
-  });
+        showMessage(riga[1]  + " - " + riga[4] + " - " + riga[5]);
 
+        elenco[x] = riga;
+    }
+
+    elencoSiti = elenco;
 }
+
 
 function getMapLocation() {
 
@@ -501,8 +540,6 @@ function onLoad() {
 
   document.addEventListener("deviceready", onDeviceReady, false);
 
-
-
 }
 
 // device APIs are available
@@ -514,9 +551,14 @@ function onDeviceReady() {
   //document.addEventListener("backbutton", onBackKeyDown, false);
 
   getServerDBVersion();
-  //getServerDB();
-
   initDatabase();
+
+  //new Promise(function (resolve, reject) {
+    //getElencoSiti(database);
+  //}).then(function () {
+    //fn.gotoPage('map.html');
+  //});
+
 }
 
 function onBackKeyDown(e) {
