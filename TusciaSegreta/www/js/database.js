@@ -70,7 +70,7 @@ function popolaTabella(nome_tabella, sql, database) {
     transaction.executeSql('DELETE FROM ' + nome_tabella, []);
     transaction.executeSql(sql);
   }, function(error) {
-    showMessage('Errore nella cancellazione: ' + error.message);
+    showMessage('Errore nella cancellazione della tabella: ' + nome_tabella + " - " + error.message);
   }, function() {
     showMessage(denominazione + ' - Dati inseriti.');
   });
