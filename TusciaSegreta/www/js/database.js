@@ -55,11 +55,11 @@ function elaboraDb(response) {
   Object.keys(response).forEach(function(key) {
 
     var nome_tabella = key;
-    showMessage("Elaborazione tabella: " + nome_tabella);
-    if(response[nome_tabella] && response[nome_tabella].length)
+    //showMessage("Elaborazione tabella: " + nome_tabella);
+    if(response[nome_tabella] && response[nome_tabella].length) {
       var sql = createSqlQuery(nome_tabella, Object.keys(response[nome_tabella][0]), response[nome_tabella]);
-
       popolaTabella(nome_tabella, sql, database);
+    }
   });
 
 }
@@ -72,7 +72,7 @@ function popolaTabella(nome_tabella, sql, database) {
   }, function(error) {
     showMessage('Errore nella cancellazione della tabella: ' + nome_tabella + " - " + error.message);
   }, function() {
-    showMessage(nome_tabella3 + ' - Dati inseriti.');
+    showMessage(nome_tabella + ' - Dati inseriti.');
   });
 
 }
