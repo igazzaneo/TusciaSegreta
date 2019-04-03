@@ -26,6 +26,7 @@ function openDb() {
 /* Gestione versione del DB */
 
 function getServerDBVersion() {
+
     return $.ajax({
         url:'http://51.75.182.195:1880/checkdb',
         contentType: "application/json",
@@ -71,7 +72,7 @@ function popolaTabella(nome_tabella, sql, database) {
   }, function(error) {
     showMessage('Errore nella cancellazione: ' + error.message);
   }, function() {
-    showMessage('Registrazione effettuata.');
+    showMessage(denominazione + ' - Dati inseriti.');
   });
 
 }
