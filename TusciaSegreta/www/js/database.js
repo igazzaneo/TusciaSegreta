@@ -554,9 +554,9 @@ function onDeviceReady() {
   initDatabase();
 
   //new Promise(function (resolve, reject) {
-    getElencoSiti(database);
+    //getElencoSiti(database);
   //}).then(function () {
-    fn.gotoPage('map.html');
+    //fn.gotoPage('map.html');
   //});
 
 }
