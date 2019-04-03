@@ -20,6 +20,7 @@ function openDb() {
   if(versione != versioneLocale) {
     showMessage('Il db non è aggiornato.');
     getServerDB();
+    removeFromLocalStorage('versione');
     saveOnLocalStorage('versione', versione);
   } else {
     fn.gotoPage('map.html');
