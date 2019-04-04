@@ -204,7 +204,7 @@ function registraUtente(email, nome_utente, password, cellulare, cognome, nome, 
     transaction.executeSql('DELETE FROM utente', []);
     transaction.executeSql('INSERT INTO utente VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)', [1, nome_utente, cognome, nome, email, password, '', cellulare, '']);
     transaction.executeSql('select count(*) as recordCount from utente', [], function(ignored, resultSet) {
-      showMessage("Utenti trovati: " + resultSet.rows.item(0).recordCount)
+      //showMessage("Utenti trovati: " + resultSet.rows.item(0).recordCount)
       if(resultSet.rows.item(0).recordCount > 0 ) {
         logIn(nome_utente, password);
       }

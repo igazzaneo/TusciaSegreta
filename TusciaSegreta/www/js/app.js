@@ -37,3 +37,9 @@ function onBackKeyDown(e) {
 function changePage(p) {
   document.location.href=p;
 }
+
+function getId() {
+    var urlParams = new URLSearchParams(window.location.search);
+    showMessage(urlParams.get('id')); // true
+
+}
