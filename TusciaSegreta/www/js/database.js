@@ -183,9 +183,9 @@ function registrazioneDaApp() {
 
 function processDone(response) {
 
-  console.log("Done...");
+  //console.log("Done...");
   var esito = JSON.parse(response.responseText).httpCode
-  console.log("risposta: " + esito);
+  showMessage("risposta: " + esito);
 
   if(esito == 200) {
     registraUtente(email, nome_utente, password, cellulare, cognome, nome, database);
