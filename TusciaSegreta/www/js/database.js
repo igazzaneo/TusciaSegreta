@@ -6,6 +6,7 @@ var elencoSiti = new Array();
 var flag == false;
 
 
+
 /* Gestione versione del DB */
 
 function getServerDBVersion() {
@@ -463,6 +464,8 @@ function onDeviceReady() {
 
   getServerDBVersion();
   initDatabase();
+
+  document.location.href('index.html');
 
   //new Promise(function (resolve, reject) {
     //getElencoSiti(database);

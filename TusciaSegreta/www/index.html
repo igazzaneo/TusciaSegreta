@@ -45,28 +45,28 @@
         <script type="text/javascript" src="js/map.js"></script>
 
     </head>
-    <body onload="onLoad()">
+    <body>
       <ons-splitter>
-      <ons-splitter-side id="menu" side="left" width="40%" collapse>
-        <ons-page>
-          <ons-list>
-            <ons-list-item onclick="fn.load('about.html')" tappable>
-              Chi siamo
-            </ons-list-item>
-            <ons-list-item onclick="fn.load('progetto.html')" tappable>
-              Il progetto
-            </ons-list-item>
-            <ons-list-item onclick="fn.load('home.html')" tappable>
-              Come funziona
-            </ons-list-item>
-            <ons-list-item onclick="fn.load('contacts.html')" tappable>
-              Contattaci
-            </ons-list-item>
-          </ons-list>
-        </ons-page>
-      </ons-splitter-side>
+        <ons-splitter-side id="menu" side="left" width="40%" collapse>
+          <ons-page>
+            <ons-list>
+              <ons-list-item onclick="fn.load('about.html')" tappable>
+                Chi siamo
+              </ons-list-item>
+              <ons-list-item onclick="fn.load('progetto.html')" tappable>
+                Il progetto
+              </ons-list-item>
+              <ons-list-item onclick="fn.load('home.html')" tappable>
+                Come funziona
+              </ons-list-item>
+              <ons-list-item onclick="fn.load('contacts.html')" tappable>
+                Contattaci
+              </ons-list-item>
+            </ons-list>
+          </ons-page>
+        </ons-splitter-side>
 
-      <ons-splitter-content id="content" page="update.html"></ons-splitter-content>
+        <ons-splitter-content id="content" page="update.html"></ons-splitter-content>
 
       <ons-bottom-toolbar modifier="transparent">
         <ons-tabbar position="auto">
@@ -74,24 +74,9 @@
           <ons-tab onclick="fn.gotoPage('esplora.html')" tappable label="Esplora" icon="fa-map-marked-alt"></ons-tab>
           <ons-tab onclick="fn.gotoPage('naviga.html')" tappable label="Naviga" icon="fa-road"></ons-tab>
           <!--ons-tab onclick="fn.load('accesso.html')" tappable label="Profilo" icon="fa-user-circle"></ons-tab-->
-        </ons-tab>
-      </ons-tabbar>
+        </ons-tabbar>
       </ons-bottom-toolbar>
 
-      <!--ons-speed-dial position="bottom right" direction="left">
-        <ons-fab>
-          <ons-icon icon="md-share"></ons-icon>
-        </ons-fab>
-        <ons-speed-dial-item>
-          <ons-icon icon="md-twitter"></ons-icon>
-        </ons-speed-dial-item>
-        <ons-speed-dial-item>
-          <ons-icon icon="md-facebook"></ons-icon>
-        </ons-speed-dial-item>
-        <ons-speed-dial-item>
-          <ons-icon icon="md-google-plus"></ons-icon>
-        </ons-speed-dial-item>
-      </ons-speed-dial__>
-    </ons-splitter>-->
+    </ons-splitter>
     </body>
 </html>
