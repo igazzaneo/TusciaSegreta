@@ -29,7 +29,7 @@ function initMap() {
 
   var percorsi = L.layerGroup();
   var siti = localStorage.getObj('elencoSiti');//, elenco);getValueFromLocalStorage('elencoSiti');
-  showMessage("SITI: " + siti)
+  //showMessage("SITI: " + siti)
   if(siti != 0) {
     for(var i=0; i<siti.length; i++) {
 
@@ -38,7 +38,7 @@ function initMap() {
         var denominazione = riga[1];
         var latitudine = riga[4];
         var longitudine = riga[5];
-        showMessage("MAP: " + denominazione + latitudine + longitudine);
+        //showMessage("MAP: " + denominazione + latitudine + longitudine);
         L.marker([latitudine,longitudine], {
           icon: L.BeautifyIcon.icon(options),
           draggable: false
