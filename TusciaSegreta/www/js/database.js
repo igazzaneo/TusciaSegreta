@@ -1,6 +1,6 @@
 
 /* Gestione versione del DB */
-
+var elencoSiti = new Array();
 function getServerDBVersion() {
 
     return $.ajax({
