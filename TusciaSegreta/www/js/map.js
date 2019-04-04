@@ -42,7 +42,7 @@ function initMap() {
         draggable: false
       }).bindPopup("<b>" + denominazione +"</b><br /><img src='img/percorsi/eremo/foto2.jpg' width='130px'><br/><div id='trail-rating'><ul class='ratings'><li class='average'><span id='rating' class='rating star3_5'>&nbsp;</span></li></ul></div><br/><div class=\"divTable\"><div class=\"divTableRow\"><div class=\"divTableHead1\">Facile</div><div class=\"divTableHead2\">2,5 Km</div><div class=\"divTableHead3\">2 h</div></div></div><br/><a href='#' onclick=\"fn.load('scheda.html')\">Vai alla scheda</a>").addTo(percorsi);
   }
-  
+
   var map = new L.Map('mapid',{
       center: new L.LatLng(42.585280, 11.933396),
       zoom: 9,
@@ -61,4 +61,23 @@ function initMap() {
   };
 
   L.control.layers(baseLayers, overlays).addTo(map);
+}
+
+
+function getMapLocation() {
+
+    navigator.geolocation.getCurrentPosition(onMapSuccess, onMapError, { enableHighAccuracy: true });
+}
+
+var onMapSuccess = function (position) {
+
+    //alert(position.coords.latitude + " - " + position.coords.longitude);
+
+    saveOnLocalStorage('latitudine', position.coords.latitude);
+    saveOnLocalStorage('longitudine', position.coords.longitude);
+}
+
+function onMapError(error) {
+    console.log('code: ' + error.code + '\n' +
+        'message: ' + error.message + '\n');
 }

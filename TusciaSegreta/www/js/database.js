@@ -5,41 +5,7 @@ var versioneLocale = null;
 var elencoSiti = new Array();
 var flag == false;
 
-function initDatabase() {
 
-  window.resolveLocalFileSystemURL(cordova.file.dataDirectory + "/copied_tusciasegreta.db", openDb, setupDB);
-
-}
-
-function openDb() {
-
-  database = sqlitePlugin.openDatabase({name: 'copied_tusciasegreta.db'});
-
-  versioneLocale = getValueFromLocalStorage('versione');
-  //showMessage("da localstorage " + versioneLocale);
-  if(versioneLocale == "0") {
-    getLocalDBVersion(database);
-    //showMessage("da db " + versioneLocale);
-  }
-
-  //showMessage("Versione cloud: " + versione + " - Versione Locale: " + versioneLocale);
-  if(versione != versioneLocale) {
-    showMessage('Il db non è aggiornato.');
-    getServerDB();
-    removeFromLocalStorage('versione');
-    saveOnLocalStorage('versione', versione);
-
-    //getElencoSiti(database);
-
-    //fn.gotoPage('map.html');
-
-  } else {
-    //getElencoSiti(database);
-
-    //fn.gotoPage('map.html');
-  }
-
-}
 
 /* Gestione versione del DB */
 
@@ -163,10 +129,6 @@ function getLocalDBVersion(database) {
   });
 }
 
-function dbSelecterror(error) {
-  showMessage('SELECT error: ' + error.message);
-}
-
 function saveDBLocalVersion(tx, resultSet) {
 
   saveOnLocalStorage('versione', resultSet.rows.item(0).versione);
@@ -174,52 +136,18 @@ function saveDBLocalVersion(tx, resultSet) {
   versioneLocale = resultSet.rows.item(0).versione;
 }
 
-// copy DB and open it
-function setupDB() {
-    //showMessage("onSetupDB()");
-    copyDatabaseFile('tusciasegreta.db').then(function () {
-      //database = sqlitePlugin.openDatabase({name: 'copied_tusciasegreta.db'});
-      openDb();
-    }).catch(function (err) {
-      // error! :(
-      showMessage(err);
-    });
+function updateVersioneDB(database, versione) {
 
-}
+  database.transaction(function(transaction) {
 
+    transaction.executeSql('UPDATE versione_db set versione=?', [versione]);
 
-// copy a database file from www/ in the app directory to the data directory
-function copyDatabaseFile(dbName) {
-
-  var sourceFileName = cordova.file.applicationDirectory + 'www/' + dbName;
-  var targetDirName = cordova.file.dataDirectory;
-
-  return Promise.all([
-    new Promise(function (resolve, reject) {
-      resolveLocalFileSystemURL(sourceFileName, resolve, reject);
-    }),
-    new Promise(function (resolve, reject) {
-      resolveLocalFileSystemURL(targetDirName, resolve, reject);
-    })
-  ]).then(function (files) {
-    var sourceFile = files[0];
-    var targetDir = files[1];
-    return new Promise(function (resolve, reject) {
-      targetDir.getFile("copied_" + dbName, {}, resolve, reject);
-    }).then(function () {
-      //showMessage("Database già presente");
-    }).catch(function () {
-      //showMessage("file doesn't exist, copying it");
-      return new Promise(function (resolve, reject) {
-        sourceFile.copyTo(targetDir, 'copied_' + dbName, resolve, reject);
-      }).then(function () {
-        //showMessage("Database copiato");
-      });
-    });
   });
 }
 
-
+function dbSelecterror(error) {
+  showMessage('Errore DB: ' + error.message);
+}
 
 function getNavigationApp() {
   alert('getNavigationApp()')
@@ -513,23 +441,7 @@ function saveElencoSiti(tx, resultSet) {
 }
 
 
-function getMapLocation() {
 
-    navigator.geolocation.getCurrentPosition(onMapSuccess, onMapError, { enableHighAccuracy: true });
-}
-
-var onMapSuccess = function (position) {
-
-    //alert(position.coords.latitude + " - " + position.coords.longitude);
-
-    saveOnLocalStorage('latitudine', position.coords.latitude);
-    saveOnLocalStorage('longitudine', position.coords.longitude);
-}
-
-function onMapError(error) {
-    console.log('code: ' + error.code + '\n' +
-        'message: ' + error.message + '\n');
-}
 
 
 // Wait for device API libraries to load
