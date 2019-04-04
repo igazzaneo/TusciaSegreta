@@ -1,6 +1,6 @@
 
 /* Gestione versione del DB */
-var elencoSiti = new Array();
+//var elencoSiti = new Array();
 function getServerDBVersion() {
 
     return $.ajax({
@@ -429,9 +429,9 @@ function saveElencoSiti(tx, resultSet) {
         elenco[x] = riga;
     }
 
-    elencoSiti = elenco;
+    //elencoSiti = elenco;
 
-    saveOnLocalStorage('elencoSiti', elencoSiti);
+    saveOnLocalStorage('elencoSiti', elenco);
 }
 
 /* fine gestione versione del DB */

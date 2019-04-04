@@ -2,8 +2,6 @@ var rowCount = 0;
 var database = null;
 var versione = null;
 var versioneLocale = null;
-var flag = false;
-
 
 document.addEventListener("deviceready", onDeviceReady, false);
 

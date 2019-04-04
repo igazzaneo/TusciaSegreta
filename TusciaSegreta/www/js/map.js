@@ -30,9 +30,9 @@ function initMap() {
   var percorsi = L.layerGroup();
   var siti = getValueFromLocalStorage('elencoSiti');
   if(siti != 0) {
-    for(var i=0; i<elencoSiti.length; i++) {
+    for(var i=0; i<siti.length; i++) {
 
-        var riga = elencoSiti[i];
+        var riga = siti[i];
 
         var denominazione = riga[1];
         var latitudine = riga[4];
@@ -45,7 +45,7 @@ function initMap() {
     }
 
   }
-  
+
   var map = new L.Map('mapid',{
       center: new L.LatLng(42.585280, 11.933396),
       zoom: 9,
