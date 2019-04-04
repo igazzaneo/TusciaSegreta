@@ -3,6 +3,13 @@ var database = null;
 var versione = null;
 var versioneLocale = null;
 
+Storage.prototype.setObj = function(key, obj) {
+    return this.setItem(key, JSON.stringify(obj))
+}
+Storage.prototype.getObj = function(key) {
+    return JSON.parse(this.getItem(key))
+}
+
 document.addEventListener("deviceready", onDeviceReady, false);
 
 function onDeviceReady() {

@@ -28,7 +28,7 @@ function initMap() {
   };
 
   var percorsi = L.layerGroup();
-  var siti = getValueFromLocalStorage('elencoSiti');
+  var siti = localStorage.getObj('elencoSiti');//, elenco);getValueFromLocalStorage('elencoSiti');
   showMessage("SITI: " + siti)
   if(siti != 0) {
     for(var i=0; i<siti.length; i++) {

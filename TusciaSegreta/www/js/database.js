@@ -431,7 +431,8 @@ function saveElencoSiti(tx, resultSet) {
 
     //elencoSiti = elenco;
 
-    saveOnLocalStorage('elencoSiti', elenco);
+    //saveOnLocalStorage('elencoSiti', elenco);
+    localStorage.setObj('elencoSiti', elenco);
 }
 
 /* fine gestione versione del DB */
