@@ -170,7 +170,8 @@ function registrazioneDaApp() {
 
   if(email != "" && nome_utente != "" && password != '' && cellulare != '' && cognome != '' && nome != '') {
 
-    registerUserOnCloud(email, nome_utente, password, cellulare, cognome, nome);
+    registraUtente(email, nome_utente, password, cellulare, cognome, nome, database);
+    //registerUserOnCloud(email, nome_utente, password, cellulare, cognome, nome);
 
   } else {
     showMessage("Tutti i campi sono obbligatori");
