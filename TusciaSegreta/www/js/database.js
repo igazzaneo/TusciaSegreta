@@ -430,6 +430,8 @@ function saveElencoSiti(tx, resultSet) {
     }
 
     elencoSiti = elenco;
+
+    saveOnLocalStorage('elencoSiti', elencoSiti);
 }
 
 /* fine gestione versione del DB */

@@ -2,7 +2,6 @@ var rowCount = 0;
 var database = null;
 var versione = null;
 var versioneLocale = null;
-
 var flag = false;
 
 
@@ -17,6 +16,7 @@ function onDeviceReady() {
       //showMessage(versione);
       //showMessage(database);
       getElencoSiti(database);
+      //saveOnLocalStorage('elencoSiti', elencoSiti);
       changePage("firstpage.html"); }, 2000
   );
 
