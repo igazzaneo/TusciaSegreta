@@ -19,14 +19,10 @@ function onDeviceReady() {
   setTimeout(
     function() {
       getElencoSiti(database);
+      fn.gotoPage('map.html');
     }, 2000
   );
 
-  setTimeout(
-    function() {
-      fn.gotoPage('map.html');
-    }, 1000
-  );
 
 }
 
