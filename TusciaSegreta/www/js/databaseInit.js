@@ -29,14 +29,14 @@ function openDb() {
     // Aggiorno la tabella versione del DB Locale
     updateVersioneDB(database, versione);
 
-    getElencoSiti(database);
+    //getElencoSiti(database);
 
-    fn.gotoPage('map.html');
+    //fn.gotoPage('map.html');
 
   } else {
-    getElencoSiti(database);
+    //getElencoSiti(database);
 
-    fn.gotoPage('map.html');
+    //fn.gotoPage('map.html');
   }
 
 }

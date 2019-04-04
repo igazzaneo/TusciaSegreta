@@ -14,8 +14,9 @@ function onDeviceReady() {
 
   setTimeout(
     function() {
-      showMessage(versione);
-      showMessage(database);
+      //showMessage(versione);
+      //showMessage(database);
+      getElencoSiti(database);
       changePage("firstpage.html"); }, 2000
   );
 
