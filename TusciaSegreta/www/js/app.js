@@ -12,19 +12,7 @@ function onDeviceReady() {
   getServerDBVersion();
   initDatabase();
 
-  return Promise.all([
-    new Promise(function (resolve, reject) {
-      getServerDBVersion();
-    }),
-    new Promise(function (resolve, reject) {
-      initDatabase();
-    })
-  ]).then(function () {
-    showMessage("Versione Promise: " + versione);
-    showMessage("Database Promise: " + database);
-
-    changePage("firstpage.html");
-  });
+  setTimeout(function() { changePage("firstpage.html"); }, 2000);
 
 }
 
