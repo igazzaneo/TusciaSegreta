@@ -62,11 +62,11 @@ function copyDatabaseFile(dbName) {
     }).then(function () {
       //showMessage("Database già presente");
     }).catch(function () {
-      //showMessage("file doesn't exist, copying it");
+      showMessage("file doesn't exist, copying it");
       return new Promise(function (resolve, reject) {
         sourceFile.copyTo(targetDir, 'copied_' + dbName, resolve, reject);
       }).then(function () {
-        //showMessage("Database copiato");
+        showMessage("Database copiato");
       });
     });
   });
