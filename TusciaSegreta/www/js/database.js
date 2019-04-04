@@ -187,7 +187,7 @@ function processDone(response) {
   var esito = JSON.parse(response.responseText).httpCode
   showMessage("risposta: " + esito);
 
-  if(esito == 200) {
+  if(esito.indexOf("200") != -1) {
     registraUtente(email, nome_utente, password, cellulare, cognome, nome, database);
   } else if(esito == 401) {
     showMessage("Nome utente e/o indirizzo email già presenti.");
@@ -424,7 +424,7 @@ function saveElencoSiti(tx, resultSet) {
         riga[4] = resultSet.rows.item(x).latitudine;
         riga[5] = resultSet.rows.item(x).longitudine;
 
-        showMessage(riga[1]  + " - " + riga[4] + " - " + riga[5]);
+        //showMessage(riga[1]  + " - " + riga[4] + " - " + riga[5]);
 
         elenco[x] = riga;
     }
