@@ -1,11 +1,3 @@
-var rowCount = 0;
-var database = null;
-var versione = null;
-var versioneLocale = null;
-var elencoSiti = new Array();
-var flag = false;
-
-
 
 /* Gestione versione del DB */
 
