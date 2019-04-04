@@ -3,7 +3,7 @@ var database = null;
 var versione = null;
 var versioneLocale = null;
 var elencoSiti = new Array();
-var flag == false;
+var flag = false;
 
 
 
@@ -438,48 +438,6 @@ function saveElencoSiti(tx, resultSet) {
     }
 
     elencoSiti = elenco;
-}
-
-
-
-
-
-// Wait for device API libraries to load
-//
-function onLoad() {
-
-  console.log("onLoad...");
-
-  document.addEventListener("deviceready", onDeviceReady, false);
-
-}
-
-// device APIs are available
-//
-function onDeviceReady() {
-  // Now safe to use device APIs
-  console.log("onDeviceReady...");
-
-  //document.addEventListener("backbutton", onBackKeyDown, false);
-
-  getServerDBVersion();
-  initDatabase();
-
-  document.location.href('index.html');
-
-  //new Promise(function (resolve, reject) {
-    //getElencoSiti(database);
-  //}).then(function () {
-    //fn.gotoPage('map.html');
-  //});
-
-}
-
-function onBackKeyDown(e) {
-    // Handle the back button
-    e.preventDefault();
-    console.log("onBackKeyDown...");
-    fn.gotoPage('account.html');
 }
 
 /* fine gestione versione del DB */
