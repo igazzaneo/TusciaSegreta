@@ -11,11 +11,14 @@ function onDeviceReady() {
 
   setTimeout(
     function() {
-      //showMessage(versione);
-      //showMessage(database);
       getElencoSiti(database);
-      //saveOnLocalStorage('elencoSiti', elencoSiti);
-      changePage("firstpage.html"); }, 2000
+    }, 2000
+  );
+
+  setTimeout(
+    function() {
+      fn.gotoPage('map.html');
+    }, 1000
   );
 
 }
