@@ -6,7 +6,6 @@ var elencoSiti = new Array();
 var flag == false;
 
 
-
 /* Gestione versione del DB */
 
 function getServerDBVersion() {
