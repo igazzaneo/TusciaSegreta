@@ -197,17 +197,17 @@ function processDone(response) {
 }
 
 function registraUtente(email, nome_utente, password, cellulare, cognome, nome, database) {
-
+  showMessage("RegistrazioneUtente su DB locale...");
   // Effettuo la cancellazione preventiva dei record per evitare di avere più di un utente nel DB locale
   database.transaction(function(transaction) {
-    transaction.executeSql('DELETE FROM utente', []);
+    //transaction.executeSql('DELETE FROM utente', []);
     transaction.executeSql('INSERT INTO utente VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)', [1, nome_utente, cognome, nome, email, password, '', cellulare, '']);
-    transaction.executeSql('select count(*) as recordCount from utente', [], function(ignored, resultSet) {
+    /*transaction.executeSql('select count(*) as recordCount from utente', [], function(ignored, resultSet) {
       showMessage("Utenti trovati: " + resultSet.rows.item(0).recordCount)
       if(resultSet.rows.item(0).recordCount > 0 ) {
         logIn(nome_utente, password);
       }
-    });
+    });*/
 
   }, function(error) {
     showMessage('Errore nella cancellazione: ' + error.message);
