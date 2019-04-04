@@ -16,7 +16,7 @@ function openDb() {
     //showMessage("da db " + versioneLocale);
   }
 
-  showMessage("Versione cloud: " + versione + " - Versione Locale: " + versioneLocale);
+  //showMessage("Versione cloud: " + versione + " - Versione Locale: " + versioneLocale);
   if(versione != versioneLocale) {
     showMessage('Il db non è aggiornato.');
     // Prelevo il JSON del DB dal server
@@ -62,11 +62,11 @@ function copyDatabaseFile(dbName) {
     }).then(function () {
       //showMessage("Database già presente");
     }).catch(function () {
-      showMessage("file doesn't exist, copying it");
+      //showMessage("file doesn't exist, copying it");
       return new Promise(function (resolve, reject) {
         sourceFile.copyTo(targetDir, 'copied_' + dbName, resolve, reject);
       }).then(function () {
-        showMessage("Database copiato");
+        //showMessage("Database copiato");
       });
     });
   });

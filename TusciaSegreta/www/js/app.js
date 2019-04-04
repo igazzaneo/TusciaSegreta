@@ -12,7 +12,12 @@ function onDeviceReady() {
   getServerDBVersion();
   initDatabase();
 
-  setTimeout(function() { changePage("firstpage.html"); }, 2000);
+  setTimeout(
+    function() {
+      showMessage(versione);
+      showMessage(database);
+      changePage("firstpage.html"); }, 2000
+  );
 
 }
 
