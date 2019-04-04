@@ -7,7 +7,7 @@
     <author email="info@itlogix.it" href="http://www.itlogix.it">
         ItLogix
     </author>
-    <content src="about.html" />
+    <content src="index.html" />
     <icon src="icon.png" />
     <preference name="DisallowOverscroll" value="true" />
     <preference name="android-minSdkVersion" value="14" />
