@@ -17,15 +17,12 @@ function onDeviceReady() {
   initDatabase();
   getMapLocation();
 
-  getElencoSiti(database);
-  fn.gotoPage('map.html');
-
-  /*setTimeout(
+  setTimeout(
     function() {
       getElencoSiti(database);
       fn.gotoPage('map.html');
     }, 2000
-  );*/
+  );
 
 
 }
