@@ -31,6 +31,18 @@
         var content = document.getElementById('content');
         content.load(page);
       }
+    } else if(document.getElementById('naviga') != null) {
+
+      if(page != 'naviga.html') {
+        var content = document.getElementById('content');
+        content.load(page);
+      }
+    } else if(document.getElementById('esplora') != null) {
+
+      if(page != 'esplora.html') {
+        var content = document.getElementById('content');
+        content.load(page);
+      }
     } else {
       var content = document.getElementById('content');
       content.load(page);
@@ -65,5 +77,3 @@
     }
 
   };
-
-  

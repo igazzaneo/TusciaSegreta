@@ -158,5 +158,48 @@
       control.addOverlay(gpx, gpx.get_name());
     }).addTo(mymap);*/
 
+
+    function getPosizioneAttuale() {
+
+      getMapLocation();
+
+      var options = {
+        icon: 'fas fa-map-marker-alt',
+        /*iconShape: 'marker',*/
+        borderColor: '#000000',
+        borderWidth: 1,
+        iconSize: [20, 20],
+        /*popupAnchor: [100, -10],*/
+        popupAnchor: [15, -7],
+        /*innerIconStyle: 'font-size:15px;padding-top:4px;color: #000000'*/
+      };
+
+
+      var myPosition = L.marker([getValueFromLocalStorage('latitudine'),getValueFromLocalStorage('longitudine')], {
+        icon: L.BeautifyIcon.icon(options),
+        draggable: false
+      }).bindPopup("<b>La tua posizione</b>").addTo(map);
+
+      var nodi = localStorage.getObj("nodi");
+
+      for(var x=0; x<nodi.length; x++) {
+
+        var nodo = nodi[x];
+
+        var to = L.marker([nodo[1], nodo[2]);
+
+        var distanzaInMetri = myPosition.getLatLng().distanceTo(to.getLatLng());
+
+        if(distanzaInMetri<20) {
+          showMessage("Hai raggiunto PDI: " + nodo[5]);
+        }
+      }
+
+      showMessage("verifica posizione...");
+      setTimeout(getPosizioneAttuale, 5000);
+    }
+
+    var loopFunction = getPosizioneAttuale();
+
     </script>
 </ons-page>

@@ -385,9 +385,30 @@ function checkLoggedAndGoToPage(page) {
 
 function getElencoSiti(database) {
 
-  database.transaction(function(transaction) {
-    transaction.executeSql('SELECT * FROM sito', [],  saveElencoSiti, dbSelecterror);
-  });
+  if(database == null) {
+    // DEBUG
+    var elenco = new Array();
+    for(var x=0; x<3; x++) {
+      var riga = new Array();
+      riga[0] = x;
+      riga[1] = "Qui c'è la denominazione del sito" + x;
+      riga[2] = "Qui c'è la descrizione estesa del sito" + x;
+      riga[3] = "http://www.linkdelvideo";
+      riga[4] = '42.585280';
+      riga[5] = '11.933396';
+
+      elenco[x] = riga;
+    }
+
+    localStorage.setObj('elencoSiti', elenco);
+
+  } else {
+    database.transaction(function(transaction) {
+      transaction.executeSql('SELECT * FROM sito', [],  saveElencoSiti, dbSelecterror);
+    });
+  }
+
+
 
 }
 
@@ -415,35 +436,94 @@ function saveElencoSiti(tx, resultSet) {
 
 function getSito(id, database)
 {
-  database.transaction(function(transaction) {
-    transaction.executeSql('SELECT * FROM sito where id=?', [id],  saveSito, dbSelecterror);
-  });
+  if(database != null) {
+    database.transaction(function(transaction) {
+      transaction.executeSql('SELECT * FROM sito where id=?', [id],  saveSito, dbSelecterror);
+      transaction.executeSql('SELECT * FROM percorso join where sito_id=?', [id], savePercorso, dbSelecterror);
+      transaction.executeSql('SELECT nodo.* from nodo join percorso on percorso.id=nodo.percorso_id join sito on sito.id=percorso.sito_id where sito.id=?', [id], saveNodo, dbSelecterror);
+    });
+
+  } else {
+    saveSito(null, null);
+
+  }
+
 
 }
 
 function saveSito(tx, resultSet)
 {
-  var riga = new Array();
-  riga[0] = resultSet.rows.item(0).id;
-  riga[1] = resultSet.rows.item(0).denominazione;
-  riga[2] = resultSet.rows.item(0).descrizione;
-  riga[3] = resultSet.rows.item(0).video;
-  riga[4] = resultSet.rows.item(0).latitudine;
-  riga[5] = resultSet.rows.item(0).longitudine;
+  if(tx == null && resultSet == null) {
+    var riga = new Array();
+    riga[0] = 1;
+    riga[1] = "Qui c'è la denominazione del sito";
+    riga[2] = "Qui c'è la descrizione estesa del sito";
+    riga[3] = "http://www.linkdelvideo";
+    riga[4] = '42.585280';
+    riga[5] = '11.933396';
 
-  localStorage.setObj('sito', riga);
+    localStorage.setObj('sito', riga);
 
-  /*var riga = new Array();
-  riga[0] = 1;
-  riga[1] = "Qui c'è la denominazione del sito";
-  riga[2] = "Qui c'è la descrizione estesa del sito";
-  riga[3] = "http://www.linkdelvideo";
-  riga[4] = '42.585280';
-  riga[5] = '11.933396';
+  } else {
+    var riga = new Array();
+    riga[0] = resultSet.rows.item(0).id;
+    riga[1] = resultSet.rows.item(0).denominazione;
+    riga[2] = resultSet.rows.item(0).descrizione;
+    riga[3] = resultSet.rows.item(0).video;
+    riga[4] = resultSet.rows.item(0).latitudine;
+    riga[5] = resultSet.rows.item(0).longitudine;
 
-  localStorage.setObj('sito', riga);*/
+    localStorage.setObj('sito', riga);
+  }
 
 }
+
+function savePercorso(tx, resultSet) {
+
+  if(tx == null && resultSet == null) {
+    // DEBUG
+  } else {
+
+    var riga = new Array();
+    riga[0] = resultSet.rows.item(0).id;
+    riga[1] = resultSet.rows.item(0).sito_id;
+    riga[2] = resultSet.rows.item(0).descrizione;
+    riga[3] = resultSet.rows.item(0).gpx;
+
+    localStorage.setObj('percorso', riga);
+
+  }
+
+
+}
+
+function saveNodo(tx, resultSet) {
+
+  if(tx == null && resultSet == null) {
+    // DEBUG
+  } else {
+    var elenco = new Array();
+
+    for(var x = 0; x < resultSet.rows.length; x++) {
+      var riga = new Array();
+      riga[0] = resultSet.rows.item(0).id;
+      riga[1] = resultSet.rows.item(0).latitudine;
+      riga[2] = resultSet.rows.item(0).longitudine;
+      riga[3] = resultSet.rows.item(0).percorso_id;
+      riga[4] = resultSet.rows.item(0).descrizione;
+      riga[5] = resultSet.rows.item(0).nome;
+
+      elenco[x] = riga;
+    }
+
+    localStorage.setObj('nodi', elenco);
+
+  }
+
+
+}
+
+
 
 
 
@@ -470,3 +550,32 @@ function saveSito(tx, resultSet)
   }, false);*/
 
 //})
+
+function generaTabellaSiti(pagina)
+{
+  var siti = localStorage.getObj('elencoSiti');
+
+  var tabella = "";
+  for(i=0; i<siti.length; i++) {
+
+    var sito = siti[i];
+
+    tabella += "<div><table style=\"width: 100%;\"><tbody><tr>" +
+     "<td style=\"width: 25%; height: 100%; text-align: center; vertical-align: middle;\"><img src=\"img/percorsi/eremo/foto1.jpg\" width=\"180px\"></td>" +
+     "<td style=\"width: 75%; vertical-align: top;\">" +
+        "<table style=\"width: 100%;\">" +
+        "<tbody>" +
+        "<tr><td style=\"font-weight: bold;\" colspan=\"3\">" + sito[1] + "</td></tr>" +
+        "<tr><td colspan=\"3\">" + sito[2] + "</td></tr>" +
+        "<tr><td class=\"facile\">Facile</td><td class=\"lunghezza\">2,1 km</td><td class=\"durata\">25 m</td></tr>" +
+        "<tr><td colspan=\"3\">Commenti<div id='trail-rating'><ul class='ratings'><li class='average'><span id='rating' class='rating star3_5'>&nbsp;</span></li></ul></div></td></tr>" +
+        "<tr><td colspan=\"3\" align=\"right\"><button type=\"button\" value=\"\" class=\"css3button\" onclick=\"changePageWithParam('scheda.html', " + sito[0] + ")\">  " + pagina + "  </button></td></tr>" +
+        "</tbody>" +
+        "</table>" +
+    "</td>" +
+    "</tr></tbody></table></div><div><hr class=\"style-three\"></div>";
+
+  }
+  $('#' + pagina).append(tabella);
+
+}

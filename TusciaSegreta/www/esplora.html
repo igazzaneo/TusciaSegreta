@@ -16,38 +16,8 @@
         Scegli il sito da esplorare
       </div>
     </ons-card>
-    <div>
-
-      <table style="width: 100%;" id="sitoTable">
-      <tbody>
-
-<script type="text/javascript">
-  var siti = localStorage.getObj('elencoSiti');
-  showMessage(siti);
-  for(i=0; i<siti.length; i++) {
-
-    var tabella = "<tr>" +
-     "<td style=\"width: 25%; height: 100%; text-align: center; vertical-align: middle;\"><img src=\"img/percorsi/eremo/foto1.jpg\" width=\"180px\"></td>" +
-     "<td style=\"width: 75%; vertical-align: top;\">" +
-        "<table style=\"width: 100%;\">" +
-        "<tbody>" +
-        "<tr><td style=\"font-weight: bold;\" colspan=\"3\" class=\"titolo\">" + sito[1] + "</td></tr>" +
-        "<tr><td colspan=\"3\" class=\"descrizione\">" + sito[2] + "</td></tr>" +
-        "<tr><td class=\"facile\">Facile</td><td class=\"lunghezza\">2,1 km</td><td class=\"durata\">25 m</td></tr>" +
-        "<tr><td colspan=\"3\">Commenti<div id='trail-rating'><ul class='ratings'><li class='average'><span id='rating' class='rating star3_5'>&nbsp;</span></li></ul></div></td></tr>" +
-        "<tr><td colspan=\"3\" align=\"right\"><button type=\"button\" value=\"\" class=\"css3button\" onclick=\"changePageWithParam('scheda.html', 1)\">  Esplora  </button></td></tr>" +
-        "</tbody>" +
-        "</table>" +
-    "</td>" +
-    "</tr>";
-
-    document.write(tabella);
-
-  }
-</script>
-      </tbody>
-      </table>
-    </div>
-    <div><hr class="style-three"></div>
-
+    <div id="esplora"></div>
+    <script type="text/javascript">
+      generaTabellaSiti('esplora');
+    </script>
 </ons-page>
