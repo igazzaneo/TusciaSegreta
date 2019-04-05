@@ -37,3 +37,11 @@ function onBackKeyDown(e) {
 function changePage(p) {
   document.location.href=p;
 }
+
+function changePageWithParam(p, param)
+{
+  saveOnLocalStorage('param', param);
+
+  fn.gotoPage(p);
+
+}

@@ -389,26 +389,6 @@ function getElencoSiti(database) {
     transaction.executeSql('SELECT * FROM sito', [],  saveElencoSiti, dbSelecterror);
   });
 
-  //fn.gotoPage('map.html');
-
-/*
-  var elenco = new Array();
-  for(var x = 0; x < 1; x++) {
-
-      var riga = new Array();
-      riga[0] = x;
-      riga[1] = "denominazione" + x;
-      riga[2] = "descrizione" + x;
-      riga[3] = "http://video.it" + x;
-      riga[4] = "41.912088982214854";
-      riga[5] = "12.501297653124993";
-
-      showMessage(riga[1]  + " - " + riga[4] + " - " + riga[5]);
-
-      elenco[x] = riga;
-  }
-
-  elencoSiti = elenco;*/
 }
 
 function saveElencoSiti(tx, resultSet) {
@@ -430,11 +410,42 @@ function saveElencoSiti(tx, resultSet) {
         elenco[x] = riga;
     }
 
-    //elencoSiti = elenco;
-
-    //saveOnLocalStorage('elencoSiti', elenco);
     localStorage.setObj('elencoSiti', elenco);
 }
+
+function getSito(id, database)
+{
+  database.transaction(function(transaction) {
+    transaction.executeSql('SELECT * FROM sito where id=?', [id],  saveSito, dbSelecterror);
+  });
+
+}
+
+function saveSito(tx, resultSet)
+{
+  var riga = new Array();
+  riga[0] = resultSet.rows.item(0).id;
+  riga[1] = resultSet.rows.item(0).denominazione;
+  riga[2] = resultSet.rows.item(0).descrizione;
+  riga[3] = resultSet.rows.item(0).video;
+  riga[4] = resultSet.rows.item(0).latitudine;
+  riga[5] = resultSet.rows.item(0).longitudine;
+
+  localStorage.setObj('sito', riga);
+
+  /*var riga = new Array();
+  riga[0] = 1;
+  riga[1] = "Qui c'è la denominazione del sito";
+  riga[2] = "Qui c'è la descrizione estesa del sito";
+  riga[3] = "http://www.linkdelvideo";
+  riga[4] = '42.585280';
+  riga[5] = '11.933396';
+
+  localStorage.setObj('sito', riga);*/
+
+}
+
+
 
 /* fine gestione versione del DB */
 //document.addEventListener('deviceready', function() {

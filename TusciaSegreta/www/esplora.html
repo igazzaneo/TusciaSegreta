@@ -17,36 +17,33 @@
       </div>
     </ons-card>
     <div>
-      <table style="width: 100%;">
+
+      <table style="width: 100%;" id="sitoTable">
       <tbody>
-      <tr>
-      <td style="width: 25%; height: 100%; text-align: center; vertical-align: middle;"><img src="img/percorsi/eremo/foto1.jpg" width="180px"></td>
-      <td style="width: 75%; vertical-align: top;">
-          <table style="width: 100%;">
-          <tbody>
-          <tr>
-            <td style="font-weight: bold;" colspan="3">Eremo di Poggio Conte</td>
-          </tr>
-          <tr>
-            <td colspan="3">L'eremo di Poggio Conte è forse uno dei più singolari esempi di insediamento monastico al mondo.</td>
-          </tr>
-          <tr>
-            <td class="facile">Facile</td>
-            <td class="lunghezza">2,1 km</td>
-            <td class="durata">25 m</td>
-          </tr>
-          <tr>
-            <td colspan="3">Commenti
-              <div id='trail-rating'><ul class='ratings'><li class='average'><span id='rating' class='rating star3_5'>&nbsp;</span></li></ul></div>
-            </td>
-          </tr>
-          <tr>
-            <td colspan="3" align="right"><button type="button" name="" value="" class="css3button" onclick="fn.gotoPage('scheda.html')">  Esplora  </button></td>
-          </tr>
-          </tbody>
-          </table>
-      </td>
-      </tr>
+
+<script type="text/javascript">
+  var siti = localStorage.getObj('elencoSiti');
+  for(i=0; i<siti.length; i++) {
+
+    var tabella = "<tr>" +
+     "<td style=\"width: 25%; height: 100%; text-align: center; vertical-align: middle;\"><img src=\"img/percorsi/eremo/foto1.jpg\" width=\"180px\"></td>" +
+     "<td style=\"width: 75%; vertical-align: top;\">" +
+        "<table style=\"width: 100%;\">" +
+        "<tbody>" +
+        "<tr><td style=\"font-weight: bold;\" colspan=\"3\" class=\"titolo\">" + sito[1] + "</td></tr>" +
+        "<tr><td colspan=\"3\" class=\"descrizione\">" + sito[2] + "</td></tr>" +
+        "<tr><td class=\"facile\">Facile</td><td class=\"lunghezza\">2,1 km</td><td class=\"durata\">25 m</td></tr>" +
+        "<tr><td colspan=\"3\">Commenti<div id='trail-rating'><ul class='ratings'><li class='average'><span id='rating' class='rating star3_5'>&nbsp;</span></li></ul></div></td></tr>" +
+        "<tr><td colspan=\"3\" align=\"right\"><button type=\"button\" value=\"\" class=\"css3button\" onclick=\"changePageWithParam('scheda.html', 1)\">  Esplora  </button></td></tr>" +
+        "</tbody>" +
+        "</table>" +
+    "</td>" +
+    "</tr>";
+
+    document.write(tabella);
+
+  }
+</script>
       </tbody>
       </table>
     </div>

@@ -28,13 +28,13 @@ function initMap() {
   };
 
   var percorsi = L.layerGroup();
-  var siti = localStorage.getObj('elencoSiti');//, elenco);getValueFromLocalStorage('elencoSiti');
+  var siti = localStorage.getObj('elencoSiti');
   //showMessage("SITI: " + siti)
   if(siti != 0) {
     for(var i=0; i<siti.length; i++) {
 
         var riga = siti[i];
-
+        var id = riga[0];
         var denominazione = riga[1];
         var latitudine = riga[4];
         var longitudine = riga[5];
@@ -42,11 +42,11 @@ function initMap() {
         L.marker([latitudine,longitudine], {
           icon: L.BeautifyIcon.icon(options),
           draggable: false
-        }).bindPopup("<b>" + denominazione +"</b><br /><img src='img/percorsi/eremo/foto2.jpg' width='130px'><br/><div id='trail-rating'><ul class='ratings'><li class='average'><span id='rating' class='rating star3_5'>&nbsp;</span></li></ul></div><br/><div class=\"divTable\"><div class=\"divTableRow\"><div class=\"divTableHead1\">Facile</div><div class=\"divTableHead2\">2,5 Km</div><div class=\"divTableHead3\">2 h</div></div></div><br/><a href='#' onclick=\"fn.load('scheda.html')\">Vai alla scheda</a>").addTo(percorsi);
+        }).bindPopup("<b>TEST</b><br /><img src='img/percorsi/eremo/foto2.jpg' width='130px'><br/><div id='trail-rating'><ul class='ratings'><li class='average'><span id='rating' class='rating star3_5'>&nbsp;</span></li></ul></div><br/><div class=\"divTable\"><div class=\"divTableRow\"><div class=\"divTableHead1\">Facile</div><div class=\"divTableHead2\">2,5 Km</div><div class=\"divTableHead3\">2 h</div></div></div><br/><a href='#' onclick=\"changePageWithParam('scheda.html', " + id + ")\">Vai alla scheda</a>").addTo(percorsi);
     }
 
   }
-
+  
   var map = new L.Map('mapid',{
       center: new L.LatLng(42.585280, 11.933396),
       zoom: 9,
