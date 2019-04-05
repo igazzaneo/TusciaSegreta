@@ -17,12 +17,15 @@ function onDeviceReady() {
   initDatabase();
   getMapLocation();
 
-  setTimeout(
+  getElencoSiti(database);
+  fn.gotoPage('map.html');
+
+  /*setTimeout(
     function() {
       getElencoSiti(database);
       fn.gotoPage('map.html');
     }, 2000
-  );
+  );*/
 
 
 }
@@ -36,10 +39,4 @@ function onBackKeyDown(e) {
 
 function changePage(p) {
   document.location.href=p;
-}
-
-function getId() {
-    var urlParams = new URLSearchParams(window.location.search);
-    showMessage(urlParams.get('id')); // true
-
 }
