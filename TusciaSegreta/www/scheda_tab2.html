@@ -105,9 +105,9 @@
 //showMessage(percorso[3]);
     var elevationControl = {
       //url: "https://raruto.github.io/examples/leaflet-elevation/via-emilia.gpx",
-      url: "gpx/eremo-di-poggio-conte2.gpx",
+      //url: "gpx/eremo-di-poggio-conte2.gpx",
       //url: percorso[3],
-      //url: "gpx/vallefaul.gpx",
+      url: "gpx/test.gpx",
       options: {
         position: "topleft",
         theme: "magenta-theme", //default: lime-theme
@@ -199,8 +199,7 @@
               draggable: false}).addTo(map).bindPopup("Sei qui").openPopup();
 
         }
-
-
+/*
        var nodi = localStorage.getObj("nodi");
 
         for(var x=0; x<nodi.length; x++) {
@@ -215,7 +214,7 @@
               showMessage("Hai raggiunto PDI: " + nodo[5]);
             }
         }
-
+*/
         setTimeout(getPosizioneAttuale, 5000);
     }
 
