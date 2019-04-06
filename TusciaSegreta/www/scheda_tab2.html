@@ -172,11 +172,9 @@
 
       var options = {
         icon: 'fas fa-map-marker-alt',
-
         borderColor: '#000000',
         borderWidth: 1,
         iconSize: [20, 20],
-
         popupAnchor: [15, -7],
 
       };
@@ -186,12 +184,11 @@
       var latitudine = getValueFromLocalStorage('latitudine');
       var longitudine = getValueFromLocalStorage('longitudine');
 
-      current_position = L.marker([latitudine, longitudine].latlng, {
+      current_position = L.marker([latitudine, longitudine], {
         icon: L.BeautifyIcon.icon(options),
         draggable: false}).addTo(map).bindPopup("Sei " + radius + " m dal punto").openPopup();
 
       var nodi = localStorage.getObj("nodi");
-//showMessage(nodi);
 
      for(var x=0; x<nodi.length; x++) {
 
