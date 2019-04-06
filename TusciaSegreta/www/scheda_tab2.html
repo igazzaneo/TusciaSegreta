@@ -166,44 +166,44 @@
 
     function getPosizioneAttuale() {
 
-      if (current_position) {
-          map.removeLayer(current_position);
-      }
-
-      var options = {
-        icon: 'fas fa-map-marker-alt',
-        borderColor: '#000000',
-        borderWidth: 1,
-        iconSize: [20, 20],
-        popupAnchor: [15, -7],
-
-      };
-
-      getMapLocation();
-
-      var latitudine = getValueFromLocalStorage('latitudine');
-      var longitudine = getValueFromLocalStorage('longitudine');
-
-      current_position = L.marker([latitudine, longitudine], {
-        icon: L.BeautifyIcon.icon(options),
-        draggable: false}).addTo(map).bindPopup("Sei " + radius + " m dal punto").openPopup();
-
-      var nodi = localStorage.getObj("nodi");
-
-     for(var x=0; x<nodi.length; x++) {
-
-        var nodo = nodi[x];
-
-        var to = L.marker([nodo[1], nodo[2]);
-
-        var distanzaInMetri = current_position.getLatLng().distanceTo(to.getLatLng());
-
-        if(distanzaInMetri<20) {
-          showMessage("Hai raggiunto PDI: " + nodo[5]);
+        if (current_position) {
+            map.removeLayer(current_position);
         }
-      }
 
-      setTimeout(getPosizioneAttuale, 3000);
+        var options = {
+          icon: 'fas fa-map-marker-alt',
+          borderColor: '#000000',
+          borderWidth: 1,
+          iconSize: [20, 20],
+          popupAnchor: [15, -7],
+
+        };
+
+        getMapLocation();
+
+        var latitudine = getValueFromLocalStorage('latitudine');
+        var longitudine = getValueFromLocalStorage('longitudine');
+
+        current_position = L.marker([latitudine, longitudine], {
+          icon: L.BeautifyIcon.icon(options),
+          draggable: false}).addTo(map).bindPopup("Sei qui").openPopup();
+
+/*        var nodi = localStorage.getObj("nodi");
+
+        for(var x=0; x<nodi.length; x++) {
+
+            var nodo = nodi[x];
+
+            var to = L.marker([nodo[1], nodo[2]);
+
+            var distanzaInMetri = current_position.getLatLng().distanceTo(to.getLatLng());
+
+            if(distanzaInMetri<20) {
+              showMessage("Hai raggiunto PDI: " + nodo[5]);
+            }
+        }
+*/
+        setTimeout(getPosizioneAttuale, 3000);
     }
 
 
