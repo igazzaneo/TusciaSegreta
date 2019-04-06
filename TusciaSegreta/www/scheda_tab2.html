@@ -72,11 +72,25 @@
        type: 'hybrid'	// valid values are 'roadmap', 'satellite', 'terrain' and 'hybrid'
     })
 
+    var options = {
+      icon: 'fas fa-map-pin',
+      iconShape: 'marker',
+      borderColor: '#000000',
+      borderWidth: 2,
+      iconSize: [25, 25],
+      popupAnchor: [-1, -32],
+      textColor: '#000000'
+    };
+
     var map = new L.Map('mapid3',{
         center: new L.LatLng(42.585280, 11.933396),
         zoom: 9,
         layers: [roads]
     });
+
+    map.locate({setView: true, watch: true, maxZoom: 20});
+    //map.on('locationfound', onLocationFound);
+    //map.on('locationerror', onLocationError);
 
     var baseLayers = {
         "Standard": roads,
@@ -91,8 +105,8 @@
 //showMessage(percorso[3]);
     var elevationControl = {
       //url: "https://raruto.github.io/examples/leaflet-elevation/via-emilia.gpx",
-      url: "gpx/eremo-di-poggio-conte2.gpx",
-      //url: percorso[3],
+      //url: "gpx/eremo-di-poggio-conte2.gpx",
+      url: percorso[3],
       options: {
         position: "topleft",
         theme: "magenta-theme", //default: lime-theme
@@ -110,15 +124,7 @@
 
     //var gpx = 'gpx/eremo-di-poggio-conte2.gpx'; // URL to your GPX file or the GPX itself
 
-    var options = {
-      icon: 'fas fa-map-pin',
-      iconShape: 'marker',
-      borderColor: '#000000',
-      borderWidth: 2,
-      iconSize: [25, 25],
-      popupAnchor: [-1, -32],
-      textColor: '#000000'
-    };
+
 
     var startOptions = {
       icon: 'fas fa-flag',
@@ -167,29 +173,35 @@
 
     function getPosizioneAttuale() {
 
-        if (current_position) {
-            map.removeLayer(current_position);
-        }
+        getMapLocation();
+
+        var latitudine = getValueFromLocalStorage('latitudine');
+        var longitudine = getValueFromLocalStorage('longitudine');
 
         var options = {
           icon: 'fas fa-map-marker-alt',
           borderColor: '#000000',
           borderWidth: 1,
           iconSize: [20, 20],
-          popupAnchor: [15, -7],
+          popupAnchor: [5, -6],
 
         };
+        i=i+1;
+        if (current_position) {
+            //map.removeLayer(current_position);
+            //showMessage("riposizione marker...");
+            current_position.setLatLng([latitudine, longitudine]);
+        } else {
+            showMessage("Aggiuni marker");
 
-        getMapLocation();
+            current_position = L.marker([latitudine, longitudine], {
+              icon: L.BeautifyIcon.icon(options),
+              draggable: false}).addTo(map).bindPopup("Sei qui").openPopup();
 
-        var latitudine = getValueFromLocalStorage('latitudine');
-        var longitudine = getValueFromLocalStorage('longitudine');
+        }
 
-        current_position = L.marker([latitudine, longitudine], {
-          icon: L.BeautifyIcon.icon(options),
-          draggable: false}).addTo(map).bindPopup("Sei qui: " + i).openPopup();
 
-/*        var nodi = localStorage.getObj("nodi");
+       var nodi = localStorage.getObj("nodi");
 
         for(var x=0; x<nodi.length; x++) {
 
@@ -203,8 +215,8 @@
               showMessage("Hai raggiunto PDI: " + nodo[5]);
             }
         }
-*/
-        setTimeout(getPosizioneAttuale, 3000);
+
+        setTimeout(getPosizioneAttuale, 1000);
     }
 
 
