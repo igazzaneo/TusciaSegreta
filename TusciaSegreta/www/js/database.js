@@ -447,7 +447,33 @@ function getSito(id, database)
     saveSito(null, null);
 
   }
+}
 
+function getPercorsoSito(id, database)
+{
+  if(database != null) {
+    database.transaction(function(transaction) {
+      transaction.executeSql('SELECT * FROM percorso where sito_id=?', [id], savePercorso, dbSelecterror);
+    });
+
+  } else {
+    savePercorso(null, null);
+
+  }
+
+}
+
+function getNodiPercorsoSito(id, database)
+{
+  if(database != null) {
+    database.transaction(function(transaction) {
+      transaction.executeSql('SELECT nodo.* from nodo join percorso on percorso.id=nodo.percorso_id join sito on sito.id=percorso.sito_id where sito.id=?', [id], saveNodo, dbSelecterror);
+    });
+
+  } else {
+    saveNodo(null, null);
+
+  }
 
 }
 
@@ -499,10 +525,11 @@ function savePercorso(tx, resultSet) {
 
 function saveNodo(tx, resultSet) {
 
+  var elenco = new Array();
+
   if(tx == null && resultSet == null) {
     // DEBUG
   } else {
-    var elenco = new Array();
 
     for(var x = 0; x < resultSet.rows.length; x++) {
       var riga = new Array();
@@ -515,6 +542,8 @@ function saveNodo(tx, resultSet) {
 
       elenco[x] = riga;
     }
+
+    showMessage("Nodi: " + elenco);
 
     localStorage.setObj('nodi', elenco);
 
