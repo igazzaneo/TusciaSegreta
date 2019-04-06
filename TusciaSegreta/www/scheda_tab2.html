@@ -88,7 +88,7 @@
     L.control.layers(baseLayers).addTo(map);
 
     var percorso = localStorage.getObj("percorso");
-showMessage(percorso[3]);
+//showMessage(percorso[3]);
     var elevationControl = {
       //url: "https://raruto.github.io/examples/leaflet-elevation/via-emilia.gpx",
       url: "gpx/eremo-di-poggio-conte2.gpx",
@@ -160,50 +160,88 @@ showMessage(percorso[3]);
       mymap.fitBounds(gpx.getBounds());
       control.addOverlay(gpx, gpx.get_name());
     }).addTo(mymap);*/
+    var current_position, current_accuracy;
 
+    function onLocationFound(e) {
+      // if position defined, then remove the existing position marker and accuracy circle from the map
+      if (current_position) {
+          map.removeLayer(current_position);
+          map.removeLayer(current_accuracy);
+      }
 
-    function getPosizioneAttuale() {
+      var radius = e.accuracy / 2;
 
-      getMapLocation();
+      current_position = L.marker(e.latlng).addTo(map)
+        .bindPopup("You are within " + radius + " meters from this point").openPopup();
+
+      current_accuracy = L.circle(e.latlng, radius).addTo(map);
+    }
+
+    function onLocationError(e) {
+      alert(e.message);
+    }
+
+    map.on('locationfound', onLocationFound);
+    map.on('locationerror', onLocationError);
+
+    // wrap map.locate in a function
+    function locate() {
+      map.locate({setView: true, maxZoom: 16});
+    }
+
+    // call locate every 3 seconds... forever
+    setInterval(locate, 3000);
+
+    /*function getPosizioneAttuale(e) {
+
+      var current_position, current_accuracy;
+
+      if (current_position) {
+          map.removeLayer(current_position);
+          map.removeLayer(current_accuracy);
+      }
 
       var options = {
         icon: 'fas fa-map-marker-alt',
-        /*iconShape: 'marker',*/
+
         borderColor: '#000000',
         borderWidth: 1,
         iconSize: [20, 20],
-        /*popupAnchor: [100, -10],*/
+
         popupAnchor: [15, -7],
-        /*innerIconStyle: 'font-size:15px;padding-top:4px;color: #000000'*/
+
       };
 
+      getMapLocation();
 
-      var myPosition = L.marker([getValueFromLocalStorage('latitudine'),getValueFromLocalStorage('longitudine')], {
+      current_position = L.marker(e.latlng, {
         icon: L.BeautifyIcon.icon(options),
-        draggable: false
-      }).bindPopup("<b>La tua posizione</b>").addTo(map);
+        draggable: false}).addTo(map).bindPopup("Sei " + radius + " m dal punto").openPopup();
+
+      current_accuracy = L.circle(e.latlng, radius).addTo(map);
 
       var nodi = localStorage.getObj("nodi");
 //showMessage(nodi);
-/*
+
      for(var x=0; x<nodi.length; x++) {
 
         var nodo = nodi[x];
 
         var to = L.marker([nodo[1], nodo[2]);
 
-        var distanzaInMetri = myPosition.getLatLng().distanceTo(to.getLatLng());
+        var distanzaInMetri = current_position.getLatLng().distanceTo(to.getLatLng());
 
         if(distanzaInMetri<20) {
           showMessage("Hai raggiunto PDI: " + nodo[5]);
         }
       }
-*/
-      //showMessage("verifica posizione...");
-      setTimeout(getPosizioneAttuale, 5000);
+
+
+        setTimeout(getPosizioneAttuale, 3000);
     }
 
-    var loopFunction = getPosizioneAttuale();
 
+    getPosizioneAttuale();
+*/
     </script>
 </ons-page>
