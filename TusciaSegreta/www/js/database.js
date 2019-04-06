@@ -543,7 +543,7 @@ function saveNodo(tx, resultSet) {
       elenco[x] = riga;
     }
 
-    showMessage("Nodi: " + elenco);
+    //showMessage("Nodi: " + elenco);
 
     localStorage.setObj('nodi', elenco);
 
