@@ -10,11 +10,6 @@
   </wpt>
   <trk>
     <name>Valle Faul 03-04-2019</name>
-    <extensions>
-      <gpxx:TrackExtension>
-        <gpxx:DisplayColor>Blue</gpxx:DisplayColor>
-      </gpxx:TrackExtension>
-    </extensions>
     <trkseg>
       <trkpt lat="42.41604" lon="12.09922">
         <ele>316.5</ele>
