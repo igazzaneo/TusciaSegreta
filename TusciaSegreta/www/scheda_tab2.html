@@ -184,8 +184,9 @@ showMessage(percorso[3]);
       }).bindPopup("<b>La tua posizione</b>").addTo(map);
 
       var nodi = localStorage.getObj("nodi");
+showMessage(nodi);
 
-      for(var x=0; x<nodi.length; x++) {
+/*      for(var x=0; x<nodi.length; x++) {
 
         var nodo = nodi[x];
 
@@ -197,7 +198,7 @@ showMessage(percorso[3]);
           showMessage("Hai raggiunto PDI: " + nodo[5]);
         }
       }
-
+*/
       showMessage("verifica posizione...");
       setTimeout(getPosizioneAttuale, 5000);
     }
