@@ -172,7 +172,7 @@
     var current_position;
     var i=0;
     var nodi = localStorage.getObj("nodi");
-    showMessage(nodi);
+    //showMessage(nodi);
 
     function getPosizioneAttuale() {
 
@@ -202,14 +202,14 @@
         for(var x=0; x<nodi.length; x++) {
 
             var nodo = nodi[x];
-            showMessage(nodo);
-            /*var to = L.marker([nodo[1], nodo[2]);
+            //showMessage(nodo);
+            var to = L.marker([nodo[1], nodo[2]]);
 
             var distanzaInMetri = current_position.getLatLng().distanceTo(to.getLatLng());
 
             if(distanzaInMetri<20) {
               showMessage("Hai raggiunto PDI: " + nodo[5]);
-            }*/
+            }
         }
 
         setTimeout(getPosizioneAttuale, 5000);
