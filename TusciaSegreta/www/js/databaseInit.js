@@ -18,7 +18,7 @@ function openDb() {
 
   //showMessage("Versione cloud: " + versione + " - Versione Locale: " + versioneLocale);
   if(versione != versioneLocale) {
-    showMessage('Il db non è aggiornato.');
+    //showMessage('Il db non è aggiornato.');
     // Prelevo il JSON del DB dal server
     getServerDB();
 
