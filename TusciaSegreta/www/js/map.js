@@ -38,15 +38,15 @@ function initMap() {
         var denominazione = riga[1];
         var latitudine = riga[4];
         var longitudine = riga[5];
-        //showMessage("MAP: " + denominazione + latitudine + longitudine);
+        showMessage("MAP: " + denominazione +"-"+ latitudine +"-"+ longitudine +"-"+ id);
         L.marker([latitudine,longitudine], {
           icon: L.BeautifyIcon.icon(options),
           draggable: false
-        }).bindPopup("<b>TEST</b><br /><img src='img/percorsi/eremo/foto2.jpg' width='130px'><br/><div id='trail-rating'><ul class='ratings'><li class='average'><span id='rating' class='rating star3_5'>&nbsp;</span></li></ul></div><br/><div class=\"divTable\"><div class=\"divTableRow\"><div class=\"divTableHead1\">Facile</div><div class=\"divTableHead2\">2,5 Km</div><div class=\"divTableHead3\">2 h</div></div></div><br/><a href='#' onclick=\"changePageWithParam('scheda.html', " + id + ")\">Vai alla scheda</a>").addTo(percorsi);
+        }).bindPopup("<b>" + denominazione + "(" + id + ")" + "</b><br /><img src='img/percorsi/eremo/foto2.jpg' width='130px'><br/><div id='trail-rating'><ul class='ratings'><li class='average'><span id='rating' class='rating star3_5'>&nbsp;</span></li></ul></div><br/><div class=\"divTable\"><div class=\"divTableRow\"><div class=\"divTableHead1\">Facile</div><div class=\"divTableHead2\">2,5 Km</div><div class=\"divTableHead3\">2 h</div></div></div><br/><a href='#' onclick=\"changePageWithParam('scheda.html', " + id + ")\">Vai alla scheda</a>").addTo(percorsi);
     }
 
   }
-  
+
   var map = new L.Map('mapid',{
       center: new L.LatLng(42.585280, 11.933396),
       zoom: 9,

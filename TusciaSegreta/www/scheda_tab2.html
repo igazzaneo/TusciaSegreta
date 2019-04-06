@@ -88,11 +88,11 @@
     L.control.layers(baseLayers).addTo(map);
 
     var percorso = localStorage.getObj("percorso");
-
+showMessage(percorso[3]);
     var elevationControl = {
       //url: "https://raruto.github.io/examples/leaflet-elevation/via-emilia.gpx",
-      //url: "gpx/eremo-di-poggio-conte2.gpx",
-      url: percorso[3],
+      url: "gpx/eremo-di-poggio-conte2.gpx",
+      //url: percorso[3],
       options: {
         position: "topleft",
         theme: "magenta-theme", //default: lime-theme
