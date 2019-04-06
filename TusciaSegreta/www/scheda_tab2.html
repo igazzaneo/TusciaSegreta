@@ -163,6 +163,7 @@
 
 
     var current_position;
+    var i=0;
 
     function getPosizioneAttuale() {
 
@@ -186,7 +187,7 @@
 
         current_position = L.marker([latitudine, longitudine], {
           icon: L.BeautifyIcon.icon(options),
-          draggable: false}).addTo(map).bindPopup("Sei qui").openPopup();
+          draggable: false}).addTo(map).bindPopup("Sei qui: " + i).openPopup();
 
 /*        var nodi = localStorage.getObj("nodi");
 
