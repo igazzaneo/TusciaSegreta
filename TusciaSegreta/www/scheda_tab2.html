@@ -184,9 +184,9 @@ showMessage(percorso[3]);
       }).bindPopup("<b>La tua posizione</b>").addTo(map);
 
       var nodi = localStorage.getObj("nodi");
-showMessage(nodi);
-
-/*      for(var x=0; x<nodi.length; x++) {
+//showMessage(nodi);
+/*
+     for(var x=0; x<nodi.length; x++) {
 
         var nodo = nodi[x];
 
@@ -199,7 +199,7 @@ showMessage(nodi);
         }
       }
 */
-      showMessage("verifica posizione...");
+      //showMessage("verifica posizione...");
       setTimeout(getPosizioneAttuale, 5000);
     }
 
