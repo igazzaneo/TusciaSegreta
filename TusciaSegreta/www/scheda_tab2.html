@@ -160,45 +160,14 @@
       mymap.fitBounds(gpx.getBounds());
       control.addOverlay(gpx, gpx.get_name());
     }).addTo(mymap);*/
-    var current_position, current_accuracy;
 
-    function onLocationFound(e) {
-      // if position defined, then remove the existing position marker and accuracy circle from the map
-      if (current_position) {
-          map.removeLayer(current_position);
-          map.removeLayer(current_accuracy);
-      }
 
-      var radius = e.accuracy / 2;
+    var current_position;
 
-      current_position = L.marker(e.latlng).addTo(map)
-        .bindPopup("You are within " + radius + " meters from this point").openPopup();
-
-      current_accuracy = L.circle(e.latlng, radius).addTo(map);
-    }
-
-    function onLocationError(e) {
-      alert(e.message);
-    }
-
-    map.on('locationfound', onLocationFound);
-    map.on('locationerror', onLocationError);
-
-    // wrap map.locate in a function
-    function locate() {
-      map.locate({setView: true, maxZoom: 16});
-    }
-
-    // call locate every 3 seconds... forever
-    setInterval(locate, 3000);
-
-    /*function getPosizioneAttuale(e) {
-
-      var current_position, current_accuracy;
+    function getPosizioneAttuale() {
 
       if (current_position) {
           map.removeLayer(current_position);
-          map.removeLayer(current_accuracy);
       }
 
       var options = {
@@ -214,11 +183,12 @@
 
       getMapLocation();
 
-      current_position = L.marker(e.latlng, {
+      var latitudine = getValueFromLocalStorage('latitudine');
+      var longitudine = getValueFromLocalStorage('longitudine');
+
+      current_position = L.marker([latitudine, longitudine].latlng, {
         icon: L.BeautifyIcon.icon(options),
         draggable: false}).addTo(map).bindPopup("Sei " + radius + " m dal punto").openPopup();
-
-      current_accuracy = L.circle(e.latlng, radius).addTo(map);
 
       var nodi = localStorage.getObj("nodi");
 //showMessage(nodi);
@@ -236,12 +206,11 @@
         }
       }
 
-
-        setTimeout(getPosizioneAttuale, 3000);
+      setTimeout(getPosizioneAttuale, 3000);
     }
 
 
     getPosizioneAttuale();
-*/
+
     </script>
 </ons-page>
