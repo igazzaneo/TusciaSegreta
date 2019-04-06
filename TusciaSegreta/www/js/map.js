@@ -38,7 +38,7 @@ function initMap() {
         var denominazione = riga[1];
         var latitudine = riga[4];
         var longitudine = riga[5];
-        showMessage("MAP: " + denominazione +"-"+ latitudine +"-"+ longitudine +"-"+ id);
+        //showMessage("MAP: " + denominazione +"-"+ latitudine +"-"+ longitudine +"-"+ id);
         L.marker([latitudine,longitudine], {
           icon: L.BeautifyIcon.icon(options),
           draggable: false
