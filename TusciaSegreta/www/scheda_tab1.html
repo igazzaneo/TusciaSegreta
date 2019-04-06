@@ -3,6 +3,8 @@
     var param = getValueFromLocalStorage('param');
     //showMessage("Scheda: " + param);
     getSito(param, database);
+    getPercorsoSito(param, database);
+    getNodiPercorsoSito(param, database);
 
     var sito = localStorage.getObj('sito');
 
