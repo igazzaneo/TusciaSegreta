@@ -533,12 +533,12 @@ function saveNodo(tx, resultSet) {
 
     for(var x = 0; x < resultSet.rows.length; x++) {
       var riga = new Array();
-      riga[0] = resultSet.rows.item(0).id;
-      riga[1] = resultSet.rows.item(0).latitudine;
-      riga[2] = resultSet.rows.item(0).longitudine;
-      riga[3] = resultSet.rows.item(0).percorso_id;
-      riga[4] = resultSet.rows.item(0).descrizione;
-      riga[5] = resultSet.rows.item(0).nome;
+      riga[0] = resultSet.rows.item(x).id;
+      riga[1] = resultSet.rows.item(x).latitudine;
+      riga[2] = resultSet.rows.item(x).longitudine;
+      riga[3] = resultSet.rows.item(x).percorso_id;
+      riga[4] = resultSet.rows.item(x).descrizione;
+      riga[5] = resultSet.rows.item(x).nome;
 
       elenco[x] = riga;
     }
