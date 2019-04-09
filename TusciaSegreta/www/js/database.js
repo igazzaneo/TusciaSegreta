@@ -531,8 +531,8 @@ function saveNodo(tx, resultSet) {
     // DEBUG
     var riga = new Array();
     riga[0] = "1";
-    riga[1] = "42.435507";
-    riga[2] = "12.103905";
+    riga[1] = "42.435442";
+    riga[2] = "12.106059";
     riga[3] = "1";
     riga[4] = "Descrizione del nodo";
     riga[5] = "Nome del nodo";

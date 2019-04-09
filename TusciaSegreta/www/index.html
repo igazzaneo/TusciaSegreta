@@ -81,5 +81,13 @@
       </ons-bottom-toolbar>
 
     </ons-splitter>
+    <ons-toast id="notify" animation="ascend">
+      <table width="100%">
+        <tr><td>Hai raggiunto il punto di interesse:</td></tr>
+        <tr><td><div id="nodo_nome"></div></td></tr>
+        <tr><td><div id="nodo_descrizione"></div></td></tr>
+      </table>
+      <button onclick="notify.hide()">ok</button>
+    </ons-toast>
     </body>
 </html>
