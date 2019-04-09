@@ -60,12 +60,15 @@ function initMap() {
       "Ibrido": hybrid
   };
 
+  
   var overlays = {
       "Percorsi": percorsi
   };
 
   L.control.layers(baseLayers, overlays).addTo(map);
 }
+
+//var helloPopup = L.popup().setContent('Hello World!');
 
 
 function getMapLocation() {

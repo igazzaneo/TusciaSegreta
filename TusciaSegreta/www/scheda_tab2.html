@@ -1,7 +1,7 @@
 <ons-page id="Scelta">
 
-    <div id="mapid3" style="width: 100%; height: 50%;"></div>
-    <div id="elevation-div" style="width: 100%; height: 35%;"></div>
+    <div id="mapid3" style="width: 100%; height: 85%;"></div>
+    <div id="elevation-div" style="width: 100%; height: 35%;display: none;"></div>
     <br/>
     <div>
       <ons-list>
@@ -56,6 +56,8 @@
 
   <script>
 
+    var lc;
+
     var roads = L.gridLayer.googleMutant({
        type: 'roadmap'	// valid values are 'roadmap', 'satellite', 'terrain' and 'hybrid'
     })
@@ -88,7 +90,14 @@
         layers: [roads]
     });
 
-    map.locate({setView: true, watch: true, maxZoom: 20});
+    /*L.easyButton('fa-mountain', function(btn, map){
+      showMessage("Click");
+      $("#mapid3").css('height', '65%');
+      $("#elevation-div").css('display', 'inline-block');
+    }).addTo( map );
+    */
+
+    //map.locate({setView: true, watch: true, maxZoom: 20});
     //map.on('locationfound', onLocationFound);
     //map.on('locationerror', onLocationError);
 
@@ -106,14 +115,14 @@
     var elevationControl = {
       //url: "https://raruto.github.io/examples/leaflet-elevation/via-emilia.gpx",
       //url: "gpx/eremo-di-poggio-conte2.gpx",
-      //url: percorso[3],
-      url: "gpx/test.gpx",
+      url: percorso[3],
+      //url: "gpx/test.gpx",
       options: {
         position: "topleft",
         theme: "magenta-theme", //default: lime-theme
         useHeightIndicator: true, //if false a marker is drawn at map position
         interpolation: d3.curveLinear, //see https://github.com/d3/d3/wiki/
-        collapsed: true, //collapsed mode, show chart on click or mouseover
+        collapsed: false, //collapsed mode, show chart on click or mouseover
         elevationDiv: "#elevation-div",
         detachedView: true,
         responsiveView: true,
@@ -125,6 +134,19 @@
 
     //var gpx = 'gpx/eremo-di-poggio-conte2.gpx'; // URL to your GPX file or the GPX itself
 
+   lc = L.control.locate({
+      position: 'topleft',
+      clickBehavior: {
+        inView: 'setView',
+        outOfView: 'setView',
+        inViewNotFollowing: 'setView'
+      },
+      icon: "far fa-dot-circle",
+      strings: {
+        title: "La tua posizione!"
+      }
+    }).addTo(map);
+    lc.start();
 
 
     var startOptions = {
@@ -172,7 +194,7 @@
     var current_position;
     var i=0;
     var nodi = localStorage.getObj("nodi");
-    //showMessage(nodi);
+    showMessage(nodi);
 
     function getPosizioneAttuale() {
 
@@ -182,7 +204,7 @@
         var longitudine = getValueFromLocalStorage('longitudine');
 
         var options = {
-          icon: 'fas fa-map-marker-alt',
+          icon: 'fas fa-chevron-circle-up',
           borderColor: '#000000',
           borderWidth: 1,
           iconSize: [20, 20],
@@ -215,8 +237,45 @@
         setTimeout(getPosizioneAttuale, 5000);
     }
 
+    function stopFollowing()
+    {
+      showMessage("StopFollowing");
+      lc.stop();
 
-    getPosizioneAttuale();
+    }
+
+    function verificaSito(e)
+    {
+
+      for(var x=0; x<nodi.length; x++) {
+
+          var nodo = nodi[x];
+          //showMessage(nodo);
+          var to = L.marker([nodo[1], nodo[2]]);
+
+          var distanzaInMetri = e.latlng.distanceTo(to.getLatLng());
+
+          if(distanzaInMetri<20) {
+            //showMessage("Hai raggiunto PDI: " + nodo[5]);
+            $("#nodo_nome").innerHTML(nodo[5]);
+            $("#nodo_nome").innerHTML(nodo[4]);
+            notify.toggle();
+          }
+      }
+
+    }
+
+
+    //getPosizioneAttuale();
 
     </script>
+
+    <ons-toast id="notify" animation="ascend">
+      <table width="100%">
+        <tr><td>Hai raggiunto il punto di interesse:</td></tr>
+        <tr><td id="nodo_nome"></td></tr>
+        <tr><td id="nodo_descrizione"></td></tr>
+      </table>
+      <button onclick="notify.hide()">ok</button>
+    </ons-toast>
 </ons-page>

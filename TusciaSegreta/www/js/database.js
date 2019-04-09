@@ -529,6 +529,15 @@ function saveNodo(tx, resultSet) {
 
   if(tx == null && resultSet == null) {
     // DEBUG
+    var riga = new Array();
+    riga[0] = "1";
+    riga[1] = "42.435507";
+    riga[2] = "12.103905";
+    riga[3] = "1";
+    riga[4] = "Descrizione del nodo";
+    riga[5] = "Nome del nodo";
+
+    elenco[0] = riga;
   } else {
 
     for(var x = 0; x < resultSet.rows.length; x++) {
