@@ -609,7 +609,7 @@ You can find the project at: https://github.com/domoritz/leaflet-locatecontrol
                 var mStyle = this._isFollowing() ? this.options.followMarkerStyle : this.options.markerStyle;
                 if (!this._marker) {
                     //this._marker = new this.options.markerClass(latlng, mStyle).addTo(this._layer);
-                    this._marker = new this.options.markerClass([latitudine, longitudine]], mStyle).addTo(this._layer);
+                    this._marker = new this.options.markerClass([latitudine, longitudine], mStyle).addTo(this._layer);
                 } else {
                     //this._marker.setLatLng(latlng);
                     this._marker.setLatLng([latitudine, longitudine]);
