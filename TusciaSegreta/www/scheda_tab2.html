@@ -1,6 +1,6 @@
 <ons-page>
-    <div id="mapid3" style="width: 100%; height: 100%;"></div>
-    <div id="elevation-div" style="width: 100%; height: 0%;display: none;"></div>
+    <div id="mapid3" style="width: 100%; height: 55%;"></div>
+    <div id="elevation-div" style="width: 100%; height: 40%;"></div>
     <div id="toast" style="width: 100%">
       <div id="img">Icon</div>
       <div id="name">Nome:</div>
@@ -132,7 +132,7 @@
       options: {
         position: "topleft",
         theme: "magenta-theme", //default: lime-theme
-        useHeightIndicator: false, //if false a marker is drawn at map position
+        useHeightIndicator: true, //if false a marker is drawn at map position
         interpolation: d3.curveLinear, //see https://github.com/d3/d3/wiki/
         collapsed: false, //collapsed mode, show chart on click or mouseover
         elevationDiv: "#elevation-div",
