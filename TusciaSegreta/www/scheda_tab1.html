@@ -1,13 +1,6 @@
 <ons-page id="Scelta">
   <script>
-    var param = getValueFromLocalStorage('param');
-    //showMessage("Scheda: " + param);
-    getSito(param, database);
-    getPercorsoSito(param, database);
-    getNodiPercorsoSito(param, database);
-
     var sito = localStorage.getObj('sito');
-
     $(".title").html(sito[1]);
     document.getElementById('video').src=sito[3];
     $(".content").html(sito[2]);

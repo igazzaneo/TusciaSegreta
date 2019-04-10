@@ -1,11 +1,7 @@
 <ons-page>
     <div id="mapid3" style="width: 100%; height: 100%;"></div>
-    <div id="elevation-div" style="width: 100%; display: none;"></div>
-    <div id="toast" style="width: 100%; display: none;">
-      <div id="img">Icon</div>
-      <div id="name">Nome:</div>
-      <div id="desc">Descrizione:</div>
-    </div>
+    <div id="elevation-div" style="width: 100%; height:40%;"></div>
+
 
     <!--br/>
     <div>
@@ -100,10 +96,10 @@
       if($('#elevation-div').css('display') == 'inline-block')
       {
         $("#mapid3").css('height', '100%');
-        $("#elevation-div").css('display', 'none').css('height', '0%');
+        $("#elevation-div").css('display', 'none').css('height', '40%');
       } else {
-        $("#mapid3").css('height', '65%');
-        $("#elevation-div").css('display', 'inline-block').css('height', '35%');
+        $("#mapid3").css('height', '60%');
+        $("#elevation-div").css('display', 'inline-block').css('height', '40%');
       }
 
     }).addTo( map );
@@ -120,10 +116,10 @@
     var percorso = localStorage.getObj("percorso");
 
     var elevationControl = {
-      //url: "https://raruto.github.io/examples/leaflet-elevation/via-emilia.gpx",
+      url: "https://raruto.github.io/examples/leaflet-elevation/via-emilia.gpx",
       //url: "gpx/eremo-di-poggio-conte2.gpx",
       //url: percorso[3],
-      url: "gpx/itlogix.gpx",
+      //url: "gpx/itlogix.gpx",
       options: {
         position: "topleft",
         theme: "magenta-theme", //default: lime-theme
@@ -196,13 +192,15 @@
           var to = L.marker([nodo[1], nodo[2]]);
 
           var distanzaInMetri = e.latlng.distanceTo(to.getLatLng());
+          //alert(nodo);
 
-          if(distanzaInMetri<100) {
-            $("#name").html(nodo[5]);
-            $("#desc").html(nodo[4]);
-            var x = document.getElementById("toast")
+          if(distanzaInMetri<15) {
+            //$("#name").html(nodo[5]);
+            //$("#desc").html(nodo[4]);
+            /*var x = document.getElementById("toast")
             x.className = "show";
-            setTimeout(function(){ x.className = x.className.replace("show", ""); }, 5000);
+            setTimeout(function(){ x.className = x.className.replace("show", ""); }, 5000);*/
+            notification.show();
           }
       }
 
