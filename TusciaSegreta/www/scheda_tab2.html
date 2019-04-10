@@ -1,4 +1,4 @@
-<div>
+<ons-page>
     <div id="mapid3" style="width: 100%; height: 100%;"></div>
     <div id="elevation-div" style="width: 100%; height: 0%;display: none;"></div>
     <div id="toast" style="width: 100%">
@@ -155,7 +155,8 @@
       icon: "far fa-dot-circle",
       locatOptions: {
         enableHighAccuracy: true
-      }
+      },
+      drawCircle: false
     }).addTo(map);
     lc.start();
 
@@ -182,50 +183,7 @@
       customClasses: 'fa-2x'
     };
 
-    var current_position;
-    var i=0;
     var nodi = localStorage.getObj("nodi");
-
-    function getPosizioneAttuale() {
-
-        getMapLocation();
-
-        var latitudine = getValueFromLocalStorage('latitudine');
-        var longitudine = getValueFromLocalStorage('longitudine');
-
-        var options = {
-          icon: 'fas fa-chevron-circle-up',
-          borderColor: '#000000',
-          borderWidth: 1,
-          iconSize: [20, 20],
-          popupAnchor: [5, -6],
-
-        };
-        i=i+1;
-        if (current_position) {
-            current_position.setLatLng([latitudine, longitudine]);
-        } else {
-
-            current_position = L.marker([latitudine, longitudine], {
-              icon: L.BeautifyIcon.icon(options),
-              draggable: false}).addTo(map).bindPopup("Sei qui");//.openPopup();
-        }
-
-        for(var x=0; x<nodi.length; x++) {
-
-            var nodo = nodi[x];
-            //showMessage(nodo);
-            var to = L.marker([nodo[1], nodo[2]]);
-
-            var distanzaInMetri = current_position.getLatLng().distanceTo(to.getLatLng());
-
-            if(distanzaInMetri<20) {
-              showMessage("Hai raggiunto PDI: " + nodo[5]);
-            }
-        }
-
-        setTimeout(getPosizioneAttuale, 5000);
-    }
 
     function stopFollowing()
     {
@@ -245,7 +203,6 @@
           var distanzaInMetri = e.latlng.distanceTo(to.getLatLng());
 
           if(distanzaInMetri<100) {
-            //showMessage("Hai raggiunto PDI: " + nodo[5]);
             $("#name").html(nodo[5]);
             $("#desc").html(nodo[4]);
             var x = document.getElementById("toast")
@@ -256,10 +213,7 @@
 
     }
 
-
-    //getPosizioneAttuale();
-
     </script>
 
 
-</div>
+</ons-page>
