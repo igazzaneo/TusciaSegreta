@@ -725,7 +725,7 @@ You can find the project at: https://github.com/domoritz/leaflet-locatecontrol
             //showMessage("onLocationFound...");
             this._drawMarker();
             this._updateContainerStyle();
-            //verificaNodo(e);
+            verificaNodo(e);
 
 
             switch (this.options.setView) {
