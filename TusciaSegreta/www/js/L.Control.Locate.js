@@ -579,7 +579,7 @@ You can find the project at: https://github.com/domoritz/leaflet-locatecontrol
             var latlng = this._event.latlng;
 
             // circle with the radius of the location's accuracy
-            if (this.options.drawCircle) {
+            /*if (this.options.drawCircle) {
                 var style = this._isFollowing() ? this.options.followCircleStyle : this.options.circleStyle;
 
                 if (!this._circle) {
@@ -587,7 +587,7 @@ You can find the project at: https://github.com/domoritz/leaflet-locatecontrol
                 } else {
                     this._circle.setLatLng(latlng).setRadius(radius).setStyle(style);
                 }
-            }
+            }*/
 
             var distance, unit;
             if (this.options.metric) {
@@ -717,7 +717,8 @@ You can find the project at: https://github.com/domoritz/leaflet-locatecontrol
             //showMessage("onLocationFound...");
             this._drawMarker();
             this._updateContainerStyle();
-            verificaNodo(e);
+            //verificaNodo(e);
+
 
             switch (this.options.setView) {
                 case 'once':
