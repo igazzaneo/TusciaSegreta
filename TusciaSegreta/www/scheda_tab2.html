@@ -1,7 +1,7 @@
 <ons-page>
-    <div id="mapid3" style="width: 100%; height: 55%;"></div>
-    <div id="elevation-div" style="width: 100%; height: 40%;"></div>
-    <div id="toast" style="width: 100%">
+    <div id="mapid3" style="width: 100%; height: 100%;"></div>
+    <div id="elevation-div" style="width: 100%; display: none;"></div>
+    <div id="toast" style="width: 100%; display: none;">
       <div id="img">Icon</div>
       <div id="name">Nome:</div>
       <div id="desc">Descrizione:</div>
@@ -107,11 +107,6 @@
       }
 
     }).addTo( map );
-
-
-    //map.locate({setView: true, watch: true, maxZoom: 20});
-    //map.on('locationfound', onLocationFound);
-    //map.on('locationerror', onLocationError);
 
     var baseLayers = {
         "Standard": roads,

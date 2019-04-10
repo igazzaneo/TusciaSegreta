@@ -7,9 +7,18 @@ function getServerDBVersion() {
         url:'http://51.75.182.195:1880/checkdb',
         contentType: "application/json",
         dataType: "json",
-        async: false
-    }).done(function(response) {
+        async: true,
+        timeout: 2000,
+    })
+    .done(function(response) {
       versione = response.versione;
+    })
+    .fail(function(jqXHR, textStatus){
+      if(textStatus === 'timeout')
+      {
+        alert('Failed from timeout');
+        //do something. Try again perhaps?
+      };
     });
 }
 
