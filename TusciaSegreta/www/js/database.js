@@ -7,18 +7,9 @@ function getServerDBVersion() {
         url:'http://51.75.182.195:1880/checkdb',
         contentType: "application/json",
         dataType: "json",
-        async: true,
-        timeout: 2000,
-    })
-    .done(function(response) {
+        async: true
+    }).done(function(response) {
       versione = response.versione;
-    })
-    .fail(function(jqXHR, textStatus){
-      if(textStatus === 'timeout')
-      {
-        alert('Failed from timeout');
-        //do something. Try again perhaps?
-      };
     });
 }
 
@@ -435,8 +426,6 @@ function saveElencoSiti(tx, resultSet) {
         riga[4] = resultSet.rows.item(x).latitudine;
         riga[5] = resultSet.rows.item(x).longitudine;
 
-        //showMessage(riga[1]  + " - " + riga[4] + " - " + riga[5]);
-
         elenco[x] = riga;
     }
 
@@ -448,8 +437,8 @@ function getSito(id, database)
   if(database != null) {
     database.transaction(function(transaction) {
       transaction.executeSql('SELECT * FROM sito where id=?', [id],  saveSito, dbSelecterror);
-      transaction.executeSql('SELECT * FROM percorso where sito_id=?', [id], savePercorso, dbSelecterror);
-      transaction.executeSql('SELECT nodo.* from nodo join percorso on percorso.id=nodo.percorso_id join sito on sito.id=percorso.sito_id where sito.id=?', [id], saveNodo, dbSelecterror);
+      //transaction.executeSql('SELECT * FROM percorso where sito_id=?', [id], savePercorso, dbSelecterror);
+      //transaction.executeSql('SELECT nodo.* from nodo join percorso on percorso.id=nodo.percorso_id join sito on sito.id=percorso.sito_id where sito.id=?', [id], saveNodo, dbSelecterror);
     });
 
   } else {
@@ -462,11 +451,25 @@ function getPercorsoSito(id, database)
 {
   if(database != null) {
     database.transaction(function(transaction) {
-      transaction.executeSql('SELECT * FROM percorso where sito_id=?', [id], savePercorso, dbSelecterror);
+      transaction.executeSql('SELECT * FROM percorso JOIN percorso_ha_caratteristica ON percorso_ha_caratteristica.percorso_id=percorso.id JOIN caratteristica ON caratteristica.id=percorso_ha_caratteristica.caratteristica_id where sito_id=? AND caratteristica.filtrabile=1 ', [id], savePercorso, dbSelecterror);
     });
 
   } else {
     savePercorso(null, null);
+
+  }
+
+}
+
+function getCaratteristichePercorsoSito(id, database)
+{
+  if(database != null) {
+    database.transaction(function(transaction) {
+      transaction.executeSql('select percorso_ha_caratteristica.*, caratteristica.denominazione, caratteristica.icona from percorso_ha_caratteristica join percorso on percorso.id=percorso_ha_caratteristica.percorso_id JOIN caratteristica ON caratteristica.id=percorso_ha_caratteristica.caratteristica_id where percorso.sito_id=? AND caratteristica.filtrabile=true ', [id], saveCaratteristiche, dbSelecterror);
+    });
+
+  } else {
+    saveCaratteristiche(null, null);
 
   }
 
@@ -500,6 +503,7 @@ function saveSito(tx, resultSet)
     localStorage.setObj('sito', riga);
 
   } else {
+
     var riga = new Array();
     riga[0] = resultSet.rows.item(0).id;
     riga[1] = resultSet.rows.item(0).denominazione;
@@ -507,6 +511,7 @@ function saveSito(tx, resultSet)
     riga[3] = resultSet.rows.item(0).video;
     riga[4] = resultSet.rows.item(0).latitudine;
     riga[5] = resultSet.rows.item(0).longitudine;
+    riga[6] = resultSet.rows.item(0).miniatura;
 
     localStorage.setObj('sito', riga);
   }
@@ -528,8 +533,32 @@ function savePercorso(tx, resultSet) {
     localStorage.setObj('percorso', riga);
 
   }
+}
 
+function saveCaratteristiche(tx, resultSet)
+{
+    var elenco = new Array();
 
+    if(tx == null && resultSet == null) {
+
+    } else {
+
+      for(var x = 0; x < resultSet.rows.length; x++) {
+        var riga = new Array();
+        riga[0] = resultSet.rows.item(x).id;
+        riga[1] = resultSet.rows.item(x).percorso_id;
+        riga[2] = resultSet.rows.item(x).caratteristica_id;
+        riga[3] = resultSet.rows.item(x).valore;
+        riga[4] = resultSet.rows.item(x).stato;
+        riga[5] = resultSet.rows.item(x).denominazione;
+        riga[6] = resultSet.rows.item(x).icona;
+
+        elenco[x] = riga;
+      }
+
+      localStorage.setObj('caratteristiche', elenco);
+
+    }
 }
 
 function saveNodo(tx, resultSet) {
@@ -570,34 +599,6 @@ function saveNodo(tx, resultSet) {
 
 }
 
-
-
-
-
-/* fine gestione versione del DB */
-//document.addEventListener('deviceready', function() {
-
-
-
-  //getMapLocation();
-  //getNavigationApp()
-
-  /*
-  var exitApp = false, intval = setInterval(function (){exitApp = false;}, 1000);
-
-  document.addEventListener("backbutton", function (e){
-    e.preventDefault();
-    if (exitApp) {
-      clearInterval(intval)
-      (navigator.app && navigator.app.exitApp()) || (device && device.exitApp())
-    } else {
-      exitApp = true
-      history.back(1);
-    }
-  }, false);*/
-
-//})
-
 function generaTabellaSiti(pagina)
 {
   var siti = localStorage.getObj('elencoSiti');
@@ -607,20 +608,37 @@ function generaTabellaSiti(pagina)
 
     var sito = siti[i];
 
+    getCaratteristichePercorsoSito(sito[0], database);
+
+    var caratteristiche = localStorage.getObj('caratteristiche');
+
+    var diff, lung, durata;
+    for(j=0; j<caratteristiche.length; j++) {
+      var car = caratteristiche[j];
+
+      if(car[5]=='Difficoltà') {
+        diff = car[3];
+      } else if(car[5]=='Lunghezza') {
+        lung = car[3];
+      } else if(car[5]=='Durata') {
+        durata = car[3];
+      }
+    }
+
     tabella += "<div><table style=\"width: 100%;\"><tbody><tr>" +
      "<td style=\"width: 25%; height: 100%; text-align: center; vertical-align: middle;\"><img src=\"img/percorsi/eremo/foto1.jpg\" width=\"180px\"></td>" +
      "<td style=\"width: 75%; vertical-align: top;\">" +
         "<table style=\"width: 100%;\">" +
         "<tbody>" +
         "<tr><td style=\"font-weight: bold;\" colspan=\"3\">" + sito[1] + "</td></tr>" +
-        "<tr><td colspan=\"3\">" + sito[2] + "</td></tr>" +
-        "<tr><td class=\"facile\">Facile</td><td class=\"lunghezza\">2,1 km</td><td class=\"durata\">25 m</td></tr>" +
+        "<tr><td style=\"overflow: hidden; text-overflow: ellipsis; white-space: nowrap;\" colspan=\"3\">" + sito[2] + "</td></tr>" +
+        "<tr><td class=\"facile\">" + diff + "</td><td class=\"lunghezza\">" + lung + " km</td><td class=\"durata\">" + durata +" min</td></tr>" +
         "<tr><td colspan=\"3\">Commenti<div id='trail-rating'><ul class='ratings'><li class='average'><span id='rating' class='rating star3_5'>&nbsp;</span></li></ul></div></td></tr>" +
-        "<tr><td colspan=\"3\" align=\"right\"><button type=\"button\" value=\"\" class=\"css3button\" onclick=\"changePageWithParam('scheda.html', " + sito[0] + ")\">  " + pagina + "  </button></td></tr>" +
-        "</tbody>" +
-        "</table>" +
+        "<tr><td colspan=\"3\" align=\"right\"><button type=\"button\" value=\"\" class=\"css3button\" onclick=\"changePageWithParam('scheda.html', " + sito[0] + ")\">  " + pagina.toUpperCase() + "  </button></td></tr>" +
+      "</tbody>" +
+      "</table>" +
     "</td>" +
-    "</tr></tbody></table></div><div><hr class=\"style-three\"></div>";
+   "</tr></tbody></table></div><div><hr class=\"style-three\"></div>";
 
   }
   $('#' + pagina).append(tabella);

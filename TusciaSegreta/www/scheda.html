@@ -1,10 +1,11 @@
 <ons-page>
   <script>
     var param = getValueFromLocalStorage('param');
-    //showMessage("Scheda: " + param);
     getSito(param, database);
     getPercorsoSito(param, database);
     getNodiPercorsoSito(param, database);
+    // Prelevo tutte le caratteristiche del percorso non solo quelle filtrabili
+    //getCaratteristichePercorsoSito(param, database);
   </script>
   <ons-toolbar style="background-color: #000000">
     <div class="left" style="width: 50px">

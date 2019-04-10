@@ -60,7 +60,7 @@ function initMap() {
       "Ibrido": hybrid
   };
 
-  
+
   var overlays = {
       "Percorsi": percorsi
   };
@@ -77,9 +77,6 @@ function getMapLocation() {
 }
 
 var onMapSuccess = function (position) {
-
-    //alert(position.coords.latitude + " - " + position.coords.longitude);
-
     saveOnLocalStorage('latitudine', position.coords.latitude);
     saveOnLocalStorage('longitudine', position.coords.longitude);
 }

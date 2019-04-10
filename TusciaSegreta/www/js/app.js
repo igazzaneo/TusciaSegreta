@@ -9,6 +9,9 @@ Storage.prototype.setObj = function(key, obj) {
 Storage.prototype.getObj = function(key) {
     return JSON.parse(this.getItem(key))
 }
+Storage.prototype.removeObj = function(key) {
+    return this.removeItem(key);
+}
 
 document.addEventListener("deviceready", onDeviceReady, false);
 
@@ -41,7 +44,18 @@ function changePage(p) {
 function changePageWithParam(p, param)
 {
   saveOnLocalStorage('param', param);
+  emptyLocalStorageFromObject();
 
   fn.gotoPage(p);
+
+}
+
+function emptyLocalStorageFromObject()
+{
+  localStorage.removeObj('sito');
+  localStorage.removeObj('percorso');
+  localStorage.removeObj('caratteristiche');
+  localStorage.removeObj('nodi');
+
 
 }
