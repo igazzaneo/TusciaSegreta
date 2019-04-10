@@ -578,6 +578,12 @@ You can find the project at: https://github.com/domoritz/leaflet-locatecontrol
             var radius = this._event.accuracy;
             var latlng = this._event.latlng;
 
+            getMapLocation();
+
+            var latitudine = getValueFromLocalStorage('latitudine');
+            var longitudine = getValueFromLocalStorage('longitudine');
+
+
             // circle with the radius of the location's accuracy
             /*if (this.options.drawCircle) {
                 var style = this._isFollowing() ? this.options.followCircleStyle : this.options.circleStyle;
@@ -602,9 +608,11 @@ You can find the project at: https://github.com/domoritz/leaflet-locatecontrol
             if (this.options.drawMarker) {
                 var mStyle = this._isFollowing() ? this.options.followMarkerStyle : this.options.markerStyle;
                 if (!this._marker) {
-                    this._marker = new this.options.markerClass(latlng, mStyle).addTo(this._layer);
+                    //this._marker = new this.options.markerClass(latlng, mStyle).addTo(this._layer);
+                    this._marker = new this.options.markerClass([latitudine, longitudine]], mStyle).addTo(this._layer);
                 } else {
-                    this._marker.setLatLng(latlng);
+                    //this._marker.setLatLng(latlng);
+                    this._marker.setLatLng([latitudine, longitudine]);
                     // If the markerClass can be updated with setStyle, update it.
                     if (this._marker.setStyle) {
                         this._marker.setStyle(mStyle);
