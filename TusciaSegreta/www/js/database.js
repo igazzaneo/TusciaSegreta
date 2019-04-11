@@ -607,6 +607,7 @@ function generaTabellaSiti(pagina)
   for(i=0; i<siti.length; i++) {
 
       var sito = siti[i];
+      showMessage(sito);
       //localStorage.removeObj('caratteristiche');
       getCaratteristichePercorsoSito(sito[0], database);
 
@@ -617,7 +618,7 @@ function generaTabellaSiti(pagina)
 
         var car = caratteristiche[j];
 
-        showMessage("caratteristica:" + car)
+        //showMessage("caratteristica:" + car)
 
         if(car[5]=='Difficoltà') {
           diff = car[3];
