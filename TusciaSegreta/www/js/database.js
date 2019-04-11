@@ -451,7 +451,7 @@ function getPercorsoSito(id, database)
 {
   if(database != null) {
     database.transaction(function(transaction) {
-      transaction.executeSql('SELECT * FROM percorso JOIN percorso_ha_caratteristica ON percorso_ha_caratteristica.percorso_id=percorso.id JOIN caratteristica ON caratteristica.id=percorso_ha_caratteristica.caratteristica_id where sito_id=? AND caratteristica.filtrabile=1 ', [id], savePercorso, dbSelecterror);
+      transaction.executeSql('SELECT * FROM percorso where sito_id=?', [id], savePercorso, dbSelecterror);
     });
 
   } else {
@@ -465,7 +465,7 @@ function getCaratteristichePercorsoSito(id, database)
 {
   if(database != null) {
     database.transaction(function(transaction) {
-      transaction.executeSql('select percorso_ha_caratteristica.*, caratteristica.denominazione, caratteristica.icona from percorso_ha_caratteristica join percorso on percorso.id=percorso_ha_caratteristica.percorso_id JOIN caratteristica ON caratteristica.id=percorso_ha_caratteristica.caratteristica_id where percorso.sito_id=?', [id], saveCaratteristiche, dbSelecterror);
+      transaction.executeSql('select percorso_ha_caratteristica.*, caratteristica.denominazione, caratteristica.icona, percorso.sito_id from percorso_ha_caratteristica join percorso on percorso.id=percorso_ha_caratteristica.percorso_id JOIN caratteristica ON caratteristica.id=percorso_ha_caratteristica.caratteristica_id where percorso.sito_id=?', [id], saveCaratteristiche, dbSelecterror);
     });
 
   } else {
@@ -552,6 +552,7 @@ function saveCaratteristiche(tx, resultSet)
         riga[4] = resultSet.rows.item(x).stato;
         riga[5] = resultSet.rows.item(x).denominazione;
         riga[6] = resultSet.rows.item(x).icona;
+        riga[6] = resultSet.rows.item(x).sito_id;
 
         elenco[x] = riga;
       }
@@ -612,7 +613,7 @@ function generaTabellaSiti(pagina)
       getCaratteristichePercorsoSito(sito[0], database);
 
       var caratteristiche = localStorage.getObj('caratteristiche');
-      showMessage(caratteristiche);
+      //showMessage(caratteristiche);
       var diff, lung, durata;
       for(j=0; j<caratteristiche.length; j++) {
 
