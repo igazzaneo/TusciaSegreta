@@ -617,7 +617,7 @@ function generaTabellaSiti(pagina)
 
         var car = caratteristiche[j];
 
-        //showMessage("caratteristica:" + car)
+        showMessage("caratteristica:" + car)
 
         if(car[5]=='Difficoltà') {
           diff = car[3];
