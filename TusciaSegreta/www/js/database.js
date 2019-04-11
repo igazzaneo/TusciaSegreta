@@ -553,8 +553,6 @@ function saveCaratteristiche(tx, resultSet)
         riga[5] = resultSet.rows.item(x).denominazione;
         riga[6] = resultSet.rows.item(x).icona;
 
-        showMessage(riga);
-
         elenco[x] = riga;
       }
 
@@ -609,11 +607,11 @@ function generaTabellaSiti(pagina)
   for(i=0; i<siti.length; i++) {
 
       var sito = siti[i];
-      localStorage.removeObj('caratteristiche');
+      //localStorage.removeObj('caratteristiche');
       getCaratteristichePercorsoSito(sito[0], database);
 
       var caratteristiche = localStorage.getObj('caratteristiche');
-
+      showMessage(caratteristiche);
       var diff, lung, durata;
       for(j=0; j<caratteristiche.length; j++) {
 
