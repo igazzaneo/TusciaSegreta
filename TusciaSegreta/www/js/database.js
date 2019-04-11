@@ -613,7 +613,7 @@ function generaTabellaSiti(pagina)
       getCaratteristichePercorsoSito(sito[0], database);
 
       var caratteristiche = localStorage.getObj('caratteristiche');
-      //showMessage(caratteristiche);
+      showMessage(caratteristiche);
       var diff, lung, durata;
       for(j=0; j<caratteristiche.length; j++) {
 
