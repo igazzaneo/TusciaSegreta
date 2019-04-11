@@ -542,7 +542,6 @@ function saveCaratteristiche(tx, resultSet)
     if(tx == null && resultSet == null) {
 
     } else {
-      showMessage(resultSet.rows.length);
 
       for(var x = 0; x < resultSet.rows.length; x++) {
         var riga = new Array();
@@ -553,8 +552,6 @@ function saveCaratteristiche(tx, resultSet)
         riga[4] = resultSet.rows.item(x).stato;
         riga[5] = resultSet.rows.item(x).denominazione;
         riga[6] = resultSet.rows.item(x).icona;
-
-        showMessage(riga);
 
         elenco[x] = riga;
       }
@@ -610,14 +607,17 @@ function generaTabellaSiti(pagina)
   for(i=0; i<siti.length; i++) {
 
     var sito = siti[i];
-    showMessage(sito);
+
     getCaratteristichePercorsoSito(sito[0], database);
 
     var caratteristiche = localStorage.getObj('caratteristiche');
 
     var diff, lung, durata;
     for(j=0; j<caratteristiche.length; j++) {
+
       var car = caratteristiche[j];
+
+      showMessage("caratteristica:" + car)
 
       if(car[5]=='Difficoltà') {
         diff = car[3];
@@ -644,6 +644,7 @@ function generaTabellaSiti(pagina)
    "</tr></tbody></table></div><div><hr class=\"style-three\"></div>";
 
   }
+
   $('#' + pagina).append(tabella);
 
 }
