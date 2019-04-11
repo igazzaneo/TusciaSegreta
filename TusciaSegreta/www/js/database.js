@@ -47,7 +47,7 @@ function popolaTabella(nome_tabella, sql, database) {
   }, function(error) {
     showMessage('Errore nel caricamento dei dati della tabella: ' + nome_tabella + " - " + error.message);
   }, function() {
-    //showMessage(nome_tabella + ' - Dati inseriti.');
+    showMessage(nome_tabella + ' - Dati inseriti.');
   });
 
 }
