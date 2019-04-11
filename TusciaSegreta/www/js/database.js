@@ -542,7 +542,7 @@ function saveCaratteristiche(tx, resultSet)
     if(tx == null && resultSet == null) {
 
     } else {
-      showMessage(resultSet.rows.length);
+
       for(var x = 0; x < resultSet.rows.length; x++) {
         var riga = new Array();
         riga[0] = resultSet.rows.item(x).id;
@@ -552,6 +552,8 @@ function saveCaratteristiche(tx, resultSet)
         riga[4] = resultSet.rows.item(x).stato;
         riga[5] = resultSet.rows.item(x).denominazione;
         riga[6] = resultSet.rows.item(x).icona;
+
+        showMessage(riga);
 
         elenco[x] = riga;
       }
