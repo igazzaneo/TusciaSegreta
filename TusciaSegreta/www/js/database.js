@@ -465,7 +465,7 @@ function getCaratteristichePercorsoSito(id, database)
 {
   if(database != null) {
     database.transaction(function(transaction) {
-      transaction.executeSql('select percorso_ha_caratteristica.*, caratteristica.denominazione, caratteristica.icona from percorso_ha_caratteristica join percorso on percorso.id=percorso_ha_caratteristica.percorso_id JOIN caratteristica ON caratteristica.id=percorso_ha_caratteristica.caratteristica_id where percorso.sito_id=? AND caratteristica.filtrabile=1 ', [id], saveCaratteristiche, dbSelecterror);
+      transaction.executeSql('select percorso_ha_caratteristica.*, caratteristica.denominazione, caratteristica.icona from percorso_ha_caratteristica join percorso on percorso.id=percorso_ha_caratteristica.percorso_id JOIN caratteristica ON caratteristica.id=percorso_ha_caratteristica.caratteristica_id where percorso.sito_id=?', [id], saveCaratteristiche, dbSelecterror);
     });
 
   } else {
@@ -543,7 +543,7 @@ function saveCaratteristiche(tx, resultSet)
 
     } else {
       showMessage(resultSet.rows.length);
-      
+
       for(var x = 0; x < resultSet.rows.length; x++) {
         var riga = new Array();
         riga[0] = resultSet.rows.item(x).id;
@@ -610,7 +610,7 @@ function generaTabellaSiti(pagina)
   for(i=0; i<siti.length; i++) {
 
     var sito = siti[i];
-
+    showMessage(sito);
     getCaratteristichePercorsoSito(sito[0], database);
 
     var caratteristiche = localStorage.getObj('caratteristiche');
