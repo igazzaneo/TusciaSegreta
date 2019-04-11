@@ -118,8 +118,8 @@
     var elevationControl = {
       //url: "https://raruto.github.io/examples/leaflet-elevation/via-emilia.gpx",
       //url: "gpx/eremo-di-poggio-conte2.gpx",
-      url: percorso[3],
-      //url: "gpx/itlogix.gpx",
+      //url: percorso[3],
+      url: "gpx/itlogix.gpx",
       options: {
         position: "topleft",
         theme: "magenta-theme", //default: lime-theme
@@ -147,10 +147,22 @@
       locatOptions: {
         enableHighAccuracy: true
       },
+      showCompass: true,
       drawCircle: false
     }).addTo(map);
-    lc.start();
 
+
+
+	   var comp = new L.Control.Compass({autoActive: true, showDigit:true});
+     map.addControl(comp);
+
+    var sito = localStorage.getObj('sito');
+    if(checkDistanceFromStart(sito)) {
+      if(confirm("Vuoi attivare la navigazione sul percorso?"))
+        lc.start();
+    } else {
+      lc.stop();
+    }
 
     var startOptions = {
       icon: 'fas fa-flag',
@@ -202,6 +214,26 @@
             setTimeout(function(){ x.className = x.className.replace("show", ""); }, 5000);*/
             notification.show();
           }
+      }
+
+    }
+
+    function checkDistanceFromStart(sito)
+    {
+      getMapLocation();
+      var latitudine = getValueFromLocalStorage('latitudine');
+      var longitudine = getValueFromLocalStorage('longitudine');
+      var position = L.marker([latitudine, longitudine]);
+
+      var start = L.marker([sito[4], sito[5]]);
+
+      var distanzaInMetri = position.getLatLng().distanceTo(start.getLatLng());
+
+      // Se distanza dal punto di partenza del percorso è inferiore a 500 metri attiva la navigazione
+      if(distanzaInMetri<500)
+        return true;
+      else {
+        return false;
       }
 
     }

@@ -465,7 +465,7 @@ function getCaratteristichePercorsoSito(id, database)
 {
   if(database != null) {
     database.transaction(function(transaction) {
-      transaction.executeSql('select percorso_ha_caratteristica.*, caratteristica.denominazione, caratteristica.icona from percorso_ha_caratteristica join percorso on percorso.id=percorso_ha_caratteristica.percorso_id JOIN caratteristica ON caratteristica.id=percorso_ha_caratteristica.caratteristica_id where percorso.sito_id=? AND caratteristica.filtrabile=true ', [id], saveCaratteristiche, dbSelecterror);
+      transaction.executeSql('select percorso_ha_caratteristica.*, caratteristica.denominazione, caratteristica.icona from percorso_ha_caratteristica join percorso on percorso.id=percorso_ha_caratteristica.percorso_id JOIN caratteristica ON caratteristica.id=percorso_ha_caratteristica.caratteristica_id where percorso.sito_id=? AND caratteristica.filtrabile=1 ', [id], saveCaratteristiche, dbSelecterror);
     });
 
   } else {
