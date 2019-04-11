@@ -606,43 +606,43 @@ function generaTabellaSiti(pagina)
   var tabella = "";
   for(i=0; i<siti.length; i++) {
 
-    var sito = siti[i];
+      var sito = siti[i];
 
-    getCaratteristichePercorsoSito(sito[0], database);
+      getCaratteristichePercorsoSito(sito[0], database);
 
-    var caratteristiche = localStorage.getObj('caratteristiche');
+      var caratteristiche = localStorage.getObj('caratteristiche');
 
-    var diff, lung, durata;
-    for(j=0; j<caratteristiche.length; j++) {
+      var diff, lung, durata;
+      for(j=0; j<caratteristiche.length; j++) {
 
-      var car = caratteristiche[j];
+        var car = caratteristiche[j];
 
-      showMessage("caratteristica:" + car)
+        //showMessage("caratteristica:" + car)
 
-      if(car[5]=='Difficoltà') {
-        diff = car[3];
-      } else if(car[5]=='Lunghezza') {
-        lung = car[3];
-      } else if(car[5]=='Durata') {
-        durata = car[3];
-      }
-    }
+        if(car[5]=='Difficoltà') {
+          diff = car[3];
+        } else if(car[5]=='Lunghezza') {
+          lung = car[3];
+        } else if(car[5]=='Durata') {
+          durata = car[3];
+        }
 
-    tabella += "<div><table style=\"width: 100%;\"><tbody><tr>" +
-     "<td style=\"width: 25%; height: 100%; text-align: center; vertical-align: middle;\"><img src=\"img/percorsi/eremo/foto1.jpg\" width=\"180px\"></td>" +
-     "<td style=\"width: 75%; vertical-align: top;\">" +
-        "<table style=\"width: 100%;\">" +
-        "<tbody>" +
-        "<tr><td style=\"font-weight: bold;\" colspan=\"3\">" + sito[1] + "</td></tr>" +
-        "<tr><td style=\"overflow: hidden; text-overflow: ellipsis; white-space: nowrap;\" colspan=\"3\">" + sito[2] + "</td></tr>" +
-        "<tr><td class=\"facile\">" + diff + "</td><td class=\"lunghezza\">" + lung + " km</td><td class=\"durata\">" + durata +" min</td></tr>" +
-        "<tr><td colspan=\"3\">Commenti<div id='trail-rating'><ul class='ratings'><li class='average'><span id='rating' class='rating star3_5'>&nbsp;</span></li></ul></div></td></tr>" +
-        "<tr><td colspan=\"3\" align=\"right\"><button type=\"button\" value=\"\" class=\"css3button\" onclick=\"changePageWithParam('scheda.html', " + sito[0] + ")\">  " + pagina.toUpperCase() + "  </button></td></tr>" +
-      "</tbody>" +
-      "</table>" +
-    "</td>" +
-   "</tr></tbody></table></div><div><hr class=\"style-three\"></div>";
 
+        tabella += "<div><table style=\"width: 100%;\"><tbody><tr>" +
+         "<td style=\"width: 25%; height: 100%; text-align: center; vertical-align: middle;\"><img src=\"img/percorsi/eremo/foto1.jpg\" width=\"180px\"></td>" +
+         "<td style=\"width: 75%; vertical-align: top;\">" +
+            "<table style=\"width: 100%;\">" +
+            "<tbody>" +
+            "<tr><td style=\"font-weight: bold;\" colspan=\"3\">" + sito[1] + "</td></tr>" +
+            "<tr><td colspan=\"3\">" + sito[2] + "</td></tr>" +
+            "<tr><td class=\"facile\">" + diff + "</td><td class=\"lunghezza\">" + lung + " km</td><td class=\"durata\">" + durata +" min</td></tr>" +
+            "<tr><td colspan=\"3\">Commenti<div id='trail-rating'><ul class='ratings'><li class='average'><span id='rating' class='rating star3_5'>&nbsp;</span></li></ul></div></td></tr>" +
+            "<tr><td colspan=\"3\" align=\"right\"><button type=\"button\" value=\"\" class=\"css3button\" onclick=\"changePageWithParam('scheda.html', " + sito[0] + ")\">  " + pagina.toUpperCase() + "  </button></td></tr>" +
+          "</tbody>" +
+          "</table>" +
+        "</td>" +
+       "</tr></tbody></table></div><div><hr class=\"style-three\"></div>";
+     }
   }
 
   $('#' + pagina).append(tabella);
