@@ -542,7 +542,8 @@ function saveCaratteristiche(tx, resultSet)
     if(tx == null && resultSet == null) {
 
     } else {
-
+      showMessage(resultSet.rows.length);
+      
       for(var x = 0; x < resultSet.rows.length; x++) {
         var riga = new Array();
         riga[0] = resultSet.rows.item(x).id;
