@@ -47,7 +47,7 @@ function popolaTabella(nome_tabella, sql, database) {
   }, function(error) {
     showMessage('Errore nel caricamento dei dati della tabella: ' + nome_tabella + " - " + error.message);
   }, function() {
-    showMessage(nome_tabella + ' - Dati inseriti.');
+    //showMessage(nome_tabella + ' - Dati inseriti.');
   });
 
 }
@@ -552,6 +552,8 @@ function saveCaratteristiche(tx, resultSet)
         riga[4] = resultSet.rows.item(x).stato;
         riga[5] = resultSet.rows.item(x).denominazione;
         riga[6] = resultSet.rows.item(x).icona;
+
+        showMessage(riga);
 
         elenco[x] = riga;
       }
