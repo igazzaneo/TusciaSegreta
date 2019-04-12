@@ -388,17 +388,36 @@ function getElencoSiti(database) {
   if(database == null) {
     // DEBUG
     var elenco = new Array();
-    for(var x=0; x<3; x++) {
-      var riga = new Array();
-      riga[0] = x;
-      riga[1] = "Qui c'è la denominazione del sito" + x;
-      riga[2] = "Qui c'è la descrizione estesa del sito" + x;
-      riga[3] = "http://www.linkdelvideo";
-      riga[4] = '42.585280';
-      riga[5] = '11.933396';
 
-      elenco[x] = riga;
-    }
+    var riga = new Array();
+    riga[0] = 1;
+    riga[1] = "Qui c'è la denominazione del sito - 1";
+    riga[2] = "Qui c'è la descrizione estesa del sito3";
+    riga[3] = "http://www.linkdelvideo1";
+    riga[4] = '42.585280';
+    riga[5] = '11.933396';
+
+    elenco[0] = riga;
+
+    riga = new Array();
+    riga[0] = 2;
+    riga[1] = "Qui c'è la denominazione del sito - 2";
+    riga[2] = "Qui c'è la descrizione estesa del sito3";
+    riga[3] = "http://www.linkdelvideo2";
+    riga[4] = '42.885280';
+    riga[5] = '11.733396';
+
+    elenco[1] = riga;
+
+    riga = new Array();
+    riga[0] = 3;
+    riga[1] = "Qui c'è la denominazione del sito - 3";
+    riga[2] = "Qui c'è la descrizione estesa del sito3";
+    riga[3] = "http://www.linkdelvideo3";
+    riga[4] = '42.685280';
+    riga[5] = '11.433396';
+
+    elenco[2] = riga;
 
     localStorage.setObj('elencoSiti', elenco);
 
@@ -434,7 +453,7 @@ function saveElencoSiti(tx, resultSet) {
 
 function getSito(id, database)
 {
-  localStorage.removeObj('sito');
+  //localStorage.removeObj('sito');
   if(database != null) {
     database.transaction(function(transaction) {
       transaction.executeSql('SELECT * FROM sito where id=?', [id],  saveSito, dbSelecterror);
@@ -450,7 +469,7 @@ function getSito(id, database)
 
 function getPercorsoSito(id, database)
 {
-  localStorage.removeObj('percorso');
+  //localStorage.removeObj('percorso');
   if(database != null) {
     database.transaction(function(transaction) {
       transaction.executeSql('SELECT * FROM percorso where sito_id=?', [id], savePercorso, dbSelecterror);
@@ -480,7 +499,7 @@ function getCaratteristichePercorsoSito(id, database)
 
 function getNodiPercorsoSito(id, database)
 {
-  localStorage.removeObj('nodi');
+  //localStorage.removeObj('nodi');
   if(database != null) {
     database.transaction(function(transaction) {
       transaction.executeSql('SELECT nodo.* from nodo join percorso on percorso.id=nodo.percorso_id where percorso.sito_id=?', [id], saveNodo, dbSelecterror);
@@ -496,10 +515,11 @@ function getNodiPercorsoSito(id, database)
 function saveSito(tx, resultSet)
 {
   if(tx == null && resultSet == null) {
+
     var riga = new Array();
-    riga[0] = 1;
-    riga[1] = "Qui c'è la denominazione del sito";
-    riga[2] = "Qui c'è la descrizione estesa del sito";
+    riga[0] = Math.floor(Math.random() * (+100 - +1)) + 1 ;
+    riga[1] = "Qui c'è la denominazione del sito" + riga[0];
+    riga[2] = "Qui c'è la descrizione estesa del sito" + riga[0];
     riga[3] = "http://www.linkdelvideo";
     riga[4] = '42.585280';
     riga[5] = '11.933396';

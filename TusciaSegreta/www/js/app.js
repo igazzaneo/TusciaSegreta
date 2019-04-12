@@ -44,9 +44,15 @@ function changePage(p) {
 function changePageWithParam(p, param)
 {
   saveOnLocalStorage('param', param);
-  //emptyLocalStorageFromObject();
 
-  fn.gotoPage(p);
+  emptyLocalStorageFromObject();
+  setTimeout(
+    function() {
+      //getElencoSiti(database);
+      fn.gotoPage(p);
+    }, 800
+  );
+
 
 }
 
@@ -56,6 +62,4 @@ function emptyLocalStorageFromObject()
   localStorage.removeObj('percorso');
   localStorage.removeObj('caratteristiche');
   localStorage.removeObj('nodi');
-
-
 }
