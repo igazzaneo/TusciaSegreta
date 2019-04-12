@@ -45,7 +45,7 @@ function changePageWithParam(p, param)
 {
   saveOnLocalStorage('param', param);
 
-  emptyLocalStorageFromObject();
+  //emptyLocalStorageFromObject();
   setTimeout(
     function() {
       //getElencoSiti(database);
