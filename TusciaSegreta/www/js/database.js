@@ -448,7 +448,6 @@ function saveElencoSiti(tx, resultSet) {
         elenco[x] = riga;
     }
 
-    elencoSiti = elenco;
     localStorage.setObj('elencoSiti', elenco);
 }
 
@@ -557,7 +556,7 @@ function savePercorso(tx, resultSet) {
     riga[3] = resultSet.rows.item(0).gpx;
     riga[4] = resultSet.rows.item(0).denominazione;
 
-    showMessage("Percorso letto: " + riga);
+    //showMessage("Percorso letto: " + riga);
     localStorage.setObj('percorso', riga);
 
   }
@@ -619,7 +618,7 @@ function saveNodo(tx, resultSet) {
       elenco[x] = riga;
     }
 
-    showMessage("Nodi letti: " + elenco);
+    //showMessage("Nodi letti: " + elenco);
 
     localStorage.setObj('nodi', elenco);
 

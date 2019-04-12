@@ -3,8 +3,6 @@ var database = null;
 var versione = null;
 var versioneLocale = null;
 
-var elencoSiti = null;
-
 Storage.prototype.setObj = function(key, obj) {
     this.removeItem(key);
     return this.setItem(key, JSON.stringify(obj))
@@ -48,13 +46,9 @@ function changePageWithParam(p, param)
 {
   saveOnLocalStorage('param', param);
 
-  //emptyLocalStorageFromObject();
-  setTimeout(
-    function() {
-      //getElencoSiti(database);
-      fn.gotoPage(p);
-    }, 800
-  );
+  if(emptyLocalStorageFromObject())
+    fn.gotoPage(p);
+
 
 
 }
@@ -65,4 +59,6 @@ function emptyLocalStorageFromObject()
   localStorage.removeObj('percorso');
   localStorage.removeObj('caratteristiche');
   localStorage.removeObj('nodi');
+
+  return true;
 }

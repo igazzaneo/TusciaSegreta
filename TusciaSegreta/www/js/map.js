@@ -28,8 +28,8 @@ function initMap() {
   };
 
   var percorsi = L.layerGroup();
-  var siti = elencoSiti; //localStorage.getObj('elencoSiti');
-  showMessage("SITI: " + siti)
+  var siti = localStorage.getObj('elencoSiti');
+  
   if(siti != 0) {
     for(var i=0; i<siti.length; i++) {
 

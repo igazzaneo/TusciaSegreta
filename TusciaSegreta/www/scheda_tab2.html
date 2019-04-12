@@ -57,9 +57,11 @@
   <script>
 
     var lc;
+    var nodi = localStorage.getObj('nodi');
+    var percorso = localStorage.getObj('percorso');
+    showMessage("percorso:" + percorso);
+    showMessage("nodi:" + nodi);
 
-
-    
     var roads = L.gridLayer.googleMutant({
        type: 'roadmap'	// valid values are 'roadmap', 'satellite', 'terrain' and 'hybrid'
     })
@@ -150,6 +152,7 @@
       + "<trkpt lat=\"42.434166\" lon=\"12.105712\"><ele>338.014</ele><time>2019-04-09T15:05:25Z</time></trkpt>"
       + "</trkseg></trk></gpx>";*/
 
+
       var gpxParser = new gpxParser(); //Create gpxParser Object
       gpxParser.parse(gpx); //parse gpx file from string data
       var points = gpxParser.tracks[0].points;
@@ -158,19 +161,19 @@
       var startOptions = {
           iconShape: 'doughnut',
           borderWidth: 5
-        };
+      };
 
       var endOptions = {
           iconShape: 'doughnut',
           borderWidth: 5,
           borderColor: 'red'
-        };
+      };
 
       var wptOptions = {
           iconShape: 'doughnut',
           borderWidth: 5,
           borderColor: '#8D208B'
-        };
+      };
 
       L.marker([points[0].lat,points[0].lon], {
         icon: L.BeautifyIcon.icon(startOptions),
