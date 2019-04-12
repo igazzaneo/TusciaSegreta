@@ -47,7 +47,7 @@ function changePageWithParam(p, param)
   saveOnLocalStorage('param', param);
 
   //if(emptyLocalStorageFromObject())
-    fn.gotoPage(p);
+    fn.gotoPage(p+"?param=" + param);
 
 }
 
