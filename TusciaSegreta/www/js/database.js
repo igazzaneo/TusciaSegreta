@@ -448,6 +448,7 @@ function saveElencoSiti(tx, resultSet) {
         elenco[x] = riga;
     }
 
+    elencoSiti = elenco;
     localStorage.setObj('elencoSiti', elenco);
 }
 

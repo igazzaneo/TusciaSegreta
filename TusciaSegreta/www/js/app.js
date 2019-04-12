@@ -3,7 +3,10 @@ var database = null;
 var versione = null;
 var versioneLocale = null;
 
+var elencoSiti = null;
+
 Storage.prototype.setObj = function(key, obj) {
+    this.removeItem(key);
     return this.setItem(key, JSON.stringify(obj))
 }
 Storage.prototype.getObj = function(key) {
