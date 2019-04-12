@@ -480,7 +480,7 @@ function getNodiPercorsoSito(id, database)
 {
   if(database != null) {
     database.transaction(function(transaction) {
-      transaction.executeSql('SELECT nodo.* from nodo join percorso on percorso.id=nodo.percorso_id join sito on sito.id=percorso.sito_id where sito.id=?', [id], saveNodo, dbSelecterror);
+      transaction.executeSql('SELECT nodo.* from nodo join percorso on percorso.id=nodo.percorso_id where percorso.sito_id=?', [id], saveNodo, dbSelecterror);
     });
 
   } else {
@@ -523,6 +523,7 @@ function savePercorso(tx, resultSet) {
 
   if(tx == null && resultSet == null) {
     // DEBUG
+    showMessage("Debug");
   } else {
 
     var riga = new Array();
@@ -530,7 +531,9 @@ function savePercorso(tx, resultSet) {
     riga[1] = resultSet.rows.item(0).sito_id;
     riga[2] = resultSet.rows.item(0).descrizione;
     riga[3] = resultSet.rows.item(0).gpx;
+    riga[4] = resultSet.rows.item(0).denominazione;
 
+    showMessage("Percorso letto: " + riga);
     localStorage.setObj('percorso', riga);
 
   }
@@ -592,7 +595,7 @@ function saveNodo(tx, resultSet) {
       elenco[x] = riga;
     }
 
-    //showMessage("Nodi: " + elenco);
+    showMessage("Nodi letti: " + elenco);
 
     localStorage.setObj('nodi', elenco);
 
