@@ -66,10 +66,8 @@ function initMap() {
   };
 
   L.control.layers(baseLayers, overlays).addTo(map);
+
 }
-
-//var helloPopup = L.popup().setContent('Hello World!');
-
 
 function getMapLocation() {
 

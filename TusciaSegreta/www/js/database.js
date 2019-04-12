@@ -463,6 +463,7 @@ function getPercorsoSito(id, database)
 
 function getCaratteristichePercorsoSito(id, database)
 {
+  showMessage("caratteristiche per sito: " + id);
   if(database != null) {
     database.transaction(function(transaction) {
       transaction.executeSql('select percorso_ha_caratteristica.*, caratteristica.denominazione, caratteristica.icona, percorso.sito_id from percorso_ha_caratteristica join percorso on percorso.id=percorso_ha_caratteristica.percorso_id JOIN caratteristica ON caratteristica.id=percorso_ha_caratteristica.caratteristica_id where percorso.sito_id=?', [id], saveCaratteristiche, dbSelecterror);
@@ -613,7 +614,7 @@ function generaTabellaSiti(pagina)
       getCaratteristichePercorsoSito(sito[0], database);
 
       var caratteristiche = localStorage.getObj('caratteristiche');
-      showMessage(caratteristiche);
+      //showMessage(caratteristiche);
       var diff, lung, durata;
       for(j=0; j<caratteristiche.length; j++) {
 

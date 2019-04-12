@@ -765,7 +765,7 @@ L.Control.Elevation = L.Control.extend({
 		this.options.gpxOptions.polyline_options.color = hexColor;
 
 		this.gpx = new L.GPX(url, this.options.gpxOptions);
-
+		
 		this.gpx.on('loaded', function(e) {
 			this._map.fitBounds(e.target.getBounds());
 		});
