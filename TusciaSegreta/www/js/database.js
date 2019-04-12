@@ -434,6 +434,7 @@ function saveElencoSiti(tx, resultSet) {
 
 function getSito(id, database)
 {
+  localStorage.removeObj('sito');
   if(database != null) {
     database.transaction(function(transaction) {
       transaction.executeSql('SELECT * FROM sito where id=?', [id],  saveSito, dbSelecterror);
@@ -449,6 +450,7 @@ function getSito(id, database)
 
 function getPercorsoSito(id, database)
 {
+  localStorage.removeObj('percorso');
   if(database != null) {
     database.transaction(function(transaction) {
       transaction.executeSql('SELECT * FROM percorso where sito_id=?', [id], savePercorso, dbSelecterror);
@@ -478,6 +480,7 @@ function getCaratteristichePercorsoSito(id, database)
 
 function getNodiPercorsoSito(id, database)
 {
+  localStorage.removeObj('nodi');
   if(database != null) {
     database.transaction(function(transaction) {
       transaction.executeSql('SELECT nodo.* from nodo join percorso on percorso.id=nodo.percorso_id where percorso.sito_id=?', [id], saveNodo, dbSelecterror);
