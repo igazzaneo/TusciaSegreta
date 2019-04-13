@@ -1,5 +1,5 @@
 var rowCount = 0;
-var database = null;
+
 var versione = null;
 var versioneLocale = null;
 
@@ -17,13 +17,15 @@ Storage.prototype.removeObj = function(key) {
 document.addEventListener("deviceready", onDeviceReady, false);
 
 function onDeviceReady() {
+  // Versione del DB sul server
   getServerDBVersion();
-  initDatabase();
+
+  // Posizione attuale del dispositivo
   getMapLocation();
+
   dao.initialize(function() {
       console.log('database initialized');
   });
-
   dao.getElencoSiti(saveElencoSiti);
 
   fn.gotoPage('map.html');

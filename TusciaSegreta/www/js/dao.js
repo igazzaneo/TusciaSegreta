@@ -1,7 +1,11 @@
+var database = null;
+
 window.dao =  {
 
     initialize: function(callback) {
         var self = this;
+        initDatabase();
+
         this.db = database;
 
     },
