@@ -451,14 +451,11 @@ function saveElencoSiti(tx, resultSet) {
     localStorage.setObj('elencoSiti', elenco);
 }
 
-function getSito(id, database)
+function getSito(id, database, createItem)
 {
-  //localStorage.removeObj('sito');
   if(database != null) {
     database.transaction(function(transaction) {
       transaction.executeSql('SELECT * FROM sito where id=?', [id],  saveSito, dbSelecterror);
-      //transaction.executeSql('SELECT * FROM percorso where sito_id=?', [id], savePercorso, dbSelecterror);
-      //transaction.executeSql('SELECT nodo.* from nodo join percorso on percorso.id=nodo.percorso_id join sito on sito.id=percorso.sito_id where sito.id=?', [id], saveNodo, dbSelecterror);
     });
 
   } else {
@@ -538,6 +535,7 @@ function saveSito(tx, resultSet)
     riga[6] = resultSet.rows.item(0).miniatura;
 
     localStorage.setObj('sito', riga);
+    
   }
 
 }

@@ -1,15 +1,11 @@
 <ons-page>
   <script>
     var param = getValueFromLocalStorage('param');
-    const urlParams = new URLSearchParams(window.location.search);
-    const myParam = urlParams.get('param');
+    showMessage("param: " + param);
 
-    showMessage("param: " + myParam);
-
-    
-    getSito(myParam, database);
-    getPercorsoSito(myParam, database);
-    getNodiPercorsoSito(myParam, database);
+    getSito(param, database);
+    //getPercorsoSito(myParam, database);
+    //getNodiPercorsoSito(myParam, database);
     // Prelevo tutte le caratteristiche del percorso non solo quelle filtrabili
     //getCaratteristichePercorsoSito(param, database);
 
