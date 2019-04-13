@@ -3,10 +3,17 @@ var database = null;
 window.dao =  {
 
     initialize: function(callback) {
-        var self = this;
-        initDatabase();
 
-        this.db = database;
+        var self = this;
+
+        window.resolveLocalFileSystemURL(cordova.file.dataDirectory + "/copied_tusciasegreta.db",
+          function() {},
+          function() {
+            copyDatabaseFile('tusciasegreta.db');
+          }
+        );
+
+        this.db = sqlitePlugin.openDatabase({name: 'copied_tusciasegreta.db'});
 
     },
 
@@ -147,4 +154,31 @@ function renderList(employees) {
                 '<td>' + employee.lastModified + '</td></tr>');
         }
     });
+}
+
+function openDb() {
+
+  database = sqlitePlugin.openDatabase({name: 'copied_tusciasegreta.db'});
+
+  versioneLocale = getValueFromLocalStorage('versione');
+
+  if(versioneLocale == "0") {
+    // Sul localstorage non è memorizzato nulla, la prelevo dal DB
+    getLocalDBVersion(database);
+  }
+
+  if(versione != versioneLocale) {
+    // Prelevo il JSON del DB dal server
+    getServerDB();
+
+    // Memorizzo la versione del DB che ho prelevato
+    removeFromLocalStorage('versione');
+    saveOnLocalStorage('versione', versione);
+
+    emptyLocalStorageFromObject();
+
+    // Aggiorno la tabella versione del DB Locale
+    updateVersioneDB(database, versione);
+
+  }
 }
