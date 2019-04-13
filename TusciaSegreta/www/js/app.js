@@ -20,14 +20,21 @@ function onDeviceReady() {
   getServerDBVersion();
   initDatabase();
   getMapLocation();
+  dao.initialize(function() {
+      console.log('database initialized');
+  });
 
+  dao.getElencoSiti(saveElencoSiti);
+
+  fn.gotoPage('map.html');
+/*
   setTimeout(
     function() {
       getElencoSiti(database);
       fn.gotoPage('map.html');
     }, 2000
   );
-
+*/
 
 }
 

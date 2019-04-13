@@ -28,12 +28,7 @@ function openDb() {
     // Aggiorno la tabella versione del DB Locale
     updateVersioneDB(database, versione);
 
-  } else {
-    //getElencoSiti(database);
-
-    //fn.gotoPage('map.html');
-  }
-
+  } 
 }
 
 // copy a database file from www/ in the app directory to the data directory
