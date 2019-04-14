@@ -3,7 +3,7 @@
     var param = getValueFromLocalStorage('param');
     showMessage("param: " + param);
 
-    var sito = getStoredSito(param, database);
+    var sito = getStoredSito(param, database).then(sito => return sito);
     showMessage("Sito: " + sito);
 
     //var sito = getSito(param, database);
