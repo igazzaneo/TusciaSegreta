@@ -499,6 +499,8 @@ async function getStoredSito(id, database) {
 
   var sito = await getSito(id, database);
 
+  showMessage("getStoredSito: " + sito);
+
   return sito;
 }
 
