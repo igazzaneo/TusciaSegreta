@@ -28,7 +28,7 @@ function openDb() {
     // Aggiorno la tabella versione del DB Locale
     updateVersioneDB(database, versione);
 
-  } 
+  }
 }
 
 // copy a database file from www/ in the app directory to the data directory
@@ -50,13 +50,13 @@ function copyDatabaseFile(dbName) {
     return new Promise(function (resolve, reject) {
       targetDir.getFile("copied_" + dbName, {}, resolve, reject);
     }).then(function () {
-      //showMessage("Database già presente");
+      showMessage("Database già presente");
     }).catch(function () {
       //showMessage("file doesn't exist, copying it");
       return new Promise(function (resolve, reject) {
         sourceFile.copyTo(targetDir, 'copied_' + dbName, resolve, reject);
       }).then(function () {
-        //showMessage("Database copiato");
+        showMessage("Database copiato");
       });
     });
   });
