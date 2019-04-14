@@ -28,6 +28,7 @@ function initMap() {
   };
 
   var percorsi = L.layerGroup();
+  dao.getElencoSiti(saveElencoSiti);
   var siti = localStorage.getObj('elencoSiti');
 
   if(siti != 0) {

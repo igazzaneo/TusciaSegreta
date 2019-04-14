@@ -26,17 +26,18 @@ function onDeviceReady() {
   dao.initialize(function() {
       console.log('database initialized');
   });
-  dao.getElencoSiti(saveElencoSiti);
+  //dao.getElencoSiti(saveElencoSiti);
 
-  fn.gotoPage('map.html');
-/*
+  //fn.gotoPage('map.html');
+
   setTimeout(
     function() {
-      getElencoSiti(database);
+      //getElencoSiti(database);
+      dao.getElencoSiti(saveElencoSiti);
       fn.gotoPage('map.html');
     }, 2000
   );
-*/
+
 
 }
 
