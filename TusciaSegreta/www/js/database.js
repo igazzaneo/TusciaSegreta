@@ -13,8 +13,6 @@ function getServerDBVersion() {
     });
 }
 
-
-
 function getServerDB() {
 
   return $.ajax({
@@ -34,8 +32,6 @@ function elaboraDb(response) {
     //alert("Tabella:" + key)
     if(response[nome_tabella] && response[nome_tabella].length) {
       var sql = createSqlQuery(nome_tabella, Object.keys(response[nome_tabella][0]), response[nome_tabella]);
-
-      //showMessage(sql);
       popolaTabella(nome_tabella, sql, database);
     }
   });
@@ -221,8 +217,6 @@ function registraUtente(email, nome_utente, password, cellulare, cognome, nome, 
   });
 
 }
-
-
 
 function registerUserOnCloud(email, nome_utente, password, cellulare, cognome, nome) {
 
@@ -462,7 +456,21 @@ function getSito(id, database)
 {
   if(database != null) {
     database.transaction(function(transaction) {
-      transaction.executeSql('SELECT * FROM sito where id=?', [id],  saveSito, dbSelecterror);
+      //transaction.executeSql('SELECT * FROM sito where id=?', [id],  saveSito, dbSelecterror);
+
+      transaction.executeSql('select * from sito where id=?', [id], function(tx, resultSet, saveSito) {
+        var riga = new Array();
+        riga[0] = resultSet.rows.item(0).id;
+        riga[1] = resultSet.rows.item(0).denominazione;
+        riga[2] = resultSet.rows.item(0).descrizione;
+        riga[3] = resultSet.rows.item(0).video;
+        riga[4] = resultSet.rows.item(0).latitudine;
+        riga[5] = resultSet.rows.item(0).longitudine;
+        riga[6] = resultSet.rows.item(0).miniatura;
+
+        saveSitoNew(riga);
+
+      }, dbSelecterror);
     });
 
   } else {
@@ -545,6 +553,10 @@ function saveSito(tx, resultSet)
 
   }
 
+}
+
+function saveSitoNew(riga) {
+  localStorage.setObj('sito', riga);
 }
 
 function savePercorso(tx, resultSet) {
