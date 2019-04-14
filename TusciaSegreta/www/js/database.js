@@ -31,10 +31,12 @@ function elaboraDb(response) {
   Object.keys(response).forEach(function(key) {
 
     var nome_tabella = key;
-    alert("Tabella:" + key)
+    //alert("Tabella:" + key)
     if(response[nome_tabella] && response[nome_tabella].length) {
       var sql = createSqlQuery(nome_tabella, Object.keys(response[nome_tabella][0]), response[nome_tabella]);
-      popolaTabella(nome_tabella, sql, database);
+
+      showMessage(sql);
+      //popolaTabella(nome_tabella, sql, database);
     }
   });
 
@@ -48,7 +50,7 @@ function popolaTabella(nome_tabella, sql, database) {
   }, function(error) {
     showMessage('Errore nel caricamento dei dati della tabella: ' + nome_tabella + " - " + error.message);
   }, function() {
-    showMessage(nome_tabella + ' - Dati inseriti.');
+    //showMessage(nome_tabella + ' - Dati inseriti.');
   });
 
 }
@@ -75,7 +77,7 @@ function createSqlQuery(tableName, columns, obj) {
         for (var key in obj[index]) {
           if (obj[index].hasOwnProperty(key)) {
             var val = obj[index][key];
-            this.generatedSqlQuery = this.generatedSqlQuery +"'"+ val.toString().replace(/\’/g, "''") + "',";
+            this.generatedSqlQuery = this.generatedSqlQuery +"'"+ val.toString().replace(/'/g, "''").replace(/\n/g, " ") + "',";
           }
         }
         this.generatedSqlQuery = this.generatedSqlQuery.slice(0, -1);
@@ -95,7 +97,7 @@ function createSqlQuery(tableName, columns, obj) {
         for (var key in obj[index]) {
           if (obj[index].hasOwnProperty(key)) {
             var val = obj[index][key];
-            this.generatedSqlQuery = this.generatedSqlQuery + "'" + val.toString().replace(/\’/g, "''") + "',";
+            this.generatedSqlQuery = this.generatedSqlQuery + "'" + val.toString().replace(/'/g, "''").replace(/\n/g, " ") + "',";
           }
         }
         this.generatedSqlQuery = this.generatedSqlQuery.slice(0, -1);
