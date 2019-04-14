@@ -12,12 +12,13 @@ window.dao =  {
             copyDatabaseFile('tusciasegreta.db');
           }
         );*/
-        copyDatabaseFile('tusciasegreta.db');
+        copyDatabaseFile2('tusciasegreta.db');
         this.db = sqlitePlugin.openDatabase({name: 'copied_tusciasegreta.db'});
 
     },
 
     getElencoSiti: function(callback) {
+      alert("getElencoSiti");
         this.db.transaction(
             function(tx) {
                 var sql = "SELECT * FROM SITO";
@@ -182,3 +183,26 @@ function openDb() {
 
   }
 }*/
+
+function copyDatabaseFile2(dbName) {
+
+  var sourceFileName = cordova.file.applicationDirectory + 'www/' + dbName;
+  var targetDirName = cordova.file.dataDirectory;
+
+  return Promise.all([
+    new Promise(function (resolve, reject) {
+      resolveLocalFileSystemURL(sourceFileName, resolve, reject);
+    }),
+    new Promise(function (resolve, reject) {
+      resolveLocalFileSystemURL(targetDirName, resolve, reject);
+    })
+  ]).then(function (files) {
+    var sourceFile = files[0];
+    var targetDir = files[1];
+    return new Promise(function (resolve, reject) {
+      sourceFile.copyTo(targetDir, 'copied_' + dbName, resolve, reject);
+    }).then(function () {
+      showMessage("Database copiato");
+    });
+  });
+}

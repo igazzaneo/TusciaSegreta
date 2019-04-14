@@ -22,7 +22,7 @@ function onDeviceReady() {
 
   // Posizione attuale del dispositivo
   getMapLocation();
-
+  //emptyLocalStorageFromObject();
   dao.initialize(function() {
       console.log('database initialized');
   });
