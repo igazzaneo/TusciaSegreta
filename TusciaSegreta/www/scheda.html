@@ -2,9 +2,13 @@
   <script>
     var param = getValueFromLocalStorage('param');
     showMessage("param: " + param);
+    var sitoOut;
+    getStoredSito(param, database).then(function(sito) { showMessage("Sito inside: " + sito); setValue(sito); });
+    function setValue(sito) {
+      sitoOut = sito;
+    }
 
-    var sito = getStoredSito(param, database).then(sito => return sito);
-    showMessage("Sito: " + sito);
+    showMessage("SitoOut: " + sitoOut);
 
     //var sito = getSito(param, database);
 

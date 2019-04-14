@@ -452,32 +452,28 @@ function saveElencoSiti(tx, resultSet) {
     localStorage.setObj('elencoSiti', elenco);
 }
 
-async function getSito(id, database)
+function getSito(id, database)
 {
-
   if(database != null) {
+    return new Promise((resolve, reject) => {
+      resolve(database.transaction(function(transaction) {
 
-    database.transaction(function(transaction) {
-      //transaction.executeSql('SELECT * FROM sito where id=?', [id],  saveSito, dbSelecterror);
+        transaction.executeSql('select * from sito where id=?', [id], function(tx, resultSet) {
+          var riga = new Array();
+          riga[0] = resultSet.rows.item(0).id;
+          riga[1] = resultSet.rows.item(0).denominazione;
+          riga[2] = resultSet.rows.item(0).descrizione;
+          riga[3] = resultSet.rows.item(0).video;
+          riga[4] = resultSet.rows.item(0).latitudine;
+          riga[5] = resultSet.rows.item(0).longitudine;
+          riga[6] = resultSet.rows.item(0).miniatura;
 
-      transaction.executeSql('select * from sito where id=?', [id], function(tx, resultSet) {
-        var riga = new Array();
-        riga[0] = resultSet.rows.item(0).id;
-        riga[1] = resultSet.rows.item(0).denominazione;
-        riga[2] = resultSet.rows.item(0).descrizione;
-        riga[3] = resultSet.rows.item(0).video;
-        riga[4] = resultSet.rows.item(0).latitudine;
-        riga[5] = resultSet.rows.item(0).longitudine;
-        riga[6] = resultSet.rows.item(0).miniatura;
+          localStorage.setObj('sito', riga);
 
-        localStorage.setObj('sito', riga);
-
-      }, dbSelecterror);
+        }, dbSelecterror);
+      });)
     });
-
   }
-
-  return;
 
 }
 
