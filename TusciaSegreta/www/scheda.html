@@ -3,10 +3,9 @@
     var param = getValueFromLocalStorage('param');
     showMessage("param: " + param);
 
-    await sito = getSito(param, database);
-
+    var sito = getStoredSito(param, database);
     showMessage("Sito: " + sito);
-    
+
     //var sito = getSito(param, database);
 
     //getPercorsoSito(myParam, database);

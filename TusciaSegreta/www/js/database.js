@@ -454,7 +454,7 @@ function saveElencoSiti(tx, resultSet) {
 
 async function getSito(id, database)
 {
-  var sito;
+
   if(database != null) {
 
     database.transaction(function(transaction) {
@@ -470,18 +470,22 @@ async function getSito(id, database)
         riga[5] = resultSet.rows.item(0).longitudine;
         riga[6] = resultSet.rows.item(0).miniatura;
 
-        //saveSitoNew(riga);
-        sito = riga;
+        localStorage.setObj('sito', riga);
 
       }, dbSelecterror);
     });
 
-  } else {
-    saveSito(null, null);
-
   }
 
-  return sito;
+  return;
+
+}
+
+async function getStoredSito(id, database) {
+
+  await getSito(id, database);
+
+  return localStorage.getObj('sito');
 }
 
 function getPercorsoSito(id, database)
