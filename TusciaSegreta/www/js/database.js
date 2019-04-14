@@ -456,6 +456,7 @@ function getSito(id, database)
 {
   var sito;
   if(database != null) {
+    
     database.transaction(function(transaction) {
       //transaction.executeSql('SELECT * FROM sito where id=?', [id],  saveSito, dbSelecterror);
 

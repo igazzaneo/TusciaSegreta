@@ -3,8 +3,12 @@
     var param = getValueFromLocalStorage('param');
     showMessage("param: " + param);
 
-    var sito = getSito(param, database);
-    showMessage("Sito: " + sito);
+    Promise.resolve(getSito(param, database)).then(function(sito) {
+      showMessage("Sito: " + sito);
+    });
+
+    //var sito = getSito(param, database);
+
     //getPercorsoSito(myParam, database);
     //getNodiPercorsoSito(myParam, database);
     // Prelevo tutte le caratteristiche del percorso non solo quelle filtrabili
