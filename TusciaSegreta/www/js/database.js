@@ -436,15 +436,16 @@ function saveElencoSiti(tx, rows) {
 
     var elenco = new Array();
 
-    for(var x = 0; x < rows.length; x++) {
+    for(var x = 0; x < resultSet.rows.length; x++) {
 
         var riga = new Array();
-        riga[0] = rows.item(x).id;
-        riga[1] = rows.item(x).denominazione;
-        riga[2] = rows.item(x).descrizione;
-        riga[3] = rows.item(x).video;
-        riga[4] = rows.item(x).latitudine;
-        riga[5] = rows.item(x).longitudine;
+        riga[0] = resultSet.rows.item(x).id;
+        riga[1] = resultSet.rows.item(x).denominazione;
+        riga[2] = resultSet.rows.item(x).descrizione;
+        riga[3] = resultSet.rows.item(x).video;
+        riga[4] = resultSet.rows.item(x).latitudine;
+        riga[5] = resultSet.rows.item(x).longitudine;
+        riga[6] = resultSet.rows.item(x).miniatura;
 
         elenco[x] = riga;
 
@@ -454,7 +455,7 @@ function saveElencoSiti(tx, rows) {
     localStorage.setObj('elencoSiti', elenco);
 }
 
-function getSito(id, database, createItem)
+function getSito(id, database)
 {
   if(database != null) {
     database.transaction(function(transaction) {
