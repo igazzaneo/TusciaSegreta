@@ -14,7 +14,7 @@ window.dao =  {
         );*/
         copyDatabaseFile('tusciasegreta.db');
         this.db = sqlitePlugin.openDatabase({name: 'copied_tusciasegreta.db'});
-        alert(this.db);
+
     },
 
     getElencoSiti: function(callback) {
@@ -24,6 +24,7 @@ window.dao =  {
 
                 tx.executeSql(sql, this.txErrorHandler,
                     function(tx, results) {
+                      alert("Siti trovati: " + results.rows.length);
                         var len = results.rows.length,
                             siti = [],
                             i = 0;
@@ -154,7 +155,7 @@ function renderList(employees) {
         }
     });
 }
-
+/*
 function openDb() {
 
   database = sqlitePlugin.openDatabase({name: 'copied_tusciasegreta.db'});
@@ -180,4 +181,4 @@ function openDb() {
     updateVersioneDB(database, versione);
 
   }
-}
+}*/

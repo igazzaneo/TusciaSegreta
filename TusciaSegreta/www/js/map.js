@@ -29,7 +29,7 @@ function initMap() {
 
   var percorsi = L.layerGroup();
   var siti = localStorage.getObj('elencoSiti');
-  
+
   if(siti != 0) {
     for(var i=0; i<siti.length; i++) {
 

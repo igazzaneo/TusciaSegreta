@@ -383,6 +383,7 @@ function checkLoggedAndGoToPage(page) {
   }
 }
 
+/*
 function getElencoSiti(database) {
 
   if(database == null) {
@@ -429,7 +430,7 @@ function getElencoSiti(database) {
 
 
 
-}
+}*/
 
 function saveElencoSiti(tx, resultSet) {
 
@@ -446,6 +447,8 @@ function saveElencoSiti(tx, resultSet) {
         riga[5] = resultSet.rows.item(x).longitudine;
 
         elenco[x] = riga;
+
+        showMessage("Sito: " + riga);
     }
 
     localStorage.setObj('elencoSiti', elenco);
@@ -535,7 +538,7 @@ function saveSito(tx, resultSet)
     riga[6] = resultSet.rows.item(0).miniatura;
 
     localStorage.setObj('sito', riga);
-    
+
   }
 
 }
