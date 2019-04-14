@@ -23,7 +23,7 @@ function openDb() {
     removeFromLocalStorage('versione');
     saveOnLocalStorage('versione', versione);
 
-    emptyLocalStorageFromObject();
+    //emptyLocalStorageFromObject();
 
     // Aggiorno la tabella versione del DB Locale
     updateVersioneDB(database, versione);

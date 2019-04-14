@@ -14,19 +14,17 @@ Storage.prototype.removeObj = function(key) {
     return this.removeItem(key);
 }
 
+String.prototype.replaceAll = function(search, replacement) {
+    var target = this;
+    return target.replace(new RegExp(search, 'g'), replacement);
+};
+
 document.addEventListener("deviceready", onDeviceReady, false);
 
 function onDeviceReady() {
-  // Versione del DB sul server
   getServerDBVersion();
-
-  // Posizione attuale del dispositivo
-  getMapLocation();
-  //emptyLocalStorageFromObject();
   initDatabase();
-  //dao.getElencoSiti(saveElencoSiti);
-
-  //fn.gotoPage('map.html');
+  getMapLocation();
 
   setTimeout(
     function() {
@@ -34,8 +32,6 @@ function onDeviceReady() {
       fn.gotoPage('map.html');
     }, 2000
   );
-
-
 }
 
 function onBackKeyDown(e) {
