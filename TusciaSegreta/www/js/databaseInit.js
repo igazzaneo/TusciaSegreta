@@ -14,7 +14,7 @@ function openDb() {
     // Sul localstorage non è memorizzato nulla, la prelevo dal DB
     getLocalDBVersion(database);
   }
-
+  alert("Versione DB cloud: " + versione + " - Versione locale: " + versioneLocale);
   if(versione != versioneLocale) {
     // Prelevo il JSON del DB dal server
     getServerDB();
