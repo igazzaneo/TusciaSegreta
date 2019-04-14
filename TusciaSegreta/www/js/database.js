@@ -456,6 +456,7 @@ function getSito(id, database)
 {
   if(database != null) {
     return new Promise((resolve, reject) => {
+
       resolve(database.transaction(function(transaction) {
 
         transaction.executeSql('select * from sito where id=?', [id], function(tx, resultSet) {
@@ -471,7 +472,7 @@ function getSito(id, database)
           localStorage.setObj('sito', riga);
 
         }, dbSelecterror);
-      });)
+      }));
     });
   }
 
