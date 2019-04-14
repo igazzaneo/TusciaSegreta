@@ -383,7 +383,7 @@ function checkLoggedAndGoToPage(page) {
   }
 }
 
-/*
+
 function getElencoSiti(database) {
 
   if(database == null) {
@@ -430,7 +430,7 @@ function getElencoSiti(database) {
 
 
 
-}*/
+}
 
 function saveElencoSiti(tx, rows) {
 

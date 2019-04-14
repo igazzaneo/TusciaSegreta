@@ -1,5 +1,5 @@
 var rowCount = 0;
-
+var database = null;
 var versione = null;
 var versioneLocale = null;
 
@@ -23,17 +23,14 @@ function onDeviceReady() {
   // Posizione attuale del dispositivo
   getMapLocation();
   //emptyLocalStorageFromObject();
-  dao.initialize(function() {
-      console.log('database initialized');
-  });
+  initDatabase();
   //dao.getElencoSiti(saveElencoSiti);
 
   //fn.gotoPage('map.html');
 
   setTimeout(
     function() {
-      //getElencoSiti(database);
-      dao.getElencoSiti(saveElencoSiti);
+      getElencoSiti(database);
       fn.gotoPage('map.html');
     }, 2000
   );
