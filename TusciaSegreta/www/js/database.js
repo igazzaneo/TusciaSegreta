@@ -455,24 +455,39 @@ function saveElencoSiti(tx, resultSet) {
 function getSito(id, database)
 {
   if(database != null) {
+
     return new Promise((resolve, reject) => {
 
-      resolve(database.transaction(function(transaction) {
+      if(database != null) {
+        // resolve
+        var riga = new Array();
 
-        transaction.executeSql('select * from sito where id=?', [id], function(tx, resultSet) {
-          var riga = new Array();
-          riga[0] = resultSet.rows.item(0).id;
-          riga[1] = resultSet.rows.item(0).denominazione;
-          riga[2] = resultSet.rows.item(0).descrizione;
-          riga[3] = resultSet.rows.item(0).video;
-          riga[4] = resultSet.rows.item(0).latitudine;
-          riga[5] = resultSet.rows.item(0).longitudine;
-          riga[6] = resultSet.rows.item(0).miniatura;
+        resolve(database.transaction(
+            function(transaction) {
 
-          localStorage.setObj('sito', riga);
+              transaction.executeSql('select * from sito where id=?', [id], function(tx, resultSet) {
 
-        }, dbSelecterror);
-      }));
+                riga[0] = resultSet.rows.item(0).id;
+                riga[1] = resultSet.rows.item(0).denominazione;
+                riga[2] = resultSet.rows.item(0).descrizione;
+                riga[3] = resultSet.rows.item(0).video;
+                riga[4] = resultSet.rows.item(0).latitudine;
+                riga[5] = resultSet.rows.item(0).longitudine;
+                riga[6] = resultSet.rows.item(0).miniatura;
+
+              //localStorage.setObj('sito', riga);
+
+              }
+            );
+          }
+        ));
+
+        return riga;
+
+      } else {
+        reject(dbSelecterror);
+      }
+
     });
   }
 
@@ -480,9 +495,9 @@ function getSito(id, database)
 
 async function getStoredSito(id, database) {
 
-  await getSito(id, database);
+  var sito = await getSito(id, database);
 
-  return localStorage.getObj('sito');
+  return sito;
 }
 
 function getPercorsoSito(id, database)
