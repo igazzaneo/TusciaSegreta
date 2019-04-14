@@ -1,20 +1,20 @@
-var database = null;
-
 window.dao =  {
+
+    syncURL: "http://51.75.182.195:1880/checkdb",
 
     initialize: function(callback) {
 
         var self = this;
 
-        window.resolveLocalFileSystemURL(cordova.file.dataDirectory + "/copied_tusciasegreta.db",
+        /*window.resolveLocalFileSystemURL(cordova.file.dataDirectory + "/copied_tusciasegreta.db",
           function() {},
           function() {
             copyDatabaseFile('tusciasegreta.db');
           }
-        );
-
+        );*/
+        copyDatabaseFile('tusciasegreta.db');
         this.db = sqlitePlugin.openDatabase({name: 'copied_tusciasegreta.db'});
-
+        alert(this.db);
     },
 
     getElencoSiti: function(callback) {
@@ -40,11 +40,11 @@ window.dao =  {
     getLastSync: function(callback) {
         this.db.transaction(
             function(tx) {
-                var sql = "SELECT MAX(lastModified) as lastSync FROM employee";
+                var sql = "SELECT versione FROM versione_db";
                 tx.executeSql(sql, this.txErrorHandler,
                     function(tx, results) {
-                        var lastSync = results.rows.item(0).lastSync;
-                        callback(lastSync);
+                        var versione = results.rows.item(0).versione;
+                        callback(versione);
                     }
                 );
             }
@@ -55,11 +55,11 @@ window.dao =  {
 
         var self = this;
         log('Starting synchronization...');
-        this.getLastSync(function(lastSync){
-            self.getChanges(self.syncURL, lastSync,
-                function (changes) {
-                    if (changes.length > 0) {
-                        self.applyChanges(changes, callback);
+        this.getLastSync(function(versione){
+            self.getChanges(self.syncURL, versione,
+                function (versioneRemota) {
+                    if (versioneRemota != versione) {
+                        self.applyChanges(versioneRemota, callback);
                     } else {
                         log('Nothing to synchronize');
                         callback();
@@ -70,14 +70,13 @@ window.dao =  {
 
     },
 
-    getChanges: function(syncURL, modifiedSince, callback) {
+    getChanges: function(syncURL, versione, callback) {
 
         $.ajax({
             url: syncURL,
-            data: {modifiedSince: modifiedSince},
             dataType:"json",
             success:function (data) {
-                log("The server returned " + data.length + " changes that occurred after " + modifiedSince);
+                log("The server returned " + data.versione);
                 callback(data);
             },
             error: function(model, response) {
