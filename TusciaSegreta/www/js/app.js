@@ -22,8 +22,9 @@ String.prototype.replaceAll = function(search, replacement) {
 document.addEventListener("deviceready", onDeviceReady, false);
 
 function onDeviceReady() {
+
   getServerDBVersion();
-  
+
   initDatabase();
 
   getMapLocation();

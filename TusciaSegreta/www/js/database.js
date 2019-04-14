@@ -7,8 +7,9 @@ function getServerDBVersion() {
         url:'http://51.75.182.195:1880/checkdb',
         contentType: "application/json",
         dataType: "json",
-        async: true
+        async: false
     }).done(function(response) {
+      alert(response.versione);
       versione = response.versione;
     });
 }
