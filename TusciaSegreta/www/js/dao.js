@@ -25,8 +25,8 @@ window.dao =  {
 
                 tx.executeSql(sql, [],
                     function(tx, results) {
-                      alert("Siti trovati: " + results.rows.length);
-
+                      alert("Query eseguita");
+                        //alert("Siti trovati: " + results.rows.length);
                         callback(results.rows);
                     }, this.txErrorHandler
                 );
