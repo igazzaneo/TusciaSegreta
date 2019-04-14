@@ -446,7 +446,7 @@ function saveElencoSiti(tx, resultSet) {
 
         elenco[x] = riga;
 
-        showMessage("Sito: " + riga);
+        //showMessage("Sito: " + riga);
     }
 
     localStorage.setObj('elencoSiti', elenco);
@@ -454,11 +454,12 @@ function saveElencoSiti(tx, resultSet) {
 
 function getSito(id, database)
 {
+  var sito;
   if(database != null) {
     database.transaction(function(transaction) {
       //transaction.executeSql('SELECT * FROM sito where id=?', [id],  saveSito, dbSelecterror);
 
-      transaction.executeSql('select * from sito where id=?', [id], function(tx, resultSet, saveSito) {
+      transaction.executeSql('select * from sito where id=?', [id], function(tx, resultSet) {
         var riga = new Array();
         riga[0] = resultSet.rows.item(0).id;
         riga[1] = resultSet.rows.item(0).denominazione;
@@ -468,7 +469,8 @@ function getSito(id, database)
         riga[5] = resultSet.rows.item(0).longitudine;
         riga[6] = resultSet.rows.item(0).miniatura;
 
-        saveSitoNew(riga);
+        //saveSitoNew(riga);
+        sito = riga
 
       }, dbSelecterror);
     });
@@ -477,6 +479,8 @@ function getSito(id, database)
     saveSito(null, null);
 
   }
+
+  return sito;
 }
 
 function getPercorsoSito(id, database)
@@ -556,7 +560,9 @@ function saveSito(tx, resultSet)
 }
 
 function saveSitoNew(riga) {
+
   localStorage.setObj('sito', riga);
+  return riga;
 }
 
 function savePercorso(tx, resultSet) {
