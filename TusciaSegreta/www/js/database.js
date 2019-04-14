@@ -35,8 +35,8 @@ function elaboraDb(response) {
     if(response[nome_tabella] && response[nome_tabella].length) {
       var sql = createSqlQuery(nome_tabella, Object.keys(response[nome_tabella][0]), response[nome_tabella]);
 
-      showMessage(sql);
-      //popolaTabella(nome_tabella, sql, database);
+      //showMessage(sql);
+      popolaTabella(nome_tabella, sql, database);
     }
   });
 
