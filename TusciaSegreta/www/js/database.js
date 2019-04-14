@@ -432,7 +432,7 @@ function getElencoSiti(database) {
 
 }
 
-function saveElencoSiti(tx, rows) {
+function saveElencoSiti(tx, resultSet) {
 
     var elenco = new Array();
 
