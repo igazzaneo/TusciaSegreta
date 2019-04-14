@@ -22,18 +22,18 @@ window.dao =  {
         this.db.transaction(
             function(tx) {
                 var sql = "SELECT * FROM SITO";
-
-                tx.executeSql(sql, this.txErrorHandler,
+                alert("getElencoSiti: " + sql);
+                tx.executeSql(sql, [],
                     function(tx, results) {
                       alert("Siti trovati: " + results.rows.length);
-                        var len = results.rows.length,
+                        /*var len = results.rows.length,
                             siti = [],
                             i = 0;
                         for (; i < len; i = i + 1) {
                             siti[i] = results.rows.item(i);
-                        }
-                        callback(siti);
-                    }
+                        }*/
+                        callback(results.rows);
+                    }, this.txErrorHandler
                 );
             }
         );
