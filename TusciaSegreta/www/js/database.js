@@ -468,20 +468,19 @@ function getSito(id, database)
 
               transaction.executeSql('select * from sito where id=?', [id], function(tx, resultSet) {
 
-                riga[0] = resultSet.rows.item(0).id;
-                riga[1] = resultSet.rows.item(0).denominazione;
-                riga[2] = resultSet.rows.item(0).descrizione;
-                riga[3] = resultSet.rows.item(0).video;
-                riga[4] = resultSet.rows.item(0).latitudine;
-                riga[5] = resultSet.rows.item(0).longitudine;
-                riga[6] = resultSet.rows.item(0).miniatura;
+                  riga[0] = resultSet.rows.item(0).id;
+                  riga[1] = resultSet.rows.item(0).denominazione;
+                  riga[2] = resultSet.rows.item(0).descrizione;
+                  riga[3] = resultSet.rows.item(0).video;
+                  riga[4] = resultSet.rows.item(0).latitudine;
+                  riga[5] = resultSet.rows.item(0).longitudine;
+                  riga[6] = resultSet.rows.item(0).miniatura;
 
-              //localStorage.setObj('sito', riga);
+                //localStorage.setObj('sito', riga);
 
-              }
-
+                }
+              );
               return riga;
-            );
           }
         ));
 
