@@ -452,11 +452,11 @@ function saveElencoSiti(tx, resultSet) {
     localStorage.setObj('elencoSiti', elenco);
 }
 
-function getSito(id, database)
+async function getSito(id, database)
 {
   var sito;
   if(database != null) {
-    
+
     database.transaction(function(transaction) {
       //transaction.executeSql('SELECT * FROM sito where id=?', [id],  saveSito, dbSelecterror);
 
@@ -471,7 +471,7 @@ function getSito(id, database)
         riga[6] = resultSet.rows.item(0).miniatura;
 
         //saveSitoNew(riga);
-        sito = riga
+        sito = riga;
 
       }, dbSelecterror);
     });
