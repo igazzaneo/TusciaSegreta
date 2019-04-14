@@ -460,10 +460,11 @@ function getSito(id, database)
 
       if(database != null) {
         // resolve
-        var riga = new Array();
+
 
         resolve(database.transaction(
             function(transaction) {
+              var riga = new Array();
 
               transaction.executeSql('select * from sito where id=?', [id], function(tx, resultSet) {
 
@@ -478,11 +479,13 @@ function getSito(id, database)
               //localStorage.setObj('sito', riga);
 
               }
+
+              return riga;
             );
           }
         ));
 
-        return riga;
+
 
       } else {
         reject(dbSelecterror);
