@@ -468,13 +468,20 @@ function getSito(id, database)
 
 }
 
-function getPercorsoSito(id, database, callback)
+function getPercorsoSito(id, database, callback, map)
 {
 
   if(database != null) {
     database.transaction(function(transaction) {
       transaction.executeSql('SELECT * FROM percorso where sito_id=?', [id], function(transaction, resultSet) {
-        callback(resultSet);
+
+        var p = new Array();
+        p[0] = resultSet.rows.item(0).id;
+        p[1] = resultSet.rows.item(0).sito_id;
+        p[2] = resultSet.rows.item(0).descrizione;
+        p[3] = resultSet.rows.item(0).gpx;
+        p[4] = resultSet.rows.item(0).denominazione;
+        callback(p, map);
       }, dbSelecterror);
     });
   } else {
@@ -482,14 +489,7 @@ function getPercorsoSito(id, database, callback)
   }
 }
 
-function impostaDatiPercorso(resultSet) {
-
-  var p = new Array();
-  p[0] = resultSet.rows.item(0).id;
-  p[1] = resultSet.rows.item(0).sito_id;
-  p[2] = resultSet.rows.item(0).descrizione;
-  p[3] = resultSet.rows.item(0).gpx;
-  p[4] = resultSet.rows.item(0).denominazione;
+function impostaDatiPercorso(p, map) {
 
   showMessage("CreateItem: " + p);
 

@@ -135,7 +135,7 @@
       drawCircle: false
     }).addTo(map);
 
-    getPercorsoSito(param, database, impostaDatiPercorso);
+    getPercorsoSito(param, database, impostaDatiPercorso, map);
 
     if(checkDistanceFromStart(sito)) {
       if(confirm("Vuoi attivare la navigazione sul percorso?"))
