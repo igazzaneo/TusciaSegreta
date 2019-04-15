@@ -468,7 +468,7 @@ function getSito(id, database)
 
 }
 
-function getPercorsoSito(id, database, callbask)
+function getPercorsoSito(id, database, callback)
 {
   var riga;
   if(database != null) {
@@ -481,7 +481,7 @@ function getPercorsoSito(id, database, callbask)
         riga[3] = resultSet.rows.item(0).gpx;
         riga[4] = resultSet.rows.item(0).denominazione;*/
         showMessage("Riga: " + riga);
-        
+
         callback(resultSet);
 
 
