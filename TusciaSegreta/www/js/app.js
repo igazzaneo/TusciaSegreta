@@ -2,7 +2,7 @@ var rowCount = 0;
 var database = null;
 var versione = null;
 var versioneLocale = null;
-var percorso;
+//var percorso;
 
 Storage.prototype.setObj = function(key, obj) {
     this.removeItem(key);

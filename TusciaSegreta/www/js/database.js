@@ -468,7 +468,7 @@ function getSito(id, database)
 
 }
 
-function getPercorsoSito(id, database)
+function getPercorsoSito(id, database, callbask)
 {
   var riga;
   if(database != null) {
@@ -481,7 +481,7 @@ function getPercorsoSito(id, database)
         riga[3] = resultSet.rows.item(0).gpx;
         riga[4] = resultSet.rows.item(0).denominazione;*/
 
-        //createItem(resultSet);
+        callback(resultSet);
 
 
       }, dbSelecterror);
@@ -497,14 +497,14 @@ function getPercorsoSito(id, database)
 
 function createItem(resultSet) {
 
-  percorso = new Array();
+  var percorso = new Array();
   percorso[0] = resultSet.rows.item(0).id;
   percorso[1] = resultSet.rows.item(0).sito_id;
   percorso[2] = resultSet.rows.item(0).descrizione;
   percorso[3] = resultSet.rows.item(0).gpx;
   percorso[4] = resultSet.rows.item(0).denominazione;
 
-
+  return percorso;
 }
 
 function getCaratteristichePercorsoSito(id, database)

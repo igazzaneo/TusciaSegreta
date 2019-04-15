@@ -58,11 +58,11 @@
     var param = getValueFromLocalStorage('param');
     showMessage("Parametro: " + param);
     var lc;
-    getPercorsoSito(param, database);
+    var percorso = getPercorsoSito(param, database, createItem);
     //getNodiPercorsoSito(param, database);
 
     //var nodi = localStorage.getObj('nodi');
-    //showMessage("percorso:" + percorso);
+    showMessage("percorso:" + percorso);
     //showMessage("nodi:" + nodi);
 
     var roads = L.gridLayer.googleMutant({
@@ -124,8 +124,8 @@
     var elevationControl = {
       //url: "https://raruto.github.io/examples/leaflet-elevation/via-emilia.gpx",
       //url: "gpx/eremo-di-poggio-conte2.gpx",
-      //url: gpx,
-      url: "gpx/itlogix.gpx",
+      url: gpx,
+      //url: "gpx/itlogix.gpx",
       options: {
         position: "topleft",
         theme: "magenta-theme", //default: lime-theme
@@ -257,6 +257,5 @@
     }
 
     </script>
-    <input type="text" id="gpx">
 
 </ons-page>
