@@ -29,12 +29,12 @@ function controllaGPX(data) {
   return $.ajax({
       url:'http://51.75.182.195:1880/controllaGPX',
       type: "POST",
-      gpx: data,
-      contentType: "application/json",
-      dataType: "json",
+      data: data,
+      contentType: "application/x-www-form-urlencoded",
+      dataType: "xml",
       async: false
   }).done(function(response) {
-    alert(response);
+    alert(JSON.stringify(response));
   });
 
 }
