@@ -474,17 +474,7 @@ function getPercorsoSito(id, database, callback)
   if(database != null) {
     database.transaction(function(transaction) {
       transaction.executeSql('SELECT * FROM percorso where sito_id=?', [id], function(transaction, resultSet) {
-        riga = resultSet.rows.item(0); /*new Array();
-        riga[0] = resultSet.rows.item(0).id;
-        riga[1] = resultSet.rows.item(0).sito_id;
-        riga[2] = resultSet.rows.item(0).descrizione;
-        riga[3] = resultSet.rows.item(0).gpx;
-        riga[4] = resultSet.rows.item(0).denominazione;*/
-        showMessage("Riga: " + riga);
-
         callback(resultSet);
-
-
       }, dbSelecterror);
     }, null, function() {
       showMessage(riga);
@@ -498,16 +488,16 @@ function getPercorsoSito(id, database, callback)
 
 function createItem(resultSet) {
 
-  percorso = new Array();
-  percorso[0] = resultSet.rows.item(0).id;
-  percorso[1] = resultSet.rows.item(0).sito_id;
-  percorso[2] = resultSet.rows.item(0).descrizione;
-  percorso[3] = resultSet.rows.item(0).gpx;
-  percorso[4] = resultSet.rows.item(0).denominazione;
+  var p = new Array();
+  p[0] = resultSet.rows.item(0).id;
+  p[1] = resultSet.rows.item(0).sito_id;
+  p[2] = resultSet.rows.item(0).descrizione;
+  p[3] = resultSet.rows.item(0).gpx;
+  p[4] = resultSet.rows.item(0).denominazione;
 
-  showMessage(percorso);
+  showMessage(p);
 
-  return percorso;
+  return p;
 }
 
 function getCaratteristichePercorsoSito(id, database)
