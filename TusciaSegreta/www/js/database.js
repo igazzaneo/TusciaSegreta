@@ -545,6 +545,8 @@ function getNodiPercorsoSito(id, database, map, callback)
   if(database != null) {
     database.transaction(function(transaction) {
       transaction.executeSql('SELECT nodo.* from nodo join percorso on percorso.id=nodo.percorso_id where percorso.sito_id=?', [id], function(transaction, resultSet) {
+
+        showMessage("Nodi trovati" + resultSet.rows.length);
         var elenco = new Array();
 
         for(var x = 0; x < resultSet.rows.length; x++) {
@@ -556,6 +558,8 @@ function getNodiPercorsoSito(id, database, map, callback)
           riga[3] = resultSet.rows.item(x).percorso_id;
           riga[4] = resultSet.rows.item(x).descrizione;
           riga[5] = resultSet.rows.item(x).nome;
+
+          showMessage("Nodo in: " + riga);
 
           elenco[x] = riga;
         }
