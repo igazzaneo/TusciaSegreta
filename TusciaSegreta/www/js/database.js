@@ -481,7 +481,8 @@ function getPercorsoSito(id, database)
         riga[3] = resultSet.rows.item(0).gpx;
         riga[4] = resultSet.rows.item(0).denominazione;*/
 
-        createItem(resultSet);
+        //createItem(resultSet);
+        $('#gpx').val(resultSet.rows.item(0).gpx);
 
       }, dbSelecterror);
     }, null, function() {

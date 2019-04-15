@@ -118,11 +118,12 @@
     };
 
     L.control.layers(baseLayers).addTo(map);
+    var gpx = $('#gpx').val();
 
     var elevationControl = {
       //url: "https://raruto.github.io/examples/leaflet-elevation/via-emilia.gpx",
       //url: "gpx/eremo-di-poggio-conte2.gpx",
-      url: percorso[3],
+      url: gpx,
       //url: "gpx/itlogix.gpx",
       options: {
         position: "topleft",
@@ -139,7 +140,7 @@
     var controlElevation = L.control.elevation(elevationControl.options);
     controlElevation.loadGPX(map, elevationControl.url);
 
-    var gpx = percorso[3]; /*"<?xml version=\"1.0\" encoding=\"UTF-8\"?><gpx version=\"1.1\" xmlns=\"http://www.topografix.com/GPX/1/1\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd\">"
+     /*"<?xml version=\"1.0\" encoding=\"UTF-8\"?><gpx version=\"1.1\" xmlns=\"http://www.topografix.com/GPX/1/1\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd\">"
       + "<metadata><name>Wikiloc - ItLogix</name><author><name>italicus</name><link href=\"https://www.wikiloc.com/wikiloc/user.do?id=841456\"><text>italicus on Wikiloc</text></link></author>"
       + "<link href=\"https://www.wikiloc.com/hiking-trails/itlogix-35046280\"><text>ItLogix on Wikiloc</text></link><time>2019-04-09T15:00:29Z</time></metadata>"
       + "<wpt lat=\"42.434954\" lon=\"12.105997\"><ele>316.5</ele><time>2019-04-03T12:37:17Z</time><name>Cambio direzione: vai a sinistra</name></wpt>"
@@ -271,6 +272,6 @@
     }
 
     </script>
-
+    <input type="hidden" id="gpx">
 
 </ons-page>
