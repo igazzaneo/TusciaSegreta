@@ -176,6 +176,10 @@
         parser.parse(gpx); //parse gpx file from string data
         var points = parser.tracks[0].points;
 
+        var line = L.polyline(points);
+    		map.fitBounds(line.getBounds());
+    		map.addLayer(line);
+
         L.marker([points[0].lat,points[0].lon], {
           icon: L.BeautifyIcon.icon(startOptions),
           draggable: false
