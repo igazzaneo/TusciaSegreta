@@ -539,7 +539,7 @@ function getPercorsoSito(id, database, map, callback)
   }
 }
 
-unction getNodiPercorsoSito(id, database, map, callback)
+function getNodiPercorsoSito(id, database, map, callback)
 {
   //localStorage.removeObj('nodi');
   if(database != null) {
@@ -565,11 +565,7 @@ unction getNodiPercorsoSito(id, database, map, callback)
       }, dbSelecterror);
     });
 
-  } else {
-    saveNodo(null, null);
-
   }
-
 }
 
 
