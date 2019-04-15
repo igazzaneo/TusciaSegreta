@@ -491,14 +491,6 @@ function getPercorsoSito(id, database)
   }
 }
 
-function createItem(p) {
-
-  showMessage("CreateItem: " + p);
-
-
-
-}
-
 function getCaratteristichePercorsoSito(id, database)
 {
   showMessage("caratteristiche per sito: " + id);

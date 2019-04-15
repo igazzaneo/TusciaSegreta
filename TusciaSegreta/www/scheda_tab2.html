@@ -57,7 +57,7 @@
   <script>
     (async () => {
       var param = getValueFromLocalStorage('param');
-      showMessage("Parametro: " + param);
+      //showMessage("Parametro: " + param);
       var lc;
 
       await getPercorsoSito(param, database);
@@ -126,6 +126,8 @@
       L.control.layers(baseLayers).addTo(map);
 
       var gpx = percorso[3];
+
+      showMessage("GPX: " + gpx);
 
       var elevationControl = {
         //url: "https://raruto.github.io/examples/leaflet-elevation/via-emilia.gpx",
@@ -202,7 +204,7 @@
         showCompass: true,
         drawCircle: false
       }).addTo(map);
-      
+
     })();
 
     /*if(checkDistanceFromStart(sito)) {
