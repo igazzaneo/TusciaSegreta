@@ -24,6 +24,21 @@ function getServerDB() {
 
 }
 
+function controllaGPX(data) {
+
+  return $.ajax({
+      url:'http://51.75.182.195:1880/controllaGPX',
+      type: "POST",
+      gpx: data,
+      contentType: "application/json",
+      dataType: "json",
+      async: false
+  }).done(function(response) {
+    alert(response);
+  });
+
+}
+
 function elaboraDb(response) {
 
   Object.keys(response).forEach(function(key) {
