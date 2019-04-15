@@ -458,7 +458,7 @@ function getSito(id, database)
 
     database.transaction(
         function(transaction) {
-          transaction.executeSql('select * from sito where id=?', [id], saveSito);
+          transaction.executeSql('select * from sito where id=?', [id], saveSito, dbSelecterror);
         }
     );
 
