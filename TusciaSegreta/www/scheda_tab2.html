@@ -57,9 +57,11 @@
   <script>
 
     var lc;
-    var nodi = localStorage.getObj('nodi');
-    var percorso = localStorage.getObj('percorso');
-    //showMessage("percorso:" + percorso);
+    var percorso = getPercorsoSito(param, database);
+    //getNodiPercorsoSito(param, database);
+
+    //var nodi = localStorage.getObj('nodi');
+    showMessage("percorso:" + percorso);
     //showMessage("nodi:" + nodi);
 
     var roads = L.gridLayer.googleMutant({

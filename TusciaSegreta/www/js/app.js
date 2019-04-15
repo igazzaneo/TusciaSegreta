@@ -66,3 +66,14 @@ function emptyLocalStorageFromObject()
 
   return true;
 }
+
+function checkIfFileExists(path){
+    // path is the full absolute path to the file.
+    window.resolveLocalFileSystemURL(path, fileExists, fileDoesNotExist);
+}
+function fileExists(fileEntry){
+    alert("File " + fileEntry.fullPath + " exists!");
+}
+function fileDoesNotExist(){
+    alert("file does not exist");
+}

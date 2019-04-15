@@ -545,12 +545,6 @@ function saveSito(tx, resultSet)
 
 }
 
-function saveSitoNew(riga) {
-
-  localStorage.setObj('sito', riga);
-  return riga;
-}
-
 function savePercorso(tx, resultSet) {
 
   if(tx == null && resultSet == null) {
@@ -565,8 +559,7 @@ function savePercorso(tx, resultSet) {
     riga[3] = resultSet.rows.item(0).gpx;
     riga[4] = resultSet.rows.item(0).denominazione;
 
-    //showMessage("Percorso letto: " + riga);
-    localStorage.setObj('percorso', riga);
+    return riga;
 
   }
 }
