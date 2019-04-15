@@ -541,11 +541,12 @@ function getPercorsoSito(id, database, map, callback)
 
 function getNodiPercorsoSito(id, database, map, callback)
 {
-  //localStorage.removeObj('nodi');
   if(database != null) {
     database.transaction(function(transaction) {
-      transaction.executeSql('SELECT nodo.* from nodo join percorso on percorso.id=nodo.percorso_id where percorso.sito_id=?', [id], function(transaction, resultSet) {
 
+      transaction.executeSql('SELECT nodo.id, nodo.latitudine, nodo.longitudine, nodo.percorso_id, nodo.descrizione, nodo.nome from nodo inner join percorso on percorso.id=nodo.percorso_id where percorso.sito_id=?', [id], function(transaction, resultSet) {
+
+        showMessage("SELECT nodo.id, nodo.latitudine, nodo.longitudine, nodo.percorso_id, nodo.descrizione, nodo.nome from nodo inner join percorso on percorso.id=nodo.percorso_id where percorso.sito_id=" + id);
         showMessage("Nodi trovati" + resultSet.rows.length);
         var elenco = new Array();
 
