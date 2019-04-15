@@ -24,32 +24,16 @@ function getServerDB() {
 
 }
 
-function controllaGPX(data) {
-
-  return $.ajax({
-      url:'http://51.75.182.195:1880/controllaGPX',
-      type: "POST",
-      data: data,
-      contentType: "application/x-www-form-urlencoded",
-      dataType: "xml",
-      async: false
-  }).done(function(response) {
-    alert(response);
-  });
-
-}
 
 function elaboraDb(response) {
 
   Object.keys(response).forEach(function(key) {
 
     var nome_tabella = key;
-    alert("Tabella:" + key)
+    //alert("Tabella:" + key)
     if(response[nome_tabella] && response[nome_tabella].length) {
 
       var sql = createSqlQuery(nome_tabella, Object.keys(response[nome_tabella][0]), response[nome_tabella]);
-      if(nome_tabella == 'nodo')
-        showMessage(sql);
       popolaTabella(nome_tabella, sql, database);
     }
   });
@@ -90,7 +74,7 @@ function createSqlQuery(tableName, columns, obj) {
         this.generatedSqlQuery = this.generatedSqlQuery + "(";
         for (var key in obj[index]) {
           if (obj[index].hasOwnProperty(key)) {
-            var val = obj[index][key];
+            var val = obj[index][key] == null? '' : obj[index][key];
             this.generatedSqlQuery = this.generatedSqlQuery +"'"+ val.toString().replace(/'/g, "''").replace(/\n/g, " ") + "',";
           }
         }
@@ -110,7 +94,7 @@ function createSqlQuery(tableName, columns, obj) {
         }
         for (var key in obj[index]) {
           if (obj[index].hasOwnProperty(key)) {
-            var val = obj[index][key];
+            var val = obj[index][key] == null? '' : obj[index][key];
             this.generatedSqlQuery = this.generatedSqlQuery + "'" + val.toString().replace(/'/g, "''").replace(/\n/g, " ") + "',";
           }
         }
@@ -547,8 +531,7 @@ function getNodiPercorsoSito(id, database, map, callback)
   if(database != null) {
     database.transaction(function(transaction) {
 
-      //transaction.executeSql('SELECT nodo.id, nodo.latitudine, nodo.longitudine, nodo.percorso_id, nodo.descrizione, nodo.nome from nodo inner join percorso on percorso.id=nodo.percorso_id where percorso.sito_id=?', [id], function(transaction, resultSet) {
-      transaction.executeSql('select * from nodo', [], function(transaction, resultSet) {
+      transaction.executeSql('SELECT nodo.id, nodo.latitudine, nodo.longitudine, nodo.percorso_id, nodo.descrizione, nodo.nome from nodo inner join percorso on percorso.id=nodo.percorso_id where percorso.sito_id=?', [id], function(transaction, resultSet) {
 
         showMessage("Nodi trovati" + resultSet.rows.length);
         var elenco = new Array();
@@ -592,9 +575,6 @@ function getCaratteristichePercorsoSito(id, database)
   }
 
 }
-
-f
-
 
 function saveCaratteristiche(tx, resultSet)
 {

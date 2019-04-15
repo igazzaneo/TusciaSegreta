@@ -24,7 +24,7 @@ function openDb() {
     saveOnLocalStorage('versione', versione);
 
     // Aggiorno la tabella versione del DB Locale
-    updateVersioneDB(database, versione);
+    //updateVersioneDB(database, versione);
 
   }
 }
