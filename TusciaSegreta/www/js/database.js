@@ -13,8 +13,6 @@ function getServerDBVersion() {
     });
 }
 
-
-
 function getServerDB() {
 
   return $.ajax({
@@ -31,6 +29,7 @@ function elaboraDb(response) {
   Object.keys(response).forEach(function(key) {
 
     var nome_tabella = key;
+    //alert("Tabella:" + key)
     if(response[nome_tabella] && response[nome_tabella].length) {
       var sql = createSqlQuery(nome_tabella, Object.keys(response[nome_tabella][0]), response[nome_tabella]);
       popolaTabella(nome_tabella, sql, database);
@@ -74,7 +73,7 @@ function createSqlQuery(tableName, columns, obj) {
         for (var key in obj[index]) {
           if (obj[index].hasOwnProperty(key)) {
             var val = obj[index][key];
-            this.generatedSqlQuery = this.generatedSqlQuery +"'"+ val + "',";
+            this.generatedSqlQuery = this.generatedSqlQuery +"'"+ val.toString().replace(/'/g, "''").replace(/\n/g, " ") + "',";
           }
         }
         this.generatedSqlQuery = this.generatedSqlQuery.slice(0, -1);
@@ -94,7 +93,7 @@ function createSqlQuery(tableName, columns, obj) {
         for (var key in obj[index]) {
           if (obj[index].hasOwnProperty(key)) {
             var val = obj[index][key];
-            this.generatedSqlQuery = this.generatedSqlQuery + "'" + val + "',";
+            this.generatedSqlQuery = this.generatedSqlQuery + "'" + val.toString().replace(/'/g, "''").replace(/\n/g, " ") + "',";
           }
         }
         this.generatedSqlQuery = this.generatedSqlQuery.slice(0, -1);
@@ -218,8 +217,6 @@ function registraUtente(email, nome_utente, password, cellulare, cognome, nome, 
   });
 
 }
-
-
 
 function registerUserOnCloud(email, nome_utente, password, cellulare, cognome, nome) {
 
@@ -383,22 +380,42 @@ function checkLoggedAndGoToPage(page) {
   }
 }
 
+
 function getElencoSiti(database) {
 
   if(database == null) {
     // DEBUG
     var elenco = new Array();
-    for(var x=0; x<3; x++) {
-      var riga = new Array();
-      riga[0] = x;
-      riga[1] = "Qui c'è la denominazione del sito" + x;
-      riga[2] = "Qui c'è la descrizione estesa del sito" + x;
-      riga[3] = "http://www.linkdelvideo";
-      riga[4] = '42.585280';
-      riga[5] = '11.933396';
 
-      elenco[x] = riga;
-    }
+    var riga = new Array();
+    riga[0] = 1;
+    riga[1] = "Qui c'è la denominazione del sito - 1";
+    riga[2] = "Qui c'è la descrizione estesa del sito3";
+    riga[3] = "http://www.linkdelvideo1";
+    riga[4] = '42.585280';
+    riga[5] = '11.933396';
+
+    elenco[0] = riga;
+
+    riga = new Array();
+    riga[0] = 2;
+    riga[1] = "Qui c'è la denominazione del sito - 2";
+    riga[2] = "Qui c'è la descrizione estesa del sito3";
+    riga[3] = "http://www.linkdelvideo2";
+    riga[4] = '42.885280';
+    riga[5] = '11.733396';
+
+    elenco[1] = riga;
+
+    riga = new Array();
+    riga[0] = 3;
+    riga[1] = "Qui c'è la denominazione del sito - 3";
+    riga[2] = "Qui c'è la descrizione estesa del sito3";
+    riga[3] = "http://www.linkdelvideo3";
+    riga[4] = '42.685280';
+    riga[5] = '11.433396';
+
+    elenco[2] = riga;
 
     localStorage.setObj('elencoSiti', elenco);
 
@@ -425,10 +442,11 @@ function saveElencoSiti(tx, resultSet) {
         riga[3] = resultSet.rows.item(x).video;
         riga[4] = resultSet.rows.item(x).latitudine;
         riga[5] = resultSet.rows.item(x).longitudine;
-
-        //showMessage(riga[1]  + " - " + riga[4] + " - " + riga[5]);
+        riga[6] = resultSet.rows.item(x).miniatura;
 
         elenco[x] = riga;
+
+        //showMessage("Sito: " + riga);
     }
 
     localStorage.setObj('elencoSiti', elenco);
@@ -437,27 +455,68 @@ function saveElencoSiti(tx, resultSet) {
 function getSito(id, database)
 {
   if(database != null) {
-    database.transaction(function(transaction) {
-      transaction.executeSql('SELECT * FROM sito where id=?', [id],  saveSito, dbSelecterror);
-      transaction.executeSql('SELECT * FROM percorso where sito_id=?', [id], savePercorso, dbSelecterror);
-      transaction.executeSql('SELECT nodo.* from nodo join percorso on percorso.id=nodo.percorso_id join sito on sito.id=percorso.sito_id where sito.id=?', [id], saveNodo, dbSelecterror);
-    });
+
+    database.transaction(
+        function(transaction) {
+          transaction.executeSql('select * from sito where id=?', [id], saveSito, dbSelecterror);
+        }
+    );
 
   } else {
-    saveSito(null, null);
-
+    showMessage("Database non inizializzato");
   }
+
 }
 
 function getPercorsoSito(id, database)
 {
+  var riga;
   if(database != null) {
     database.transaction(function(transaction) {
-      transaction.executeSql('SELECT * FROM percorso where sito_id=?', [id], savePercorso, dbSelecterror);
+      transaction.executeSql('SELECT * FROM percorso where sito_id=?', [id], function(transaction, resultSet) {
+        riga = resultSet.rows.item(0); /*new Array();
+        riga[0] = resultSet.rows.item(0).id;
+        riga[1] = resultSet.rows.item(0).sito_id;
+        riga[2] = resultSet.rows.item(0).descrizione;
+        riga[3] = resultSet.rows.item(0).gpx;
+        riga[4] = resultSet.rows.item(0).denominazione;*/
+
+        //createItem(resultSet);
+
+
+      }, dbSelecterror);
+    }, null, function() {
+      showMessage(riga);
+      $('#gpx').val(riga.gpx);
+      return riga;
+    });
+  } else {
+    showMessage("Database non inizializzato.");
+  }
+}
+
+function createItem(resultSet) {
+
+  percorso = new Array();
+  percorso[0] = resultSet.rows.item(0).id;
+  percorso[1] = resultSet.rows.item(0).sito_id;
+  percorso[2] = resultSet.rows.item(0).descrizione;
+  percorso[3] = resultSet.rows.item(0).gpx;
+  percorso[4] = resultSet.rows.item(0).denominazione;
+
+
+}
+
+function getCaratteristichePercorsoSito(id, database)
+{
+  showMessage("caratteristiche per sito: " + id);
+  if(database != null) {
+    database.transaction(function(transaction) {
+      transaction.executeSql('select percorso_ha_caratteristica.*, caratteristica.denominazione, caratteristica.icona, percorso.sito_id from percorso_ha_caratteristica join percorso on percorso.id=percorso_ha_caratteristica.percorso_id JOIN caratteristica ON caratteristica.id=percorso_ha_caratteristica.caratteristica_id where percorso.sito_id=?', [id], saveCaratteristiche, dbSelecterror);
     });
 
   } else {
-    savePercorso(null, null);
+    saveCaratteristiche(null, null);
 
   }
 
@@ -465,9 +524,10 @@ function getPercorsoSito(id, database)
 
 function getNodiPercorsoSito(id, database)
 {
+  //localStorage.removeObj('nodi');
   if(database != null) {
     database.transaction(function(transaction) {
-      transaction.executeSql('SELECT nodo.* from nodo join percorso on percorso.id=nodo.percorso_id join sito on sito.id=percorso.sito_id where sito.id=?', [id], saveNodo, dbSelecterror);
+      transaction.executeSql('SELECT nodo.* from nodo join percorso on percorso.id=nodo.percorso_id where percorso.sito_id=?', [id], saveNodo, dbSelecterror);
     });
 
   } else {
@@ -480,10 +540,11 @@ function getNodiPercorsoSito(id, database)
 function saveSito(tx, resultSet)
 {
   if(tx == null && resultSet == null) {
+
     var riga = new Array();
-    riga[0] = 1;
-    riga[1] = "Qui c'è la denominazione del sito";
-    riga[2] = "Qui c'è la descrizione estesa del sito";
+    riga[0] = Math.floor(Math.random() * (+100 - +1)) + 1 ;
+    riga[1] = "Qui c'è la denominazione del sito" + riga[0];
+    riga[2] = "Qui c'è la descrizione estesa del sito" + riga[0];
     riga[3] = "http://www.linkdelvideo";
     riga[4] = '42.585280';
     riga[5] = '11.933396';
@@ -491,6 +552,7 @@ function saveSito(tx, resultSet)
     localStorage.setObj('sito', riga);
 
   } else {
+
     var riga = new Array();
     riga[0] = resultSet.rows.item(0).id;
     riga[1] = resultSet.rows.item(0).denominazione;
@@ -498,8 +560,11 @@ function saveSito(tx, resultSet)
     riga[3] = resultSet.rows.item(0).video;
     riga[4] = resultSet.rows.item(0).latitudine;
     riga[5] = resultSet.rows.item(0).longitudine;
+    riga[6] = resultSet.rows.item(0).miniatura;
 
-    localStorage.setObj('sito', riga);
+    $(".title").html(riga[1]);
+    document.getElementById('video').src=riga[3];
+    $(".content").html(riga[2]);
   }
 
 }
@@ -508,6 +573,7 @@ function savePercorso(tx, resultSet) {
 
   if(tx == null && resultSet == null) {
     // DEBUG
+    showMessage("Debug");
   } else {
 
     var riga = new Array();
@@ -515,12 +581,38 @@ function savePercorso(tx, resultSet) {
     riga[1] = resultSet.rows.item(0).sito_id;
     riga[2] = resultSet.rows.item(0).descrizione;
     riga[3] = resultSet.rows.item(0).gpx;
+    riga[4] = resultSet.rows.item(0).denominazione;
 
-    localStorage.setObj('percorso', riga);
+    setValue('percorso', riga);
 
   }
+}
 
+function saveCaratteristiche(tx, resultSet)
+{
+    var elenco = new Array();
 
+    if(tx == null && resultSet == null) {
+
+    } else {
+
+      for(var x = 0; x < resultSet.rows.length; x++) {
+        var riga = new Array();
+        riga[0] = resultSet.rows.item(x).id;
+        riga[1] = resultSet.rows.item(x).percorso_id;
+        riga[2] = resultSet.rows.item(x).caratteristica_id;
+        riga[3] = resultSet.rows.item(x).valore;
+        riga[4] = resultSet.rows.item(x).stato;
+        riga[5] = resultSet.rows.item(x).denominazione;
+        riga[6] = resultSet.rows.item(x).icona;
+        riga[6] = resultSet.rows.item(x).sito_id;
+
+        elenco[x] = riga;
+      }
+
+      localStorage.setObj('caratteristiche', elenco);
+
+    }
 }
 
 function saveNodo(tx, resultSet) {
@@ -529,6 +621,15 @@ function saveNodo(tx, resultSet) {
 
   if(tx == null && resultSet == null) {
     // DEBUG
+    var riga = new Array();
+    riga[0] = "1";
+    riga[1] = "42.435442";
+    riga[2] = "12.106059";
+    riga[3] = "1";
+    riga[4] = "Descrizione del nodo";
+    riga[5] = "Nome del nodo";
+
+    elenco[0] = riga;
   } else {
 
     for(var x = 0; x < resultSet.rows.length; x++) {
@@ -543,7 +644,7 @@ function saveNodo(tx, resultSet) {
       elenco[x] = riga;
     }
 
-    //showMessage("Nodi: " + elenco);
+    //showMessage("Nodi letti: " + elenco);
 
     localStorage.setObj('nodi', elenco);
 
@@ -552,34 +653,6 @@ function saveNodo(tx, resultSet) {
 
 }
 
-
-
-
-
-/* fine gestione versione del DB */
-//document.addEventListener('deviceready', function() {
-
-
-
-  //getMapLocation();
-  //getNavigationApp()
-
-  /*
-  var exitApp = false, intval = setInterval(function (){exitApp = false;}, 1000);
-
-  document.addEventListener("backbutton", function (e){
-    e.preventDefault();
-    if (exitApp) {
-      clearInterval(intval)
-      (navigator.app && navigator.app.exitApp()) || (device && device.exitApp())
-    } else {
-      exitApp = true
-      history.back(1);
-    }
-  }, false);*/
-
-//})
-
 function generaTabellaSiti(pagina)
 {
   var siti = localStorage.getObj('elencoSiti');
@@ -587,24 +660,46 @@ function generaTabellaSiti(pagina)
   var tabella = "";
   for(i=0; i<siti.length; i++) {
 
-    var sito = siti[i];
+      var sito = siti[i];
+      showMessage(sito);
+      //localStorage.removeObj('caratteristiche');
+      getCaratteristichePercorsoSito(sito[0], database);
 
-    tabella += "<div><table style=\"width: 100%;\"><tbody><tr>" +
-     "<td style=\"width: 25%; height: 100%; text-align: center; vertical-align: middle;\"><img src=\"img/percorsi/eremo/foto1.jpg\" width=\"180px\"></td>" +
-     "<td style=\"width: 75%; vertical-align: top;\">" +
-        "<table style=\"width: 100%;\">" +
-        "<tbody>" +
-        "<tr><td style=\"font-weight: bold;\" colspan=\"3\">" + sito[1] + "</td></tr>" +
-        "<tr><td colspan=\"3\">" + sito[2] + "</td></tr>" +
-        "<tr><td class=\"facile\">Facile</td><td class=\"lunghezza\">2,1 km</td><td class=\"durata\">25 m</td></tr>" +
-        "<tr><td colspan=\"3\">Commenti<div id='trail-rating'><ul class='ratings'><li class='average'><span id='rating' class='rating star3_5'>&nbsp;</span></li></ul></div></td></tr>" +
-        "<tr><td colspan=\"3\" align=\"right\"><button type=\"button\" value=\"\" class=\"css3button\" onclick=\"changePageWithParam('scheda.html', " + sito[0] + ")\">  " + pagina + "  </button></td></tr>" +
+      var caratteristiche = localStorage.getObj('caratteristiche');
+      //showMessage(caratteristiche);
+      var diff, lung, durata;
+      for(j=0; j<caratteristiche.length; j++) {
+
+        var car = caratteristiche[j];
+
+        //showMessage("caratteristica:" + car)
+
+        if(car[5]=='Difficoltà') {
+          diff = car[3];
+        } else if(car[5]=='Lunghezza') {
+          lung = car[3];
+        } else if(car[5]=='Durata') {
+          durata = car[3];
+        }
+      }
+
+      tabella += "<div><table style=\"width: 100%;\"><tbody><tr>" +
+       "<td style=\"width: 25%; height: 100%; text-align: center; vertical-align: middle;\"><img src=\"img/percorsi/eremo/foto1.jpg\" width=\"180px\"></td>" +
+       "<td style=\"width: 75%; vertical-align: top;\">" +
+          "<table style=\"width: 100%;\">" +
+          "<tbody>" +
+          "<tr><td style=\"font-weight: bold;\" colspan=\"3\">" + sito[1] + "</td></tr>" +
+          "<tr><td colspan=\"3\">" + sito[2] + "</td></tr>" +
+          "<tr><td class=\"facile\">" + diff + "</td><td class=\"lunghezza\">" + lung + " km</td><td class=\"durata\">" + durata +" min</td></tr>" +
+          "<tr><td colspan=\"3\">Commenti<div id='trail-rating'><ul class='ratings'><li class='average'><span id='rating' class='rating star3_5'>&nbsp;</span></li></ul></div></td></tr>" +
+          "<tr><td colspan=\"3\" align=\"right\"><button type=\"button\" value=\"\" class=\"css3button\" onclick=\"changePageWithParam('scheda.html', " + sito[0] + ")\">  " + pagina.toUpperCase() + "  </button></td></tr>" +
         "</tbody>" +
         "</table>" +
-    "</td>" +
-    "</tr></tbody></table></div><div><hr class=\"style-three\"></div>";
+      "</td>" +
+     "</tr></tbody></table></div><div><hr class=\"style-three\"></div>";
 
   }
+
   $('#' + pagina).append(tabella);
 
 }

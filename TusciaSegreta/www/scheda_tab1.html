@@ -1,24 +1,10 @@
 <ons-page id="Scelta">
   <script>
     var param = getValueFromLocalStorage('param');
-    //showMessage("Scheda: " + param);
     getSito(param, database);
-    getPercorsoSito(param, database);
-    getNodiPercorsoSito(param, database);
-
-    var sito = localStorage.getObj('sito');
-
-    //showMessage("Scheda: " + sito);
-
-    $(".title").html(sito[1]);
-    document.getElementById('video').src=sito[3];
-    $(".content").html(sito[2]);
   </script>
   <ons-card>
     <div class="title" style="background-color: transparent">
-        <script type="text/javascript">
-          document.write(sito[1]);
-        </script>
     </div>
     <div>
       <ons-card>
