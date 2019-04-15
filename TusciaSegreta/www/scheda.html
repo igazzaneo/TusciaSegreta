@@ -1,11 +1,9 @@
 <ons-page>
   <script>
     var param = getValueFromLocalStorage('param');
-    showMessage("param: " + param);
-    var sitoOut;
-    getSito(param, database).then(function() { showMessage("Sito inside: " + localStorage.getObj('sito'));  });
+    //showMessage("param: " + param);
 
-    showMessage("SitoOut: " + localStorage.getObj('sito'));
+    getSito(param, database);
 
     //var sito = getSito(param, database);
 
