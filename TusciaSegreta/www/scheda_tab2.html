@@ -154,11 +154,6 @@
 
       var controlElevation = L.control.elevation(elevationControl.options);
       controlElevation.loadGPX(map, elevationControl.url);
-
-      var gpxParser = new gpxParser(); //Create gpxParser Object
-      gpxParser.parse(gpx); //parse gpx file from string data
-      var points = gpxParser.tracks[0].points;
-
       var startOptions = {
           iconShape: 'doughnut',
           borderWidth: 5
@@ -176,15 +171,24 @@
           borderColor: '#8D208B'
       };
 
-      L.marker([points[0].lat,points[0].lon], {
-        icon: L.BeautifyIcon.icon(startOptions),
-        draggable: false
-      }).bindPopup('Inizio percorso').addTo(map);
+      try {
+        var gpxParser = new gpxParser(); //Create gpxParser Object
+        gpxParser.parse(gpx); //parse gpx file from string data
+        var points = gpxParser.tracks[0].points;
 
-      L.marker([points[points.length-1].lat,points[points.length-1].lon], {
-        icon: L.BeautifyIcon.icon(endOptions),
-        draggable: false
-      }).bindPopup('Fine percorso').addTo(map);
+        L.marker([points[0].lat,points[0].lon], {
+          icon: L.BeautifyIcon.icon(startOptions),
+          draggable: false
+        }).bindPopup('Inizio percorso').addTo(map);
+
+        L.marker([points[points.length-1].lat,points[points.length-1].lon], {
+          icon: L.BeautifyIcon.icon(endOptions),
+          draggable: false
+        }).bindPopup('Fine percorso').addTo(map);
+
+      } catch(error) {
+        alert("errore parsing gpx: " + error);
+      }
 
       // Visualizzo i Wp sulla mappa presi dalla tabella dei nodi del percorso.
       /*nodi.forEach(function(wp) {
