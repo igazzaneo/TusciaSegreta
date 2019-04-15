@@ -468,7 +468,7 @@ function getSito(id, database)
 
 }
 
-function getPercorsoSito(id, database, callback, map)
+function getPercorsoSito(id, database, callback)
 {
 
   if(database != null) {
@@ -481,7 +481,7 @@ function getPercorsoSito(id, database, callback, map)
         p[2] = resultSet.rows.item(0).descrizione;
         p[3] = resultSet.rows.item(0).gpx;
         p[4] = resultSet.rows.item(0).denominazione;
-        callback(p, map);
+        callback(p);
       }, dbSelecterror);
     });
   } else {
@@ -489,71 +489,12 @@ function getPercorsoSito(id, database, callback, map)
   }
 }
 
-function impostaDatiPercorso(p, map) {
+function createItem(p) {
 
   showMessage("CreateItem: " + p);
 
-  var gpx = p[3];
+  localStorage.setObj('percorso', p);
 
-  var elevationControl = {
-    //url: "https://raruto.github.io/examples/leaflet-elevation/via-emilia.gpx",
-    //url: "gpx/eremo-di-poggio-conte2.gpx",
-    url: gpx,
-    //url: "gpx/itlogix.gpx",
-    options: {
-      position: "topleft",
-      theme: "magenta-theme", //default: lime-theme
-      useHeightIndicator: true, //if false a marker is drawn at map position
-      interpolation: d3.curveLinear, //see https://github.com/d3/d3/wiki/
-      collapsed: false, //collapsed mode, show chart on click or mouseover
-      elevationDiv: "#elevation-div",
-      detachedView: true,
-      responsiveView: true,
-    },
-  };
-
-  var controlElevation = L.control.elevation(elevationControl.options);
-  controlElevation.loadGPX(map, elevationControl.url);
-
-  var gpxParser = new gpxParser(); //Create gpxParser Object
-  gpxParser.parse(gpx); //parse gpx file from string data
-  var points = gpxParser.tracks[0].points;
-  var waypoints = gpxParser.waypoints;
-
-  var startOptions = {
-      iconShape: 'doughnut',
-      borderWidth: 5
-  };
-
-  var endOptions = {
-      iconShape: 'doughnut',
-      borderWidth: 5,
-      borderColor: 'red'
-  };
-
-  var wptOptions = {
-      iconShape: 'doughnut',
-      borderWidth: 5,
-      borderColor: '#8D208B'
-  };
-
-  L.marker([points[0].lat,points[0].lon], {
-    icon: L.BeautifyIcon.icon(startOptions),
-    draggable: false
-  }).bindPopup('Inizio percorso').addTo(map);
-
-  L.marker([points[points.length-1].lat,points[points.length-1].lon], {
-    icon: L.BeautifyIcon.icon(endOptions),
-    draggable: false
-  }).bindPopup('Fine percorso').addTo(map);
-
-  // Visualizzo i Wp sulla mappa presi dalla tabella dei nodi del percorso.
-  /*nodi.forEach(function(wp) {
-    L.marker([wp[1],wp[2]], {
-      icon: L.BeautifyIcon.icon(wptOptions),
-      draggable: false
-    }).bindPopup(wp[5] + " - " + wp[4]).addTo(map);
-  });*/
 }
 
 function getCaratteristichePercorsoSito(id, database)
