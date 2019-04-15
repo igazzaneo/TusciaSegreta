@@ -480,7 +480,8 @@ function getPercorsoSito(id, database, callbask)
         riga[2] = resultSet.rows.item(0).descrizione;
         riga[3] = resultSet.rows.item(0).gpx;
         riga[4] = resultSet.rows.item(0).denominazione;*/
-
+        showMessage("Riga: " + riga);
+        
         callback(resultSet);
 
 
@@ -497,7 +498,7 @@ function getPercorsoSito(id, database, callbask)
 
 function createItem(resultSet) {
 
-  var percorso = new Array();
+  percorso = new Array();
   percorso[0] = resultSet.rows.item(0).id;
   percorso[1] = resultSet.rows.item(0).sito_id;
   percorso[2] = resultSet.rows.item(0).descrizione;
