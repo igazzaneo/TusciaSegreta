@@ -481,7 +481,7 @@ function getPercorsoSito(id, database)
         riga[3] = resultSet.rows.item(0).gpx;
         riga[4] = resultSet.rows.item(0).denominazione;*/
 
-        //createItem(resultSet);
+        createItem(resultSet);
 
       }, dbSelecterror);
     }, null, function() {
@@ -495,7 +495,7 @@ function getPercorsoSito(id, database)
 
 function createItem(resultSet) {
 
-  var percorso = new Array();
+  percorso = new Array();
   percorso[0] = resultSet.rows.item(0).id;
   percorso[1] = resultSet.rows.item(0).sito_id;
   percorso[2] = resultSet.rows.item(0).descrizione;
