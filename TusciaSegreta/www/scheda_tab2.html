@@ -59,11 +59,10 @@
     showMessage("Parametro: " + param);
     var lc;
 
-    getPercorsoSito(param, database, createItem);
     //getNodiPercorsoSito(param, database);
 
     //var nodi = localStorage.getObj('nodi');
-    showMessage("percorso:" + percorso);
+    //showMessage("percorso:" + percorso);
     //showMessage("nodi:" + nodi);
 
     var roads = L.gridLayer.googleMutant({
@@ -135,6 +134,8 @@
       showCompass: true,
       drawCircle: false
     }).addTo(map);
+
+    getPercorsoSito(param, database, impostaDatiPercorso);
 
     if(checkDistanceFromStart(sito)) {
       if(confirm("Vuoi attivare la navigazione sul percorso?"))

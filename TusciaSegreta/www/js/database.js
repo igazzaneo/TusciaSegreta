@@ -482,7 +482,7 @@ function getPercorsoSito(id, database, callback)
   }
 }
 
-function createItem(resultSet) {
+function impostaDatiPercorso(resultSet) {
 
   var p = new Array();
   p[0] = resultSet.rows.item(0).id;
