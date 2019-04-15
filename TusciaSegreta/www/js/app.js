@@ -76,7 +76,7 @@ function fileExists(fileEntry){
     alert("File " + fileEntry.fullPath + " exists!");
 }
 function fileDoesNotExist(){
-    alert("file does not exist");
+    console.log("file does not exist");
 }
 
 function setValue(from, value) {

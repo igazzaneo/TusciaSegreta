@@ -470,17 +470,22 @@ function getSito(id, database)
 
 function getPercorsoSito(id, database)
 {
-  //localStorage.removeObj('percorso');
+  var riga;
   if(database != null) {
     database.transaction(function(transaction) {
-      transaction.executeSql('SELECT * FROM percorso where sito_id=?', [id], savePercorso, dbSelecterror);
+      transaction.executeSql('SELECT * FROM percorso where sito_id=?', [id], function(transaction, resultSet) {
+        riga = new Array();
+        riga[0] = resultSet.rows.item(0).id;
+        riga[1] = resultSet.rows.item(0).sito_id;
+        riga[2] = resultSet.rows.item(0).descrizione;
+        riga[3] = resultSet.rows.item(0).gpx;
+        riga[4] = resultSet.rows.item(0).denominazione;
+      }, dbSelecterror);
+    }, null, function() {
+      setValue('percorso', riga);
     });
 
-  } else {
-    savePercorso(null, null);
-
   }
-
 }
 
 function getCaratteristichePercorsoSito(id, database)
