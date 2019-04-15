@@ -69,6 +69,7 @@
     //showMessage("nodi:" + nodi);
 
     var percorso = localStorage.getObj('percorso');
+    showMessage("Percorso: " + percorso);
 
     var roads = L.gridLayer.googleMutant({
        type: 'roadmap'	// valid values are 'roadmap', 'satellite', 'terrain' and 'hybrid'
@@ -124,7 +125,7 @@
 
     L.control.layers(baseLayers).addTo(map);
 
-    var gpx = p[3];
+    var gpx = percorso[3];
 
     var elevationControl = {
       //url: "https://raruto.github.io/examples/leaflet-elevation/via-emilia.gpx",
