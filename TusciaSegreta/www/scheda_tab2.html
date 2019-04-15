@@ -58,15 +58,6 @@
     function renderMap()
     {
       var lc;
-      //showMessage("Parametro2: " + param);
-      //getNodiPercorsoSito(param, database);
-
-      //var nodi = localStorage.getObj('nodi');
-      //showMessage("percorso:" + percorso);
-      //showMessage("nodi:" + nodi);
-
-      //var percorso = localStorage.getObj('percorso');
-      //showMessage("Percorso: " + percorso);
 
       var roads = L.gridLayer.googleMutant({
          type: 'roadmap'	// valid values are 'roadmap', 'satellite', 'terrain' and 'hybrid'
@@ -146,19 +137,8 @@
     {
 
       var gpx = percorso[3].toString().replace(/'/g, "''").replace(/\n/g, "").replace(/\r/g, "");
-      var gpx2 = '<?xml version="1.0" standalone="yes"?><gpx xmlns:wptx1="http://www.garmin.com/xmlschemas/WaypointExtension/v1" xmlns:gpxedw="http://www.gpxeditor.co.uk/xmlschemas/WaypointExtension/v1" xmlns:gpxedts="http://www.gpxeditor.co.uk/xmlschemas/TrackSegExtension/v1" xmlns:gpxx="http://www.garmin.com/xmlschemas/GpxExtensions/v3" creator="GPXEditor" version="1.1" xmlns="http://www.topografix.com/GPX/1/1"><wpt lat="42.43535" lon="12.10607"><name>Direzione: girare a destra</name><cmt>Girare a destra per proseguire sul percorso designato</cmt></wpt><trk><name>ItLogix</name><trkseg><trkpt lat="42.4355" lon="12.1039"><ele>337.142</ele><time>2019-04-09T15:01:25Z</time></trkpt><trkpt lat="42.43546" lon="12.10466"><ele>339.422</ele><time>2019-04-09T15:02:05Z</time></trkpt><trkpt lat="42.43535" lon="12.10607"><ele>338.614</ele><time>2019-04-09T15:02:45Z</time></trkpt><trkpt lat="42.43495" lon="12.10599"><ele>336.908</ele><time>2019-04-09T15:03:25Z</time></trkpt><trkpt lat="42.43466" lon="12.10588"><ele>336.157</ele><time>2019-04-09T15:04:05Z</time></trkpt><trkpt lat="42.43438" lon="12.10579"><ele>336.489</ele><time>2019-04-09T15:04:45Z</time></trkpt><trkpt lat="42.43416" lon="12.10571"><ele>338.014</ele><time>2019-04-09T15:05:25Z</time></trkpt></trkseg></trk></gpx>';
-
-      showMessage("GPX: " + gpx);
-      showMessage("GPX2: " + gpx2);
-
-
-      controllaGPX(gpx);
-      controllaGPX(gpx2);
 
       var elevationControl = {
-        //url: "https://raruto.github.io/examples/leaflet-elevation/via-emilia.gpx",
-        //url: "gpx/eremo-di-poggio-conte2.gpx",
-        //url: "http://51.75.182.195:1880/controllaGPX",
         url: gpx,
         options: {
           position: "topleft",
@@ -175,10 +155,13 @@
       var controlElevation = L.control.elevation(elevationControl.options);
       controlElevation.loadGPX(map, elevationControl.url);
 
-      /*var gpxParser = new gpxParser(); //Create gpxParser Object
+      var gpxParser = new gpxParser(); //Create gpxParser Object
       gpxParser.parse(gpx); //parse gpx file from string data
       var points = gpxParser.tracks[0].points;
-      var waypoints = gpxParser.waypoints;
+
+      var line = L.polyline(points);
+		  map.fitBounds(line.getBounds());
+		  map.addLayer(line);
 
       var startOptions = {
           iconShape: 'doughnut',
@@ -206,7 +189,7 @@
         icon: L.BeautifyIcon.icon(endOptions),
         draggable: false
       }).bindPopup('Fine percorso').addTo(map);
-*/
+
       // Visualizzo i Wp sulla mappa presi dalla tabella dei nodi del percorso.
       /*nodi.forEach(function(wp) {
         L.marker([wp[1],wp[2]], {
