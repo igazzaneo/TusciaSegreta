@@ -130,6 +130,7 @@
       }).addTo(map);
 
       getPercorsoSito(param, database, map, renderElevationMap);
+      getNodiPercorsoSito(param, database, map, renderNodesMap);
 
     };
 
@@ -165,24 +166,18 @@
           borderColor: 'red'
       };
 
-      var wptOptions = {
-          iconShape: 'doughnut',
-          borderWidth: 5,
-          borderColor: '#8D208B'
-      };
-
       try {
         var parser = new gpxParser(); //Create gpxParser Object
         parser.parse(gpx); //parse gpx file from string data
         var points = parser.tracks[0].points;
 
         var coords = [];
-        for(var i=0; i<points.length; i++) 
+        for(var i=0; i<points.length; i++)
         {
           var p = L.latLng(points[i].lat, points[i].lon);
           coords.push(p);
         }
-        var line = L.polyline(coords);
+        var line = L.polyline(coords, {offset: 400,});
     		map.fitBounds(line.getBounds());
     		map.addLayer(line);
 
@@ -200,15 +195,23 @@
         alert("errore parsing gpx: " + error);
       }
 
+    }
+
+    function renderNodesMap(nodi, map)
+    {
+      var wptOptions = {
+          iconShape: 'doughnut',
+          borderWidth: 5,
+          borderColor: '#8D208B'
+      };
+      
       // Visualizzo i Wp sulla mappa presi dalla tabella dei nodi del percorso.
-      /*nodi.forEach(function(wp) {
+      nodi.forEach(function(wp) {
         L.marker([wp[1],wp[2]], {
           icon: L.BeautifyIcon.icon(wptOptions),
           draggable: false
         }).bindPopup(wp[5] + " - " + wp[4]).addTo(map);
-      });*/
-
-
+      });
     }
 
     renderMap();

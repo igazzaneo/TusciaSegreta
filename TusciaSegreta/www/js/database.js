@@ -461,7 +461,6 @@ function saveElencoSiti(tx, resultSet) {
 
         elenco[x] = riga;
 
-        //showMessage("Sito: " + riga);
     }
 
     localStorage.setObj('elencoSiti', elenco);
@@ -479,59 +478,6 @@ function getSito(id, database)
 
   } else {
     showMessage("Database non inizializzato");
-  }
-
-}
-
-function getPercorsoSito(id, database, map, callback)
-{
-  if(database != null) {
-    database.transaction(function(transaction) {
-
-      transaction.executeSql('SELECT * FROM percorso where sito_id=?', [id], function(transaction, resultSet) {
-
-        var p = new Array();
-        p[0] = resultSet.rows.item(0).id;
-        p[1] = resultSet.rows.item(0).sito_id;
-        p[2] = resultSet.rows.item(0).descrizione;
-        p[3] = resultSet.rows.item(0).gpx;
-        p[4] = resultSet.rows.item(0).denominazione;
-
-        callback(p, map);
-
-      }, dbSelecterror);
-    });
-  } else {
-    showMessage("Database non inizializzato.");
-  }
-}
-
-function getCaratteristichePercorsoSito(id, database)
-{
-  showMessage("caratteristiche per sito: " + id);
-  if(database != null) {
-    database.transaction(function(transaction) {
-      transaction.executeSql('select percorso_ha_caratteristica.*, caratteristica.denominazione, caratteristica.icona, percorso.sito_id from percorso_ha_caratteristica join percorso on percorso.id=percorso_ha_caratteristica.percorso_id JOIN caratteristica ON caratteristica.id=percorso_ha_caratteristica.caratteristica_id where percorso.sito_id=?', [id], saveCaratteristiche, dbSelecterror);
-    });
-
-  } else {
-    saveCaratteristiche(null, null);
-
-  }
-
-}
-
-function getNodiPercorsoSito(id, database)
-{
-  //localStorage.removeObj('nodi');
-  if(database != null) {
-    database.transaction(function(transaction) {
-      transaction.executeSql('SELECT nodo.* from nodo join percorso on percorso.id=nodo.percorso_id where percorso.sito_id=?', [id], saveNodo, dbSelecterror);
-    });
-
-  } else {
-    saveNodo(null, null);
-
   }
 
 }
@@ -570,24 +516,81 @@ function saveSito(tx, resultSet)
 
 }
 
-function savePercorso(tx, resultSet) {
+function getPercorsoSito(id, database, map, callback)
+{
+  if(database != null) {
+    database.transaction(function(transaction) {
 
-  if(tx == null && resultSet == null) {
-    // DEBUG
-    showMessage("Debug");
+      transaction.executeSql('SELECT * FROM percorso where sito_id=?', [id], function(transaction, resultSet) {
+
+        var p = new Array();
+        p[0] = resultSet.rows.item(0).id;
+        p[1] = resultSet.rows.item(0).sito_id;
+        p[2] = resultSet.rows.item(0).descrizione;
+        p[3] = resultSet.rows.item(0).gpx;
+        p[4] = resultSet.rows.item(0).denominazione;
+
+        callback(p, map);
+
+      }, dbSelecterror);
+    });
   } else {
-
-    var riga = new Array();
-    riga[0] = resultSet.rows.item(0).id;
-    riga[1] = resultSet.rows.item(0).sito_id;
-    riga[2] = resultSet.rows.item(0).descrizione;
-    riga[3] = resultSet.rows.item(0).gpx;
-    riga[4] = resultSet.rows.item(0).denominazione;
-
-    setValue('percorso', riga);
-
+    showMessage("Database non inizializzato.");
   }
 }
+
+unction getNodiPercorsoSito(id, database, map, callback)
+{
+  //localStorage.removeObj('nodi');
+  if(database != null) {
+    database.transaction(function(transaction) {
+      transaction.executeSql('SELECT nodo.* from nodo join percorso on percorso.id=nodo.percorso_id where percorso.sito_id=?', [id], function(transaction, resultSet) {
+        var elenco = new Array();
+
+        for(var x = 0; x < resultSet.rows.length; x++) {
+
+          var riga = new Array();
+          riga[0] = resultSet.rows.item(x).id;
+          riga[1] = resultSet.rows.item(x).latitudine;
+          riga[2] = resultSet.rows.item(x).longitudine;
+          riga[3] = resultSet.rows.item(x).percorso_id;
+          riga[4] = resultSet.rows.item(x).descrizione;
+          riga[5] = resultSet.rows.item(x).nome;
+
+          elenco[x] = riga;
+        }
+
+        callback(elenco, map);
+
+      }, dbSelecterror);
+    });
+
+  } else {
+    saveNodo(null, null);
+
+  }
+
+}
+
+
+
+function getCaratteristichePercorsoSito(id, database)
+{
+  showMessage("caratteristiche per sito: " + id);
+  if(database != null) {
+    database.transaction(function(transaction) {
+      transaction.executeSql('select percorso_ha_caratteristica.*, caratteristica.denominazione, caratteristica.icona, percorso.sito_id from percorso_ha_caratteristica join percorso on percorso.id=percorso_ha_caratteristica.percorso_id JOIN caratteristica ON caratteristica.id=percorso_ha_caratteristica.caratteristica_id where percorso.sito_id=?', [id], saveCaratteristiche, dbSelecterror);
+    });
+
+  } else {
+    saveCaratteristiche(null, null);
+
+  }
+
+}
+
+f
+
 
 function saveCaratteristiche(tx, resultSet)
 {
