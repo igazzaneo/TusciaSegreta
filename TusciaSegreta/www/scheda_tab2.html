@@ -58,7 +58,7 @@
     function renderMap()
     {
       var lc;
-      showMessage("Parametro: " + param);
+      showMessage("Parametro2: " + param);
       //getNodiPercorsoSito(param, database);
 
       //var nodi = localStorage.getObj('nodi');
@@ -162,8 +162,8 @@
           collapsed: false, //collapsed mode, show chart on click or mouseover
           elevationDiv: "#elevation-div",
           detachedView: true,
-          responsiveView: true,
-        },
+          responsiveView: true
+        }
       };
 
       var controlElevation = L.control.elevation(elevationControl.options);
