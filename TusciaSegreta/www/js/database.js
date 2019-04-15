@@ -34,7 +34,7 @@ function controllaGPX(data) {
       dataType: "xml",
       async: false
   }).done(function(response) {
-    alert(JSON.stringify(response));
+    alert(response);
   });
 
 }
