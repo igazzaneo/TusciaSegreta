@@ -159,10 +159,6 @@
       gpxParser.parse(gpx); //parse gpx file from string data
       var points = gpxParser.tracks[0].points;
 
-      var line = L.polyline(points);
-		  map.fitBounds(line.getBounds());
-		  map.addLayer(line);
-
       var startOptions = {
           iconShape: 'doughnut',
           borderWidth: 5
