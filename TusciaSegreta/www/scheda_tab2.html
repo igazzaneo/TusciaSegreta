@@ -58,7 +58,8 @@
     var param = getValueFromLocalStorage('param');
     showMessage("Parametro: " + param);
     var lc;
-    var percorso = getPercorsoSito(param, database, createItem);
+    percorso.initialize(function() { showMessage("Inzializzazione..."); });
+    getPercorsoSito(param, database, createItem);
     //getNodiPercorsoSito(param, database);
 
     //var nodi = localStorage.getObj('nodi');

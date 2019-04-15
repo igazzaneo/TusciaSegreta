@@ -470,16 +470,12 @@ function getSito(id, database)
 
 function getPercorsoSito(id, database, callback)
 {
-  var riga;
+
   if(database != null) {
     database.transaction(function(transaction) {
       transaction.executeSql('SELECT * FROM percorso where sito_id=?', [id], function(transaction, resultSet) {
         callback(resultSet);
       }, dbSelecterror);
-    }, null, function() {
-      showMessage(riga);
-      $('#gpx').val(riga.gpx);
-      return riga;
     });
   } else {
     showMessage("Database non inizializzato.");
@@ -495,9 +491,11 @@ function createItem(resultSet) {
   p[3] = resultSet.rows.item(0).gpx;
   p[4] = resultSet.rows.item(0).denominazione;
 
-  showMessage(p);
+  showMessage("CreateItem: " + p);
+  
+  percorso.setData(p);
 
-  return p;
+  //return p;
 }
 
 function getCaratteristichePercorsoSito(id, database)

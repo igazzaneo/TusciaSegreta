@@ -84,3 +84,14 @@ function setValue(from, value) {
     percorso = value;
   }
 }
+
+window.percorso {
+
+  initialize: function(callback) {
+    this.percorso = new Array();
+  }
+
+  setData: function(value) {
+    this.percorso = value;
+  }
+}
