@@ -118,6 +118,7 @@
     };
 
     L.control.layers(baseLayers).addTo(map);
+
     var gpx = $('#gpx').val();
 
     var elevationControl = {
@@ -139,22 +140,6 @@
 
     var controlElevation = L.control.elevation(elevationControl.options);
     controlElevation.loadGPX(map, elevationControl.url);
-
-     /*"<?xml version=\"1.0\" encoding=\"UTF-8\"?><gpx version=\"1.1\" xmlns=\"http://www.topografix.com/GPX/1/1\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd\">"
-      + "<metadata><name>Wikiloc - ItLogix</name><author><name>italicus</name><link href=\"https://www.wikiloc.com/wikiloc/user.do?id=841456\"><text>italicus on Wikiloc</text></link></author>"
-      + "<link href=\"https://www.wikiloc.com/hiking-trails/itlogix-35046280\"><text>ItLogix on Wikiloc</text></link><time>2019-04-09T15:00:29Z</time></metadata>"
-      + "<wpt lat=\"42.434954\" lon=\"12.105997\"><ele>316.5</ele><time>2019-04-03T12:37:17Z</time><name>Cambio direzione: vai a sinistra</name></wpt>"
-      + "<wpt lat=\"42.434388\" lon=\"12.105795\"><ele>316.5</ele><time>2019-04-03T12:37:17Z</time><name>Cambio direzione: vai a destra</name></wpt>"
-      + "<trk><name>ItLogix</name><cmt></cmt><desc></desc>"
-      + "<trkseg>"
-      + "<trkpt lat=\"42.435507\" lon=\"12.103905\"><ele>337.142</ele><time>2019-04-09T15:01:25Z</time></trkpt>"
-      + "<trkpt lat=\"42.435461\" lon=\"12.104664\"><ele>339.422</ele><time>2019-04-09T15:02:05Z</time></trkpt>"
-      + "<trkpt lat=\"42.435356\" lon=\"12.106077\"><ele>338.614</ele><time>2019-04-09T15:02:45Z</time></trkpt>"
-      + "<trkpt lat=\"42.434954\" lon=\"12.105997\"><ele>336.908</ele><time>2019-04-09T15:03:25Z</time></trkpt>"
-      + "<trkpt lat=\"42.434667\" lon=\"12.105881\"><ele>336.157</ele><time>2019-04-09T15:04:05Z</time></trkpt>"
-      + "<trkpt lat=\"42.434388\" lon=\"12.105795\"><ele>336.489</ele><time>2019-04-09T15:04:45Z</time></trkpt>"
-      + "<trkpt lat=\"42.434166\" lon=\"12.105712\"><ele>338.014</ele><time>2019-04-09T15:05:25Z</time></trkpt>"
-      + "</trkseg></trk></gpx>";*/
 
 
       var gpxParser = new gpxParser(); //Create gpxParser Object
@@ -190,12 +175,12 @@
       }).bindPopup('Fine percorso').addTo(map);
 
       // Visualizzo i Wp sulla mappa presi dalla tabella dei nodi del percorso.
-      nodi.forEach(function(wp) {
+      /*nodi.forEach(function(wp) {
         L.marker([wp[1],wp[2]], {
           icon: L.BeautifyIcon.icon(wptOptions),
           draggable: false
         }).bindPopup(wp[5] + " - " + wp[4]).addTo(map);
-      });
+      });*/
 
 
     lc = L.control.locate({
