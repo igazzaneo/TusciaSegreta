@@ -482,11 +482,12 @@ function getPercorsoSito(id, database)
         riga[4] = resultSet.rows.item(0).denominazione;*/
 
         //createItem(resultSet);
-        $('#gpx').val(resultSet.rows.item(0).gpx);
+
 
       }, dbSelecterror);
     }, null, function() {
       showMessage(riga);
+      $('#gpx').val(resultSet.rows.item(0).gpx);
       return riga;
     });
   } else {
