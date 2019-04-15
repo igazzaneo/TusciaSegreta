@@ -487,7 +487,7 @@ function getPercorsoSito(id, database)
       }, dbSelecterror);
     }, null, function() {
       showMessage(riga);
-      $('#gpx').val(resultSet.rows.item(0).gpx);
+      $('#gpx').val(riga.gpx);
       return riga;
     });
   } else {
