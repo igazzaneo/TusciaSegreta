@@ -468,7 +468,7 @@ function getSito(id, database)
 
 }
 
-function getPercorsoSito(id, database)
+async function getPercorsoSito(id, database)
 {
   alert("2");
   if(database != null) {
