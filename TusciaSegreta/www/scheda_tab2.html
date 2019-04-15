@@ -58,11 +58,11 @@
     var param = getValueFromLocalStorage('param');
     showMessage("Parametro: " + param);
     var lc;
-    var percorso = getPercorsoSito(param, database);
+    var percorsoIn = getPercorsoSito(param, database);
     //getNodiPercorsoSito(param, database);
 
     //var nodi = localStorage.getObj('nodi');
-    showMessage("percorso:" + percorso);
+    showMessage("percorso:" + percorsoIn);
     //showMessage("nodi:" + nodi);
 
     var roads = L.gridLayer.googleMutant({

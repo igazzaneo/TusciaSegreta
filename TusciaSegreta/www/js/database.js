@@ -480,6 +480,9 @@ function getPercorsoSito(id, database)
         riga[2] = resultSet.rows.item(0).descrizione;
         riga[3] = resultSet.rows.item(0).gpx;
         riga[4] = resultSet.rows.item(0).denominazione;*/
+
+        //createItem(resultSet);
+
       }, dbSelecterror);
     }, null, function() {
       showMessage(riga);
@@ -488,6 +491,18 @@ function getPercorsoSito(id, database)
   } else {
     showMessage("Database non inizializzato.");
   }
+}
+
+function createItem(resultSet) {
+
+  var percorso = new Array();
+  percorso[0] = resultSet.rows.item(0).id;
+  percorso[1] = resultSet.rows.item(0).sito_id;
+  percorso[2] = resultSet.rows.item(0).descrizione;
+  percorso[3] = resultSet.rows.item(0).gpx;
+  percorso[4] = resultSet.rows.item(0).denominazione;
+
+
 }
 
 function getCaratteristichePercorsoSito(id, database)
