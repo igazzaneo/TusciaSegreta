@@ -468,13 +468,13 @@ function getSito(id, database)
 
 }
 
-async function getPercorsoSito(id, database)
+function getPercorsoSito(id, database, map, callback)
 {
-  alert("2");
   if(database != null) {
-    database.transaction( await function(transaction) {
+    database.transaction(function(transaction) {
+
       transaction.executeSql('SELECT * FROM percorso where sito_id=?', [id], function(transaction, resultSet) {
-        alert("3");
+
         var p = new Array();
         p[0] = resultSet.rows.item(0).id;
         p[1] = resultSet.rows.item(0).sito_id;
@@ -482,7 +482,7 @@ async function getPercorsoSito(id, database)
         p[3] = resultSet.rows.item(0).gpx;
         p[4] = resultSet.rows.item(0).denominazione;
 
-        localStorage.setObj('percorso', p);
+        callback(p, map);
 
       }, dbSelecterror);
     });

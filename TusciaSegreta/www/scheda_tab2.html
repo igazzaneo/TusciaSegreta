@@ -55,23 +55,20 @@
     </div-->
 
   <script>
-    (async () => {
+    fucntion renderMap()
+    {
       var param = getValueFromLocalStorage('param');
       //showMessage("Parametro: " + param);
       var lc;
-      alert("1");
-      await getPercorsoSito(param, database);
-      alert("4")
-      const yourFunction = async () => { await delay(5000); };
-      alert("5");
+
       //getNodiPercorsoSito(param, database);
 
       //var nodi = localStorage.getObj('nodi');
       //showMessage("percorso:" + percorso);
       //showMessage("nodi:" + nodi);
 
-      var percorso = localStorage.getObj('percorso');
-      showMessage("Percorso: " + percorso);
+      //var percorso = localStorage.getObj('percorso');
+      //showMessage("Percorso: " + percorso);
 
       var roads = L.gridLayer.googleMutant({
          type: 'roadmap'	// valid values are 'roadmap', 'satellite', 'terrain' and 'hybrid'
@@ -126,6 +123,29 @@
       };
 
       L.control.layers(baseLayers).addTo(map);
+
+      lc = L.control.locate({
+        position: 'topleft',
+        clickBehavior: {
+          inView: 'setView',
+          outOfView: 'setView',
+          inViewNotFollowing: 'setView'
+        },
+        cacheLocation: false,
+        icon: "fas fa-crosshairs",
+        locatOptions: {
+          enableHighAccuracy: true
+        },
+        showCompass: true,
+        drawCircle: false
+      }).addTo(map);
+
+      getPercorsoSito(param, database, map, renderElevationMap);
+
+    };
+
+    function renderElevationMap(percorso, map)
+    {
 
       var gpx = percorso[3];
 
@@ -191,23 +211,11 @@
         }).bindPopup(wp[5] + " - " + wp[4]).addTo(map);
       });*/
 
-      lc = L.control.locate({
-        position: 'topleft',
-        clickBehavior: {
-          inView: 'setView',
-          outOfView: 'setView',
-          inViewNotFollowing: 'setView'
-        },
-        cacheLocation: false,
-        icon: "fas fa-crosshairs",
-        locatOptions: {
-          enableHighAccuracy: true
-        },
-        showCompass: true,
-        drawCircle: false
-      }).addTo(map);
 
-    })();
+    }
+
+    renderMap();
+
 
     /*if(checkDistanceFromStart(sito)) {
       if(confirm("Vuoi attivare la navigazione sul percorso?"))
