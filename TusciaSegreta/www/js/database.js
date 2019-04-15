@@ -615,44 +615,6 @@ function saveCaratteristiche(tx, resultSet)
     }
 }
 
-function saveNodo(tx, resultSet) {
-
-  var elenco = new Array();
-
-  if(tx == null && resultSet == null) {
-    // DEBUG
-    var riga = new Array();
-    riga[0] = "1";
-    riga[1] = "42.435442";
-    riga[2] = "12.106059";
-    riga[3] = "1";
-    riga[4] = "Descrizione del nodo";
-    riga[5] = "Nome del nodo";
-
-    elenco[0] = riga;
-  } else {
-
-    for(var x = 0; x < resultSet.rows.length; x++) {
-      var riga = new Array();
-      riga[0] = resultSet.rows.item(x).id;
-      riga[1] = resultSet.rows.item(x).latitudine;
-      riga[2] = resultSet.rows.item(x).longitudine;
-      riga[3] = resultSet.rows.item(x).percorso_id;
-      riga[4] = resultSet.rows.item(x).descrizione;
-      riga[5] = resultSet.rows.item(x).nome;
-
-      elenco[x] = riga;
-    }
-
-    //showMessage("Nodi letti: " + elenco);
-
-    localStorage.setObj('nodi', elenco);
-
-  }
-
-
-}
-
 function generaTabellaSiti(pagina)
 {
   var siti = localStorage.getObj('elencoSiti');
