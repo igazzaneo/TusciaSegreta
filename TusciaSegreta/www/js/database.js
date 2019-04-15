@@ -46,7 +46,10 @@ function elaboraDb(response) {
     var nome_tabella = key;
     //alert("Tabella:" + key)
     if(response[nome_tabella] && response[nome_tabella].length) {
+
       var sql = createSqlQuery(nome_tabella, Object.keys(response[nome_tabella][0]), response[nome_tabella]);
+      if(nome_tabella == 'nodo')
+        showMessage(sql);
       popolaTabella(nome_tabella, sql, database);
     }
   });
