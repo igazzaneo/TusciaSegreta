@@ -491,9 +491,9 @@ function createItem(resultSet) {
   p[3] = resultSet.rows.item(0).gpx;
   p[4] = resultSet.rows.item(0).denominazione;
 
-  showMessage("CreateItem: " + p
+  showMessage("CreateItem: " + p);
 
-  var gpx = p[3]
+  var gpx = p[3];
 
   var elevationControl = {
     //url: "https://raruto.github.io/examples/leaflet-elevation/via-emilia.gpx",
