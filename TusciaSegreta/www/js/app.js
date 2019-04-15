@@ -2,6 +2,7 @@ var rowCount = 0;
 var database = null;
 var versione = null;
 var versioneLocale = null;
+var percorso;
 
 Storage.prototype.setObj = function(key, obj) {
     this.removeItem(key);
@@ -76,4 +77,10 @@ function fileExists(fileEntry){
 }
 function fileDoesNotExist(){
     alert("file does not exist");
+}
+
+function setValue(from, value) {
+  if(from=='percorso') {
+    percorso = value;
+  }
 }

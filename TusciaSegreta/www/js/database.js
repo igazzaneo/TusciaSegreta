@@ -559,7 +559,7 @@ function savePercorso(tx, resultSet) {
     riga[3] = resultSet.rows.item(0).gpx;
     riga[4] = resultSet.rows.item(0).denominazione;
 
-    return riga;
+    setValue('percorso', riga);
 
   }
 }
