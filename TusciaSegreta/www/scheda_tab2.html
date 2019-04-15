@@ -205,8 +205,10 @@
           borderColor: '#000000'
       };
 
+      showMessage("Nodi:" + nodi);
       // Visualizzo i Wp sulla mappa presi dalla tabella dei nodi del percorso.
       nodi.forEach(function(wp) {
+        showMessage("Nodo: " + wp);
         L.marker([wp[1],wp[2]], {
           icon: L.BeautifyIcon.icon(wptOptions),
           draggable: false
