@@ -149,7 +149,7 @@
 
       showMessage("GPX: " + gpx);
 
-      /*var elevationControl = {
+      var elevationControl = {
         //url: "https://raruto.github.io/examples/leaflet-elevation/via-emilia.gpx",
         //url: "gpx/eremo-di-poggio-conte2.gpx",
         url: gpx,
@@ -164,10 +164,10 @@
           detachedView: true,
           responsiveView: true
         }
-      };*/
+      };
 
-      //var controlElevation = L.control.elevation(elevationControl.options);
-      //controlElevation.loadGPX(map, elevationControl.url);
+      var controlElevation = L.control.elevation(elevationControl.options);
+      controlElevation.loadGPX(map, elevationControl.url);
 
       /*var gpxParser = new gpxParser(); //Create gpxParser Object
       gpxParser.parse(gpx); //parse gpx file from string data
