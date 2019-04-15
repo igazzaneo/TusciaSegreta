@@ -504,6 +504,8 @@ function createItem(resultSet) {
   percorso[3] = resultSet.rows.item(0).gpx;
   percorso[4] = resultSet.rows.item(0).denominazione;
 
+  showMessage(percorso);
+
   return percorso;
 }
 
