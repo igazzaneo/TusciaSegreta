@@ -145,7 +145,7 @@
     function renderElevationMap(percorso, map)
     {
 
-      var gpx = percorso[3];
+      var gpx = percorso[3].toString();
       var gpx2 = '<?xml version="1.0" standalone="yes"?><gpx xmlns:wptx1="http://www.garmin.com/xmlschemas/WaypointExtension/v1" xmlns:gpxedw="http://www.gpxeditor.co.uk/xmlschemas/WaypointExtension/v1" xmlns:gpxedts="http://www.gpxeditor.co.uk/xmlschemas/TrackSegExtension/v1" xmlns:gpxx="http://www.garmin.com/xmlschemas/GpxExtensions/v3" creator="GPXEditor" version="1.1" xmlns="http://www.topografix.com/GPX/1/1"><wpt lat="42.43535" lon="12.10607"><name>Direzione: girare a destra</name><cmt>Girare a destra per proseguire sul percorso designato</cmt></wpt><trk><name>ItLogix</name><trkseg><trkpt lat="42.4355" lon="12.1039"><ele>337.142</ele><time>2019-04-09T15:01:25Z</time></trkpt><trkpt lat="42.43546" lon="12.10466"><ele>339.422</ele><time>2019-04-09T15:02:05Z</time></trkpt><trkpt lat="42.43535" lon="12.10607"><ele>338.614</ele><time>2019-04-09T15:02:45Z</time></trkpt><trkpt lat="42.43495" lon="12.10599"><ele>336.908</ele><time>2019-04-09T15:03:25Z</time></trkpt><trkpt lat="42.43466" lon="12.10588"><ele>336.157</ele><time>2019-04-09T15:04:05Z</time></trkpt><trkpt lat="42.43438" lon="12.10579"><ele>336.489</ele><time>2019-04-09T15:04:45Z</time></trkpt><trkpt lat="42.43416" lon="12.10571"><ele>338.014</ele><time>2019-04-09T15:05:25Z</time></trkpt></trkseg></trk></gpx>';
 
       showMessage("GPX: " + gpx==gpx2);
