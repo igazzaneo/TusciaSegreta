@@ -468,7 +468,7 @@ function getSito(id, database)
 
 }
 
-function getPercorsoSito(id, database, callback)
+function getPercorsoSito(id, database)
 {
 
   if(database != null) {
@@ -481,7 +481,9 @@ function getPercorsoSito(id, database, callback)
         p[2] = resultSet.rows.item(0).descrizione;
         p[3] = resultSet.rows.item(0).gpx;
         p[4] = resultSet.rows.item(0).denominazione;
-        callback(p);
+
+        localStorage.setObj('percorso', p);
+
       }, dbSelecterror);
     });
   } else {
@@ -493,7 +495,7 @@ function createItem(p) {
 
   showMessage("CreateItem: " + p);
 
-  localStorage.setObj('percorso', p);
+
 
 }
 
