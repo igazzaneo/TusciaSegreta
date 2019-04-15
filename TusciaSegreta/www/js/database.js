@@ -474,7 +474,7 @@ function getPercorsoSito(id, database)
   if(database != null) {
     database.transaction(function(transaction) {
       transaction.executeSql('SELECT * FROM percorso where sito_id=?', [id], function(transaction, resultSet) {
-
+        alert("3");
         var p = new Array();
         p[0] = resultSet.rows.item(0).id;
         p[1] = resultSet.rows.item(0).sito_id;
