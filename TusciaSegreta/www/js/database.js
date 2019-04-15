@@ -546,6 +546,8 @@ function saveSito(tx, resultSet)
     riga[5] = resultSet.rows.item(0).longitudine;
     riga[6] = resultSet.rows.item(0).miniatura;
 
+    showMessage("GetSito: " + riga);
+
     $(".title").html(riga[1]);
     document.getElementById('video').src=riga[3];
     $(".content").html(riga[2]);

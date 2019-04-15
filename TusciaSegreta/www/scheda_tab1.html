@@ -1,6 +1,7 @@
 <ons-page id="Scelta">
   <script>
     var param = getValueFromLocalStorage('param');
+    showMessage("Parametro: " + param);
     getSito(param, database);
   </script>
   <ons-card>
