@@ -44,7 +44,7 @@ function elaboraDb(response) {
   Object.keys(response).forEach(function(key) {
 
     var nome_tabella = key;
-    //alert("Tabella:" + key)
+    alert("Tabella:" + key)
     if(response[nome_tabella] && response[nome_tabella].length) {
 
       var sql = createSqlQuery(nome_tabella, Object.keys(response[nome_tabella][0]), response[nome_tabella]);
