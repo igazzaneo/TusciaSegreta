@@ -474,17 +474,19 @@ function getPercorsoSito(id, database)
   if(database != null) {
     database.transaction(function(transaction) {
       transaction.executeSql('SELECT * FROM percorso where sito_id=?', [id], function(transaction, resultSet) {
-        riga = new Array();
+        riga = resultSet.rows.item(0; /*new Array();
         riga[0] = resultSet.rows.item(0).id;
         riga[1] = resultSet.rows.item(0).sito_id;
         riga[2] = resultSet.rows.item(0).descrizione;
         riga[3] = resultSet.rows.item(0).gpx;
-        riga[4] = resultSet.rows.item(0).denominazione;
+        riga[4] = resultSet.rows.item(0).denominazione;*/
       }, dbSelecterror);
     }, null, function() {
+      showMessage(riga);
       return riga;
     });
-
+  } else {
+    showMessage("Database non inizializzato.");
   }
 }
 
