@@ -55,9 +55,10 @@
     </div-->
 
   <script>
-
+    var param = getValueFromLocalStorage('param');
+    showMessage("Parametro: " + param);
     var lc;
-    getPercorsoSito(param, database);
+    var percorso = getPercorsoSito(param, database);
     //getNodiPercorsoSito(param, database);
 
     //var nodi = localStorage.getObj('nodi');

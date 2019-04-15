@@ -482,7 +482,7 @@ function getPercorsoSito(id, database)
         riga[4] = resultSet.rows.item(0).denominazione;
       }, dbSelecterror);
     }, null, function() {
-      setValue('percorso', riga);
+      return riga;
     });
 
   }
