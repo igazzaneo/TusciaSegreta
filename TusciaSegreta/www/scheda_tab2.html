@@ -172,9 +172,9 @@
       };
 
       try {
-        var gpxParser = new gpxParser(); //Create gpxParser Object
-        gpxParser.parse(gpx); //parse gpx file from string data
-        var points = gpxParser.tracks[0].points;
+        var parser = new gpxParser(); //Create gpxParser Object
+        parser.parse(gpx); //parse gpx file from string data
+        var points = parser.tracks[0].points;
 
         L.marker([points[0].lat,points[0].lon], {
           icon: L.BeautifyIcon.icon(startOptions),
