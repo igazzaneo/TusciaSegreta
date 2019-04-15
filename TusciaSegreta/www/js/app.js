@@ -85,7 +85,7 @@ function setValue(from, value) {
   }
 }
 
-window.percorso {
+window.percorso = {
 
   initialize: function(callback) {
     this.percorso = new Array();
