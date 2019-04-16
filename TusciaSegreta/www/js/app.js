@@ -24,6 +24,17 @@ document.addEventListener("deviceready", onDeviceReady, false);
 
 function onDeviceReady() {
 
+  document.addEventListener('DOWNLOADER_initialized', function(event){
+    var data = event.data;
+    alert("DOWNLOADER_initialized..");
+  });
+
+  document.addEventListener('DOWNLOADER_error', function(event){
+    var data = event.data;
+    alert("DOWNLOADER_error: " + data);
+  });
+
+
   getServerDBVersion();
 
   initDatabase();

@@ -86,13 +86,14 @@ function copyDatabaseFileToDownload() {
     return new Promise(function (resolve, reject) {
       targetDir.getFile('copied_tusciasegreta.db', {}, resolve, reject);
     }).then(function () {
-      showMessage("Database già presente");
+      //showMessage("Database già presente");
+      sourceFile.copyTo(targetDir, 'copied_tusciasegreta.db', resolve, reject);
     }).catch(function () {
       //showMessage("file doesn't exist, copying it");
       return new Promise(function (resolve, reject) {
         sourceFile.copyTo(targetDir, 'copied_tusciasegreta.db', resolve, reject);
       }).then(function () {
-        showMessage("Database copiato");
+        //showMessage("Database copiato");
       });
     });
   });
