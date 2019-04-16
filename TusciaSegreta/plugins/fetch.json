@@ -159,20 +159,65 @@
     "is_top_level": true,
     "variables": {}
   },
+  "uk.co.workingedge.phonegap.plugin.launchnavigator": {
+    "source": {
+      "type": "registry",
+      "id": "uk.co.workingedge.phonegap.plugin.launchnavigator@4.2.2"
+    },
+    "is_top_level": true,
+    "variables": {
+      "OKHTTP_VERSION": "3.+"
+    }
+  },
+  "cordova-plugin-actionsheet": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-actionsheet@2"
+    },
+    "is_top_level": false,
+    "variables": {}
+  },
   "cordova-plugin-sqlite-2": {
     "source": {
       "type": "registry",
-      "id": "cordova-plugin-sqlite-2"
+      "id": "cordova-plugin-sqlite-2@~1.0.4"
     },
     "is_top_level": true,
     "variables": {}
   },
-  "cordova-plugin-dbcopy": {
+  "cordova-plugin-googlemaps": {
     "source": {
       "type": "registry",
-      "id": "cordova-plugin-dbcopy"
+      "id": "cordova-plugin-googlemaps"
     },
     "is_top_level": true,
+    "variables": {
+      "API_KEY_FOR_ANDROID": "AIzaSyCF8z5AC-eGrKBJ4vEgL1KykEy2sKZuD1s",
+      "API_KEY_FOR_IOS": "AIzaSyCF8z5AC-eGrKBJ4vEgL1KykEy2sKZuD1s"
+    }
+  },
+  "cordova-plugin-file-downloader": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-file-downloader"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-plugin-zip": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-zip@>=3.1.0"
+    },
+    "is_top_level": false,
+    "variables": {}
+  },
+  "cordova-plugin-file-md5": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-file-md5@~0.3.3"
+    },
+    "is_top_level": false,
     "variables": {}
   }
 }

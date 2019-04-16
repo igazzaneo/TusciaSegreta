@@ -23,6 +23,9 @@ function openDb() {
     // Memorizzo la versione del DB che ho prelevato
     saveOnLocalStorage('versione', versione);
 
+    // Prelevo lo sip dell'ultima versione del DB
+    getZippedResources(versione);
+
     // Aggiorno la tabella versione del DB Locale
     //updateVersioneDB(database, versione);
 

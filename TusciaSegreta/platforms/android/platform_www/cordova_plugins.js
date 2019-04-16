@@ -519,6 +519,38 @@ module.exports = [
     ]
   },
   {
+    "id": "cordova-plugin-actionsheet.ActionSheet",
+    "file": "plugins/cordova-plugin-actionsheet/www/ActionSheet.js",
+    "pluginId": "cordova-plugin-actionsheet",
+    "clobbers": [
+      "window.plugins.actionsheet"
+    ]
+  },
+  {
+    "id": "uk.co.workingedge.phonegap.plugin.launchnavigator.Common",
+    "file": "plugins/uk.co.workingedge.phonegap.plugin.launchnavigator/www/common.js",
+    "pluginId": "uk.co.workingedge.phonegap.plugin.launchnavigator",
+    "clobbers": [
+      "launchnavigator"
+    ]
+  },
+  {
+    "id": "uk.co.workingedge.phonegap.plugin.launchnavigator.LocalForage",
+    "file": "plugins/uk.co.workingedge.phonegap.plugin.launchnavigator/www/localforage.v1.5.0.min.js",
+    "pluginId": "uk.co.workingedge.phonegap.plugin.launchnavigator",
+    "clobbers": [
+      "localforage"
+    ]
+  },
+  {
+    "id": "uk.co.workingedge.phonegap.plugin.launchnavigator.LaunchNavigator",
+    "file": "plugins/uk.co.workingedge.phonegap.plugin.launchnavigator/www/android/launchnavigator.js",
+    "pluginId": "uk.co.workingedge.phonegap.plugin.launchnavigator",
+    "merges": [
+      "launchnavigator"
+    ]
+  },
+  {
     "id": "cordova-plugin-sqlite-2.sqlitePlugin",
     "file": "plugins/cordova-plugin-sqlite-2/dist/sqlite-plugin.js",
     "pluginId": "cordova-plugin-sqlite-2",
@@ -527,11 +559,27 @@ module.exports = [
     ]
   },
   {
-    "id": "cordova-plugin-dbcopy.sqlDB",
-    "file": "plugins/cordova-plugin-dbcopy/www/sqlDB.js",
-    "pluginId": "cordova-plugin-dbcopy",
+    "id": "cordova-plugin-zip.Zip",
+    "file": "plugins/cordova-plugin-zip/zip.js",
+    "pluginId": "cordova-plugin-zip",
     "clobbers": [
-      "window.plugins.sqlDB"
+      "zip"
+    ]
+  },
+  {
+    "id": "cordova-plugin-file-md5.md5chksum",
+    "file": "plugins/cordova-plugin-file-md5/www/md5chksum.js",
+    "pluginId": "cordova-plugin-file-md5",
+    "clobbers": [
+      "md5chksum"
+    ]
+  },
+  {
+    "id": "cordova-plugin-file-downloader.downloader",
+    "file": "plugins/cordova-plugin-file-downloader/www/downloader.min.js",
+    "pluginId": "cordova-plugin-file-downloader",
+    "clobbers": [
+      "downloader"
     ]
   }
 ];
@@ -558,8 +606,12 @@ module.exports.metadata =
   "cordova-plugin-statusbar": "2.1.3",
   "cordova-plugin-vibration": "2.1.6",
   "cordova-plugin-whitelist": "1.2.2",
+  "cordova-plugin-actionsheet": "2.3.3",
+  "uk.co.workingedge.phonegap.plugin.launchnavigator": "4.2.2",
   "cordova-plugin-sqlite-2": "1.0.4",
-  "cordova-plugin-dbcopy": "2.1.2"
+  "cordova-plugin-zip": "3.1.0",
+  "cordova-plugin-file-md5": "0.3.3",
+  "cordova-plugin-file-downloader": "0.4.0"
 };
 // BOTTOM OF METADATA
 });

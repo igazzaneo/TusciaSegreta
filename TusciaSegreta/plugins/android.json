@@ -64,15 +64,29 @@
     "cordova-plugin-whitelist": {
       "PACKAGE_NAME": "it.itlogix.app.tuscia"
     },
+    "uk.co.workingedge.phonegap.plugin.launchnavigator": {
+      "OKHTTP_VERSION": "3.+",
+      "PACKAGE_NAME": "it.itlogix.app.tuscia"
+    },
     "cordova-plugin-sqlite-2": {
       "PACKAGE_NAME": "it.itlogix.app.tuscia"
     },
     "cordova-plugin-file": {
       "PACKAGE_NAME": "it.itlogix.app.tuscia"
     },
-    "cordova-plugin-dbcopy": {
+    "cordova-plugin-file-downloader": {
       "PACKAGE_NAME": "it.itlogix.app.tuscia"
     }
   },
-  "dependent_plugins": {}
+  "dependent_plugins": {
+    "cordova-plugin-actionsheet": {
+      "PACKAGE_NAME": "it.itlogix.app.tuscia"
+    },
+    "cordova-plugin-zip": {
+      "PACKAGE_NAME": "it.itlogix.app.tuscia"
+    },
+    "cordova-plugin-file-md5": {
+      "PACKAGE_NAME": "it.itlogix.app.tuscia"
+    }
+  }
 }

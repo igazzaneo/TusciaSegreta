@@ -259,6 +259,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: '*.jar')
     // SUB-PROJECT DEPENDENCIES START
     implementation(project(path: ":CordovaLib"))
+    compile "com.squareup.okhttp3:okhttp:3.+"
     // SUB-PROJECT DEPENDENCIES END
 }
 

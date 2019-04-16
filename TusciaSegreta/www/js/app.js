@@ -77,10 +77,10 @@ function fileExists(fileEntry){
 }
 function fileDoesNotExist(){
     console.log("file does not exist");
+    alert("Il file non esiste");
 }
 
-function setValue(from, value) {
-  if(from=='percorso') {
-    percorso = value;
-  }
+function getZippedResources(versione){
+	downloader.init({folder: cordova.file.dataDirectory, unzip: true});
+	downloader.get(url:'http://51.75.182.195:1880/'+versione+'.zip')
 }
