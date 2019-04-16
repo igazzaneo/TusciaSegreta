@@ -34,7 +34,7 @@ function openDb() {
 
   fileTransfer.download(
     uri,
-    'cdvfile://localhost/persistent/download',
+    cordova.file.documentsDirectory,
     function(entry) {
         showMessage("download complete: " + entry.fullPath);
     },
