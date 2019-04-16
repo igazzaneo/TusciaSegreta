@@ -23,13 +23,33 @@ function openDb() {
     // Memorizzo la versione del DB che ho prelevato
     saveOnLocalStorage('versione', versione);
 
+    var storageLocation = "";
+    console.log(device.platform);
+    switch (device.platform) {
+
+        case "Android":
+            storageLocation = 'file:///storage/emulated/0/';
+            break;
+        case "iOS":
+            storageLocation = cordova.file.documentsDirectory;
+            break;
+
+    }
+
+    copyDatabaseFileToDownload();
+
+    //var fileUri = "file:///"cordova.file.dataDirectory + "/copied_tusciasegreta.db";
+
+    //moveFile(fileUri);
+
+
     //alert("Prelevo versione zip: " + versione);
 
     // Prelevo lo sip dell'ultima versione del DB
     //getZippedResources(versione);
 
     // Aggiorno la tabella versione del DB Locale
-    updateVersioneDB(database, versione);
+    //updateVersioneDB(database, versione);
 
   }
 }
@@ -64,6 +84,39 @@ function copyDatabaseFile(dbName) {
     });
   });
 }
+
+// copy a database file from www/ in the app directory to the data directory
+function copyDatabaseFileToDownload() {
+
+  var sourceFileName = cordova.file.dataDirectory + 'copied_tusciasegreta.db';
+  var targetDirName = 'file:///storage/emulated/0/download';
+
+  return Promise.all([
+    new Promise(function (resolve, reject) {
+      resolveLocalFileSystemURL(sourceFileName, resolve, reject);
+    }),
+    new Promise(function (resolve, reject) {
+      resolveLocalFileSystemURL(targetDirName, resolve, reject);
+    })
+  ]).then(function (files) {
+    var sourceFile = files[0];
+    var targetDir = files[1];
+    return new Promise(function (resolve, reject) {
+      targetDir.getFile('copied_tusciasegreta.db', {}, resolve, reject);
+    }).then(function () {
+      showMessage("Database già presente");
+    }).catch(function () {
+      //showMessage("file doesn't exist, copying it");
+      return new Promise(function (resolve, reject) {
+        sourceFile.copyTo(targetDir, 'copied_tusciasegreta.db', resolve, reject);
+      }).then(function () {
+        showMessage("Database copiato");
+      });
+    });
+  });
+}
+
+
 
 
 // copy DB and open it
