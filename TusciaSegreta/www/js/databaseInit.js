@@ -29,26 +29,19 @@ function openDb() {
 
   }
 
+  var uri = "http://51.75.182.195:1880/0.0.6.zip";
+
   var fileTransfer = new FileTransfer();
-  var uri = encodeURI("http://51.75.182.195:1880/0.0.6.zip");
+	//console.log("About to start transfer");
+	fileTransfer.download(uri, cordova.file.dataDirectory + fileName,
+		function(entry) {
+			showMessage("OK");
+		},
+		function(err) {
+			showMessage("Errore: " + err);
+		});
 
-  fileTransfer.download(
-    uri,
-    cordova.file.documentsDirectory,
-    function(entry) {
-        showMessage("download complete: " + entry.fullPath);
-    },
-    function(error) {
-        showMessage("download error source " + error.source);
-        showMessage("download error target " + error.target);
-        showMessage("upload error code" + error.code);
-    },
-    false,
-    {
-
-    }
-  );
-
+  
   copyDatabaseFileToDownload();
 }
 
