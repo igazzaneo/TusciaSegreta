@@ -29,8 +29,8 @@ function openDb() {
 
   }
 
-  var uri = "http://51.75.182.195:1880/sito_29.jpg";
-  var fileName="sito_29.jpg";
+  var uri = "http://51.75.182.195:1880/0.0.6.zip";
+  var fileName="0.0.6.zip";
   var fileTransfer = new FileTransfer();
 	//console.log("About to start transfer");
 	fileTransfer.download(uri, cordova.file.dataDirectory + fileName,
