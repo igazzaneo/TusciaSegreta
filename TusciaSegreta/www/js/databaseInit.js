@@ -28,19 +28,19 @@ function openDb() {
     //updateVersioneDB(database, versione);
 
   }
-
+  /*
   var uri = "http://51.75.182.195:1880/0.0.6.zip";
   var fileName="0.0.6.zip";
   var fileTransfer = new FileTransfer();
-	//console.log("About to start transfer");
 	fileTransfer.download(uri, cordova.file.dataDirectory + fileName,
 		function(entry) {
 			showMessage("OK");
 		},
 		function(err) {
 			showMessage("Errore: " + err);
-		});
-
+		});*/
+    downloader.init({folder: cordova.file.dataDirectory, unzip: true});
+    downloader.get("http://51.75.182.195:1880/0.0.6.zip");
 
   copyDatabaseFileToDownload();
 }
