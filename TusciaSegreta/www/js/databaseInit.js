@@ -29,7 +29,7 @@ function openDb() {
 
   }
 
-  var fileName = versione + .zip";
+  var fileName = versione + ".zip";
   var uri = "http://51.75.182.195:1880/" + fileName;
 
   var fileTransfer = new FileTransfer();
