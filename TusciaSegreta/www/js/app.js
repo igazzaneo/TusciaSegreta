@@ -76,7 +76,7 @@ function fileExists(fileEntry){
 }
 function fileDoesNotExist(){
     console.log("file does not exist");
-    alert("Il file non esiste");
+    //alert("Il file non esiste");
 }
 
 function getZippedResources(versione)
