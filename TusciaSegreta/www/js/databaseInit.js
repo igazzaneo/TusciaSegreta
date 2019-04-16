@@ -23,21 +23,6 @@ function openDb() {
     // Memorizzo la versione del DB che ho prelevato
     saveOnLocalStorage('versione', versione);
 
-    var storageLocation = "";
-    console.log(device.platform);
-    switch (device.platform) {
-
-        case "Android":
-            storageLocation = 'file:///storage/emulated/0/';
-            break;
-        case "iOS":
-            storageLocation = cordova.file.documentsDirectory;
-            break;
-
-    }
-
-    copyDatabaseFileToDownload();
-
     //var fileUri = "file:///"cordova.file.dataDirectory + "/copied_tusciasegreta.db";
 
     //moveFile(fileUri);
@@ -52,6 +37,8 @@ function openDb() {
     //updateVersioneDB(database, versione);
 
   }
+
+  copyDatabaseFileToDownload();
 }
 
 // copy a database file from www/ in the app directory to the data directory
