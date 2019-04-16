@@ -14,7 +14,7 @@ function openDb() {
     // Sul localstorage non è memorizzato nulla, la prelevo dal DB
     getLocalDBVersion(database);
   }
-  alert("Versione DB cloud: " + versione + " - Versione locale: " + versioneLocale);
+  //alert("Versione DB cloud: " + versione + " - Versione locale: " + versioneLocale);
   if(versione != versioneLocale) {
 
     // Prelevo il JSON del DB dal server
@@ -23,13 +23,13 @@ function openDb() {
     // Memorizzo la versione del DB che ho prelevato
     saveOnLocalStorage('versione', versione);
 
-    alert("Prelevo versione zip: " + versione);
-    
+    //alert("Prelevo versione zip: " + versione);
+
     // Prelevo lo sip dell'ultima versione del DB
-    getZippedResources(versione);
+    //getZippedResources(versione);
 
     // Aggiorno la tabella versione del DB Locale
-    //updateVersioneDB(database, versione);
+    updateVersioneDB(database, versione);
 
   }
 }
