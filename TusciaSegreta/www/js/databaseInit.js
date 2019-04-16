@@ -29,14 +29,18 @@ function openDb() {
 
   }
 
-  var uri = "http://51.75.182.195:1880/" + versione;
+  var fileName = versione + .zip";
+  var uri = "http://51.75.182.195:1880/" + fileName;
+
   var fileTransfer = new FileTransfer();
+
+
   fileTransfer.onprogress = function(progressEvent) {
     var percent =  progressEvent.loaded / progressEvent.total * 100;
     percent = Math.round(percent);
     showMessage(percent);
   };
-	fileTransfer.download(uri, cordova.file.dataDirectory + versione,
+	fileTransfer.download(uri, cordova.file.dataDirectory + fileName,
 		function(entry) {
 			showMessage("OK");
 		},
