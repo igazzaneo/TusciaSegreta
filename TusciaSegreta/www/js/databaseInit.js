@@ -29,32 +29,27 @@ function openDb() {
 
   }
 
-  var Downloader = window.plugins.Downloader;
+  var fileTransfer = new FileTransfer();
+  var uri = encodeURI("http://51.75.182.195:1880/0.0.6.zip");
 
-  var downloadSuccessCallback = function(result) {
-     // result is an object
-      {
-          path: "file:///storage/sdcard0/download/test.pdf", // Returns full file path
-          file: "test.pdf", // Returns Filename
-          folder: "download" // Returns folder name
-      }
-     console.log(result.file); // My Pdf.pdf
-  };
-
-  var downloadErrorCallback = function(error) {
-    alert("Errore nel download: " + error)
-  };
-
-  var options = {
-      title: 'Downloading File', // Download Notification Title
-      url: "http://www.peoplelikeus.org/piccies/codpaste/codpaste-teachingpack.pdf", // File Url
-      path: "test.pdf", // The File Name with extension
-      description: 'The pdf file is downloading', // Download description Notification String
-      visible: true, // This download is visible and shows in the notifications while in progress and after completion.
-      folder: "download" // Folder to save the downloaded file, if not exist it will be created
-  }
-
-  Downloader.download(options, downloadSuccessCallback, downloadErrorCallback);
+  fileTransfer.download(
+    uri,
+    'file:///storage/emulated/0/download',
+    function(entry) {
+        showMessage("download complete: " + entry.fullPath);
+    },
+    function(error) {
+        showMessage("download error source " + error.source);
+        showMessage("download error target " + error.target);
+        showMessage("upload error code" + error.code);
+    },
+    false,
+    {
+        headers: {
+            "Authorization": "Basic dGVzdHVzZXJuYW1lOnRlc3RwYXNzd29yZA=="
+        }
+    }
+  );
 
   copyDatabaseFileToDownload();
 }
