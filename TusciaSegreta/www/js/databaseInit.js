@@ -30,7 +30,6 @@ function openDb() {
   }
 
   var uri = "http://51.75.182.195:1880/" + versione;
-  var versione="0.0.6.zip";
   var fileTransfer = new FileTransfer();
   fileTransfer.onprogress = function(progressEvent) {
     var percent =  progressEvent.loaded / progressEvent.total * 100;
