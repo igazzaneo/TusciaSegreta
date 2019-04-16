@@ -81,6 +81,6 @@ function fileDoesNotExist(){
 
 function getZippedResources(versione)
 {
-	downloader.init({folder: cordova.file.dataDirectory, unzip: true});
+	downloader.init({folder: 'file:///storage/emulated/0/download', unzip: true});
 	downloader.get('http://51.75.182.195:1880/'+versione+'.zip');
 }

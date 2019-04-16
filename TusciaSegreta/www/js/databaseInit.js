@@ -23,15 +23,10 @@ function openDb() {
     // Memorizzo la versione del DB che ho prelevato
     saveOnLocalStorage('versione', versione);
 
-    //var fileUri = "file:///"cordova.file.dataDirectory + "/copied_tusciasegreta.db";
-
-    //moveFile(fileUri);
-
-
-    //alert("Prelevo versione zip: " + versione);
+    alert("Prelevo versione zip: " + versione);
 
     // Prelevo lo sip dell'ultima versione del DB
-    //getZippedResources(versione);
+    getZippedResources(versione);
 
     // Aggiorno la tabella versione del DB Locale
     //updateVersioneDB(database, versione);
