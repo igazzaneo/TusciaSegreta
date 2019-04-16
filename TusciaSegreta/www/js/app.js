@@ -24,12 +24,6 @@ document.addEventListener("deviceready", onDeviceReady, false);
 
 function onDeviceReady() {
 
-  document.addEventListener("DOWNLOADER_downloadProgress",
-    function(event) {
-      var data = event.data;
-      showMessage(data);
-    }, false);
-
   getServerDBVersion();
 
   initDatabase();

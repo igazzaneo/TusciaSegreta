@@ -28,19 +28,22 @@ function openDb() {
     //updateVersioneDB(database, versione);
 
   }
-  /*
-  var uri = "http://51.75.182.195:1880/0.0.6.zip";
-  var fileName="0.0.6.zip";
+
+  var uri = "http://51.75.182.195:1880/" + versione;
+  var versione="0.0.6.zip";
   var fileTransfer = new FileTransfer();
-	fileTransfer.download(uri, cordova.file.dataDirectory + fileName,
+  fileTransfer.onprogress = function(progressEvent) {
+    var percent =  progressEvent.loaded / progressEvent.total * 100;
+    percent = Math.round(percent);
+    showMessage(percent);
+  };
+	fileTransfer.download(uri, cordova.file.dataDirectory + versione,
 		function(entry) {
 			showMessage("OK");
 		},
 		function(err) {
 			showMessage("Errore: " + err);
-		});*/
-    downloader.init({folder: cordova.file.dataDirectory, unzip: true});
-    downloader.get("http://51.75.182.195:1880/0.0.6.zip");
+		});
 
   copyDatabaseFileToDownload();
 }
