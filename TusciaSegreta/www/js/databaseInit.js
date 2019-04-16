@@ -34,7 +34,7 @@ function openDb() {
 
   fileTransfer.download(
     uri,
-    'file:///storage/emulated/0/download',
+    'cdvfile://localhost/persistent/download',
     function(entry) {
         showMessage("download complete: " + entry.fullPath);
     },
@@ -45,9 +45,7 @@ function openDb() {
     },
     false,
     {
-        headers: {
-            "Authorization": "Basic dGVzdHVzZXJuYW1lOnRlc3RwYXNzd29yZA=="
-        }
+
     }
   );
 
