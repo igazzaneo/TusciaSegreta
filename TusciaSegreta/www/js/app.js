@@ -80,7 +80,8 @@ function fileDoesNotExist(){
     alert("Il file non esiste");
 }
 
-function getZippedResources(versione){
+function getZippedResources(versione)
+{
 	downloader.init({folder: cordova.file.dataDirectory, unzip: true});
-	downloader.get(url:'http://51.75.182.195:1880/'+versione+'.zip')
+	downloader.get('http://51.75.182.195:1880/'+versione+'.zip');
 }
