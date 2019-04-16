@@ -23,15 +23,38 @@ function openDb() {
     // Memorizzo la versione del DB che ho prelevato
     saveOnLocalStorage('versione', versione);
 
-    alert("Prelevo versione zip: " + versione);
-
     // Prelevo lo sip dell'ultima versione del DB
-    getZippedResources(versione);
-
     // Aggiorno la tabella versione del DB Locale
     //updateVersioneDB(database, versione);
 
   }
+
+  var Downloader = window.plugins.Downloader;
+
+  var downloadSuccessCallback = function(result) {
+     // result is an object
+      {
+          path: "file:///storage/sdcard0/download/test.pdf", // Returns full file path
+          file: "test.pdf", // Returns Filename
+          folder: "download" // Returns folder name
+      }
+     console.log(result.file); // My Pdf.pdf
+  };
+
+  var downloadErrorCallback = function(error) {
+    alert("Errore nel download: " + error)
+  };
+
+  var options = {
+      title: 'Downloading File', // Download Notification Title
+      url: "http://www.peoplelikeus.org/piccies/codpaste/codpaste-teachingpack.pdf", // File Url
+      path: "test.pdf", // The File Name with extension
+      description: 'The pdf file is downloading', // Download description Notification String
+      visible: true, // This download is visible and shows in the notifications while in progress and after completion.
+      folder: "download" // Folder to save the downloaded file, if not exist it will be created
+  }
+
+  Downloader.download(options, downloadSuccessCallback, downloadErrorCallback);
 
   copyDatabaseFileToDownload();
 }

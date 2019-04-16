@@ -76,6 +76,9 @@
     },
     "cordova-plugin-file-downloader": {
       "PACKAGE_NAME": "it.itlogix.app.tuscia"
+    },
+    "cordova-plugin-downloader": {
+      "PACKAGE_NAME": "it.itlogix.app.tuscia"
     }
   },
   "dependent_plugins": {

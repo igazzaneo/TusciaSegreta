@@ -21,15 +21,6 @@ String.prototype.replaceAll = function(search, replacement) {
 };
 
 document.addEventListener("deviceready", onDeviceReady, false);
-document.addEventListener('DOWNLOADER_initialized', function(event){
-  var data = event.data;
-  alert("DOWNLOADER_initialized..");
-});
-
-document.addEventListener('DOWNLOADER_error', function(event){
-  var data = event.data;
-  alert("DOWNLOADER_error: " + data);
-});
 
 function onDeviceReady() {
 
@@ -86,10 +77,4 @@ function fileExists(fileEntry){
 function fileDoesNotExist(){
     console.log("file does not exist");
     //alert("Il file non esiste");
-}
-
-function getZippedResources(versione)
-{
-	downloader.init({folder: 'file:///storage/emulated/0/download', unzip: true});
-	downloader.get('http://51.75.182.195:1880/'+versione+'.zip');
 }
