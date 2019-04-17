@@ -12,8 +12,8 @@
     <preference name="DisallowOverscroll" value="true" />
     <preference name="android-minSdkVersion" value="20" />
 
-    <plugin name="cordova-plugin-battery-status" source="npm" spec="~1.1.1" />
-    <plugin name="cordova-plugin-camera" source="npm" spec="~2.1.1" />
+    <!--plugin name="cordova-plugin-battery-status" source="npm" spec="~1.1.1" />
+    <plugin name="cordova-plugin-camera" source="npm" spec="~2.1.1" /-->
     <plugin name="cordova-plugin-media-capture" source="npm" spec="~1.2.0" />
     <plugin name="cordova-plugin-console" source="npm" spec="~1.0.2" />
     <plugin name="cordova-plugin-contacts" source="npm" spec="~2.0.1" />
@@ -30,11 +30,10 @@
     <plugin name="cordova-plugin-statusbar" source="npm" spec="~2.1.2" />
     <plugin name="cordova-plugin-vibration" source="npm" spec="~2.1.0" />
     <plugin name="cordova-plugin-whitelist" source="npm" spec="~1.2.1" />
-    <plugin name="uk.co.workingedge.phonegap.plugin.launchnavigator" source="npm" />
+    <!--plugin name="uk.co.workingedge.phonegap.plugin.launchnavigator" source="npm" /-->
     <plugin name="cordova-plugin-file-transfer" spec="~1.5.1" />
     <plugin name="cordova-plugin-file" spec="~6.0.1" />
     <plugin name="cordova-plugin-sqlite-2" spec="~1.0.4" />
-    <!--plugin name="cordova-plugin-zip" spec="~3.1.0" /-->
     <plugin name="cordova-zip-plugin" source="npm" spec="~1.1.0" />
     <plugin name="cordova-plugin-googlemaps">
         <variable name="API_KEY_FOR_ANDROID" value="AIzaSyCF8z5AC-eGrKBJ4vEgL1KykEy2sKZuD1s" />
@@ -103,6 +102,6 @@
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
     </platform>
-    <preference name="phonegap-version" value="cli-8.0.0" />
+    <!--preference name="phonegap-version" value="cli-8.0.0" /-->
     <engine name="android" spec="~7.0.0" />
 </widget>
