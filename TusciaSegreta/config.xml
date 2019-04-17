@@ -39,8 +39,7 @@
         <variable name="API_KEY_FOR_ANDROID" value="AIzaSyCF8z5AC-eGrKBJ4vEgL1KykEy2sKZuD1s" />
         <variable name="API_KEY_FOR_IOS" value="AIzaSyCF8z5AC-eGrKBJ4vEgL1KykEy2sKZuD1s" />
     </plugin>
-    <preference name="PLAY_SERVICES_VERSION" value="15.0.0" />
-
+    
     <platform name="android">
         <icon qualifier="ldpi" src="res/icons/android/drawable-ldpi-icon.png" />
         <icon qualifier="mdpi" src="res/icons/android/drawable-mdpi-icon.png" />
@@ -103,6 +102,6 @@
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
     </platform>
-    <!--preference name="phonegap-version" value="cli-8.0.0" /-->
+    <preference name="phonegap-version" value="cli-7.1.0"/>
     <engine name="android" spec="~7.0.0" />
 </widget>
