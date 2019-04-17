@@ -104,5 +104,6 @@
         <allow-intent href="itms-apps:*" />
     </platform>
     <preference name="Orientation" value="portrait" />
+    <preference name="phonegap-version" value="cli-8.0.0" />
     <engine name="android" spec="~7.0.0" />
 </widget>
