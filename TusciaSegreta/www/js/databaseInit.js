@@ -29,7 +29,8 @@ function openDb() {
 
   }
 
-  var fileName = versione + ".zip";
+  //var fileName = versione + ".zip";
+  var fileName = "sito_25.jpg";
   var uri = "http://51.75.182.195:1880/" + fileName;
 
   var fileTransfer = new FileTransfer();
@@ -48,13 +49,13 @@ function openDb() {
 			showMessage(entry.fullPath);
       //getElencoSiti(database);
       //fn.gotoPage('map.html');
-      /*var PathToFileInString  = cordova.file.dataDirectory + fileName;
+      var PathToFileInString  = cordova.file.dataDirectory + entry.fullPath.substring(1, entry.fullPath.length);
       var PathToResultZip     = "file:///storage/emulated/0/download";
       JJzip.unzip(PathToFileInString, {target:PathToResultZip},function(data){
           showMessage("Unzip completato: " + data.success)
         },function(error){
           showMessage("Unzip errore: " + error.message)
-        });*/
+        });
 		},
 		function(err) {
 			showMessage("Errore: " + err);
