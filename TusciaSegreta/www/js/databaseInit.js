@@ -46,16 +46,16 @@ function openDb() {
   };
 	fileTransfer.download(uri, cordova.file.dataDirectory + fileName,
 		function(entry) {
-			showMessage(entry.fullPath);
+			showMessage(entry.fullPath + " - " + entry.fullPath.substring(1, entry.fullPath.length) + " - " + fileName);
       //getElencoSiti(database);
       //fn.gotoPage('map.html');
-      var PathToFileInString  = cordova.file.dataDirectory + entry.fullPath.substring(1, entry.fullPath.length);
+      /*var PathToFileInString  = cordova.file.dataDirectory + entry.fullPath.substring(1, entry.fullPath.length);
       var PathToResultZip     = "file:///storage/emulated/0/download";
       JJzip.unzip(PathToFileInString, {target:PathToResultZip},function(data){
           showMessage("Unzip completato: " + data.success)
         },function(error){
           showMessage("Unzip errore: " + error.message)
-        });
+        });*/
 		},
 		function(err) {
 			showMessage("Errore: " + err);
