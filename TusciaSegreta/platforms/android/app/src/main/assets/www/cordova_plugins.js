@@ -581,6 +581,22 @@ module.exports = [
     "clobbers": [
       "downloader"
     ]
+  },
+  {
+    "id": "cordova-plugin-downloader.download",
+    "file": "plugins/cordova-plugin-downloader/www/download.js",
+    "pluginId": "cordova-plugin-downloader",
+    "clobbers": [
+      "download"
+    ]
+  },
+  {
+    "id": "com.jjdltc.cordova.plugin.zip.JJzip",
+    "file": "plugins/com.jjdltc.cordova.plugin.zip/www/JJzip.js",
+    "pluginId": "com.jjdltc.cordova.plugin.zip",
+    "clobbers": [
+      "JJzip"
+    ]
   }
 ];
 module.exports.metadata = 
@@ -611,7 +627,9 @@ module.exports.metadata =
   "cordova-plugin-sqlite-2": "1.0.4",
   "cordova-plugin-zip": "3.1.0",
   "cordova-plugin-file-md5": "0.3.3",
-  "cordova-plugin-file-downloader": "0.4.0"
+  "cordova-plugin-file-downloader": "0.4.0",
+  "cordova-plugin-downloader": "0.0.4",
+  "com.jjdltc.cordova.plugin.zip": "1.1.0"
 };
 // BOTTOM OF METADATA
 });

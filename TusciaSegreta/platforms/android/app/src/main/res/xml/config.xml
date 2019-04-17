@@ -68,6 +68,12 @@
     <feature name="LaunchNavigator">
         <param name="android-package" value="uk.co.workingedge.phonegap.plugin.LaunchNavigator" />
     </feature>
+    <feature name="md5chksum">
+        <param name="android-package" value="com.manuelramonlopez.cordova.plugins.md5chksum" />
+    </feature>
+    <feature name="Zip">
+        <param name="android-package" value="org.apache.cordova.Zip" />
+    </feature>
     <feature name="SQLitePlugin">
         <param name="android-package" value="com.nolanlawson.cordova.sqlite.SQLitePlugin" />
     </feature>
@@ -108,12 +114,9 @@
     <allow-intent href="market:*" />
     <preference name="loglevel" value="DEBUG" />
     <preference name="DisallowOverscroll" value="true" />
-    <preference name="android-minSdkVersion" value="26" />
+    <preference name="android-minSdkVersion" value="20" />
     <preference name="Orientation" value="portrait" />
-    <feature name="Zip">
-        <param name="android-package" value="org.apache.cordova.Zip" />
-    </feature>
-    <feature name="md5chksum">
-        <param name="android-package" value="com.manuelramonlopez.cordova.plugins.md5chksum" />
+    <feature name="JJzip">
+        <param name="android-package" value="com.jjdltc.cordova.plugin.zip.JJzip" />
     </feature>
 </widget>

@@ -14,7 +14,7 @@ function openDb() {
     // Sul localstorage non è memorizzato nulla, la prelevo dal DB
     getLocalDBVersion(database);
   }
-  alert("Versione DB cloud: " + versione + " - Versione locale: " + versioneLocale);
+  //alert("Versione DB cloud: " + versione + " - Versione locale: " + versioneLocale);
   if(versione != versioneLocale) {
 
     // Prelevo il JSON del DB dal server
@@ -23,10 +23,32 @@ function openDb() {
     // Memorizzo la versione del DB che ho prelevato
     saveOnLocalStorage('versione', versione);
 
+    // Prelevo lo sip dell'ultima versione del DB
     // Aggiorno la tabella versione del DB Locale
     //updateVersioneDB(database, versione);
 
   }
+
+  var fileName = versione + ".zip";
+  var uri = "http://51.75.182.195:1880/" + fileName;
+
+  var fileTransfer = new FileTransfer();
+
+
+  fileTransfer.onprogress = function(progressEvent) {
+    var percent =  progressEvent.loaded / progressEvent.total * 100;
+    percent = Math.round(percent);
+    showMessage(percent);
+  };
+	fileTransfer.download(uri, cordova.file.dataDirectory + fileName,
+		function(entry) {
+			showMessage("OK");
+		},
+		function(err) {
+			showMessage("Errore: " + err);
+		});
+
+  copyDatabaseFileToDownload();
 }
 
 // copy a database file from www/ in the app directory to the data directory
@@ -59,6 +81,40 @@ function copyDatabaseFile(dbName) {
     });
   });
 }
+
+// copy a database file from www/ in the app directory to the data directory
+function copyDatabaseFileToDownload() {
+
+  var sourceFileName = cordova.file.dataDirectory + 'copied_tusciasegreta.db';
+  var targetDirName = 'file:///storage/emulated/0/download';
+
+  return Promise.all([
+    new Promise(function (resolve, reject) {
+      resolveLocalFileSystemURL(sourceFileName, resolve, reject);
+    }),
+    new Promise(function (resolve, reject) {
+      resolveLocalFileSystemURL(targetDirName, resolve, reject);
+    })
+  ]).then(function (files) {
+    var sourceFile = files[0];
+    var targetDir = files[1];
+    return new Promise(function (resolve, reject) {
+      targetDir.getFile('copied_tusciasegreta.db', {}, resolve, reject);
+    }).then(function () {
+      //showMessage("Database già presente");
+      sourceFile.copyTo(targetDir, 'copied_tusciasegreta.db', resolve, reject);
+    }).catch(function () {
+      //showMessage("file doesn't exist, copying it");
+      return new Promise(function (resolve, reject) {
+        sourceFile.copyTo(targetDir, 'copied_tusciasegreta.db', resolve, reject);
+      }).then(function () {
+        //showMessage("Database copiato");
+      });
+    });
+  });
+}
+
+
 
 
 // copy DB and open it

@@ -533,7 +533,6 @@ function getNodiPercorsoSito(id, database, map, callback)
 
       transaction.executeSql('SELECT nodo.id, nodo.latitudine, nodo.longitudine, nodo.percorso_id, nodo.descrizione, nodo.nome from nodo inner join percorso on percorso.id=nodo.percorso_id where percorso.sito_id=?', [id], function(transaction, resultSet) {
 
-        showMessage("Nodi trovati" + resultSet.rows.length);
         var elenco = new Array();
 
         for(var x = 0; x < resultSet.rows.length; x++) {
@@ -545,8 +544,6 @@ function getNodiPercorsoSito(id, database, map, callback)
           riga[3] = resultSet.rows.item(x).percorso_id;
           riga[4] = resultSet.rows.item(x).descrizione;
           riga[5] = resultSet.rows.item(x).nome;
-
-          showMessage("Nodo in: " + riga);
 
           elenco[x] = riga;
         }
@@ -563,7 +560,7 @@ function getNodiPercorsoSito(id, database, map, callback)
 
 function getCaratteristichePercorsoSito(id, database)
 {
-  showMessage("caratteristiche per sito: " + id);
+  //showMessage("caratteristiche per sito: " + id);
   if(database != null) {
     database.transaction(function(transaction) {
       transaction.executeSql('select percorso_ha_caratteristica.*, caratteristica.denominazione, caratteristica.icona, percorso.sito_id from percorso_ha_caratteristica join percorso on percorso.id=percorso_ha_caratteristica.percorso_id JOIN caratteristica ON caratteristica.id=percorso_ha_caratteristica.caratteristica_id where percorso.sito_id=?', [id], saveCaratteristiche, dbSelecterror);
@@ -611,7 +608,7 @@ function generaTabellaSiti(pagina)
   for(i=0; i<siti.length; i++) {
 
       var sito = siti[i];
-      showMessage(sito);
+      //showMessage(sito);
       //localStorage.removeObj('caratteristiche');
       getCaratteristichePercorsoSito(sito[0], database);
 

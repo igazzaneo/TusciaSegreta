@@ -53,8 +53,7 @@ function changePageWithParam(p, param)
 {
   saveOnLocalStorage('param', param);
 
-  //if(emptyLocalStorageFromObject())
-    fn.gotoPage(p+"?param=" + param);
+  fn.gotoPage(p+"?param=" + param);
 
 }
 
@@ -77,10 +76,5 @@ function fileExists(fileEntry){
 }
 function fileDoesNotExist(){
     console.log("file does not exist");
-}
-
-function setValue(from, value) {
-  if(from=='percorso') {
-    percorso = value;
-  }
+    //alert("Il file non esiste");
 }

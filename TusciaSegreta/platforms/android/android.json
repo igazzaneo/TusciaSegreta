@@ -99,6 +99,10 @@
             {
               "xml": "<feature name=\"md5chksum\"><param name=\"android-package\" value=\"com.manuelramonlopez.cordova.plugins.md5chksum\" /></feature>",
               "count": 1
+            },
+            {
+              "xml": "<feature name=\"JJzip\"><param name=\"android-package\" value=\"com.jjdltc.cordova.plugin.zip.JJzip\" /></feature>",
+              "count": 1
             }
           ],
           "/widget": [
@@ -255,6 +259,12 @@
       "PACKAGE_NAME": "it.itlogix.app.tuscia"
     },
     "cordova-plugin-file-downloader": {
+      "PACKAGE_NAME": "it.itlogix.app.tuscia"
+    },
+    "cordova-plugin-downloader": {
+      "PACKAGE_NAME": "it.itlogix.app.tuscia"
+    },
+    "com.jjdltc.cordova.plugin.zip": {
       "PACKAGE_NAME": "it.itlogix.app.tuscia"
     }
   },
@@ -841,6 +851,22 @@
       "clobbers": [
         "downloader"
       ]
+    },
+    {
+      "id": "cordova-plugin-downloader.download",
+      "file": "plugins/cordova-plugin-downloader/www/download.js",
+      "pluginId": "cordova-plugin-downloader",
+      "clobbers": [
+        "download"
+      ]
+    },
+    {
+      "id": "com.jjdltc.cordova.plugin.zip.JJzip",
+      "file": "plugins/com.jjdltc.cordova.plugin.zip/www/JJzip.js",
+      "pluginId": "com.jjdltc.cordova.plugin.zip",
+      "clobbers": [
+        "JJzip"
+      ]
     }
   ],
   "plugin_metadata": {
@@ -869,6 +895,8 @@
     "cordova-plugin-sqlite-2": "1.0.4",
     "cordova-plugin-zip": "3.1.0",
     "cordova-plugin-file-md5": "0.3.3",
-    "cordova-plugin-file-downloader": "0.4.0"
+    "cordova-plugin-file-downloader": "0.4.0",
+    "cordova-plugin-downloader": "0.0.4",
+    "com.jjdltc.cordova.plugin.zip": "1.1.0"
   }
 }
