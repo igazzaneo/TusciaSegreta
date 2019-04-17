@@ -386,7 +386,24 @@ function checkLoggedAndGoToPage(page) {
 function getElencoSiti(database, map, callback) {
 
   if(database == null) {
+
     showMessage("Database non inizializzato");
+
+    var elenco = new Array();
+
+    var riga = new Array();
+    riga[0] = "1";
+    riga[1] = "denominazione";
+    riga[2] = "descrizione";
+    riga[3] = "resultSet.rows.item(x).video";
+    riga[4] = "42.585280";
+    riga[5] = "11.933396";
+    riga[6] = "foto_25.jpg";
+
+    elenco[0] = riga;
+
+    callback(map, elenco);
+
   } else {
 
     database.transaction(function(transaction) {
@@ -415,8 +432,6 @@ function getElencoSiti(database, map, callback) {
       }, dbSelecterror);
     });
   }
-
-
 
 }
 

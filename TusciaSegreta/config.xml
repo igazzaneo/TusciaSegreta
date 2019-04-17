@@ -35,10 +35,10 @@
     <plugin name="cordova-plugin-file" spec="~6.0.1" />
     <plugin name="cordova-plugin-sqlite-2" spec="~1.0.4" />
     <plugin name="cordova-zip-plugin" source="npm" spec="~1.1.0" />
-    <!--plugin name="cordova-plugin-googlemaps" source="npm" spec="~2.5.3" >
+    <plugin name="cordova-plugin-googlemaps" source="npm" spec="~2.5.3" >
         <variable name="API_KEY_FOR_ANDROID" value="AIzaSyCF8z5AC-eGrKBJ4vEgL1KykEy2sKZuD1s" />
         <variable name="API_KEY_FOR_IOS" value="AIzaSyCF8z5AC-eGrKBJ4vEgL1KykEy2sKZuD1s" />
-    </plugin-->
+    </plugin>
 
 
     <platform name="android">
