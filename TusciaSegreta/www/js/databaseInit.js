@@ -45,18 +45,16 @@ function openDb() {
   };
 	fileTransfer.download(uri, cordova.file.dataDirectory + fileName,
 		function(entry) {
-			//showMessage("OK");
+			showMessage(entry.fullPath);
       //getElencoSiti(database);
       //fn.gotoPage('map.html');
-      var PathToFileInString  = cordova.file.dataDirectory + fileName;
+      /*var PathToFileInString  = cordova.file.dataDirectory + fileName;
       var PathToResultZip     = "file:///storage/emulated/0/download";
       JJzip.unzip(PathToFileInString, {target:PathToResultZip},function(data){
-          /* Wow everything goes good, but just in case verify data.success */
           showMessage("Unzip completato: " + data.success)
         },function(error){
-          /* Wow something goes wrong, check the error.message */
           showMessage("Unzip errore: " + error.message)
-        });
+        });*/
 		},
 		function(err) {
 			showMessage("Errore: " + err);
