@@ -49,7 +49,7 @@ function openDb() {
       //getElencoSiti(database);
       //fn.gotoPage('map.html');
       var PathToFileInString  = cordova.file.dataDirectory + fileName;
-      var PathToResultZip     = cordova.file.externalRootDirectory;
+      var PathToResultZip     = "file:///storage/emulated/0/download";
       JJzip.unzip(PathToFileInString, {target:PathToResultZip},function(data){
           /* Wow everything goes good, but just in case verify data.success */
           showMessage("Unzip completato: " + data.success)
