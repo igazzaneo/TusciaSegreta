@@ -46,7 +46,7 @@ function openDb() {
   };
 	fileTransfer.download(uri, cordova.file.dataDirectory + fileName,
 		function(entry) {
-			showMessage(entry.fullPath + " - " + entry.fullPath.substring(1, entry.fullPath.length) + " - " + fileName);
+			showMessage(entry.fullPath + " - " + " - " + fileName);
       //getElencoSiti(database);
       //fn.gotoPage('map.html');
       /*var PathToFileInString  = cordova.file.dataDirectory + entry.fullPath.substring(1, entry.fullPath.length);
