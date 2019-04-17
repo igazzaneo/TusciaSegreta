@@ -34,11 +34,14 @@ function openDb() {
 
   var fileTransfer = new FileTransfer();
 
-
+  var elem = document.getElementById("myBar");   
   fileTransfer.onprogress = function(progressEvent) {
     var percent =  progressEvent.loaded / progressEvent.total * 100;
     percent = Math.round(percent);
-    showMessage(percent);
+
+    elem.style.width = percent + '%';
+    elem.innerHTML = percent * 1  + '%';
+
   };
 	fileTransfer.download(uri, cordova.file.dataDirectory + fileName,
 		function(entry) {
