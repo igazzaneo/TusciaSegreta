@@ -35,11 +35,13 @@
     <plugin name="cordova-plugin-file" spec="~6.0.1" />
     <plugin name="cordova-plugin-sqlite-2" spec="~1.0.4" />
     <plugin name="cordova-zip-plugin" source="npm" spec="~1.1.0" />
-    <plugin name="cordova-plugin-googlemaps">
+    <plugin name="cordova-plugin-googlemaps" source="npm" spec="~2.5.3" >
         <variable name="API_KEY_FOR_ANDROID" value="AIzaSyCF8z5AC-eGrKBJ4vEgL1KykEy2sKZuD1s" />
         <variable name="API_KEY_FOR_IOS" value="AIzaSyCF8z5AC-eGrKBJ4vEgL1KykEy2sKZuD1s" />
+        <variable name="PLAY_SERVICES_VERSION" value="15.0.1"/>
     </plugin>
-    
+
+
     <platform name="android">
         <icon qualifier="ldpi" src="res/icons/android/drawable-ldpi-icon.png" />
         <icon qualifier="mdpi" src="res/icons/android/drawable-mdpi-icon.png" />
@@ -102,6 +104,6 @@
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
     </platform>
-    <preference name="phonegap-version" value="cli-7.1.0"/>
+    <!--preference name="phonegap-version" value="cli-7.1.0"/-->
     <engine name="android" spec="~7.0.0" />
 </widget>
