@@ -53,7 +53,7 @@ function openDb() {
           showMessage("Unzip completato: " + data.success)
         },function(error){
           showMessage("Unzip errore: " + error.message)
-        });*/
+        });
 		},
 		function(err) {
 			showMessage("Errore: " + err);
