@@ -44,11 +44,10 @@ function openDb() {
         var PathToResultZip     = cordova.file.dataDirectory;
         JJzip.unzip(PathToFileInString, {target:PathToResultZip},
           function(data){
-            showMessage("Unzip completato: " + data.success);
-            getElencoSiti(database);
+            //showMessage("Unzip completato: " + data.success);
             fn.gotoPage('map.html');
           },function(error){
-            showMessage("Unzip errore: " + error.message)
+            showMessage("Errore nel caricamento delle risorse: " + error.message)
           });
   		},
   		function(err) {
@@ -90,7 +89,7 @@ function copyDatabaseFile(dbName) {
       return new Promise(function (resolve, reject) {
         sourceFile.copyTo(targetDir, 'copied_' + dbName, resolve, reject);
       }).then(function () {
-        showMessage("Database copiato");
+        //showMessage("Database copiato");
       });
     });
   });

@@ -1,0 +1,34 @@
+<ons-page>
+
+    <div id="mapid5"></div>
+
+    <script type='text/javascript'>
+
+      var latitudine = getValueFromLocalStorage('latitudine');
+      var longitudine = getValueFromLocalStorage('longitudine');
+
+      var div = document.getElementById("mapid5");
+
+      var map = plugin.google.maps.Map.getMap(div);
+
+      map.animateCamera({
+          target: {lat: latitudine, lng: longitudine},
+          zoom: 17,
+          tilt: 60,
+          bearing: 140,
+          duration: 5000
+        });
+
+      var marker = map.addMarker({
+          position: {lat: latitudine, lng: longitudine},
+          title: "denominazione sito \n" +
+                 "Descrizione sito",
+          snippet: "This plugin is awesome!",
+          animation: plugin.google.maps.Animation.BOUNCE
+        });
+        // Show the info window
+        marker.showInfoWindow();
+
+    </script>
+
+</ons-page>

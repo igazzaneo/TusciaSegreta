@@ -383,47 +383,36 @@ function checkLoggedAndGoToPage(page) {
 }
 
 
-function getElencoSiti(database) {
+function getElencoSiti(database, map, callback) {
 
   if(database == null) {
-    // DEBUG
-    var elenco = new Array();
-
-    var riga = new Array();
-    riga[0] = 1;
-    riga[1] = "Qui c'è la denominazione del sito - 1";
-    riga[2] = "Qui c'è la descrizione estesa del sito3";
-    riga[3] = "http://www.linkdelvideo1";
-    riga[4] = '42.585280';
-    riga[5] = '11.933396';
-
-    elenco[0] = riga;
-
-    riga = new Array();
-    riga[0] = 2;
-    riga[1] = "Qui c'è la denominazione del sito - 2";
-    riga[2] = "Qui c'è la descrizione estesa del sito3";
-    riga[3] = "http://www.linkdelvideo2";
-    riga[4] = '42.885280';
-    riga[5] = '11.733396';
-
-    elenco[1] = riga;
-
-    riga = new Array();
-    riga[0] = 3;
-    riga[1] = "Qui c'è la denominazione del sito - 3";
-    riga[2] = "Qui c'è la descrizione estesa del sito3";
-    riga[3] = "http://www.linkdelvideo3";
-    riga[4] = '42.685280';
-    riga[5] = '11.433396';
-
-    elenco[2] = riga;
-
-    localStorage.setObj('elencoSiti', elenco);
-
+    showMessage("Database non inizializzato");
   } else {
+
     database.transaction(function(transaction) {
-      transaction.executeSql('SELECT * FROM sito', [],  saveElencoSiti, dbSelecterror);
+
+      transaction.executeSql('SELECT * FROM sito', [],  function(transaction, resultSet) {
+
+        var elenco = new Array();
+
+        for(var x = 0; x < resultSet.rows.length; x++) {
+
+            var riga = new Array();
+            riga[0] = resultSet.rows.item(x).id;
+            riga[1] = resultSet.rows.item(x).denominazione;
+            riga[2] = resultSet.rows.item(x).descrizione;
+            riga[3] = resultSet.rows.item(x).video;
+            riga[4] = resultSet.rows.item(x).latitudine;
+            riga[5] = resultSet.rows.item(x).longitudine;
+            riga[6] = resultSet.rows.item(x).miniatura;
+
+            elenco[x] = riga;
+
+        }
+
+        callback(elenco, map);
+
+      }, dbSelecterror);
     });
   }
 
