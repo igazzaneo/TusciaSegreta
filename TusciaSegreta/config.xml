@@ -8,7 +8,7 @@
         ItLogix
     </author>
     <content src="index.html" />
-    <!--icon src="icon.png" /-->
+    <icon src="icon.png" />
     <preference name="DisallowOverscroll" value="true" />
     <preference name="android-minSdkVersion" value="20" />
 
@@ -35,13 +35,13 @@
     <plugin name="cordova-plugin-file" spec="~6.0.1" />
     <plugin name="cordova-plugin-sqlite-2" spec="~1.0.4" />
     <plugin name="cordova-zip-plugin" source="npm" spec="~1.1.0" />
-    <plugin name="cordova-plugin-googlemaps" source="npm" spec="~2.5.3" >
+    <!--plugin name="cordova-plugin-googlemaps" source="npm" spec="~2.5.3" >
         <variable name="API_KEY_FOR_ANDROID" value="AIzaSyCF8z5AC-eGrKBJ4vEgL1KykEy2sKZuD1s" />
         <variable name="API_KEY_FOR_IOS" value="AIzaSyCF8z5AC-eGrKBJ4vEgL1KykEy2sKZuD1s" />
-    </plugin>
+    </plugin-->
 
 
-    <!--platform name="android">
+    <platform name="android">
         <icon qualifier="ldpi" src="res/icons/android/drawable-ldpi-icon.png" />
         <icon qualifier="mdpi" src="res/icons/android/drawable-mdpi-icon.png" />
         <icon qualifier="hdpi" src="res/icons/android/drawable-hdpi-icon.png" />
@@ -60,7 +60,7 @@
         <splash qualifier="port-xhdpi" src="res/screens/android/drawable-port-xhdpi-screen.png" />
         <splash qualifier="port-xxhdpi" src="res/screens/android/drawable-port-xxhdpi-screen.png" />
         <splash qualifier="port-xxxhdpi" src="res/screens/android/drawable-port-xxxhdpi-screen.png" />
-    </platform-->
+    </platform>
     <!--platform name="ios">
         <icon height="57" platform="ios" src="res/icons/ios/icon.png" width="57" />
         <icon height="114" platform="ios" src="res/icons/ios/icon@2x.png" width="114" />
@@ -103,7 +103,7 @@
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
     </platform-->
-    <preference name="PLAY_SERVICES_VERSION" value="15.0.1"/>
-    <preference name="phonegap-version" value="cli-8.1.1"/>
+    <!--preference name="PLAY_SERVICES_VERSION" value="15.0.1"/>
+    <preference name="phonegap-version" value="cli-8.1.1"/-->
     <engine name="android" spec="~7.0.0" />
 </widget>
