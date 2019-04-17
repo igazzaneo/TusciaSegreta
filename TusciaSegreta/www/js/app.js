@@ -30,16 +30,15 @@ function onDeviceReady() {
 
   getMapLocation();
 
-  setTimeout(
+  /*setTimeout(
     function() {
       var elem = document.getElementById("myBar");
       if(elem.style.width=='100%') {
-        getElencoSiti(database);
-        fn.gotoPage('map.html');
+
       }
 
     }, 2000
-  );
+  );*/
 }
 
 function onBackKeyDown(e) {

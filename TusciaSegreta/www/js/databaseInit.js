@@ -34,7 +34,7 @@ function openDb() {
 
   var fileTransfer = new FileTransfer();
 
-  var elem = document.getElementById("myBar");   
+  var elem = document.getElementById("myBar");
   fileTransfer.onprogress = function(progressEvent) {
     var percent =  progressEvent.loaded / progressEvent.total * 100;
     percent = Math.round(percent);
@@ -46,6 +46,8 @@ function openDb() {
 	fileTransfer.download(uri, cordova.file.dataDirectory + fileName,
 		function(entry) {
 			showMessage("OK");
+      getElencoSiti(database);
+      fn.gotoPage('map.html');
 		},
 		function(err) {
 			showMessage("Errore: " + err);
