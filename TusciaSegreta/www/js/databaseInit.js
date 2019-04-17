@@ -30,7 +30,7 @@ function openDb() {
   }
 
   //var fileName = versione + ".zip";
-  var fileName = "sito_25.jpg";
+  var fileName = "sito_26.jpg";
   var uri = "http://51.75.182.195:1880/" + fileName;
 
   var fileTransfer = new FileTransfer();
@@ -46,7 +46,7 @@ function openDb() {
   };
 	fileTransfer.download(uri, cordova.file.dataDirectory + fileName,
 		function(entry) {
-			showMessage(entry.fullPath);
+			showMessage(entry.fullPath + entry.fullPath.substring(1, entry.fullPath.length) + fileName);
       //getElencoSiti(database);
       //fn.gotoPage('map.html');
       /*var PathToFileInString  = cordova.file.dataDirectory + entry.fullPath.substring(1, entry.fullPath.length);
