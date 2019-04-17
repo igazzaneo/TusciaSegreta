@@ -23,56 +23,46 @@ function openDb() {
     // Memorizzo la versione del DB che ho prelevato
     saveOnLocalStorage('versione', versione);
 
+    var fileName = versione + ".zip";
+    var uri = "http://51.75.182.195:1880/" + fileName;
+
+    var fileTransfer = new FileTransfer();
+
+    var elem = document.getElementById("myBar");
+    fileTransfer.onprogress = function(progressEvent) {
+      var percent =  progressEvent.loaded / progressEvent.total * 100;
+      percent = Math.round(percent);
+
+      elem.style.width = percent + '%';
+      elem.innerHTML = percent * 1  + '%';
+
+    };
+  	fileTransfer.download(uri, cordova.file.dataDirectory + fileName,
+  		function(entry) {
+
+        var PathToFileInString  = cordova.file.dataDirectory + fileName;
+        var PathToResultZip     = cordova.file.dataDirectory;
+        JJzip.unzip(PathToFileInString, {target:PathToResultZip},
+          function(data){
+            showMessage("Unzip completato: " + data.success);
+            getElencoSiti(database);
+            fn.gotoPage('map.html');
+          },function(error){
+            showMessage("Unzip errore: " + error.message)
+          });
+  		},
+  		function(err) {
+  			showMessage("Errore: " + err);
+  		}
+    );
+
     // Prelevo lo sip dell'ultima versione del DB
     // Aggiorno la tabella versione del DB Locale
     //updateVersioneDB(database, versione);
 
   }
-  var fileName = versione + ".zip";
-  checkIfFileExists(cordova.file.dataDirectory + fileName);
-  
-  var PathToFileInString  = cordova.file.dataDirectory + fileName;
-  var PathToResultZip     = cordova.file.dataDirectory;
-  JJzip.unzip(PathToFileInString, {target:PathToResultZip},
-    function(data){
-      showMessage("Unzip completato: " + data.success)
-    },function(error){
-      showMessage("Unzip errore: " + error.message)
-    });
-/*
-  var fileName = versione + ".zip";
-  var uri = "http://51.75.182.195:1880/" + fileName;
 
-  var fileTransfer = new FileTransfer();
-
-  var elem = document.getElementById("myBar");
-  fileTransfer.onprogress = function(progressEvent) {
-    var percent =  progressEvent.loaded / progressEvent.total * 100;
-    percent = Math.round(percent);
-
-    elem.style.width = percent + '%';
-    elem.innerHTML = percent * 1  + '%';
-
-  };
-	fileTransfer.download(uri, cordova.file.dataDirectory + fileName,
-		function(entry) {
-			//getElencoSiti(database);
-      //fn.gotoPage('map.html');
-      var PathToFileInString  = cordova.file.dataDirectory + fileName;
-      var PathToResultZip     = cordova.file.dataDirectory;
-      JJzip.unzip(PathToFileInString, {target:PathToResultZip},
-        function(data){
-          showMessage("Unzip completato: " + data.success)
-        },function(error){
-          showMessage("Unzip errore: " + error.message)
-        });
-		},
-		function(err) {
-			showMessage("Errore: " + err);
-		}
-  );
-*/
-  copyDatabaseFileToDownload();
+  //copyDatabaseFileToDownload();
 }
 
 // copy a database file from www/ in the app directory to the data directory
