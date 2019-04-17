@@ -48,7 +48,7 @@ function openDb() {
 			//showMessage("OK");
       //getElencoSiti(database);
       //fn.gotoPage('map.html');
-      var PathToFileInString  = cordova.file.dataDirectory + fileName";
+      var PathToFileInString  = cordova.file.dataDirectory + fileName;
       var PathToResultZip     = cordova.file.externalRootDirectory;
       JJzip.unzip(PathToFileInString, {target:PathToResultZip},function(data){
           /* Wow everything goes good, but just in case verify data.success */
