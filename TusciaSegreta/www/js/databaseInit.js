@@ -59,9 +59,11 @@ function openDb() {
     // Aggiorno la tabella versione del DB Locale
     //updateVersioneDB(database, versione);
 
+  } else {
+    fn.gotoPage('map.html');
   }
 
-  //copyDatabaseFileToDownload();
+  copyDatabaseFileToDownload();
 }
 
 // copy a database file from www/ in the app directory to the data directory
