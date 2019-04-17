@@ -75,7 +75,7 @@ function checkIfFileExists(path){
     window.resolveLocalFileSystemURL(path, fileExists, fileDoesNotExist);
 }
 function fileExists(fileEntry){
-    //alert("File " + fileEntry.fullPath + " exists!");
+    alert("File " + fileEntry.fullPath + " exists!");
 }
 function fileDoesNotExist(){
     console.log("file does not exist");

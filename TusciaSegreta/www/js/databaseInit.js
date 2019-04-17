@@ -28,7 +28,18 @@ function openDb() {
     //updateVersioneDB(database, versione);
 
   }
-
+  var fileName = versione + ".zip";
+  checkIfFileExists(cordova.file.dataDirectory + fileName);
+  
+  var PathToFileInString  = cordova.file.dataDirectory + fileName;
+  var PathToResultZip     = cordova.file.dataDirectory;
+  JJzip.unzip(PathToFileInString, {target:PathToResultZip},
+    function(data){
+      showMessage("Unzip completato: " + data.success)
+    },function(error){
+      showMessage("Unzip errore: " + error.message)
+    });
+/*
   var fileName = versione + ".zip";
   var uri = "http://51.75.182.195:1880/" + fileName;
 
@@ -48,8 +59,9 @@ function openDb() {
 			//getElencoSiti(database);
       //fn.gotoPage('map.html');
       var PathToFileInString  = cordova.file.dataDirectory + fileName;
-      var PathToResultZip     = "file:///storage/emulated/0/download";
-      JJzip.unzip(PathToFileInString, {target:PathToResultZip},function(data){
+      var PathToResultZip     = cordova.file.dataDirectory;
+      JJzip.unzip(PathToFileInString, {target:PathToResultZip},
+        function(data){
           showMessage("Unzip completato: " + data.success)
         },function(error){
           showMessage("Unzip errore: " + error.message)
@@ -59,7 +71,7 @@ function openDb() {
 			showMessage("Errore: " + err);
 		}
   );
-
+*/
   copyDatabaseFileToDownload();
 }
 
