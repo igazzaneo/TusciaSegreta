@@ -10,7 +10,7 @@
     <content src="index.html" />
     <icon src="icon.png" />
     <preference name="DisallowOverscroll" value="true" />
-    <preference name="android-minSdkVersion" value="20" />
+    <preference name="android-minSdkVersion" value="19" />
 
     <!--plugin name="cordova-plugin-battery-status" source="npm" spec="~1.1.1" />
     <plugin name="cordova-plugin-camera" source="npm" spec="~2.1.1" /-->
@@ -35,7 +35,7 @@
     <plugin name="cordova-plugin-file" spec="~6.0.1" />
     <plugin name="cordova-plugin-sqlite-2" spec="~1.0.4" />
     <plugin name="cordova-zip-plugin" source="npm" spec="~1.1.0" />
-    <plugin name="cordova-plugin-googlemaps" source="npm" spec="~2.5.3" >
+    <plugin name="cordova-plugin-googlemaps">
         <variable name="API_KEY_FOR_ANDROID" value="AIzaSyCF8z5AC-eGrKBJ4vEgL1KykEy2sKZuD1s" />
         <variable name="API_KEY_FOR_IOS" value="AIzaSyCF8z5AC-eGrKBJ4vEgL1KykEy2sKZuD1s" />
     </plugin>
@@ -104,7 +104,7 @@
         <allow-intent href="itms-apps:*" />
     </platform-->
     <!--preference name="PLAY_SERVICES_VERSION" value="15.0.1"/-->
-    <preference name='phonegap-version' value='cli-8.1.1' />
+    <preference name='phonegap-version' value='cli-8.0.0' />
     <preference name='pgb-builder-version' value='1' />
     <engine name="android" spec="~7.0.0" />
 </widget>
