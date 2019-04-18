@@ -17,19 +17,32 @@
         var myPosition = {lat: latitudine, lng: longitudine};
         var map = new google.maps.Map(document.getElementById('mapid5'), {
           zoom: 10,
-          center: myPosition
+          center: myPosition,
+          streetViewControl: false,
+          mapTypeControl: true,
+          mapTypeControlOptions: {
+            style: google.maps.MapTypeControlStyle.DROPDOWN_MENU,
+            mapTypeIds: ['roadmap', 'terrain']
+          },
+          fullscreenControl: false
         });
 
         // Marker della posizione attuale
         let start = new google.maps.Marker({
           map: map,
-          position: {lat: latitudine, lng: longitudine},
+          position: myPosition,
           icon: {
             url: "./img/pin-icon-start.png"
           }
         });
 
-        getSito(param, database, map, setSitoCoords);
+        //getSito(param, database, map, setSitoCoords);
+
+        var centerControlDiv = document.createElement('div');
+        var centerControl = new openNavigation(centerControlDiv, map);
+
+        centerControlDiv.index = 1;
+        map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv);
 
       }
 
@@ -60,12 +73,6 @@
           strokeOpacity: 0.4,
           strokeWeight: 4
         });
-
-        var centerControlDiv = document.createElement('div');
-        var centerControl = new openNavigation(centerControlDiv, map);
-
-        centerControlDiv.index = 1;
-        map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(centerControlDiv);
 
       }
 
