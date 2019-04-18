@@ -71,6 +71,8 @@
     function addSiti(map, siti)
     {
 
+      showMessage("addSiti: " + siti.length);
+
       var options = {
         icon: 'fas fa-hiking',
         /*iconShape: 'marker',*/
@@ -81,7 +83,7 @@
         popupAnchor: [15, -7],
         innerIconStyle: 'font-size:30px;padding-top:4px;color: #000000'
       };
-      
+
       for(var i=0; i<siti.length; i++) {
 
           var riga = siti[i];

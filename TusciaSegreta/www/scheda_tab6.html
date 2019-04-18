@@ -50,8 +50,6 @@
 
       function setSitoCoords(map, sito) {
 
-        showMessage("Sito: " + sito);
-
         var latitudine = getValueFromLocalStorage('latitudine');
         var longitudine = getValueFromLocalStorage('longitudine');
 
@@ -62,7 +60,7 @@
         var sitoLatitudine = $("#latitudine").val();
         var sitoLongitudine = $("#longitudine").val();
 
-        showMessage("setSitoCoords: " + sitoLatitudine + " - " + sitoLongitudine);
+        showMessage("setSitoCoordsSito: " + sitoLatitudine + " - " + sitoLongitudine);
 
         let stop = new google.maps.Marker({
           map: map,
@@ -76,9 +74,9 @@
           origin: [latitudine,longitudine],
           destination: [sito[4],sito[5]],
           travelMode: 'driving',
-          strokeColor: 'black',
+          strokeColor: '#4f5051',
           strokeOpacity: 0.4,
-          strokeWeight: 4
+          strokeWeight: 6
         });
 
       }
