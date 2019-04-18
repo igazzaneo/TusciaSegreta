@@ -473,8 +473,10 @@ function setSitoInfo(sito) {
 }
 
 function setSitoCoords(sito) {
+  showMessage(sito);
   $("#latitudine").val(sito[4]);
   $("#longitudine").val(sito[5]);
+  showMessage($("#latitudine").val() + " - " + $("#longitudine").val());
 }
 
 function saveSito(tx, resultSet)
