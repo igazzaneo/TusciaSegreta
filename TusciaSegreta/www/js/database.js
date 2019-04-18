@@ -434,7 +434,7 @@ function getElencoSiti(database, map, callback) {
 
 }
 
-function getSito(id, database, map, callback)
+function getSito(id, database, callback)
 {
   if(database != null) {
 
@@ -451,7 +451,7 @@ function getSito(id, database, map, callback)
             riga[5] = resultSet.rows.item(0).longitudine;
             riga[6] = resultSet.rows.item(0).miniatura;
 
-            callback(map, riga);
+            callback(riga);
 
           }, dbSelecterror);
         }
