@@ -23,13 +23,13 @@
         });
 
         // Marker della posizione attuale
-        let start = new google.maps.Marker(
+        let start = new google.maps.Marker({
           map: map,
           position: {lat: latitudine, lng: longitudine},
           icon: {
             url: "img/pin-icon-start.png"
           }
-        );
+        });
 
         getSito(param, database, map, setSitoCoords);
 
@@ -46,13 +46,13 @@
         var sitoLatitudine = $("#latitudine").val();
         var sitoLongitudine = $("#longitudine").val();
 
-        let start = new google.maps.Marker(
+        let start = new google.maps.Marker({
           map: map,
           position: {lat: sitoLatitudine, lng: sitoLongitudine},
           icon: {
             url: "img/pin-icon-end.png"
           }
-        );
+        });
 
         var geocoords = sitoLatitudine+','+sitoLongitudine;
         showMessage(geocoords);

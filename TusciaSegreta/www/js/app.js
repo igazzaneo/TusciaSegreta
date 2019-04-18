@@ -25,6 +25,7 @@ document.addEventListener("deviceready", onDeviceReady, false);
 function onDeviceReady() {
 
   getServerDBVersion();
+  //fn.gotoPage('map.html');
 
   initDatabase();
 

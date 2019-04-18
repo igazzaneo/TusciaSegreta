@@ -435,7 +435,7 @@ function getElencoSiti(database, map, callback) {
 
 }
 
-function getSito(id, database, callback)
+function getSito(id, database, map, callback)
 {
   if(database != null) {
 
