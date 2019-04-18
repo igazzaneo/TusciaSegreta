@@ -427,7 +427,7 @@ function getElencoSiti(database, map, callback) {
 
         }
 
-        callback(elenco, map);
+        callback(map, elenco);
 
       }, dbSelecterror);
     });
