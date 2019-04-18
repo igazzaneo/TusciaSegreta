@@ -690,6 +690,7 @@ button.css3button {
 
 #mapid, #mapid2, #mapid3, #mapid4, #mapid5 {
 	height: 100%;
+	width: 100%;
 }
 
 #searchwrapper {
