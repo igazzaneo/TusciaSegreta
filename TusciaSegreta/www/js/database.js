@@ -384,7 +384,7 @@ function getElencoSiti(database, map, callback) {
 
   if(database == null) {
 
-    showMessage("Database non inizializzato");
+    //showMessage("Database non inizializzato");
 
     var elenco = new Array();
 
@@ -423,8 +423,6 @@ function getElencoSiti(database, map, callback) {
             elenco[x] = riga;
 
         }
-
-        showMessage("Prima di callback..." + elenco);
 
         callback(map, elenco);
 

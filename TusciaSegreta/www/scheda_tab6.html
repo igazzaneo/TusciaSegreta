@@ -12,7 +12,7 @@
         var latitudine = getValueFromLocalStorage('latitudine');
         var longitudine = getValueFromLocalStorage('longitudine');
 
-        showMessage("renderGoogleMaps:" + latitudine + " - " + longitudine);
+        //showMessage("renderGoogleMaps:" + latitudine + " - " + longitudine);
 
         var map = new GMaps({
             div: '#mapid5',
@@ -32,7 +32,7 @@
         var sitoLatitudine = $("#latitudine").val();
         var sitoLongitudine = $("#longitudine").val();
 
-        showMessage("renderGoogleMaps2:" + sitoLatitudine + " - " + sitoLongitudine);
+        //showMessage("renderGoogleMaps2:" + sitoLatitudine + " - " + sitoLongitudine);
 
         map.addMarker({
           lat: latitudine,
@@ -60,12 +60,12 @@
         });
 
 
-        /*var centerControlDiv = document.createElement('div');
+        var centerControlDiv = document.createElement('div');
         centerControlDiv.style['padding-top'] = '10px';
         var centerControl = new openNavigation(centerControlDiv);
 
         //centerControlDiv.index = 1;
-        map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv);*/
+        map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv);
 
       }
 

@@ -33,8 +33,6 @@
   <script>
     function initMap() {
 
-        showMessage("Call initMap...");
-
       var roads = L.gridLayer.googleMutant({
         type: 'roadmap'	// valid values are 'roadmap', 'satellite', 'terrain' and 'hybrid'
       })
@@ -65,15 +63,13 @@
       };
 
       L.control.layers(baseLayers).addTo(map);
-showMessage("Prima di getElencoSiti");
+
       getElencoSiti(database, map, addSiti);
-showMessage("Dopo getElencoSiti");
+
     }
 
     function addSiti(map, siti)
     {
-
-      showMessage("addSiti: " + siti.length);
 
       var options = {
         icon: 'fas fa-hiking',
