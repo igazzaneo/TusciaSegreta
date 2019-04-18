@@ -4,6 +4,8 @@
 
     <script type='text/javascript'>
 
+      //navigator.geolocation.getCurrentPosition(onMapSuccess, onMapError, { enableHighAccuracy: true });
+
       var latitudine = getValueFromLocalStorage('latitudine');
       var longitudine = getValueFromLocalStorage('longitudine');
 
@@ -12,7 +14,7 @@
       var map = plugin.google.maps.Map.getMap(div);
 
       map.animateCamera({
-          target: {lat: latitudine, lng: longitudine},
+          target: {lat: 37.422359, lng: -122.084344},
           zoom: 17,
           tilt: 60,
           bearing: 140,
@@ -20,7 +22,7 @@
         });
 
       var marker = map.addMarker({
-          position: {lat: latitudine, lng: longitudine},
+          position: {lat: 37.422359, lng: -122.084344},
           title: "denominazione sito \n" +
                  "Descrizione sito",
           snippet: "This plugin is awesome!",
