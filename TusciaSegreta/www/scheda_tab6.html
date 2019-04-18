@@ -6,46 +6,70 @@
 
     <script type='text/javascript'>
 
-      getSito(param, database, setSitoCoords);
-
-      var latitudine = getValueFromLocalStorage('latitudine');
-      var longitudine = getValueFromLocalStorage('longitudine');
-
-      var sitoLatitudine = $("#latitudine").val();
-      var sitoLongitudine = $("#longitudine").val();
-
-      var map = new GMaps({
-          div: '#mapid5',
-          lat: latitudine,
-          lng: longitudine,
-          zoom: 10,
-      });
-
-      map.addMarker({
-        lat: latitudine,
-        lng: longitudine
-      });
-
-      map.addMarker({
-        lat: sitoLatitudine,
-        lng: sitoLongitudine
-      });
-
-      var geocoords = sitoLatitudine+','+sitoLongitudine;
-      showMessage(geocoords);
-      //window.open('geo:0,0?q=' + geocoords, '_system');
-      //window.open('google.navigation:q=' + geocoords + '&mode=d', '_system');
 
 
+      function renderGoogleMaps() {
 
-      map.drawRoute({
-        origin: [latitudine,longitudine],
-        destination: [sitoLatitudine,sitoLongitudine],
-        travelMode: 'driving',
-        strokeColor: '#131540',
-        strokeOpacity: 0.6,
-        strokeWeight: 6
-      });
+        // Posizione del dispositivo
+        var latitudine = getValueFromLocalStorage('latitudine');
+        var longitudine = getValueFromLocalStorage('longitudine');
+
+        // Mappa centrata sulla posizione attuale
+        var map = new GMaps({
+            div: '#mapid5',
+            lat: latitudine,
+            lng: longitudine,
+            zoom: 10,
+        });
+
+        // Marker della posizione attuale
+        let start = new google.maps.Marker(
+          map: map,
+          position: {lat: latitudine, lng: longitudine},
+          icon: {
+            url: "img/pin-icon-start.png"
+          }
+        );
+
+        getSito(param, database, map, setSitoCoords);
+
+      }
+
+      function setSitoCoords(map, sito) {
+
+        var latitudine = getValueFromLocalStorage('latitudine');
+        var longitudine = getValueFromLocalStorage('longitudine');
+
+        $("#latitudine").val(sito[4]);
+        $("#longitudine").val(sito[5]);
+
+        var sitoLatitudine = $("#latitudine").val();
+        var sitoLongitudine = $("#longitudine").val();
+
+        let start = new google.maps.Marker(
+          map: map,
+          position: {lat: sitoLatitudine, lng: sitoLongitudine},
+          icon: {
+            url: "img/pin-icon-end.png"
+          }
+        );
+
+        var geocoords = sitoLatitudine+','+sitoLongitudine;
+        showMessage(geocoords);
+        //window.open('geo:0,0?q=' + geocoords, '_system');
+        //window.open('google.navigation:q=' + geocoords + '&mode=d', '_system');
+
+        map.drawRoute({
+          origin: [latitudine,longitudine],
+          destination: [sitoLatitudine,sitoLongitudine],
+          travelMode: 'driving',
+          strokeColor: 'black',
+          strokeOpacity: 0.4,
+          strokeWeight: 4
+        });
+      }
+
+      renderGoogleMaps();
 
     </script>
 

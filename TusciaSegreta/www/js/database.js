@@ -452,7 +452,7 @@ function getSito(id, database, callback)
             riga[5] = resultSet.rows.item(0).longitudine;
             riga[6] = resultSet.rows.item(0).miniatura;
 
-            callback(riga);
+            callback(map, riga);
 
           }, dbSelecterror);
         }
@@ -460,53 +460,6 @@ function getSito(id, database, callback)
 
   } else {
     showMessage("Database non inizializzato");
-  }
-
-}
-
-function setSitoInfo(sito) {
-
-  $(".title").html(sito[1]);
-  document.getElementById('video').src=sito[3];
-  $(".content").html(sito[2]);
-
-}
-
-function setSitoCoords(sito) {
-  showMessage(sito);
-  $("#latitudine").val(sito[4]);
-  $("#longitudine").val(sito[5]);
-  showMessage($("#latitudine").val() + " - " + $("#longitudine").val());
-}
-
-function saveSito(tx, resultSet)
-{
-  if(tx == null && resultSet == null) {
-
-    var riga = new Array();
-    riga[0] = Math.floor(Math.random() * (+100 - +1)) + 1 ;
-    riga[1] = "Qui c'è la denominazione del sito" + riga[0];
-    riga[2] = "Qui c'è la descrizione estesa del sito" + riga[0];
-    riga[3] = "http://www.linkdelvideo";
-    riga[4] = '42.585280';
-    riga[5] = '11.933396';
-
-    localStorage.setObj('sito', riga);
-
-  } else {
-
-    var riga = new Array();
-    riga[0] = resultSet.rows.item(0).id;
-    riga[1] = resultSet.rows.item(0).denominazione;
-    riga[2] = resultSet.rows.item(0).descrizione;
-    riga[3] = resultSet.rows.item(0).video;
-    riga[4] = resultSet.rows.item(0).latitudine;
-    riga[5] = resultSet.rows.item(0).longitudine;
-    riga[6] = resultSet.rows.item(0).miniatura;
-
-    $(".title").html(riga[1]);
-    document.getElementById('video').src=riga[3];
-    $(".content").html(riga[2]);
   }
 
 }
