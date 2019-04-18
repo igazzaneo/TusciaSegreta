@@ -14,51 +14,51 @@
 
         showMessage("renderGoogleMaps:" + latitudine + " - " + longitudine);
 
+        var map = new GMaps({
+            div: '#mapid5',
+            lat: latitudine,
+            lng: longitudine,
+            zoom: 10,
+            streetViewControl: false,
+            mapTypeId: 'roadmap',
+            mapTypeControl: true,
+            mapTypeControlOptions: {
+              style: google.maps.MapTypeControlStyle.DROPDOWN_MENU,
+              mapTypeIds: ['roadmap', 'satellite']
+            },
+            fullscreenControl: false
+        });
+
         var sitoLatitudine = $("#latitudine").val();
         var sitoLongitudine = $("#longitudine").val();
 
         showMessage("renderGoogleMaps2:" + sitoLatitudine + " - " + sitoLongitudine);
 
-        // Mappa centrata sulla posizione attuale
-        var myPosition = {lat: latitudine, lng: longitudine};
-        var map = new google.maps.Map(document.getElementById('mapid5'), {
-          zoom: 10,
-          center: myPosition,
-          streetViewControl: false,
-          mapTypeId: 'roadmap',
-          mapTypeControl: true,
-          mapTypeControlOptions: {
-            style: google.maps.MapTypeControlStyle.DROPDOWN_MENU,
-            mapTypeIds: ['roadmap', 'satellite']
-          },
-          fullscreenControl: false
-        });
-
-        // Marker della posizione attuale
-        let start = new google.maps.Marker({
-          map: map,
-          position: myPosition,
+        map.addMarker({
+          lat: latitudine,
+          lng: longitudine,
           icon: {
             url: "./img/green-dot.png"
           }
         });
 
-        let stop = new google.maps.Marker({
-          map: map,
-          position: {lat: sitoLatitudine, lng: sitoLongitudine},
+        map.addMarker({
+          lat: sitoLatitudine,
+          lng: sitoLongitudine,
           icon: {
             url: "./img/red-dot.png"
           }
         });
 
         map.drawRoute({
-          origin: [latitudine, longitudine],
+          origin: [latitudine,longitudine],
           destination: [sitoLatitudine, sitoLongitudine],
           travelMode: 'driving',
-          strokeColor: '#4f5051',
-          strokeOpacity: 0.4,
+          strokeColor: '#131540',
+          strokeOpacity: 0.6,
           strokeWeight: 6
         });
+
 
         /*var centerControlDiv = document.createElement('div');
         centerControlDiv.style['padding-top'] = '10px';
@@ -107,7 +107,7 @@
 
       }
 
-      renderGoogleMaps();
+      getSito(param , database, setSitoCoords);
 
     </script>
 
