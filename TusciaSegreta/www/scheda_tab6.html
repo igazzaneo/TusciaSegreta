@@ -27,8 +27,9 @@
         });
       }
 
-      var geocoords = latitudine + ',' + longitudine;
-      window.open('geo:0,0?q=' + geocoords, '_system');
+      var geocoords = '42.511,11.625';
+      //window.open('geo:0,0?q=' + geocoords, '_system');
+      window.open('google.navigation:q=' + geocoords + '&mode=d', '_system');
 
       /*
       var marginiMappa = new google.maps.LatLngBounds();
