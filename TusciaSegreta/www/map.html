@@ -65,9 +65,9 @@
       };
 
       L.control.layers(baseLayers).addTo(map);
-
+showMessage("Prima di getElencoSiti");
       getElencoSiti(database, map, addSiti);
-
+showMessage("Dopo getElencoSiti");
     }
 
     function addSiti(map, siti)

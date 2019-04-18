@@ -15,7 +15,7 @@
         showMessage("renderGoogleMaps:" + latitudine + " - " + longitudine);
         // Mappa centrata sulla posizione attuale
 
-        var myPosition = {lat: 41.5477272, lng: 13.3153238};
+        var myPosition = {lat: latitudine, lng: longitudine};
         var map5 = new google.maps.Map(document.getElementById('mapid5'), {
           zoom: 10,
           center: myPosition,
@@ -38,12 +38,12 @@
           }
         });
 
-        var centerControlDiv = document.createElement('div');
+        /*var centerControlDiv = document.createElement('div');
         centerControlDiv.style['padding-top'] = '10px';
         var centerControl = new openNavigation(centerControlDiv);
 
         //centerControlDiv.index = 1;
-        map5.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv);
+        map5.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv);*/
 
         getSito(param, database, map5, setSitoCoords);
 
@@ -54,14 +54,11 @@
         var latitudine = getValueFromLocalStorage('latitudine');
         var longitudine = getValueFromLocalStorage('longitudine');
 
-        showMessage("setSitoCoords: " + latitudine + " - " + longitudine);
         $("#latitudine").val(sito[4]);
         $("#longitudine").val(sito[5]);
 
         var sitoLatitudine = $("#latitudine").val();
         var sitoLongitudine = $("#longitudine").val();
-
-        showMessage("setSitoCoordsSito: " + sitoLatitudine + " - " + sitoLongitudine);
 
         let stop = new google.maps.Marker({
           map: map5,
@@ -72,8 +69,8 @@
         });
 
         map5.drawRoute({
-          origin: [latitudine,longitudine],
-          destination: [sito[4],sito[5]],
+          origin: [latitudine, longitudine],
+          destination: [sitoLatitudine, sitoLongitudine],
           travelMode: 'driving',
           strokeColor: '#4f5051',
           strokeOpacity: 0.4,
