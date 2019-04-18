@@ -16,7 +16,7 @@
         // Mappa centrata sulla posizione attuale
 
         var myPosition = {lat: 41.5477272, lng: 13.3153238};
-        var map = new google.maps.Map(document.getElementById('mapid5'), {
+        var map5 = new google.maps.Map(document.getElementById('mapid5'), {
           zoom: 10,
           center: myPosition,
           streetViewControl: false,
@@ -31,7 +31,7 @@
 
         // Marker della posizione attuale
         let start = new google.maps.Marker({
-          map: map,
+          map: map5,
           position: myPosition,
           icon: {
             url: "./img/green-dot.png"
@@ -39,16 +39,17 @@
         });
 
         var centerControlDiv = document.createElement('div');
-        var centerControl = new openNavigation(centerControlDiv, map);
+        centerControlDiv.style['padding-top'] = '10px';
+        var centerControl = new openNavigation(centerControlDiv);
 
-        centerControlDiv.index = 1;
-        map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv);
+        //centerControlDiv.index = 1;
+        map5.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv);
 
-        getSito(param, database, map, setSitoCoords);
+        getSito(param, database, map5, setSitoCoords);
 
       }
 
-      function setSitoCoords(map, sito) {
+      function setSitoCoords(map5, sito) {
 
         var latitudine = getValueFromLocalStorage('latitudine');
         var longitudine = getValueFromLocalStorage('longitudine');
@@ -63,14 +64,14 @@
         showMessage("setSitoCoordsSito: " + sitoLatitudine + " - " + sitoLongitudine);
 
         let stop = new google.maps.Marker({
-          map: map,
+          map: map5,
           position: {lat: sito[4], lng: sito[5]},
           icon: {
             url: "./img/red-dot.png"
           }
         });
 
-        map.drawRoute({
+        map5.drawRoute({
           origin: [latitudine,longitudine],
           destination: [sito[4],sito[5]],
           travelMode: 'driving',
@@ -81,7 +82,7 @@
 
       }
 
-      function openNavigation(controlDiv, map) {
+      function openNavigation(controlDiv) {
 
         // Set CSS for the control border.
         var controlUI = document.createElement('div');
