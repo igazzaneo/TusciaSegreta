@@ -30,15 +30,6 @@ function onDeviceReady() {
 
   getMapLocation();
 
-  /*setTimeout(
-    function() {
-      var elem = document.getElementById("myBar");
-      if(elem.style.width=='100%') {
-
-      }
-
-    }, 2000
-  );*/
 }
 
 function onBackKeyDown(e) {
