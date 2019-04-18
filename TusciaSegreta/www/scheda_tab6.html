@@ -13,7 +13,7 @@
         var longitudine = getValueFromLocalStorage('longitudine');
 
         // Mappa centrata sulla posizione attuale
-        var myPosition = {lat: 34.04924594193164, lng: -118.24104309082031}; //{lat: latitudine, lng: longitudine};
+        var myPosition = {lat: latitudine, lng: longitudine};
         var map = new google.maps.Map(document.getElementById('mapid5'), {
           zoom: 10,
           center: myPosition,
@@ -47,8 +47,6 @@
       }
 
       function setSitoCoords(map, sito) {
-
-        showMessage(sito);
 
         var latitudine = getValueFromLocalStorage('latitudine');
         var longitudine = getValueFromLocalStorage('longitudine');
