@@ -435,35 +435,26 @@ function getElencoSiti(database, map, callback) {
 
 }
 
-function saveElencoSiti(tx, resultSet) {
-
-    var elenco = new Array();
-
-    for(var x = 0; x < resultSet.rows.length; x++) {
-
-        var riga = new Array();
-        riga[0] = resultSet.rows.item(x).id;
-        riga[1] = resultSet.rows.item(x).denominazione;
-        riga[2] = resultSet.rows.item(x).descrizione;
-        riga[3] = resultSet.rows.item(x).video;
-        riga[4] = resultSet.rows.item(x).latitudine;
-        riga[5] = resultSet.rows.item(x).longitudine;
-        riga[6] = resultSet.rows.item(x).miniatura;
-
-        elenco[x] = riga;
-
-    }
-
-    localStorage.setObj('elencoSiti', elenco);
-}
-
-function getSito(id, database)
+function getSito(id, database, callback)
 {
   if(database != null) {
 
     database.transaction(
         function(transaction) {
-          transaction.executeSql('select * from sito where id=?', [id], saveSito, dbSelecterror);
+          transaction.executeSql('select * from sito where id=?', [id], function(transaction, resultSet) {
+
+            var riga = new Array();
+            riga[0] = resultSet.rows.item(0).id;
+            riga[1] = resultSet.rows.item(0).denominazione;
+            riga[2] = resultSet.rows.item(0).descrizione;
+            riga[3] = resultSet.rows.item(0).video;
+            riga[4] = resultSet.rows.item(0).latitudine;
+            riga[5] = resultSet.rows.item(0).longitudine;
+            riga[6] = resultSet.rows.item(0).miniatura;
+
+            callback(riga);
+
+          }, dbSelecterror);
         }
     );
 
@@ -471,6 +462,19 @@ function getSito(id, database)
     showMessage("Database non inizializzato");
   }
 
+}
+
+function setSitoInfo(sito) {
+
+  $(".title").html(riga[1]);
+  document.getElementById('video').src=riga[3];
+  $(".content").html(riga[2]);
+
+}
+
+function setSitoCoords(sito) {
+  $("#latitudine").val(sito[4]);
+  $("#longitudine").val(sito[5]);
 }
 
 function saveSito(tx, resultSet)
@@ -497,8 +501,6 @@ function saveSito(tx, resultSet)
     riga[4] = resultSet.rows.item(0).latitudine;
     riga[5] = resultSet.rows.item(0).longitudine;
     riga[6] = resultSet.rows.item(0).miniatura;
-
-    //showMessage("GetSito: " + riga);
 
     $(".title").html(riga[1]);
     document.getElementById('video').src=riga[3];

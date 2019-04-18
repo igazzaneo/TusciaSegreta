@@ -1,11 +1,18 @@
 <ons-page>
 
     <div id="mapid5"></div>
+    <input type="hidden" id="latitudine">
+    <input type="hidden" id="longitudine">
 
     <script type='text/javascript'>
 
+      getSito(param, database, setSitoCoords);
+
       var latitudine = getValueFromLocalStorage('latitudine');
       var longitudine = getValueFromLocalStorage('longitudine');
+
+      var sitoLatitudine = $("#latitudine").val();
+      var sitoLongitudine = $("#longitudine").val();
 
       var map = new GMaps({
           div: '#mapid5',
@@ -14,7 +21,7 @@
           zoom: 10,
       });
 
-      var latlngs = [{lat:latitudine, lng:longitudine}, {lat:"42.511", lng:"11.625"}];
+      var latlngs = [{lat:latitudine, lng:longitudine}, {lat:sitoLatitudine, lng:sitoLongitudine}];
 
       for (var i in latlngs) {
 
@@ -27,7 +34,7 @@
         });
       }
 
-      var geocoords = '42.511,11.625';
+      var geocoords = sitoLatitudine+','+sitoLongitudine;
       //window.open('geo:0,0?q=' + geocoords, '_system');
       window.open('google.navigation:q=' + geocoords + '&mode=d', '_system');
 
