@@ -7,13 +7,15 @@
     <script type='text/javascript'>
 
       function renderGoogleMaps() {
-        getMapLocation();
+
         // Posizione del dispositivo
         var latitudine = getValueFromLocalStorage('latitudine');
         var longitudine = getValueFromLocalStorage('longitudine');
 
+        showMessage("renderGoogleMaps:" + latitudine + " - " + longitudine);
         // Mappa centrata sulla posizione attuale
-        var myPosition = {lat: latitudine, lng: longitudine};
+
+        var myPosition = {lat: 41.5477272, lng: 13.3153238};
         var map = new google.maps.Map(document.getElementById('mapid5'), {
           zoom: 10,
           center: myPosition,
@@ -48,16 +50,21 @@
 
       function setSitoCoords(map, sito) {
 
+        showMessage("Sito: " + sito);
+
         var latitudine = getValueFromLocalStorage('latitudine');
         var longitudine = getValueFromLocalStorage('longitudine');
 
+        showMessage("setSitoCoords: " + latitudine + " - " + longitudine);
         $("#latitudine").val(sito[4]);
         $("#longitudine").val(sito[5]);
 
         var sitoLatitudine = $("#latitudine").val();
         var sitoLongitudine = $("#longitudine").val();
 
-        let start = new google.maps.Marker({
+        showMessage("setSitoCoords: " + sitoLatitudine + " - " + sitoLongitudine);
+
+        let stop = new google.maps.Marker({
           map: map,
           position: {lat: sito[4], lng: sito[5]},
           icon: {
