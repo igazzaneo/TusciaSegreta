@@ -14,6 +14,7 @@ function openDb() {
     // Sul localstorage non è memorizzato nulla, la prelevo dal DB
     getLocalDBVersion(database);
   }
+
   //alert("Versione DB cloud: " + versione + " - Versione locale: " + versioneLocale);
   if(versione != versioneLocale) {
 
@@ -57,7 +58,7 @@ function openDb() {
 
     // Prelevo lo sip dell'ultima versione del DB
     // Aggiorno la tabella versione del DB Locale
-    //updateVersioneDB(database, versione);
+    updateVersioneDB(database, versione);
 
   } else {
     fn.gotoPage('map.html');
