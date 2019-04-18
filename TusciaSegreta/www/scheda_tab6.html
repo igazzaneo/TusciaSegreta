@@ -13,16 +13,16 @@
         var longitudine = getValueFromLocalStorage('longitudine');
 
         // Mappa centrata sulla posizione attuale
-
-        var myPosition = {lat: latitudine, lng: longitudine};
+        var myPosition = {lat: 34.04924594193164, lng: -118.24104309082031}; //{lat: latitudine, lng: longitudine};
         var map = new google.maps.Map(document.getElementById('mapid5'), {
           zoom: 10,
           center: myPosition,
           streetViewControl: false,
+          mapTypeId: 'roadmap',
           mapTypeControl: true,
           mapTypeControlOptions: {
             style: google.maps.MapTypeControlStyle.DROPDOWN_MENU,
-            mapTypeIds: ['roadmap', 'terrain']
+            mapTypeIds: ['roadmap', 'satellite']
           },
           fullscreenControl: false
         });
@@ -32,11 +32,9 @@
           map: map,
           position: myPosition,
           icon: {
-            url: "./img/pin-icon-start.png"
+            url: "./img/green-dot.png"
           }
         });
-
-        //getSito(param, database, map, setSitoCoords);
 
         var centerControlDiv = document.createElement('div');
         var centerControl = new openNavigation(centerControlDiv, map);
@@ -44,9 +42,13 @@
         centerControlDiv.index = 1;
         map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv);
 
+        getSito(param, database, map, setSitoCoords);
+
       }
 
       function setSitoCoords(map, sito) {
+
+        showMessage(sito);
 
         var latitudine = getValueFromLocalStorage('latitudine');
         var longitudine = getValueFromLocalStorage('longitudine');
@@ -59,15 +61,15 @@
 
         let start = new google.maps.Marker({
           map: map,
-          position: {lat: sitoLatitudine, lng: sitoLongitudine},
+          position: {lat: sito[4], lng: sito[5]},
           icon: {
-            url: "./img/pin-icon-end.png"
+            url: "./img/red-dot.png"
           }
         });
 
         map.drawRoute({
           origin: [latitudine,longitudine],
-          destination: [sitoLatitudine,sitoLongitudine],
+          destination: [sito[4],sito[5]],
           travelMode: 'driving',
           strokeColor: 'black',
           strokeOpacity: 0.4,
