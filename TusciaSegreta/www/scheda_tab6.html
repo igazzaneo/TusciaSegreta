@@ -45,7 +45,7 @@
         //centerControlDiv.index = 1;
         map5.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv);*/
 
-        getSito(param, database, map5, setSitoCoords);
+        getDatiSito(param, database, map5, setSitoCoords);
 
       }
 
@@ -62,7 +62,7 @@
 
         let stop = new google.maps.Marker({
           map: map5,
-          position: {lat: sito[4], lng: sito[5]},
+          position: {lat: sitoLatitudine, lng: sitoLongitudine},
           icon: {
             url: "./img/red-dot.png"
           }
