@@ -27,12 +27,12 @@
       //
       // If your app does not use browser,
       // you can comment out this code.
-      window.plugin.google.maps.environment.setEnv({
+      plugin.google.maps.environment.setEnv({
         'API_KEY_FOR_BROWSER_RELEASE': 'AIzaSyCF8z5AC-eGrKBJ4vEgL1KykEy2sKZuD1s',
         'API_KEY_FOR_BROWSER_DEBUG': 'AIzaSyCF8z5AC-eGrKBJ4vEgL1KykEy2sKZuD1s'
       });
       // Create a Google Maps native view under the map_canvas div.
-      var map = window.plugin.google.maps.Map.getMap(div);
+      var map = plugin.google.maps.Map.getMap(div);
       // If you click the button, do something...
       var button = document.getElementById("button");
       button.addEventListener("click", function() {
