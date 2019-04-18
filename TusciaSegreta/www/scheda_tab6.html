@@ -59,13 +59,35 @@
           strokeWeight: 6
         });
 
+        map.addControl({
+          position: 'bottom_center',
+          content: 'Avvia navigazione',
+          style: {
+            margin: '5px',
+            padding: '1px 6px',
+            border: 'solid 1px #717B87',
+            background: '#fff'
+          },
+          events: {
+            click: function(){
+              //console.log(this);
+              var sitoLatitudine = $("#latitudine").val();
+              var sitoLongitudine = $("#longitudine").val();
+              var geocoords = sitoLatitudine+','+sitoLongitudine;
+              if(confirm("Vuoi avviare la navigazione?\n\nRicorda di aprire di nuovo l'app per seguire il percorso.")) {
+                window.open('google.navigation:q=' + geocoords + '&mode=d', '_system');
+              }
+            }
+          }
+        });
 
-        var centerControlDiv = document.createElement('div');
+
+        /*var centerControlDiv = document.createElement('div');
         centerControlDiv.style['padding-top'] = '10px';
         var centerControl = new openNavigation(centerControlDiv);
 
         //centerControlDiv.index = 1;
-        map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv);
+        map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv);*/
 
       }
 
