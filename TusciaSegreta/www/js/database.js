@@ -466,9 +466,9 @@ function getSito(id, database, callback)
 
 function setSitoInfo(sito) {
 
-  $(".title").html(riga[1]);
-  document.getElementById('video').src=riga[3];
-  $(".content").html(riga[2]);
+  $(".title").html(sito[1]);
+  document.getElementById('video').src=sito[3];
+  $(".content").html(sito[2]);
 
 }
 
