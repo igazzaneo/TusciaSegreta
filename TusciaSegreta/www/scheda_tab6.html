@@ -6,8 +6,6 @@
 
     <script type='text/javascript'>
 
-
-
       function renderGoogleMaps() {
 
         // Posizione del dispositivo
@@ -15,11 +13,11 @@
         var longitudine = getValueFromLocalStorage('longitudine');
 
         // Mappa centrata sulla posizione attuale
-        var map = new GMaps({
-            div: '#mapid5',
-            lat: latitudine,
-            lng: longitudine,
-            zoom: 10,
+
+        var myPosition = {lat: latitudine, lng: longitudine};
+        var map = new google.maps.Map(document.getElementById('mapid5'), {
+          zoom: 10,
+          center: myPosition
         });
 
         // Marker della posizione attuale
@@ -27,7 +25,7 @@
           map: map,
           position: {lat: latitudine, lng: longitudine},
           icon: {
-            url: "img/pin-icon-start.png"
+            url: "./img/pin-icon-start.png"
           }
         });
 
@@ -50,7 +48,7 @@
           map: map,
           position: {lat: sitoLatitudine, lng: sitoLongitudine},
           icon: {
-            url: "img/pin-icon-end.png"
+            url: "./img/pin-icon-end.png"
           }
         });
 
@@ -67,7 +65,7 @@
         var centerControl = new openNavigation(centerControlDiv, map);
 
         centerControlDiv.index = 1;
-        map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv);
+        map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(centerControlDiv);
 
       }
 
