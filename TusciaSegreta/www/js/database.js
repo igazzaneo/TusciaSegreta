@@ -487,7 +487,7 @@ function setSitoInfo(sito) {
 
   $(".title").html(sito[1]);
   document.getElementById('video').src=sito[3]; //.toString().replace('watch?v=', 'embed/');
-  $(".content").html(sito[2]);
+  $(".content").html(sito[2]+"<br><br><br><br><br><br>");
 }
 
 function setSitoCoords(sito) {
