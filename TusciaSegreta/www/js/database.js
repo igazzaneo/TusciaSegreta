@@ -616,6 +616,8 @@ function getPuntiInteresseSito(id, database, map, ristorantiLayer, alberghiLayer
               elenco[x] = riga;
             }
 
+            showMessage("Elenco: " + elenco);
+
             callback(map, ristorantiLayer, alberghiLayer, altroLayer, elenco);
 
           }, dbSelecterror);
