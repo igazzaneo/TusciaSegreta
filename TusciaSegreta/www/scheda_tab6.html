@@ -12,8 +12,6 @@
         var latitudine = getValueFromLocalStorage('latitudine');
         var longitudine = getValueFromLocalStorage('longitudine');
 
-        //showMessage("renderGoogleMaps:" + latitudine + " - " + longitudine);
-
         var map = new GMaps({
             div: '#mapid5',
             lat: latitudine,
@@ -31,8 +29,6 @@
 
         var sitoLatitudine = $("#latitudine").val();
         var sitoLongitudine = $("#longitudine").val();
-
-        //showMessage("renderGoogleMaps2:" + sitoLatitudine + " - " + sitoLongitudine);
 
         map.addMarker({
           lat: latitudine,
@@ -68,11 +64,10 @@
             border: 'solid 1px #717B87',
             background: '#fff',
             fontFamily: 'Oswald-Medium',
-            fontSize: '14px',
+            fontSize: '18px',
           },
           events: {
             click: function(){
-              //console.log(this);
               var sitoLatitudine = $("#latitudine").val();
               var sitoLongitudine = $("#longitudine").val();
               var geocoords = sitoLatitudine+','+sitoLongitudine;
@@ -81,52 +76,6 @@
               }
             }
           }
-        });
-
-
-        /*var centerControlDiv = document.createElement('div');
-        centerControlDiv.style['padding-top'] = '10px';
-        var centerControl = new openNavigation(centerControlDiv);
-
-        //centerControlDiv.index = 1;
-        map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv);*/
-
-      }
-
-      function openNavigation(controlDiv) {
-
-        // Set CSS for the control border.
-        var controlUI = document.createElement('div');
-        controlUI.style.backgroundColor = '#fff';
-        controlUI.style.border = '2px solid #fff';
-        controlUI.style.borderRadius = '3px';
-        controlUI.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
-        controlUI.style.cursor = 'pointer';
-        controlUI.style.marginBottom = '22px';
-        controlUI.style.textAlign = 'center';
-        controlUI.title = 'Click to recenter the map';
-        controlDiv.appendChild(controlUI);
-
-        // Set CSS for the control interior.
-        var controlText = document.createElement('div');
-        controlText.style.color = 'rgb(25,25,25)';
-        controlText.style.fontFamily = 'Roboto,Arial,sans-serif';
-        controlText.style.fontSize = '16px';
-        controlText.style.lineHeight = '38px';
-        controlText.style.paddingLeft = '5px';
-        controlText.style.paddingRight = '5px';
-        controlText.innerHTML = 'Avvia navigazione';
-        controlUI.appendChild(controlText);
-
-        // Setup the click event listeners: simply set the map to Chicago.
-        controlUI.addEventListener('click', function() {
-          var sitoLatitudine = $("#latitudine").val();
-          var sitoLongitudine = $("#longitudine").val();
-          var geocoords = sitoLatitudine+','+sitoLongitudine;
-          if(confirm("Vuoi avviare la navigazione?\n\nRicorda di aprire di nuovo l'app per seguire il percorso.")) {
-            window.open('google.navigation:q=' + geocoords + '&mode=d', '_system');
-          }
-
         });
 
       }

@@ -1,5 +1,28 @@
 <ons-page id="Scelta">
   <script>
+    getGalleriaSito(param, database, createCarousel);
+
+    function createCarousel(elenco) {
+
+      var innerHtml = "";
+
+      for(var x=0; x<elenco.length; x++) {
+        var immagine = elenco[x];
+        var html = "<div class=\"item\"> " +
+          "<div><div class=\"scheda-details\">" +
+          "<img src=\"" + cordova.file.dataDirectory + "/" + immagine[1] + "\" class=\"scheda-image\">" +
+          "</div>" +
+          "<div class=\"testimonial-say\">" +
+          "<span class=\"client-say\">" +
+          "<p>" + immagine[2] + "</p>" +
+          "</span></div></div></div>";
+
+        innerHtml += html;
+      }
+
+      $("#carousel").html(innerHtml);
+    }
+
     $(document).ready(function(){
       $('.owl-carousel').owlCarousel({
           loop:true,
@@ -21,7 +44,7 @@
   </script>
 
   <ons-card>
-    <div class="owl-carousel owl-theme" align="center">
+    <div class="owl-carousel owl-theme" align="center" id="carousel">
         <div class="item">
           <div>
             <div class="scheda-details">

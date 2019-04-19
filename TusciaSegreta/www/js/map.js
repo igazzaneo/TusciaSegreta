@@ -6,6 +6,8 @@ function getMapLocation() {
 var onMapSuccess = function (position) {
     saveOnLocalStorage('latitudine', position.coords.latitude);
     saveOnLocalStorage('longitudine', position.coords.longitude);
+
+    locateUser();
 }
 
 function onMapError(error) {

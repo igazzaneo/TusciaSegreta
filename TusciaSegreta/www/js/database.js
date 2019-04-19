@@ -21,6 +21,28 @@ function getServerDB() {
 
 }
 
+function locateUser() {
+
+  var dataObject = {};
+  dataObject['username'] = getValueFromLocalStorage('nome_utente')=='0'?'guest':getValueFromLocalStorage('nome_utente');
+  dataObject['latitudine'] = getValueFromLocalStorage('latitudine');
+  dataObject['longitudine'] = getValueFromLocalStorage('longitudine');
+
+  $.ajax({
+    type: "POST",
+    url: "http://51.75.182.195:1880/locateUser",
+    dataType: 'json',
+    timeout: 2000,
+    data: dataObject,
+    async: true,
+    //success: console.log("Ok"),
+    //error: processUserAddResponse,
+  }).complete(function(response) {
+    var esito = JSON.parse(response.responseText).httpCode
+    showMessage("Esito: " + esito);
+  });
+}
+
 
 function elaboraDb(response) {
 
@@ -464,10 +486,8 @@ function getSito(id, database, callback)
 function setSitoInfo(sito) {
 
   $(".title").html(sito[1]);
-  document.getElementById('video').src=sito[3];
+  document.getElementById('video').src=sito[3].toString().replace('watch?v=', 'embed/');
   $(".content").html(sito[2]);
-  //$("#latitudine").val(sito[4]);
-  //$("#longitudine").val(sito[5]);
 }
 
 function setSitoCoords(sito) {
@@ -529,6 +549,36 @@ function getNodiPercorsoSito(id, database, map, callback)
     });
 
   }
+}
+
+function getGalleriaSito(id, database, callback)
+{
+
+  if(database != null) {
+    database.transaction(function(transaction) {
+        transaction.executeSql('select multimedia.id, multimedia.oggetto, multimedia.descrizione from multimedia join sito_ha_multimedia on multimedia.id=sito_ha_multimedia.multimedia_id where sito_ha_multimedia.sito_id=? and multimedia.stato=1 and multimedia.tipo_multimedia_id=2', [id],
+          function(transaction, resultSet) {
+
+            var elenco = new Array();
+
+            for(var x=0; x<resultSet.rows.length; x++) {
+
+              var riga = new Array();
+              riga[0] = resultSet.rows[x].id;
+              riga[1] = resultSet.rows[x].oggetto;
+              riga[2] = resultSet.rows[x].descrizione;
+
+              elenco[x] = riga;
+            }
+
+            callback(elenco);
+
+          }, dbSelecterror);
+    });
+  } else {
+    showMessage('Database non inizializzato');
+  }
+
 }
 
 
