@@ -555,12 +555,13 @@ function getGalleriaSito(id, database, callback)
 {
 
   if(database != null) {
+
     database.transaction(function(transaction) {
 
         transaction.executeSql('select multimedia.id, multimedia.oggetto, multimedia.descrizione from multimedia join sito_ha_multimedia on multimedia.id=sito_ha_multimedia.multimedia_id where sito_ha_multimedia.sito_id=? and multimedia.stato=1 and multimedia.tipo_multimedia_id=2', [id],
 
           function(transaction, resultSet) {
-
+showMessage("Immagini trovate: " + resultSet.rows.length);
             var elenco = new Array();
 
             for(var x=0; x<resultSet.rows.length; x++) {
