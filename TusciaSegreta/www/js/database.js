@@ -561,20 +561,17 @@ function getGalleriaSito(id, database, callback)
         transaction.executeSql('select multimedia.id, multimedia.oggetto, multimedia.descrizione from multimedia join sito_ha_multimedia on multimedia.id=sito_ha_multimedia.multimedia_id where sito_ha_multimedia.sito_id=? and multimedia.stato=1 and multimedia.tipo_multimedia_id=2', [id],
 
           function(transaction, resultSet) {
-showMessage("Immagini trovate: " + resultSet.rows.length);
             var elenco = new Array();
 
             for(var x=0; x<resultSet.rows.length; x++) {
 
               var riga = new Array();
-              riga[0] = resultSet.rows[x].id;
-              riga[1] = resultSet.rows[x].oggetto;
-              riga[2] = resultSet.rows[x].descrizione;
+              riga[0] = resultSet.rows.item(x).id;
+              riga[1] = resultSet.rows.item(x).oggetto;
+              riga[2] = resultSet.rows.item(x).descrizione;
 
               elenco[x] = riga;
             }
-
-            showMessage("Galleria: " + elenco);
 
             callback(elenco);
 
