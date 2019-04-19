@@ -677,6 +677,7 @@ button.css3button {
 
 .scheda-image {
     width: 100%;
+		height: auto;
     position: relative;
     top: 0;
     border-radius: 20px;

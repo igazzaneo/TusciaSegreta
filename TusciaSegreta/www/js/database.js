@@ -39,7 +39,7 @@ function locateUser() {
     //error: processUserAddResponse,
   }).complete(function(response) {
     var esito = response.responseText;
-    showMessage("Esito: " + esito);
+    //showMessage("Esito: " + esito);
   });
 }
 
