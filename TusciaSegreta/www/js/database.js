@@ -38,7 +38,7 @@ function locateUser() {
     //success: console.log("Ok"),
     //error: processUserAddResponse,
   }).complete(function(response) {
-    var esito = JSON.parse(response.responseText).httpCode
+    var esito = response.responseText;
     showMessage("Esito: " + esito);
   });
 }
