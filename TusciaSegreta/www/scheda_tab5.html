@@ -1,9 +1,9 @@
 <ons-page id="Scelta">
   <script>
     function createCarousel(elenco) {
-showMessage(elenco);
-      /*var innerHtml = "";
-      /*
+//showMessage(elenco);
+      var innerHtml = "";
+
       for(var x=0; x<elenco.length; x++) {
         var immagine = elenco[x];
         var html = "<div class='item'> " +
@@ -35,9 +35,9 @@ showMessage(elenco);
                   items:1
               }
           }
-      })*/
+      })
     }
-
+/*
     $(document).ready(function(){
       $('.owl-carousel').owlCarousel({
           loop:true,
@@ -56,13 +56,13 @@ showMessage(elenco);
           }
       })
     });
-
+*/
     getGalleriaSito(param, database, createCarousel);
   </script>
 
   <ons-card>
     <div class="owl-carousel owl-theme" align="center" id="carousel">
-        <div class="item">
+        <!--div class="item">
           <div>
             <div class="scheda-details">
               <img src="img/percorsi/eremo/foto1.jpg" class="scheda-image">
@@ -109,7 +109,7 @@ showMessage(elenco);
               </span>
             </div>
           </div>
-        </div>
+        </div-->
     </div>
   </ons-card>
 </ons-page>
