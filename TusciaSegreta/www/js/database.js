@@ -584,7 +584,7 @@ function getGalleriaSito(id, database, callback)
 }
 
 
-function getPuntiInteresseSito(id, database, map, ristorantiLayer, alberghiLayer, altroLayer, callback)
+function getPuntiInteresseSito(id, database, map, callback)
 {
 
   if(database != null) {
@@ -616,7 +616,7 @@ function getPuntiInteresseSito(id, database, map, ristorantiLayer, alberghiLayer
               elenco[x] = riga;
             }
 
-            callback(map, ristorantiLayer, alberghiLayer, altroLayer, elenco);
+            callback(map, elenco);
 
           }, dbSelecterror);
     });
@@ -626,6 +626,39 @@ function getPuntiInteresseSito(id, database, map, ristorantiLayer, alberghiLayer
 
 }
 
+
+function getTipoPuntiInteresse(database, callback)
+{
+
+  if(database != null) {
+
+    database.transaction(function(transaction) {
+
+        transaction.executeSql('select * from tipo_punto_di_interesse', [],
+
+          function(transaction, resultSet) {
+
+            var elenco = new Array();
+
+            for(var x=0; x<resultSet.rows.length; x++) {
+
+              var riga = new Array();
+              riga[0] = resultSet.rows.item(x).id;
+              riga[1] = resultSet.rows.item(x).denominazione;
+              riga[2] = resultSet.rows.item(x).icona;
+
+              elenco[x] = riga;
+            }
+
+            callback(elenco);
+
+          }, dbSelecterror);
+    });
+  } else {
+    showMessage('Database non inizializzato');
+  }
+
+}
 
 function getCaratteristichePercorsoSito(id, database)
 {

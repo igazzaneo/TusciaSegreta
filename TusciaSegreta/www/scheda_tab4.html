@@ -33,7 +33,7 @@
         innerIconStyle: 'font-size:20px;padding-top:4px;color: #000000'
       };
 
-      var ristorantiLayer = L.layerGroup();
+      /*var ristorantiLayer = L.layerGroup();
 
       var alberghiLayer = L.layerGroup();
 
@@ -43,6 +43,12 @@
           center: new L.LatLng(42.511,11.625),
           zoom: 10,
           layers: [roads, ristorantiLayer, alberghiLayer, altroLayer]
+      });*/
+
+      var map = new L.Map('mapid2',{
+          center: new L.LatLng(42.511,11.625),
+          zoom: 10,
+          layers: [roads]
       });
 
       var baseLayers = {
@@ -53,20 +59,24 @@
 
       };
 
-      var overlays = {
+      /*var overlays = {
           "Ristoranti": ristorantiLayer,
           "Alberghi": alberghiLayer,
           "Altre attività": altroLayer,
       };
 
-      L.control.layers(baseLayers, overlays).addTo(map);
+      L.control.layers(baseLayers, overlays).addTo(map);*/
+
+      L.control.layers(baseLayers).addTo(map);
 
       //getSito(param, database, render)
-      getPuntiInteresseSito(param, database, map, ristorantiLayer, alberghiLayer, altroLayer, renderInteresseMarker);
+      getPuntiInteresseSito(param, database, map, renderInteresseMarker);
+
+      getTipoPuntiInteresse(param, database, renderListaInteressi);
 
     }
 
-    function renderInteresseMarker(map, ristorantiLayer, alberghiLayer, altroLayer, elenco) {
+    function renderInteresseMarker(map, elenco) {
 
       var albergo = {
         icon: 'fa fa-bed',
@@ -101,21 +111,18 @@
         innerIconStyle: 'font-size:20px;padding-top:4px;color: #000000'
       };
 
-      for(var x=0; x=elenco.length; x++) {
+      for(var x=0; x<elenco.length; x++) {
 
         var riga = elenco[x];
 
-        var icona, layer;
+        var icona;
         // controllo il tipo di punto di interesse per impostare il relativo marker
         if(riga[8] == 1) {
           icona=albergo;
-          layer=alberghiLayer;
         } else if(riga[8] == 1) {
           icona=ristorante;
-          layer=ristorantiLayer;
         } else {
           icona=altro;
-          layer=altroLayer;
         }
 
         var descrizione = "<b>" +riga[1] + "</b><br/>" + riga[2];
@@ -123,8 +130,30 @@
         L.marker([riga[5],riga[6]], {
           icon: L.BeautifyIcon.icon(icona),
           draggable: false
-        }).bindPopup(descrizione).addTo(layer);
+        }).bindPopup(descrizione).addTo(map);
       }
+
+    }
+
+    function renderListaInteressi(elenco) {
+
+      var innerHtml = "<ons-list><ons-list-header>L'eremo di Poggio Conte</ons-list-header>";
+      for(var x=0; x<elenco.length; x++) {
+
+        var riga = elenco[x];
+        var item = "<ons-list-item expandable id='item" + (x+1) + "' onclick='openSection(" + (x+1) + ")'>" +
+          "<div class='left'><ons-icon modifier='bed' icon='" + riga[2] + "' class='list-item__icon' tappable></ons-icon></div>" +
+          riga[1] +
+          "<div class='expandable-content'></div>" +
+          "</ons-list-item>";
+
+        innerHtml += item + "</ons-list>";
+
+      }
+
+      innerHtml += "</ons-list>";
+
+      $("#listaPuntiInteressi").html(innerHtml);
 
     }
 
@@ -141,7 +170,10 @@
 
 
   </script>
-  <ons-list>
+
+  <div id="listaPuntiInteressi"></div>
+
+  <!--ons-list>
     <ons-list-header>L'eremo di Poggio Conte</ons-list-header>
     <ons-list-item expandable id="item1" onclick="openSection(1)">
       <div class="left">
@@ -353,15 +385,6 @@
         <div><hr class="style-three"></div>
       </div>
     </ons-list-item>
+  </ons-list-->
 
-
-    <!--ons-list-item>
-      <div class="left">
-        <ons-icon modifier="parking" icon="fa-parking" class="list-item__icon" tappable></ons-icon>
-      </div>
-      <div class="center">
-        Parcheggio
-      </div>
-    </ons-list-item-->
-  </ons-list>
 </ons-page>
