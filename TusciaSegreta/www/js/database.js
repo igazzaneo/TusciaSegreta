@@ -486,7 +486,7 @@ function getSito(id, database, callback)
 function setSitoInfo(sito) {
 
   $(".title").html(sito[1]);
-  document.getElementById('video').src=sito[3].toString().replace(/watch?v=/g, "embed/");
+  document.getElementById('video').src=sito[3].toString().replace(/watch\?v=/g, "embed/");
   $(".content").html(sito[2]+"<br><br><br><br><br><br>");
 }
 
@@ -584,29 +584,39 @@ function getGalleriaSito(id, database, callback)
 }
 
 
-function getPuntiInteresseSito(id, database, map, callback)
+function getPuntiInteresseSito(id, database, map, ristorantiLayer, alberghiLayer, altroLayer, callback)
 {
 
   if(database != null) {
 
     database.transaction(function(transaction) {
 
-        transaction.executeSql('select multimedia.id, multimedia.oggetto, multimedia.descrizione from multimedia join sito_ha_multimedia on multimedia.id=sito_ha_multimedia.multimedia_id where sito_ha_multimedia.sito_id=? and multimedia.stato=1 and multimedia.tipo_multimedia_id=2', [id],
+        transaction.executeSql('select punto_di_interesse.id, punto_di_interesse.denominazione, punto_di_interesse.descrizione, telefono, latitudine, longitudine, sito_web, icona, tipo_punto_di_interesse_id ' +
+            'from sito_ha_punto_di_interesse join punto_di_interesse on punto_di_interesse.id=sito_ha_punto_di_interesse.punto_di_interesse_id ' +
+            'join tipo_punto_di_interesse on tipo_punto_di_interesse.id=punto_di_interesse.tipo_punto_di_interesse_id ' +
+            'where sito_id=? order by punto_di_interesse.id', [id],
 
           function(transaction, resultSet) {
+
             var elenco = new Array();
 
             for(var x=0; x<resultSet.rows.length; x++) {
 
               var riga = new Array();
               riga[0] = resultSet.rows.item(x).id;
-              riga[1] = resultSet.rows.item(x).oggetto;
+              riga[1] = resultSet.rows.item(x).denominazione;
               riga[2] = resultSet.rows.item(x).descrizione;
+              riga[3] = resultSet.rows.item(x).telefono;
+              riga[4] = resultSet.rows.item(x).sito_web;
+              riga[5] = resultSet.rows.item(x).latitudine;
+              riga[6] = resultSet.rows.item(x).longitudine;
+              riga[7] = resultSet.rows.item(x).icona;
+              riga[8] = resultSet.rows.item(x).tipo_punto_di_interesse_id;
 
               elenco[x] = riga;
             }
 
-            callback(elenco);
+            callback(map, ristorantiLayer, alberghiLayer, altroLayer, elenco);
 
           }, dbSelecterror);
     });

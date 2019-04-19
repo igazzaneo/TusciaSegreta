@@ -4,161 +4,141 @@
 
   <script type='text/javascript'>
 
-    var roads = L.gridLayer.googleMutant({
-       type: 'roadmap'	// valid values are 'roadmap', 'satellite', 'terrain' and 'hybrid'
-    })
+    function renderInteressiMap() {
 
-    var satellite = L.gridLayer.googleMutant({
-       type: 'satellite'	// valid values are 'roadmap', 'satellite', 'terrain' and 'hybrid'
-    })
+      var roads = L.gridLayer.googleMutant({
+         type: 'roadmap'	// valid values are 'roadmap', 'satellite', 'terrain' and 'hybrid'
+      })
 
-    var terrain = L.gridLayer.googleMutant({
-       type: 'terrain'	// valid values are 'roadmap', 'satellite', 'terrain' and 'hybrid'
-    })
+      var satellite = L.gridLayer.googleMutant({
+         type: 'satellite'	// valid values are 'roadmap', 'satellite', 'terrain' and 'hybrid'
+      })
 
-    var hybrid = L.gridLayer.googleMutant({
-       type: 'hybrid'	// valid values are 'roadmap', 'satellite', 'terrain' and 'hybrid'
-    })
+      var terrain = L.gridLayer.googleMutant({
+         type: 'terrain'	// valid values are 'roadmap', 'satellite', 'terrain' and 'hybrid'
+      })
 
-    var albergo = {
-      icon: 'fa fa-bed',
-      /*iconShape: 'marker',*/
-      borderColor: '#000000',
-      borderWidth: 2,
-      iconSize: [30, 30],
-      /*popupAnchor: [100, -10],*/
-      popupAnchor: [15, -7],
-      innerIconStyle: 'font-size:20px;padding-top:4px;color: #000000'
-    };
+      var hybrid = L.gridLayer.googleMutant({
+         type: 'hybrid'	// valid values are 'roadmap', 'satellite', 'terrain' and 'hybrid'
+      })
 
-    var ristorante = {
-      icon: 'fa fa-utensils',
-      /*iconShape: 'marker',*/
-      borderColor: '#000000',
-      borderWidth: 2,
-      iconSize: [30, 30],
-      /*popupAnchor: [100, -10],*/
-      popupAnchor: [15, -7],
-      innerIconStyle: 'font-size:20px;padding-top:4px;color: #000000'
-    };
+      var percorso = {
+        icon: 'fas fa-hiking',
+        /*iconShape: 'marker',*/
+        borderColor: '#000000',
+        borderWidth: 2,
+        iconSize: [30, 30],
+        /*popupAnchor: [100, -10],*/
+        popupAnchor: [15, -7],
+        innerIconStyle: 'font-size:20px;padding-top:4px;color: #000000'
+      };
 
-    var percorso = {
-      icon: 'fas fa-hiking',
-      /*iconShape: 'marker',*/
-      borderColor: '#000000',
-      borderWidth: 2,
-      iconSize: [30, 30],
-      /*popupAnchor: [100, -10],*/
-      popupAnchor: [15, -7],
-      innerIconStyle: 'font-size:20px;padding-top:4px;color: #000000'
-    };
+      var ristorantiLayer = L.layerGroup();
 
-    var altro = {
-      icon: 'fas fa-archway',
-      /*iconShape: 'marker',*/
-      borderColor: '#000000',
-      borderWidth: 2,
-      iconSize: [30, 30],
-      /*popupAnchor: [100, -10],*/
-      popupAnchor: [15, -7],
-      innerIconStyle: 'font-size:20px;padding-top:4px;color: #000000'
-    };
+      var alberghiLayer = L.layerGroup();
 
-    var ristorantiLayer = L.layerGroup();
+      var altroLayer = L.layerGroup();
 
-    var alberghiLayer = L.layerGroup();
+      var map = new L.Map('mapid2',{
+          center: new L.LatLng(42.511,11.625),
+          zoom: 10,
+          layers: [roads, ristorantiLayer, alberghiLayer, altroLayer]
+      });
 
-    var altroLayer = L.layerGroup();
+      var baseLayers = {
+          "Standard": roads,
+          "Satellite": satellite,
+          "Altimetria": terrain,
+          "Ibrido": hybrid,
 
-    // Ristoranti
-    L.marker([42.5429779,11.7524407], {
-      icon: L.BeautifyIcon.icon(ristorante),
-      draggable: false
-    }).bindPopup("<b>Trattoria da Salvatore</b><br/><a href='#' onclick=\"fn.load('scheda.html')\">Vai alla scheda</a>").addTo(ristorantiLayer);
+      };
 
-    L.marker([42.5443869,11.7542646], {
-      icon: L.BeautifyIcon.icon(ristorante),
-      draggable: false
-    }).bindPopup("<b>Ranuccio Ii Il Ristorante Di Rendina Carmela</b><br/><a href='#' onclick=\"fn.load('scheda.html')\">Vai alla scheda</a>").addTo(ristorantiLayer);
+      var overlays = {
+          "Ristoranti": ristorantiLayer,
+          "Alberghi": alberghiLayer,
+          "Altre attività": altroLayer,
+      };
 
-    L.marker([42.5430115,11.759157], {
-      icon: L.BeautifyIcon.icon(ristorante),
-      draggable: false
-    }).bindPopup("<b>Ristorante Pizzeria La Fiaba</b><br/><a href='#' onclick=\"fn.load('scheda.html')\">Vai alla scheda</a>").addTo(ristorantiLayer);
+      L.control.layers(baseLayers, overlays).addTo(map);
 
-    L.marker([42.5485465,11.7238484], {
-      icon: L.BeautifyIcon.icon(ristorante),
-      draggable: false
-    }).bindPopup("<b>Pizzeria del Sole</b><br/><a href='#' onclick=\"fn.load('scheda.html')\">Vai alla scheda</a>").addTo(ristorantiLayer);
+      //getSito(param, database, render)
+      getPuntiInteresseSito(param, database, map, ristorantiLayer, alberghiLayer, altroLayer, renderInteresseMarker);
 
-    L.marker([42.5464611,11.7394451], {
-      icon: L.BeautifyIcon.icon(ristorante),
-      draggable: false
-    }).bindPopup("<b>Ristorante Osteria Unicorno</b><br/><a href='#' onclick=\"fn.load('scheda.html')\">Vai alla scheda</a>").addTo(ristorantiLayer);
+    }
 
-    // Bed and breakfast
-    L.marker([42.5497755,11.7269168], {
-      icon: L.BeautifyIcon.icon(albergo),
-      draggable: false
-    }).bindPopup("<b>B&B Il Gelsomino</b><br/><a href='#' onclick=\"fn.load('scheda.html')\">Vai alla scheda</a>").addTo(alberghiLayer);
+    function renderInteresseMarker(map, ristorantiLayer, alberghiLayer, altroLayer, elenco) {
 
-    L.marker([42.5490681,11.7240522], {
-      icon: L.BeautifyIcon.icon(albergo),
-      draggable: false
-    }).bindPopup("<b>Bed and Breakfast Residenza Farnese</b><br/><a href='#' onclick=\"fn.load('scheda.html')\">Vai alla scheda</a>").addTo(alberghiLayer);
+      var albergo = {
+        icon: 'fa fa-bed',
+        /*iconShape: 'marker',*/
+        borderColor: '#000000',
+        borderWidth: 2,
+        iconSize: [30, 30],
+        /*popupAnchor: [100, -10],*/
+        popupAnchor: [15, -7],
+        innerIconStyle: 'font-size:20px;padding-top:4px;color: #000000'
+      };
 
-    L.marker([42.5444219,11.7516173], {
-      icon: L.BeautifyIcon.icon(albergo),
-      draggable: false
-    }).bindPopup("<b>B&B Castrum</b><br/><a href='#' onclick=\"fn.load('scheda.html')\">Vai alla scheda</a>").addTo(alberghiLayer);
+      var ristorante = {
+        icon: 'fa fa-utensils',
+        /*iconShape: 'marker',*/
+        borderColor: '#000000',
+        borderWidth: 2,
+        iconSize: [30, 30],
+        /*popupAnchor: [100, -10],*/
+        popupAnchor: [15, -7],
+        innerIconStyle: 'font-size:20px;padding-top:4px;color: #000000'
+      };
 
-    L.marker([42.5506449,11.7268525], {
-      icon: L.BeautifyIcon.icon(albergo),
-      draggable: false
-    }).bindPopup("<b>B&B Il bottino</b><br/><a href='#' onclick=\"fn.load('scheda.html')\">Vai alla scheda</a>").addTo(alberghiLayer);
+      var altro = {
+        icon: 'fas fa-university',
+        /*iconShape: 'marker',*/
+        borderColor: '#000000',
+        borderWidth: 2,
+        iconSize: [30, 30],
+        /*popupAnchor: [100, -10],*/
+        popupAnchor: [15, -7],
+        innerIconStyle: 'font-size:20px;padding-top:4px;color: #000000'
+      };
 
-    L.marker([42.5494357,11.7267666], {
-      icon: L.BeautifyIcon.icon(albergo),
-      draggable: false
-    }).bindPopup("<b>Ostello Ortensi</b><br/><a href='#' onclick=\"fn.load('scheda.html')\">Vai alla scheda</a>").addTo(alberghiLayer);
+      for(var x=0; x.elenco.length; x++) {
 
-    // altre attività
-    L.marker([42.5440272,11.7568503], {
-      icon: L.BeautifyIcon.icon(altro),
-      draggable: false
-    }).bindPopup("<b>Museo Civico 'Pietro e Turiddo Lotti'</b><br/><a href='#' onclick=\"fn.load('scheda.html')\">Vai alla scheda</a>").addTo(altroLayer);
+        var riga = elenco[x];
 
-    L.marker([42.5494633,11.7276893], {
-      icon: L.BeautifyIcon.icon(altro),
-      draggable: false
-    }).bindPopup("<b>Museo Civico 'Ferrante Rittatore Vonwiller'</b><br/><a href='#' onclick=\"fn.load('scheda.html')\">Vai alla scheda</a>").addTo(altroLayer);
+        var icona, layer;
+        // controllo il tipo di punto di interesse per impostare il relativo marker
+        if(riga[8] == 1) {
+          icona=albergo;
+          layer=alberghiLayer;
+        } else if(riga[8] == 1) {
+          icona=ristorante;
+          layer=ristorantiLayer;
+        } else {
+          icona=altro;
+          layer=altroLayer;
+        }
 
-    var map = new L.Map('mapid2',{
-        center: new L.LatLng(42.511,11.625),
-        zoom: 10,
-        layers: [roads, ristorantiLayer, alberghiLayer, altroLayer]
-    });
+        var descrizione = "<b>" +riga[1] + "</b><br/>" + riga[2];
+
+        L.marker([riga[5],riga[6]], {
+          icon: L.BeautifyIcon.icon(icona),
+          draggable: false
+        }).bindPopup(descrizione).addTo(layer);
+      }
+
+    }
+
+    renderInteressiMap();
+
+
+/*
     // Marker del percorso
     L.marker([42.511,11.625], {
       icon: L.BeautifyIcon.icon(percorso),
       draggable: false
     }).bindPopup("<b>Eremo di Poggio Conte</b><br /><img src='img/percorsi/eremo/foto2.jpg' width='130px'><br/><div id='trail-rating'><ul class='ratings'><li class='average'><span id='rating' class='rating star3_5'>&nbsp;</span></li></ul></div><br/><div class=\"divTable\"><div class=\"divTableRow\"><div class=\"divTableHead1\">Facile</div><div class=\"divTableHead2\">2,1 Km</div><div class=\"divTableHead3\">25 m</div></div></div><br/><a href='#' onclick=\"fn.load('scheda.html')\">Vai alla scheda</a>").addTo(map);
+*/
 
-    var baseLayers = {
-        "Standard": roads,
-        "Satellite": satellite,
-        "Altimetria": terrain,
-        "Ibrido": hybrid,
-
-    };
-
-    var overlays = {
-        "Ristoranti": ristorantiLayer,
-        "Alberghi": alberghiLayer,
-        "Altre attività": altroLayer,
-    };
-
-    L.control.layers(baseLayers, overlays).addTo(map);
 
   </script>
   <ons-list>
