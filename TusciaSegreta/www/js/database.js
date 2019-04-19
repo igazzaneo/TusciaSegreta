@@ -486,7 +486,7 @@ function getSito(id, database, callback)
 function setSitoInfo(sito) {
 
   $(".title").html(sito[1]);
-  document.getElementById('video').src=sito[3].toString().replaceAll('watch?v=', 'embed/');
+  document.getElementById('video').src=sito[3].toString().replace(/watch?v=/g, "embed/");
   $(".content").html(sito[2]+"<br><br><br><br><br><br>");
 }
 
@@ -583,6 +583,38 @@ function getGalleriaSito(id, database, callback)
 
 }
 
+
+function getPuntiInteresseSito(id, database, map, callback)
+{
+
+  if(database != null) {
+
+    database.transaction(function(transaction) {
+
+        transaction.executeSql('select multimedia.id, multimedia.oggetto, multimedia.descrizione from multimedia join sito_ha_multimedia on multimedia.id=sito_ha_multimedia.multimedia_id where sito_ha_multimedia.sito_id=? and multimedia.stato=1 and multimedia.tipo_multimedia_id=2', [id],
+
+          function(transaction, resultSet) {
+            var elenco = new Array();
+
+            for(var x=0; x<resultSet.rows.length; x++) {
+
+              var riga = new Array();
+              riga[0] = resultSet.rows.item(x).id;
+              riga[1] = resultSet.rows.item(x).oggetto;
+              riga[2] = resultSet.rows.item(x).descrizione;
+
+              elenco[x] = riga;
+            }
+
+            callback(elenco);
+
+          }, dbSelecterror);
+    });
+  } else {
+    showMessage('Database non inizializzato');
+  }
+
+}
 
 
 function getCaratteristichePercorsoSito(id, database)
