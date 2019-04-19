@@ -486,7 +486,7 @@ function getSito(id, database, callback)
 function setSitoInfo(sito) {
 
   $(".title").html(sito[1]);
-  document.getElementById('video').src=sito[3].toString().replace('watch?v=', 'embed/');
+  document.getElementById('video').src=sito[3]; //.toString().replace('watch?v=', 'embed/');
   $(".content").html(sito[2]);
 }
 
@@ -556,7 +556,9 @@ function getGalleriaSito(id, database, callback)
 
   if(database != null) {
     database.transaction(function(transaction) {
+
         transaction.executeSql('select multimedia.id, multimedia.oggetto, multimedia.descrizione from multimedia join sito_ha_multimedia on multimedia.id=sito_ha_multimedia.multimedia_id where sito_ha_multimedia.sito_id=? and multimedia.stato=1 and multimedia.tipo_multimedia_id=2', [id],
+
           function(transaction, resultSet) {
 
             var elenco = new Array();
@@ -570,6 +572,8 @@ function getGalleriaSito(id, database, callback)
 
               elenco[x] = riga;
             }
+
+            showMessage("Galleria: " + elenco);
 
             callback(elenco);
 
