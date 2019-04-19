@@ -3,17 +3,17 @@
     getGalleriaSito(param, database, createCarousel);
 
     function createCarousel(elenco) {
-
+showMessage(elenco);
       var innerHtml = "";
 
       for(var x=0; x<elenco.length; x++) {
         var immagine = elenco[x];
-        var html = "<div class=\"item\"> " +
-          "<div><div class=\"scheda-details\">" +
-          "<img src=\"" + cordova.file.dataDirectory + "/" + immagine[1] + "\" class=\"scheda-image\">" +
+        var html = "<div class='item'> " +
+          "<div><div class='scheda-details'>" +
+          "<img src='" + cordova.file.dataDirectory + "/" + immagine[1] + "' class='scheda-image'>" +
           "</div>" +
-          "<div class=\"testimonial-say\">" +
-          "<span class=\"client-say\">" +
+          "<div class='testimonial-say'>" +
+          "<span class='client-say'>" +
           "<p>" + immagine[2] + "</p>" +
           "</span></div></div></div>";
 
@@ -45,7 +45,7 @@
 
   <ons-card>
     <div class="owl-carousel owl-theme" align="center" id="carousel">
-        <div class="item">
+        <!--div class="item">
           <div>
             <div class="scheda-details">
               <img src="img/percorsi/eremo/foto1.jpg" class="scheda-image">
@@ -92,7 +92,7 @@
               </span>
             </div>
           </div>
-        </div>
+        </div-->
     </div>
   </ons-card>
 </ons-page>
