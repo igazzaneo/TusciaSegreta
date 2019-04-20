@@ -449,17 +449,19 @@ function getElencoSiti(database, map, callback) {
             riga[6] = resultSet.rows.item(x).miniatura;
             riga[7] = resultSet.rows.item(x).descrizione_breve;
 
-            transaction.executeSql('select valore, denominazione, icona from sito_ha_caratteristica join caratteristica on caratteristica.id=sito_ha_caratteristica.caratteristica_id where sito_id=? and filtrabile=1', [riga[0]], function(transaction, resultSet) {
-                for(var j = 0; j < resultSet.rows.length; j++) {
+            transaction.executeSql('select valore, denominazione, icona from sito_ha_caratteristica join caratteristica on caratteristica.id=sito_ha_caratteristica.caratteristica_id where sito_id=? and filtrabile=1', [riga[0]],
+              function(transaction, resultSet2) {
+                showMessage("getElencoSiti:" + resultSet2.rows.length);
+                for(var j = 0; j < resultSet2.rows.length; j++) {
                   var sub = new Array();
-                  sub[0] = resultSet.rows.item(j).valore;
-                  sub[1] = resultSet.rows.item(j).denominazione;
-                  sub[2] = resultSet.rows.item(j).icona;
+                  sub[0] = resultSet2.rows.item(j).valore;
+                  sub[1] = resultSet2.rows.item(j).denominazione;
+                  sub[2] = resultSet2.rows.item(j).icona;
 
                   riga[riga.length+j] = sub;
                 }
-                
-            })
+
+              }, dbSelecterror);
 
             elenco[x] = riga;
 
