@@ -4,6 +4,7 @@ var versione = null;
 var versioneLocale = null;
 var timeoutGps;
 var lc;
+var rejectGps=false;
 
 Storage.prototype.setObj = function(key, obj) {
     this.removeItem(key);
@@ -36,8 +37,12 @@ document.addEventListener('prechange', function(event) {
 
       if(checkDistanceFromStart(sitoLatitudine, sitoLongitudine) && !lc._active) {
 
-        if(confirm("Vuoi attivare la navigazione sul percorso?"))
+        if(confirm("Vuoi attivare la navigazione sul percorso?")) {
           lc.start();
+        }
+
+        clearTimeout(timeoutGps);
+
       } else {
         lc.stop();
       }
