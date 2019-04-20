@@ -141,15 +141,16 @@
 
       var tipoInteresseId=0;
 
-      for(var x=0; x<elenco.length; x++) {
+      for(var x=0, j=0; x<elenco.length; x++) {
 
+        j += 1;
         var riga = elenco[x];
 
         if(riga[8] != tipoInteresseId) {
 
           tipoInteresseId = riga[8];
 
-          var item = "<ons-list-item expandable id='item" + (x+1) + "' onclick='openSection(" + (x+1) + ")'>" +
+          var item = "<ons-list-item expandable id='item" + j + "' onclick='openSection(" + j + ")'>" +
             "<div class='left'><ons-icon modifier='bed' icon='" + riga[7] + "' class='list-item__icon' tappable></ons-icon></div>" +
             riga[10];
 
