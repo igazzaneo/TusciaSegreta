@@ -32,6 +32,8 @@ function onDeviceReady() {
 
   getMapLocation();
 
+  document.querySelector('ons-tabbar').addEventListener('prechange', stopVideo());
+
 }
 
 function onBackKeyDown(e) {
