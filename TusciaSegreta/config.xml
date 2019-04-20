@@ -107,6 +107,5 @@
     <!--preference name="PLAY_SERVICES_VERSION" value="15.0.1"/-->
     <preference name='phonegap-version' value='cli-8.1.1' />
     <preference name='pgb-builder-version' value='1' />
-    <preference name="AndroidPersistentFileLocation" value="Compatibility" />
     <engine name="android" spec="~7.0.0" />
 </widget>
