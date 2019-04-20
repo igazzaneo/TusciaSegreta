@@ -30,24 +30,30 @@ document.addEventListener('prechange', function(event) {
 
   if(event.index == 3) {
     // Selezionato il TAB percorso, avvio il controllo sulla distanza dal percorso
-    timeoutGps = setInterval(function() {
 
-      var sitoLatitudine = $("#latitudine").val();
-      var sitoLongitudine = $("#longitudine").val();
+    if(!rejectGps) {
+      timeoutGps = setInterval(function() {
 
-      if(checkDistanceFromStart(sitoLatitudine, sitoLongitudine) && !lc._active) {
+        var sitoLatitudine = $("#latitudine").val();
+        var sitoLongitudine = $("#longitudine").val();
 
-        if(confirm("Vuoi attivare la navigazione sul percorso?")) {
-          lc.start();
+        if(checkDistanceFromStart(sitoLatitudine, sitoLongitudine) && !lc._active) {
+
+          if(confirm("Vuoi attivare la navigazione sul percorso?")) {
+            lc.start();
+          } else {
+            rejectGps = true;
+          }
+
+          clearTimeout(timeoutGps);
+
+        } else {
+          lc.stop();
         }
 
-        clearTimeout(timeoutGps);
+      }, 3000);
+    }
 
-      } else {
-        lc.stop();
-      }
-
-    }, 3000);
   } else {
     clearTimeout(timeoutGps);
     stopFollowing();
