@@ -25,6 +25,7 @@ document.addEventListener("deviceready", onDeviceReady, false);
 document.addEventListener('prechange', function(event) {
 
   alert('AAA' + event.index);
+  stopVideo();
 
 });
 
