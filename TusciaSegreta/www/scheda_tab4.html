@@ -144,7 +144,6 @@
       for(var x=0; x<elenco.length; x++) {
 
         var riga = elenco[x];
-        showMessage("Check: " + tipoInteresseId + " - " + riga[8]);
 
         if(riga[8] != tipoInteresseId) {
 
@@ -152,7 +151,7 @@
 
           var item = "<ons-list-item expandable id='item" + (x+1) + "' onclick='openSection(" + (x+1) + ")'>" +
             "<div class='left'><ons-icon modifier='bed' icon='" + riga[7] + "' class='list-item__icon' tappable></ons-icon></div>" +
-            riga[1];
+            riga[10];
 
           if(x!=0) {
             item = "</ons-list-item>" + item;
