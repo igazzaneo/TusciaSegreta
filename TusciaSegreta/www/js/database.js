@@ -437,13 +437,14 @@ function getElencoSiti(database, map, callback) {
 
         var elenco = new Array();
 
-        var sitoId=0;
+        var sitoId=0, index=0;
         for(var x = 0; x < resultSet.rows.length; x++) {
 
             var riga;
             if(resultSet.rows.item(x).id != sitoId) {
 
               sitoId=resultSet.rows.item(x).id;
+
               // Nuovo sito, creo la riga e inserisco i dati del sito
               riga = new Array();
               riga[0] = resultSet.rows.item(x).id;
@@ -455,18 +456,29 @@ function getElencoSiti(database, map, callback) {
               riga[6] = resultSet.rows.item(x).miniatura;
               riga[7] = resultSet.rows.item(x).descrizione_breve;
 
+              var carat = new Array();
+              carat[0]=resultSet.rows.item(x).valore;
+              carat[1]=resultSet.rows.item(x).denominazione_carat;
+              carat[2]=resultSet.rows.item(x).icona;
+
+              riga[riga.length]=carat;
+
+              elenco[index] = riga;
+
+              index++;
+
             } else {
               riga = elenco[elenco.length-1];
+
+              var carat = new Array();
+              carat[0]=resultSet.rows.item(x).valore;
+              carat[1]=resultSet.rows.item(x).denominazione_carat;
+              carat[2]=resultSet.rows.item(x).icona;
+
+              riga[riga.length]=carat;
+
+              elenco[elenco.length-1] = riga;
             }
-
-            var carat = new Array();
-            carat[0]=resultSet.rows.item(x).valore;
-            carat[1]=resultSet.rows.item(x).denominazione_carat;
-            carat[2]=resultSet.rows.item(x).icona;
-
-            riga[riga.length]=carat;
-
-            elenco[x] = riga;
 
         }
 
