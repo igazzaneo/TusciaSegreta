@@ -433,35 +433,39 @@ function getElencoSiti(database, map, callback) {
 
     database.transaction(function(transaction) {
 
-      transaction.executeSql('select * from sito order by id', [],  function(transaction, resultSet) {
+      transaction.executeSql('select sito.*, valore, caratteristica.denominazione, icona from sito join sito_ha_caratteristica on sito_ha_caratteristica.sito_id=sito.id join caratteristica on caratteristica.id=sito_ha_caratteristica.caratteristica_id order by sito.id', [],  function(transaction, resultSet) {
 
         var elenco = new Array();
 
+        var sitoId=0;
         for(var x = 0; x < resultSet.rows.length; x++) {
 
-            var riga = new Array();
-            riga[0] = resultSet.rows.item(x).id;
-            riga[1] = resultSet.rows.item(x).denominazione;
-            riga[2] = resultSet.rows.item(x).descrizione;
-            riga[3] = resultSet.rows.item(x).video;
-            riga[4] = resultSet.rows.item(x).latitudine;
-            riga[5] = resultSet.rows.item(x).longitudine;
-            riga[6] = resultSet.rows.item(x).miniatura;
-            riga[7] = resultSet.rows.item(x).descrizione_breve;
+            var riga;
+            if(resultSet.rows.item(x).id != sitoId) {
 
-            transaction.executeSql('select valore, denominazione, icona from sito_ha_caratteristica join caratteristica on caratteristica.id=sito_ha_caratteristica.caratteristica_id where sito_id=? and filtrabile=1', [riga[0]],
-              function(transaction, resultSet2) {
-                showMessage("getElencoSiti:" + resultSet2.rows.length);
-                for(var j = 0; j < resultSet2.rows.length; j++) {
-                  var sub = new Array();
-                  sub[0] = resultSet2.rows.item(j).valore;
-                  sub[1] = resultSet2.rows.item(j).denominazione;
-                  sub[2] = resultSet2.rows.item(j).icona;
+              sitoId=resultSet.rows.item(x).id;
+              // Nuovo sito, creo la riga e inserisco i dati del sito
+              riga = new Array();
+              riga[0] = resultSet.rows.item(x).id;
+              riga[1] = resultSet.rows.item(x).denominazione;
+              riga[2] = resultSet.rows.item(x).descrizione;
+              riga[3] = resultSet.rows.item(x).video;
+              riga[4] = resultSet.rows.item(x).latitudine;
+              riga[5] = resultSet.rows.item(x).longitudine;
+              riga[6] = resultSet.rows.item(x).miniatura;
+              riga[7] = resultSet.rows.item(x).descrizione_breve;
 
-                  riga[riga.length+j] = sub;
-                }
+            } else {
+              riga = elenco[elenco.length-1];
+            }
 
-              }, dbSelecterror);
+            var carat = new Array();
+            carat[0]=resultSet.rows.item(x).valore;
+            carat[1]=resultSet.rows.item(x).denominazione;
+            carat[2]=resultSet.rows.item(x).icona;
+
+            riga[riga.length]=carat;
+
             elenco[x] = riga;
 
         }
