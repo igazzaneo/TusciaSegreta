@@ -32,7 +32,7 @@ function onDeviceReady() {
 
   getMapLocation();
 
-  document.querySelector('ons-tabbar').addEventListener('prechange', stopVideo());
+  document.addEventListener('prechange', stopVideo());
 
 }
 
