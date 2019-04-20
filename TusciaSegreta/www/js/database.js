@@ -449,7 +449,7 @@ function getElencoSiti(database, map, callback) {
             riga[6] = resultSet.rows.item(x).miniatura;
             riga[7] = resultSet.rows.item(x).descrizione_breve;
 
-            transaction.executeSql('select valore, denominazione, icona from sito_ha_caratteristica join caratteristica on caratteristica.id=sito_ha_caratteristica.caratteristica_id where sito_id=? and filtrabile=1', [riga[0]],
+            /*transaction.executeSql('select valore, denominazione, icona from sito_ha_caratteristica join caratteristica on caratteristica.id=sito_ha_caratteristica.caratteristica_id where sito_id=? and filtrabile=1', [riga[0]],
               function(transaction, resultSet2) {
                 showMessage("getElencoSiti:" + resultSet2.rows.length);
                 for(var j = 0; j < resultSet2.rows.length; j++) {
@@ -461,8 +461,7 @@ function getElencoSiti(database, map, callback) {
                   riga[riga.length+j] = sub;
                 }
 
-              }, dbSelecterror);
-
+              }, dbSelecterror);*/
             elenco[x] = riga;
 
         }
