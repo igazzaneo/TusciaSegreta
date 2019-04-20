@@ -2,7 +2,7 @@ var rowCount = 0;
 var database = null;
 var versione = null;
 var versioneLocale = null;
-//var percorso;
+var timeoutGps;
 
 Storage.prototype.setObj = function(key, obj) {
     this.removeItem(key);
@@ -24,8 +24,15 @@ document.addEventListener("deviceready", onDeviceReady, false);
 
 document.addEventListener('prechange', function(event) {
 
-  alert('AAA' + event.index);
+  //alert('AAA' + event.index);
   stopVideo();
+
+  if(event.index == 3) {
+    // Selezionato il TAB percorso, avvio il controllo sulla distanza dal percorso
+    timeoutGps = setTimeout(function(){ alert("Hello"); }, 3000);
+  } else {
+    clearTimeout(timeoutGps);
+  }
 
 });
 
