@@ -190,7 +190,7 @@ function registrazioneDaApp() {
 
   if(email != "" && nome_utente != "" && password != '' && cellulare != '' && cognome != '' && nome != '') {
 
-    registraUtente(email, nome_utente, password, cellulare, cognome, nome, database);
+    registraUtente(email, nome_utente, password, cellulare, cognome, nome, database, logIn);
     //registerUserOnCloud(email, nome_utente, password, cellulare, cognome, nome);
 
   } else {
@@ -208,16 +208,16 @@ function processDone(response) {
   var esito = JSON.parse(response.responseText).httpCode
   showMessage("risposta: " + esito);
 
-  if(esito.indexOf("200") != -1) {
+  /*if(esito.indexOf("200") != -1) {
     registraUtente(email, nome_utente, password, cellulare, cognome, nome, database);
   } else if(esito == 401) {
     showMessage("Nome utente e/o indirizzo email già presenti.");
   } else {
     showMessage("Errore nella registrazione, riprovare più tardi.");
-  }
+  }*/
 }
 
-function registraUtente(email, nome_utente, password, cellulare, cognome, nome, database) {
+function registraUtente(email, nome_utente, password, cellulare, cognome, nome, database, callback) {
   //showMessage("RegistrazioneUtente su DB locale...");
   // Effettuo la cancellazione preventiva dei record per evitare di avere più di un utente nel DB locale
   database.transaction(function(transaction) {
@@ -226,7 +226,7 @@ function registraUtente(email, nome_utente, password, cellulare, cognome, nome, 
     transaction.executeSql('select count(*) as recordCount from utente', [], function(ignored, resultSet) {
       //showMessage("Utenti trovati: " + resultSet.rows.item(0).recordCount)
       if(resultSet.rows.item(0).recordCount > 0 ) {
-        logIn(nome_utente, password);
+        calback(nome_utente, password);
       }
     });
 
@@ -239,7 +239,7 @@ function registraUtente(email, nome_utente, password, cellulare, cognome, nome, 
 
 }
 
-function registerUserOnCloud(email, nome_utente, password, cellulare, cognome, nome) {
+function registerUserOnCloud(email, nome_utente, password, cellulare, cognome, nome, latitudine, longitudine) {
 
     var dataObject = {};
     dataObject['email'] = email;
@@ -248,8 +248,10 @@ function registerUserOnCloud(email, nome_utente, password, cellulare, cognome, n
     dataObject['telefono'] = cellulare;
     dataObject['cognome'] = cognome;
     dataObject['nome'] = nome;
+    dataObject['latitudine'] = latitudine;
+    dataObject['longitudine'] = longitudine;
 
-    console.log("function Called with parameter: " + email + " - " + nome_utente + " - " + password + " - " + cellulare + " - " + cognome + " - " + nome);
+    //console.log("function Called with parameter: " + email + " - " + nome_utente + " - " + password + " - " + cellulare + " - " + cognome + " - " + nome);
 
     $.ajax({
       type: "POST",
@@ -257,7 +259,7 @@ function registerUserOnCloud(email, nome_utente, password, cellulare, cognome, n
       dataType: 'json',
       timeout: 2000,
       data: dataObject,
-      async: false,
+      async: true,
       //success: console.log("Ok"),
       //error: processUserAddResponse,
     })
@@ -339,7 +341,6 @@ function logIn(login, password) {
 
         // Utente presente e credenziali ok
         //showMessage("Benvenuto: " + resultSet.rows.item(0).nome_utente + " - " + resultSet.rows.item(0).email + " - " + resultSet.rows.item(0).password + " - " + resultSet.rows.item(0).cellulare);
-
         saveOnLocalStorage("loggedUser", "1");
         saveOnLocalStorage("id", resultSet.rows.item(0).id);
         saveOnLocalStorage("nome_utente", resultSet.rows.item(0).nome_utente);
@@ -349,6 +350,11 @@ function logIn(login, password) {
         saveOnLocalStorage("cittadinanza", resultSet.rows.item(0).cittadinanza);
         saveOnLocalStorage("cellulare", resultSet.rows.item(0).cellulare);
         saveOnLocalStorage("lingua", resultSet.rows.item(0).lingua);
+
+        var latitudine = getValueFromLocalStorage('latitudine');
+        var longitudine = getValueFromLocalStorage('longitudine');
+
+        registerUserOnCloud(email, nome_utente, password, cellulare, cognome, nome, latitudine, longitudine);
 
         showMessage('Login avvenuto con successo');
         fn.gotoPage("accesso_effettuato.html");

@@ -25,6 +25,11 @@
 
   window.fn.gotoPage = function(page) {
 
+    $("iframe").each(function() {
+        var src= $(this).attr('src');
+        $(this).attr('src',src);
+    });
+
     if(document.getElementById('mapid') != null)
     {
       if(page != 'map.html') {
