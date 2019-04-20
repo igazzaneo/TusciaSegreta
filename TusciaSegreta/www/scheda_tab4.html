@@ -137,13 +137,15 @@
 
     function renderListaInteressi(map, elenco) {
 
-      var innerHtml = "<ons-list><ons-list-header>L'eremo di Poggio Conte</ons-list-header>";
+      var innerHtml = "<ons-list>";
 
-      var tipoInteresseId;
+      var tipoInteresseId=0;
+
       for(var x=0; x<elenco.length; x++) {
 
         var riga = elenco[x];
-
+        showMessage("Check: " + tipoInteresseId + " - " + riga[8]);
+        
         if(riga[8] != tipoInteresseId) {
 
           tipoInteresseId = riga[8];
