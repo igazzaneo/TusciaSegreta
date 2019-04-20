@@ -226,7 +226,7 @@ function registraUtente(email, nome_utente, password, cellulare, cognome, nome, 
     transaction.executeSql('select count(*) as recordCount from utente', [], function(ignored, resultSet) {
       //showMessage("Utenti trovati: " + resultSet.rows.item(0).recordCount)
       if(resultSet.rows.item(0).recordCount > 0 ) {
-        calback(nome_utente, password);
+        callback(nome_utente, password);
       }
     });
 
