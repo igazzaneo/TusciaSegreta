@@ -433,7 +433,7 @@ function getElencoSiti(database, map, callback) {
 
     database.transaction(function(transaction) {
 
-      transaction.executeSql('SELECT * FROM sito', [],  function(transaction, resultSet) {
+      transaction.executeSql('select * from sito order by sito_id', [],  function(transaction, resultSet) {
 
         var elenco = new Array();
 
@@ -447,6 +447,19 @@ function getElencoSiti(database, map, callback) {
             riga[4] = resultSet.rows.item(x).latitudine;
             riga[5] = resultSet.rows.item(x).longitudine;
             riga[6] = resultSet.rows.item(x).miniatura;
+            riga[7] = resultSet.rows.item(x).descrizione_breve;
+
+            transaction.executeSql('select valore, denominazione, icona from sito_ha_caratteristica join caratteristica on caratteristica.id=sito_ha_caratteristica.caratteristica_id where sito_id=? and filtrabile=1', [riga[0]], function(transaction, resultSet) {
+                for(var j = 0; j < resultSet.rows.length; j++) {
+                  var sub = new Array();
+                  sub[0] = resultSet.rows.item(j).valore;
+                  sub[1] = resultSet.rows.item(j).denominazione;
+                  sub[2] = resultSet.rows.item(j).icona;
+
+                  riga[riga.length+j] = sub;
+                }
+                
+            })
 
             elenco[x] = riga;
 
@@ -466,7 +479,7 @@ function getSito(id, database, callback)
 
     database.transaction(
         function(transaction) {
-          transaction.executeSql('select * from sito where id=?', [id], function(transaction, resultSet) {
+          transaction.executeSql('select * from sito join sito_ha_caratteristiche on sito_ha_caratteristiche.sito_id=sito.id where id=?', [id], function(transaction, resultSet) {
 
             var riga = new Array();
             riga[0] = resultSet.rows.item(0).id;
@@ -476,6 +489,7 @@ function getSito(id, database, callback)
             riga[4] = resultSet.rows.item(0).latitudine;
             riga[5] = resultSet.rows.item(0).longitudine;
             riga[6] = resultSet.rows.item(0).miniatura;
+            riga[7] = resultSet.rows.item(0).descrizione_breve;
 
             callback(riga);
 
