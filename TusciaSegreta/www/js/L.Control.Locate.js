@@ -584,17 +584,9 @@ You can find the project at: https://github.com/domoritz/leaflet-locatecontrol
             var latitudine = getValueFromLocalStorage('latitudine');
             var longitudine = getValueFromLocalStorage('longitudine');
 
-            this._map.eachLayer( function(layer) {
-              if(layer instanceof L.Marker) {
+            verificaNodo();
 
-                var myPosition = L.marker([latitudine, longitudine]);
-
-                var distanzaInMetri = myPosition.getLatLng().distanceTo(layer.getLatLng());
-                if(distanzaInMetri<15) {
-                  layer.openPopup();
-                }
-              }
-            });
+            
             // circle with the radius of the location's accuracy
             if (this.options.drawCircle) {
                 var style = this._isFollowing() ? this.options.followCircleStyle : this.options.circleStyle;

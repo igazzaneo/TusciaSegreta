@@ -1,7 +1,7 @@
 <ons-page>
     <div id="mapid3" style="width: 100%; height: 100%;"></div>
     <div id="elevation-div" style="width: 100%; height:40%;"></div>
-
+    <div id="notification-div" style="width: 100%; height:40%;">AAAAA</div>
     <!--br/>
     <div>
       <ons-list>
@@ -55,6 +55,7 @@
     </div-->
 
   <script>
+    var waypoint;
     function renderMap()
     {
 
@@ -211,6 +212,8 @@
           draggable: false
         }).bindPopup(wp[5] + " - " + wp[4]).addTo(map);
       });
+
+      waypoint = nodi;
     }
 
     renderMap();
@@ -222,24 +225,29 @@
 
     }
 
-    function verificaNodo(e)
+    function verificaNodo()
     {
+
+      var myPos = L.marker(getValueFromLocalStorage('latitudine'), getValueFromLocalStorage('longitudine'));
 
       for(var x=0; x<nodi.length; x++) {
 
           var nodo = nodi[x];
+
           var to = L.marker([nodo[1], nodo[2]]);
 
-          var distanzaInMetri = e.latlng.distanceTo(to.getLatLng());
+          var distanzaInMetri = myPos.getLatLng().distanceTo(to.getLatLng());
           //alert(nodo);
 
-          if(distanzaInMetri<15) {
-            //$("#name").html(nodo[5]);
-            //$("#desc").html(nodo[4]);
-            /*var x = document.getElementById("toast")
-            x.className = "show";
-            setTimeout(function(){ x.className = x.className.replace("show", ""); }, 5000);*/
-            notification.show();
+          if(distanzaInMetri<100000000) {
+            if($('#notification-div').css('display') == 'inline-block')
+            {
+              $("#mapid3").css('height', '100%');
+              $("#notification-div").css('display', 'none').css('height', '40%');
+            } else {
+              $("#mapid3").css('height', '60%');
+              $("#notification-div").css('display', 'inline-block').css('height', '40%');
+            }
           }
       }
 
