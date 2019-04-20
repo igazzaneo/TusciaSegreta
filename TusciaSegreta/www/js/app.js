@@ -22,6 +22,8 @@ String.prototype.replaceAll = function(search, replacement) {
 
 document.addEventListener("deviceready", onDeviceReady, false);
 
+document.addEventListener('prechange', stopVideo());
+
 function onDeviceReady() {
 
   getServerDBVersion();
@@ -32,7 +34,7 @@ function onDeviceReady() {
 
   getMapLocation();
 
-  document.addEventListener('prechange', stopVideo());
+
 
 }
 
