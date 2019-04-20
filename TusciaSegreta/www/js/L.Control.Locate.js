@@ -413,6 +413,8 @@ You can find the project at: https://github.com/domoritz/leaflet-locatecontrol
             this._activate();
 
             if (this._event) {
+
+                showMessage("Controllo la posizione...");
                 this._drawMarker(this._map);
 
                 // if we already have a location but the user clicked on the control

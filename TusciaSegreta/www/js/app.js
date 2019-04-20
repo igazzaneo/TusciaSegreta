@@ -41,6 +41,7 @@ document.addEventListener('prechange', function(event) {
 
           if(confirm("Vuoi attivare la navigazione sul percorso?")) {
             lc.start();
+            
           } else {
             rejectGps = true;
           }
