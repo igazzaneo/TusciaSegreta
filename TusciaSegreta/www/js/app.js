@@ -22,7 +22,11 @@ String.prototype.replaceAll = function(search, replacement) {
 
 document.addEventListener("deviceready", onDeviceReady, false);
 
-document.addEventListener('prechange', stopVideo());
+document.addEventListener('prechange', function(event) {
+
+  alert('AAA' + event.index);
+
+});
 
 function onDeviceReady() {
 
