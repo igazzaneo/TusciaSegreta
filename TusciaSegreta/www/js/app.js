@@ -3,6 +3,7 @@ var database = null;
 var versione = null;
 var versioneLocale = null;
 var timeoutGps;
+var lc;
 
 Storage.prototype.setObj = function(key, obj) {
     this.removeItem(key);
@@ -28,7 +29,11 @@ document.addEventListener('prechange', function(event) {
 
   if(event.index == 3) {
     // Selezionato il TAB percorso, avvio il controllo sulla distanza dal percorso
-    timeoutGps = setInterval(function(){ alert("Hello"); }, 3000);
+    timeoutGps = setInterval(function(){
+      var sitoLatitudine = $("#latitudine").val();
+      var sitoLongitudine = $("#longitudine").val();
+      alert(sitoLatitudine +" - " + sitoLongitudine);
+    }, 3000);
   } else {
     clearTimeout(timeoutGps);
   }

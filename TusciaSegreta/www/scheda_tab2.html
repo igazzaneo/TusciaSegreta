@@ -57,7 +57,6 @@
   <script>
     function renderMap()
     {
-      var lc;
 
       var roads = L.gridLayer.googleMutant({
          type: 'roadmap'	// valid values are 'roadmap', 'satellite', 'terrain' and 'hybrid'
@@ -131,7 +130,6 @@
 
       getPercorsoSito(param, database, map, renderElevationMap);
       getNodiPercorsoSito(param, database, map, renderNodesMap);
-      
 
     };
 
