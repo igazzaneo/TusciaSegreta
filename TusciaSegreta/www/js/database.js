@@ -433,7 +433,7 @@ function getElencoSiti(database, map, callback) {
 
     database.transaction(function(transaction) {
 
-      transaction.executeSql('select sito.*, valore, caratteristica.denominazione as denominazione_carat, icona from sito join sito_ha_caratteristica on sito_ha_caratteristica.sito_id=sito.id join caratteristica on caratteristica.id=sito_ha_caratteristica.caratteristica_id order by sito.id', [],  function(transaction, resultSet) {
+      transaction.executeSql('select sito.*, valore, caratteristica.denominazione as denominazione_carat, icona from sito join sito_ha_caratteristica on sito_ha_caratteristica.sito_id=sito.id join caratteristica on caratteristica.id=sito_ha_caratteristica.caratteristica_id order where filtrabile=1 by sito.id', [],  function(transaction, resultSet) {
 
         var elenco = new Array();
 
@@ -497,7 +497,7 @@ function getSito(id, database, callback)
 
     database.transaction(
         function(transaction) {
-          transaction.executeSql('select * from sito join sito_ha_caratteristiche on sito_ha_caratteristiche.sito_id=sito.id where sito.id=?', [id], function(transaction, resultSet) {
+          transaction.executeSql('select sito.*, valore, caratteristica.denominazione as denominazione_carat, icona from sito join sito_ha_caratteristica on sito_ha_caratteristica.sito_id=sito.id join caratteristica on caratteristica.id=sito_ha_caratteristica.caratteristica_id where sito.id=? and filtrabile=1', [id], function(transaction, resultSet) {
 
             var riga = new Array();
             riga[0] = resultSet.rows.item(0).id;
