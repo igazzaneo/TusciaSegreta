@@ -468,6 +468,7 @@ function getElencoSiti(database, map, callback) {
               index++;
 
             } else {
+
               riga = elenco[elenco.length-1];
 
               var carat = new Array();
@@ -496,7 +497,7 @@ function getSito(id, database, callback)
 
     database.transaction(
         function(transaction) {
-          transaction.executeSql('select * from sito join sito_ha_caratteristiche on sito_ha_caratteristiche.sito_id=sito.id where id=?', [id], function(transaction, resultSet) {
+          transaction.executeSql('select * from sito join sito_ha_caratteristiche on sito_ha_caratteristiche.sito_id=sito.id where sito.id=?', [id], function(transaction, resultSet) {
 
             var riga = new Array();
             riga[0] = resultSet.rows.item(0).id;
@@ -507,6 +508,15 @@ function getSito(id, database, callback)
             riga[5] = resultSet.rows.item(0).longitudine;
             riga[6] = resultSet.rows.item(0).miniatura;
             riga[7] = resultSet.rows.item(0).descrizione_breve;
+
+            for(var x=0; x<resultSet.rows.length; x++) {
+              var carat = new Array();
+              carat[0]=resultSet.rows.item(x).valore;
+              carat[1]=resultSet.rows.item(x).denominazione_carat;
+              carat[2]=resultSet.rows.item(x).icona;
+
+              riga[riga.length]=carat;
+            }
 
             callback(riga);
 
