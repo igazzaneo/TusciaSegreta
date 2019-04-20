@@ -215,15 +215,6 @@
 
     renderMap();
 
-
-
-    /*if(checkDistanceFromStart(sito)) {
-      if(confirm("Vuoi attivare la navigazione sul percorso?"))
-        lc.start();
-    } else {
-      lc.stop();
-    }*/
-
     function stopFollowing()
     {
       showMessage("StopFollowing");
@@ -254,19 +245,19 @@
 
     }
 
-    function checkDistanceFromStart(sito)
+    function checkDistanceFromStart(sitoLatitudine, sitoLongitudine)
     {
       getMapLocation();
       var latitudine = getValueFromLocalStorage('latitudine');
       var longitudine = getValueFromLocalStorage('longitudine');
       var position = L.marker([latitudine, longitudine]);
 
-      var start = L.marker([sito[4], sito[5]]);
+      var start = L.marker([sitoLatitudine, sitoLongitudine]);
 
       var distanzaInMetri = position.getLatLng().distanceTo(start.getLatLng());
 
       // Se distanza dal punto di partenza del percorso è inferiore a 500 metri attiva la navigazione
-      if(distanzaInMetri<500)
+      if(distanzaInMetri<1000000)
         return true;
       else {
         return false;

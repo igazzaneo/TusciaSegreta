@@ -29,13 +29,23 @@ document.addEventListener('prechange', function(event) {
 
   if(event.index == 3) {
     // Selezionato il TAB percorso, avvio il controllo sulla distanza dal percorso
-    timeoutGps = setInterval(function(){
+    timeoutGps = setInterval(function() {
+
       var sitoLatitudine = $("#latitudine").val();
       var sitoLongitudine = $("#longitudine").val();
-      alert(sitoLatitudine +" - " + sitoLongitudine);
+
+      if(checkDistanceFromStart(sitoLatitudine, sitoLongitudine) && !lc._active) {
+
+        if(confirm("Vuoi attivare la navigazione sul percorso?"))
+          lc.start();
+      } else {
+        lc.stop();
+      }
+
     }, 3000);
   } else {
     clearTimeout(timeoutGps);
+    stopFollowing();
   }
 
 });
