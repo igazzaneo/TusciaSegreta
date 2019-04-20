@@ -591,10 +591,10 @@ function getPuntiInteresseSito(id, database, map, callback)
 
     database.transaction(function(transaction) {
 
-        transaction.executeSql('select punto_di_interesse.id, punto_di_interesse.denominazione, punto_di_interesse.descrizione, telefono, latitudine, longitudine, sito_web, icona, tipo_punto_di_interesse_id ' +
+        transaction.executeSql('select punto_di_interesse.id, punto_di_interesse.denominazione, punto_di_interesse.descrizione, telefono, latitudine, longitudine, sito_web, indirizzo, icona, tipo_punto_di_interesse_id ' +
             'from sito_ha_punto_di_interesse join punto_di_interesse on punto_di_interesse.id=sito_ha_punto_di_interesse.punto_di_interesse_id ' +
             'join tipo_punto_di_interesse on tipo_punto_di_interesse.id=punto_di_interesse.tipo_punto_di_interesse_id ' +
-            'where sito_id=? order by punto_di_interesse.id', [id],
+            'where sito_id=? order by tipo_punto_di_interesse_id', [id],
 
           function(transaction, resultSet) {
 
@@ -612,6 +612,7 @@ function getPuntiInteresseSito(id, database, map, callback)
               riga[6] = resultSet.rows.item(x).longitudine;
               riga[7] = resultSet.rows.item(x).icona;
               riga[8] = resultSet.rows.item(x).tipo_punto_di_interesse_id;
+              riga[9] = resultSet.rows.item(x).indirizzo;
 
               elenco[x] = riga;
             }

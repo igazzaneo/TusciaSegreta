@@ -72,7 +72,7 @@
       //getSito(param, database, render)
       getPuntiInteresseSito(param, database, map, renderInteresseMarker);
 
-      getTipoPuntiInteresse(database, renderListaInteressi);
+      getPuntiInteresseSito(param, database, map, renderListaInteressi);
 
     }
 
@@ -135,25 +135,95 @@
 
     }
 
-    function renderListaInteressi(elenco) {
+    function renderListaInteressi(map, elenco) {
 
       var innerHtml = "<ons-list><ons-list-header>L'eremo di Poggio Conte</ons-list-header>";
+
+      var tipoInteresseId;
       for(var x=0; x<elenco.length; x++) {
 
         var riga = elenco[x];
-        var item = "<ons-list-item expandable id='item" + (x+1) + "' onclick='openSection(" + (x+1) + ")'>" +
-          "<div class='left'><ons-icon modifier='bed' icon='" + riga[2] + "' class='list-item__icon' tappable></ons-icon></div>" +
-          riga[1] +
-          "<div class='expandable-content'></div>" +
-          "</ons-list-item>";
 
-        innerHtml += item + "</ons-list>";
+        if(riga[8] != tipoInteresseId) {
+
+          tipoInteresseId = riga[8];
+          if(x==0) {
+            //Nuovo tipo di interesse, creo l'item senza tag di chiusura
+            var item = "<ons-list-item expandable id='item" + (x+1) + "' onclick='openSection(" + (x+1) + ")'>" +
+              "<div class='left'><ons-icon modifier='bed' icon='" + riga[2] + "' class='list-item__icon' tappable></ons-icon></div>" +
+              riga[1];
+
+              innerHtml += item;
+          } else {
+            //Nuovo tipo di interesse, creo l'item senza tag di chiusura del precedente item
+            var item = "</ons-list-item><ons-list-item expandable id='item" + (x+1) + "' onclick='openSection(" + (x+1) + ")'>" +
+              "<div class='left'><ons-icon modifier='bed' icon='" + riga[2] + "' class='list-item__icon' tappable></ons-icon></div>" +
+              riga[1];
+
+              innerHtml += item;
+          }
+
+          // Div contenente i dati dell'attività da inserire
+          var content =
+            "<div class='expandable-content'>" +
+            "<div style='content'>" +
+              "<table style='width: 100%;'>" +
+              "<tbody>" +
+              "<tr>" +
+                "<td style='font-weight: bold;' colspan='3'>" + riga[1] + "</td>" +
+              "</tr>" +
+              "<tr>" +
+                "<td colspan='3'>" + riga[9] + "</td>" +
+              "</tr>" +
+              "<tr>" +
+                "<td colspan='3'>" + riga[3] + "</td>" +
+              "</tr>" +
+              "<tr>" +
+                "<td colspan='3'>" + riga[4] + "</td>" +
+              "</tr>" +
+              "</tbody>" +
+              "</table>" +
+            "</div>" +
+            "<div><hr class='style-three'></div>" +
+            "</div>";
+
+            innerHtml += content;
+
+
+        } else {
+
+          var content =
+            "<div class='expandable-content'>" +
+            "<div style='content'>" +
+              "<table style='width: 100%;'>" +
+              "<tbody>" +
+              "<tr>" +
+                "<td style='font-weight: bold;' colspan='3'>" + riga[1] + "</td>" +
+              "</tr>" +
+              "<tr>" +
+                "<td colspan='3'>" + riga[9] + "</td>" +
+              "</tr>" +
+              "<tr>" +
+                "<td colspan='3'>" + riga[3] + "</td>" +
+              "</tr>" +
+              "<tr>" +
+                "<td colspan='3'>" + riga[4] + "</td>" +
+              "</tr>" +
+              "</tbody>" +
+              "</table>" +
+            "</div>" +
+            "<div><hr class='style-three'></div>" +
+            "</div>";
+
+            innerHtml += content;
+        }
+
+
+        //innerHtml += item;
 
       }
 
       innerHtml += "</ons-list>";
-
-      showMessage("INNERHTML:" + innerHtml);
 
       $("#listaPuntiInteresse").html(innerHtml);
 
