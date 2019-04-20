@@ -131,7 +131,7 @@
 
       getPercorsoSito(param, database, map, renderElevationMap);
       getNodiPercorsoSito(param, database, map, renderNodesMap);
-      stopVideo();
+      document.querySelector('ons-tabbar').addEventListener('prechange', stopVideo());
 
     };
 
