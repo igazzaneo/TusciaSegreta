@@ -145,25 +145,20 @@
 
         var riga = elenco[x];
         showMessage("Check: " + tipoInteresseId + " - " + riga[8]);
-        
+
         if(riga[8] != tipoInteresseId) {
 
           tipoInteresseId = riga[8];
-          if(x==0) {
-            //Nuovo tipo di interesse, creo l'item senza tag di chiusura
-            var item = "<ons-list-item expandable id='item" + (x+1) + "' onclick='openSection(" + (x+1) + ")'>" +
-              "<div class='left'><ons-icon modifier='bed' icon='" + riga[2] + "' class='list-item__icon' tappable></ons-icon></div>" +
-              riga[1];
 
-              innerHtml += item;
-          } else {
-            //Nuovo tipo di interesse, creo l'item senza tag di chiusura del precedente item
-            var item = "</ons-list-item><ons-list-item expandable id='item" + (x+1) + "' onclick='openSection(" + (x+1) + ")'>" +
-              "<div class='left'><ons-icon modifier='bed' icon='" + riga[2] + "' class='list-item__icon' tappable></ons-icon></div>" +
-              riga[1];
+          var item = "<ons-list-item expandable id='item" + (x+1) + "' onclick='openSection(" + (x+1) + ")'>" +
+            "<div class='left'><ons-icon modifier='bed' icon='" + riga[2] + "' class='list-item__icon' tappable></ons-icon></div>" +
+            riga[1];
 
-              innerHtml += item;
+          if(x!=0) {
+            item = "</ons-list-item>" + item;
           }
+
+          innerHtml += item;
 
           // Div contenente i dati dell'attività da inserire
           var content =
@@ -226,6 +221,8 @@
       }
 
       innerHtml += "</ons-list>";
+
+      showMessage("innerHTML: " + innerHtml);
 
       $("#listaPuntiInteresse").html(innerHtml);
 
