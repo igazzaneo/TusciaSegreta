@@ -308,7 +308,8 @@ You can find the project at: https://github.com/domoritz/leaflet-locatecontrol
                 watch: true,  // if you overwrite this, visualization cannot be updated
                 setView: false // have to set this to false because we have to
                                // do setView manually
-            }
+            },
+            checkNodes: undefined
         },
 
         initialize: function (options) {
@@ -412,6 +413,8 @@ You can find the project at: https://github.com/domoritz/leaflet-locatecontrol
         start: function() {
             this._activate();
 
+            this.checkNodes = setInterval(verificaNodo(), 10000);
+
             if (this._event) {
 
                 this._drawMarker(this._map);
@@ -431,6 +434,7 @@ You can find the project at: https://github.com/domoritz/leaflet-locatecontrol
          * - removes the marker
          */
         stop: function() {
+            clearInterval(this.checkNodes);
             this._deactivate();
 
             this._cleanClasses();
@@ -584,9 +588,6 @@ You can find the project at: https://github.com/domoritz/leaflet-locatecontrol
             var latitudine = getValueFromLocalStorage('latitudine');
             var longitudine = getValueFromLocalStorage('longitudine');
 
-            verificaNodo();
-
-            
             // circle with the radius of the location's accuracy
             if (this.options.drawCircle) {
                 var style = this._isFollowing() ? this.options.followCircleStyle : this.options.circleStyle;
