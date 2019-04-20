@@ -265,7 +265,7 @@
       var distanzaInMetri = position.getLatLng().distanceTo(start.getLatLng());
 
       // Se distanza dal punto di partenza del percorso è inferiore a 500 metri attiva la navigazione
-      if(distanzaInMetri<1000000)
+      if(distanzaInMetri<500)
         return true;
       else {
         return false;
