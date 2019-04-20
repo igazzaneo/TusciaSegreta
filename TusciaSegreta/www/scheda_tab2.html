@@ -131,6 +131,7 @@
 
       getPercorsoSito(param, database, map, renderElevationMap);
       getNodiPercorsoSito(param, database, map, renderNodesMap);
+      stopVideo();
 
     };
 
@@ -216,10 +217,7 @@
 
     renderMap();
 
-    $("iframe").each(function() {
-        var src= $(this).attr('src');
-        $(this).attr('src',src);
-    });
+
 
     /*if(checkDistanceFromStart(sito)) {
       if(confirm("Vuoi attivare la navigazione sul percorso?"))

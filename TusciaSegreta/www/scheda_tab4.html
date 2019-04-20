@@ -74,6 +74,8 @@
 
       getPuntiInteresseSito(param, database, map, renderListaInteressi);
 
+      stopVideo();
+
     }
 
     function renderInteresseMarker(map, elenco) {
@@ -230,10 +232,6 @@
 
     renderInteressiMap();
 
-    $("iframe").each(function() {
-        var src= $(this).attr('src');
-        $(this).attr('src',src);
-    });
 
 
 /*

@@ -82,3 +82,10 @@
     }
 
   };
+
+  function stopVideo() {
+    $("iframe").each(function() {
+        var src= $(this).attr('src');
+        $(this).attr('src',src);
+    });
+  }
