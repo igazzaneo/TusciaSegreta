@@ -82,6 +82,11 @@
 
       getSito(param , database, setSitoCoords);
 
+      $("iframe").each(function() {
+          var src= $(this).attr('src');
+          $(this).attr('src',src);
+      });
+
     </script>
 
 </ons-page>

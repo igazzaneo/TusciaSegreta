@@ -206,7 +206,7 @@ function processDone(response) {
 
   //console.log("Done...");
   var esito = JSON.parse(response.responseText).httpCode
-  showMessage("risposta: " + esito);
+  //showMessage("risposta: " + esito);
 
   /*if(esito.indexOf("200") != -1) {
     registraUtente(email, nome_utente, password, cellulare, cognome, nome, database);
@@ -356,7 +356,7 @@ function logIn(login, password) {
         saveOnLocalStorage("cellulare", resultSet.rows.item(0).cellulare);
         saveOnLocalStorage("lingua", resultSet.rows.item(0).lingua);
 
-        showMessage('Login avvenuto con successo');
+        //showMessage('Login avvenuto con successo');
         fn.gotoPage("accesso_effettuato.html");
 
       } else {

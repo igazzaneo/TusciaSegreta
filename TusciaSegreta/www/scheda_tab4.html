@@ -230,6 +230,11 @@
 
     renderInteressiMap();
 
+    $("iframe").each(function() {
+        var src= $(this).attr('src');
+        $(this).attr('src',src);
+    });
+
 
 /*
     // Marker del percorso

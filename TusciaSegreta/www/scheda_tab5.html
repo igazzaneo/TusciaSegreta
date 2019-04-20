@@ -39,11 +39,16 @@
     }
 
     getGalleriaSito(param, database, createCarousel);
+
+    $("iframe").each(function() {
+        var src= $(this).attr('src');
+        $(this).attr('src',src);
+    });
   </script>
 
   <ons-card>
     <div class="owl-carousel owl-theme" align="center" id="carousel">
-      
+
     </div>
   </ons-card>
 </ons-page>
