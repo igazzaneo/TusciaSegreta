@@ -226,6 +226,11 @@ function registraUtente(email, nome_utente, password, cellulare, cognome, nome, 
     transaction.executeSql('select count(*) as recordCount from utente', [], function(ignored, resultSet) {
       //showMessage("Utenti trovati: " + resultSet.rows.item(0).recordCount)
       if(resultSet.rows.item(0).recordCount > 0 ) {
+
+        var latitudine = getValueFromLocalStorage('latitudine');
+        var longitudine = getValueFromLocalStorage('longitudine');
+        registerUserOnCloud(email, nome_utente, password, cellulare, cognome, nome, latitudine, longitudine);
+
         callback(nome_utente, password);
       }
     });
@@ -350,11 +355,6 @@ function logIn(login, password) {
         saveOnLocalStorage("cittadinanza", resultSet.rows.item(0).cittadinanza);
         saveOnLocalStorage("cellulare", resultSet.rows.item(0).cellulare);
         saveOnLocalStorage("lingua", resultSet.rows.item(0).lingua);
-
-        var latitudine = getValueFromLocalStorage('latitudine');
-        var longitudine = getValueFromLocalStorage('longitudine');
-
-        registerUserOnCloud(email, nome_utente, password, cellulare, cognome, nome, latitudine, longitudine);
 
         showMessage('Login avvenuto con successo');
         fn.gotoPage("accesso_effettuato.html");
