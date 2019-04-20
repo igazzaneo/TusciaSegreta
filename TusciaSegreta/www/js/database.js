@@ -433,7 +433,7 @@ function getElencoSiti(database, map, callback) {
 
     database.transaction(function(transaction) {
 
-      transaction.executeSql('select * from sito order by sito_id', [],  function(transaction, resultSet) {
+      transaction.executeSql('select * from sito order by id', [],  function(transaction, resultSet) {
 
         var elenco = new Array();
 
