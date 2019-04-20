@@ -19,8 +19,9 @@
     <div id="esplora"></div>
     <script type="text/javascript">
 
-      function generaTabellaSiti(elenco)
+      function tabellaElencoSiti(elenco)
       {
+        showMessage(elenco);
         var siti = elenco;
 
         var tabella = "";
@@ -71,7 +72,7 @@
 
       }
 
-      getElencoSiti(null, generaTabellaSiti);
+      getElencoSiti(null, tabellaElencoSiti);
 
       //generaTabellaSiti('esplora');
     </script>
