@@ -49,7 +49,7 @@ function elaboraDb(response) {
   Object.keys(response).forEach(function(key) {
 
     var nome_tabella = key;
-    alert("Tabella:" + key)
+    //alert("Tabella:" + key)
     if(response[nome_tabella] && response[nome_tabella].length) {
 
       var sql = createSqlQuery(nome_tabella, Object.keys(response[nome_tabella][0]), response[nome_tabella]);
@@ -433,7 +433,7 @@ function getElencoSiti(database, map, callback) {
 
     database.transaction(function(transaction) {
 
-      transaction.executeSql('select sito.*, valore, caratteristica.denominazione as denominazione_carat, icona from sito join sito_ha_caratteristica on sito_ha_caratteristica.sito_id=sito.id join caratteristica on caratteristica.id=sito_ha_caratteristica.caratteristica_id where filtrabile=1 order by sito.id', [],  function(transaction, resultSet) {
+      transaction.executeSql('select sito.*, valore, caratteristica.denominazione as denominazione_carat, icona from sito join sito_ha_caratteristica on sito_ha_caratteristica.sito_id=sito.id join caratteristica on caratteristica.id=sito_ha_caratteristica.caratteristica_id where sito_ha_caratteristica.filtrabile=1 order by sito.id', [],  function(transaction, resultSet) {
 
         var elenco = new Array();
 
