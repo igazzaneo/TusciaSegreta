@@ -412,7 +412,7 @@ function getElencoSiti(database, map, callback) {
 
   if(database == null) {
 
-    //showMessage("Database non inizializzato");
+    showMessage("Database non inizializzato");
 
     var elenco = new Array();
 
