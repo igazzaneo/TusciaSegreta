@@ -15,7 +15,7 @@ function openDb() {
     getLocalDBVersion(database);
   }
 
-  alert("Versione DB cloud: " + versione + " - Versione locale: " + versioneLocale);
+  //alert("Versione DB cloud: " + versione + " - Versione locale: " + versioneLocale);
   if(versione != versioneLocale) {
 
     // Prelevo il JSON del DB dal server
