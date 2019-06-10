@@ -474,9 +474,9 @@ function getElencoSiti(database, map, callback) {
               riga = elenco[elenco.length-1];
 
               var carat = new Array();
-              carat[0]=resultSet.rows.item(x).valore;
-              carat[1]=resultSet.rows.item(x).denominazione_carat;
-              carat[2]=resultSet.rows.item(x).icona;
+              carat[0]="a"//resultSet.rows.item(x).valore;
+              carat[1]="b"//resultSet.rows.item(x).denominazione_carat;
+              carat[2]="c"//resultSet.rows.item(x).icona;
 
               riga[riga.length]=carat;
 
