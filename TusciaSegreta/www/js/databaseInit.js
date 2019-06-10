@@ -126,7 +126,7 @@ function copyDatabaseFileToDownload() {
       }).then(function () {
         showMessage("Database copiato");
       }).catch(function(e) {
-        showMessage("Errore nella copia del file: " + e);
+        showMessage("Errore nella copia del file: " + e.message);
       });
     });
   });
