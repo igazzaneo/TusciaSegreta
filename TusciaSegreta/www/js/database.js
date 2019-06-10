@@ -131,7 +131,7 @@ function createSqlQuery(tableName, columns, obj) {
     console.log(generatedSqlQuery);
 
     if(tableName == 'caratteristica')
-      alert(this.generatedSqlQuery.replace(/'true/', '1').replace(/'false/', '0'));
+      alert(this.generatedSqlQuery);
 
     return this.generatedSqlQuery;
   }
@@ -437,7 +437,7 @@ function getElencoSiti(database, map, callback) {
 
     database.transaction(function(transaction) {
 
-      var sql = 'select sito.*, valore, caratteristica.denominazione as denominazione_carat, icona from sito join sito_ha_caratteristica on sito_ha_caratteristica.sito_id=sito.id join caratteristica on caratteristica.id=sito_ha_caratteristica.caratteristica_id order by sito.id';
+      var sql = "select sito.*, valore, caratteristica.denominazione as denominazione_carat, icona from sito join sito_ha_caratteristica on sito_ha_caratteristica.sito_id=sito.id join caratteristica on caratteristica.id=sito_ha_caratteristica.caratteristica_id where filtrabile='true' order by sito.id";
 
       transaction.executeSql(sql, [],  function(transaction, resultSet) {
 
@@ -503,7 +503,10 @@ function getSito(id, database, callback)
 
     database.transaction(
         function(transaction) {
-          transaction.executeSql('select sito.*, valore, caratteristica.denominazione as denominazione_carat, icona from sito join sito_ha_caratteristica on sito_ha_caratteristica.sito_id=sito.id join caratteristica on caratteristica.id=sito_ha_caratteristica.caratteristica_id where sito.id=? and filtrabile=1', [id], function(transaction, resultSet) {
+
+          var sql = "select sito.*, valore, caratteristica.denominazione as denominazione_carat, icona from sito join sito_ha_caratteristica on sito_ha_caratteristica.sito_id=sito.id join caratteristica on caratteristica.id=sito_ha_caratteristica.caratteristica_id where sito.id=? and filtrabile='true'"
+
+          transaction.executeSql(sql, [id], function(transaction, resultSet) {
 
             var riga = new Array();
             riga[0] = resultSet.rows.item(0).id;
