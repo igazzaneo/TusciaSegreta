@@ -129,6 +129,10 @@ function createSqlQuery(tableName, columns, obj) {
       this.generatedSqlQuery = this.generatedSqlQuery.slice(0, -1);
     }
     console.log(generatedSqlQuery);
+
+    if(tableName == 'caratteristica')
+      alert(this.generatedSqlQuery);
+
     return this.generatedSqlQuery;
   }
 
