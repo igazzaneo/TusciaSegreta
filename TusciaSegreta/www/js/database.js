@@ -131,7 +131,7 @@ function createSqlQuery(tableName, columns, obj) {
     console.log(generatedSqlQuery);
 
     if(tableName == 'caratteristica')
-      alert(this.generatedSqlQuery);
+      alert(this.generatedSqlQuery.replace(/'true/', '1').replace(/'false/', '0'));
 
     return this.generatedSqlQuery;
   }
