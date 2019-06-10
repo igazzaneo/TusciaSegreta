@@ -81,24 +81,19 @@
         popupAnchor: [15, -7],
         innerIconStyle: 'font-size:30px;padding-top:4px;color: #000000'
       };
-alert("Siti: " + siti.length);
-alert(siti);
+
       for(var i=0; i<siti.length; i++) {
 
           var riga = siti[i];
-alert("Sito " + i + ": " + riga);
+
           var id = riga[0];
           var denominazione = riga[1];
           var latitudine = riga[4];
           var longitudine = riga[5];
           var miniatura = riga[6];
-          /*var difficolta = riga[8][0];
-          var durata = riga[9][0];
-          var lunghezza = riga[10][0];*/
-
           var difficolta = riga[8][0];
-          var durata = riga[8][1];
-          var lunghezza = riga[8][2];
+          var durata = riga[9][0];
+          var lunghezza = riga[10][0];
 
           // Riattivare dopo aver deciso cosa fare nel caso in cui non ci siano le risorse sul telefono
           //checkIfFileExists(cordova.file.dataDirectory + "/" + miniatura);

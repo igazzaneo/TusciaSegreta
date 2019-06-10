@@ -435,8 +435,6 @@ function getElencoSiti(database, map, callback) {
 
       var sql = 'select sito.*, valore, caratteristica.denominazione as denominazione_carat, icona from sito join sito_ha_caratteristica on sito_ha_caratteristica.sito_id=sito.id join caratteristica on caratteristica.id=sito_ha_caratteristica.caratteristica_id order by sito.id';
 
-      alert(sql);
-
       transaction.executeSql(sql, [],  function(transaction, resultSet) {
 
         var elenco = new Array();
