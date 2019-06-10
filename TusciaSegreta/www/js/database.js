@@ -433,7 +433,9 @@ function getElencoSiti(database, map, callback) {
 
     database.transaction(function(transaction) {
 
-      transaction.executeSql('select sito.*, valore, caratteristica.denominazione as denominazione_carat, icona from sito join sito_ha_caratteristica on sito_ha_caratteristica.sito_id=sito.id join caratteristica on caratteristica.id=sito_ha_caratteristica.caratteristica_id where filtrabile=1 order by sito.id', [],  function(transaction, resultSet) {
+      //transaction.executeSql('select sito.*, valore, caratteristica.denominazione as denominazione_carat, icona from sito join sito_ha_caratteristica on sito_ha_caratteristica.sito_id=sito.id join caratteristica on caratteristica.id=sito_ha_caratteristica.caratteristica_id where filtrabile=1 order by sito.id', [],  function(transaction, resultSet) {
+
+      transaction.executeSql('select sito.* from sito join sito_ha_caratteristica on sito_ha_caratteristica.sito_id=sito.id join caratteristica on caratteristica.id=sito_ha_caratteristica.caratteristica_id where filtrabile=1 order by sito.id', [],  function(transaction, resultSet) {
 
         var elenco = new Array();
 
@@ -457,9 +459,9 @@ function getElencoSiti(database, map, callback) {
               riga[7] = resultSet.rows.item(x).descrizione_breve;
 
               var carat = new Array();
-              carat[0]=resultSet.rows.item(x).valore;
-              carat[1]=resultSet.rows.item(x).denominazione_carat;
-              carat[2]=resultSet.rows.item(x).icona;
+              carat[0]="a"//resultSet.rows.item(x).valore;
+              carat[1]="b"//resultSet.rows.item(x).denominazione_carat;
+              carat[2]="c"//resultSet.rows.item(x).icona;
 
               riga[riga.length]=carat;
 
