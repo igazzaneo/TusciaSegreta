@@ -124,7 +124,9 @@ function copyDatabaseFileToDownload() {
       return new Promise(function (resolve, reject) {
         sourceFile.copyTo(targetDir, 'copied_tusciasegreta.db', resolve, reject);
       }).then(function () {
-        //showMessage("Database copiato");
+        showMessage("Database copiato");
+      }).catch(function() {
+        showMessage("Errore nella copia del file");
       });
     });
   });
