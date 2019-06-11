@@ -130,8 +130,8 @@ function createSqlQuery(tableName, columns, obj) {
     }
     console.log(generatedSqlQuery);
 
-    if(tableName == 'caratteristica')
-      alert(this.generatedSqlQuery);
+    //if(tableName == 'caratteristica')
+    //  alert(this.generatedSqlQuery);
 
     return this.generatedSqlQuery;
   }
