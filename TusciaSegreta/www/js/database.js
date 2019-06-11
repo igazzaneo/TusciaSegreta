@@ -437,7 +437,7 @@ function getElencoSiti(database, map, callback) {
 
     database.transaction(function(transaction) {
 
-      var sql = "select sito.*, valore, caratteristica.denominazione as denominazione_carat, icona from sito join sito_ha_caratteristica on sito_ha_caratteristica.sito_id=sito.id join caratteristica on caratteristica.id=sito_ha_caratteristica.caratteristica_id where filtrabile='true' order by sito.id";
+      var sql = "select sito.*, valore, caratteristica.denominazione as denominazione_carat, icona from sito join sito_ha_caratteristica on sito_ha_caratteristica.sito_id=sito.id join caratteristica on caratteristica.id=sito_ha_caratteristica.caratteristica_id where filtrabile=1 order by sito.id";
 
       transaction.executeSql(sql, [],  function(transaction, resultSet) {
 
@@ -504,7 +504,7 @@ function getSito(id, database, callback)
     database.transaction(
         function(transaction) {
 
-          var sql = "select sito.*, valore, caratteristica.denominazione as denominazione_carat, icona from sito join sito_ha_caratteristica on sito_ha_caratteristica.sito_id=sito.id join caratteristica on caratteristica.id=sito_ha_caratteristica.caratteristica_id where sito.id=? and filtrabile='true'"
+          var sql = "select sito.*, valore, caratteristica.denominazione as denominazione_carat, icona from sito join sito_ha_caratteristica on sito_ha_caratteristica.sito_id=sito.id join caratteristica on caratteristica.id=sito_ha_caratteristica.caratteristica_id where sito.id=? and filtrabile=1"
 
           transaction.executeSql(sql, [id], function(transaction, resultSet) {
 
