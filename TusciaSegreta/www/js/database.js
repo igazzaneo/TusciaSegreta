@@ -21,6 +21,47 @@ function getServerDB() {
 
 }
 
+function getRecoverPassword(username, email) {
+
+    var dataObject = {};
+    dataObject['nome_utente'] = username;
+    dataobject['email'] = email;
+
+    $.ajax({
+      type: "POST",
+      url: "http://51.75.182.195:1880/recoverPassword",
+      dataType: 'json',
+      timeout: 2000,
+      data: dataObject,
+      async: false,
+
+    }).complete(function(response) {
+      showMessage(response.msg);
+    });
+
+}
+
+function recuperaPassword() {
+
+  var form = $("#passwordForm");
+	$("#submitButton",form).attr("disabled","disabled");
+
+	var username = $("#username", form).val();
+	var email = $("#email", form).val();
+
+  if(username != "" && email != "")
+    getRecoverPassword(username, email);
+  else if(username == "") {
+    showMessage("Nome utente obbligatorio");
+    $("#submitButton").removeAttr("disabled");
+  } else if(email == "") {
+    showMessage("Email obbligatoria");
+    $("#submitButton").removeAttr("disabled");
+  }
+
+  return false;
+}
+
 function locateUser() {
 
   var dataObject = {};
