@@ -26,7 +26,7 @@ function getRecoverPassword(username, email) {
     var dataObject = {};
     dataObject['nome_utente'] = username;
     dataobject['email'] = email;
-
+alert("getRecoverPassword");
     $.ajax({
       type: "POST",
       url: "http://51.75.182.195:1880/recoverPassword",
@@ -48,7 +48,7 @@ function recuperaPassword() {
 
 	var username = $("#username", form).val();
 	var email = $("#email", form).val();
-alert("recupera password: " + username + " - " + email);
+//alert("recupera password: " + username + " - " + email);
   if(username != "" && email != "")
     getRecoverPassword(username, email);
   else if(username == "") {
