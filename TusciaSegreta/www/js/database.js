@@ -21,12 +21,21 @@ function getServerDB() {
 
 }
 
-function getRecoverPassword(username, email) {
+function recuperaPassword() {
+
+  var form = $("#passwordForm");
+	$("#loginButton",form).attr("disabled","disabled");
+
+	var username = $("#username", form).val();
+	var email = $("#email", form).val();
+//alert("recupera password: " + username + " - " + email);
+  if(username != "" && email != "") {
 
     var dataObject = {};
     dataObject['nome_utente'] = username;
     dataobject['email'] = email;
-alert("getRecoverPassword");
+    showMessage(dataObject);
+    
     $.ajax({
       type: "POST",
       url: "http://51.75.182.195:1880/recoverPassword",
@@ -38,20 +47,7 @@ alert("getRecoverPassword");
     }).complete(function(response) {
       showMessage(response.msg);
     });
-
-}
-
-function recuperaPassword() {
-
-  var form = $("#passwordForm");
-	$("#loginButton",form).attr("disabled","disabled");
-
-	var username = $("#username", form).val();
-	var email = $("#email", form).val();
-//alert("recupera password: " + username + " - " + email);
-  if(username != "" && email != "")
-    getRecoverPassword(username, email);
-  else if(username == "") {
+  } else if(username == "") {
     showMessage("Nome utente obbligatorio");
     $("#submitButton").removeAttr("disabled");
   } else if(email == "") {
