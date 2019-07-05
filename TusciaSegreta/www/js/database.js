@@ -44,11 +44,11 @@ function getRecoverPassword(username, email) {
 function recuperaPassword() {
 
   var form = $("#passwordForm");
-	$("#submitButton",form).attr("disabled","disabled");
+	$("#loginButton",form).attr("disabled","disabled");
 
 	var username = $("#username", form).val();
 	var email = $("#email", form).val();
-
+alert("recupera password: " + username + " - " + email);
   if(username != "" && email != "")
     getRecoverPassword(username, email);
   else if(username == "") {
