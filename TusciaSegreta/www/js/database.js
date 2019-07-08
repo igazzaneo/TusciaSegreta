@@ -24,17 +24,17 @@ function getServerDB() {
 function recuperaPassword() {
 
   var form = $("#passwordForm");
-	//$("#loginButton",form).attr("disabled","disabled");
+	$("#loginButton",form).attr("disabled","disabled");
 
 	var username = $("#username", form).val();
 	var email = $("#email", form).val();
-//alert("recupera password: " + username + " - " + email);
+  //alert("recupera password: " + username + " - " + email);
   if(username != "" && email != "") {
 
     var dataObject = {};
     dataObject['nome_utente'] = username;
     dataObject['email'] = email;
-    showMessage(dataObject);
+    //showMessage(dataObject);
 
     $.ajax({
       type: "POST",
@@ -45,14 +45,14 @@ function recuperaPassword() {
       async: false,
 
     }).complete(function(response) {
-      showMessage(response);
+      showMessage(response.responseText.msg);
     });
   } else if(username == "") {
     showMessage("Nome utente obbligatorio");
-    $("#submitButton").removeAttr("disabled");
+    $("#loginButton").removeAttr("disabled");
   } else if(email == "") {
     showMessage("Email obbligatoria");
-    $("#submitButton").removeAttr("disabled");
+    $("#loginButton").removeAttr("disabled");
   }
 
   return false;
