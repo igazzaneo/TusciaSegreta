@@ -46,7 +46,11 @@ function recuperaPassword() {
     }).complete(function(response) {
       var msg = JSON.parse(response.responseText).httpCode;
 
-      showMessage(msg);
+      if(msg==200) {
+        showMessage("Ti abbiamo inviato una mail con la nuova password.");
+      } else {
+        showMessage("Username ed email non coincidono");
+      }
     });
   } else if(username == "") {
     showMessage("Nome utente obbligatorio");
