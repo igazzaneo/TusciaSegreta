@@ -24,18 +24,18 @@ function getServerDB() {
 function recuperaPassword() {
 
   var form = $("#passwordForm");
-	$("#loginButton",form).attr("disabled","disabled");
+	//$("#loginButton",form).attr("disabled","disabled");
 
 	var username = $("#username", form).val();
 	var email = $("#email", form).val();
-//alert("recupera password: " + username + " - " + email);
+alert("recupera password: " + username + " - " + email);
   if(username != "" && email != "") {
 
     var dataObject = {};
     dataObject['nome_utente'] = username;
     dataobject['email'] = email;
     showMessage(dataObject);
-    
+
     $.ajax({
       type: "POST",
       url: "http://51.75.182.195:1880/recoverPassword",
