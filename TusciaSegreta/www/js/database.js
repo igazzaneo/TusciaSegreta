@@ -28,12 +28,12 @@ function recuperaPassword() {
 
 	var username = $("#username", form).val();
 	var email = $("#email", form).val();
-alert("recupera password: " + username + " - " + email);
+//alert("recupera password: " + username + " - " + email);
   if(username != "" && email != "") {
 
     var dataObject = {};
     dataObject['nome_utente'] = username;
-    dataobject['email'] = email;
+    dataObject['email'] = email;
     showMessage(dataObject);
 
     $.ajax({
