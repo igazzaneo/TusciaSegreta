@@ -45,7 +45,8 @@ function recuperaPassword() {
       async: false,
 
     }).complete(function(response) {
-      showMessage(response.responseText);  
+      var msg = JSON.parse(response.responseText).msg
+      showMessage(msg);  
     });
   } else if(username == "") {
     showMessage("Nome utente obbligatorio");
