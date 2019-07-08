@@ -34,7 +34,6 @@ function recuperaPassword() {
     var dataObject = {};
     dataObject['nome_utente'] = username;
     dataObject['email'] = email;
-    //showMessage(dataObject);
 
     $.ajax({
       type: "POST",
@@ -45,8 +44,9 @@ function recuperaPassword() {
       async: false,
 
     }).complete(function(response) {
-      //var msg = JSON.parse(response.responseText).msg
-      showMessage(response);
+      var msg = JSON.parse(response.responseText).httpCode;
+
+      showMessage(msg);
     });
   } else if(username == "") {
     showMessage("Nome utente obbligatorio");
