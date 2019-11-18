@@ -34,7 +34,8 @@ function testBackButton() {
     e.preventDefault();
     //e.stopPropagation();
     alert("Backbutton");
-    /*if(new Date().getTime() - lastTimeBackPress < timePeriodToExit) {
+
+    if(new Date().getTime() - lastTimeBackPress < timePeriodToExit) {
         navigator.app.exitApp();
     } else {
         alert("Dovrei mostrare il messaggio")
@@ -48,7 +49,7 @@ function testBackButton() {
           );
 
         lastTimeBackPress=new Date().getTime();
-    }*/
+    }
 }
 
 document.addEventListener('prechange', function(event) {
