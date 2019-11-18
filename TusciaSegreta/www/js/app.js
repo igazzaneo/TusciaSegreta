@@ -24,6 +24,13 @@ String.prototype.replaceAll = function(search, replacement) {
 
 document.addEventListener("deviceready", onDeviceReady, false);
 
+document.addEventListener("backbutton", testBackButton, false);
+
+function testBackButton() {
+    // Handle the back button
+    alert("BackButton");
+}
+
 document.addEventListener('prechange', function(event) {
 
   stopVideo();
@@ -41,7 +48,7 @@ document.addEventListener('prechange', function(event) {
 
           if(confirm("Vuoi attivare la navigazione sul percorso?")) {
             lc.start();
-            
+
           } else {
             rejectGps = true;
           }
@@ -71,8 +78,6 @@ function onDeviceReady() {
   initDatabase();
 
   getMapLocation();
-
-
 
 }
 
