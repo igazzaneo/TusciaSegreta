@@ -32,12 +32,12 @@ var timePeriodToExit=2000;
 function testBackButton(e) {
     // Handle the back button
     e.preventDefault();
-    //e.stopPropagation();
-    alert("Backbutton");
+    e.stopPropagation();
+    //alert("Backbutton");
 
-    myToast.toggle();
+    //myToast.toggle();
 
-    /*if(new Date().getTime() - lastTimeBackPress < timePeriodToExit) {
+    if(new Date().getTime() - lastTimeBackPress < timePeriodToExit) {
         navigator.app.exitApp();
     } else {
         alert("Dovrei mostrare il messaggio")
@@ -51,7 +51,7 @@ function testBackButton(e) {
           );
 
         lastTimeBackPress=new Date().getTime();
-    }*/
+    }
 }
 
 document.addEventListener('prechange', function(event) {
