@@ -29,7 +29,7 @@ document.addEventListener("backbutton", testBackButton, false);
 var lastTimeBackPress=0;
 var timePeriodToExit=2000;
 
-function testBackButton() {
+function testBackButton(e) {
     // Handle the back button
     e.preventDefault();
     //e.stopPropagation();
