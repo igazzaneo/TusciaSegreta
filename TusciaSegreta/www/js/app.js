@@ -28,19 +28,22 @@ document.addEventListener("backbutton", testBackButton, false);
 
 var lastTimeBackPress=0;
 var timePeriodToExit=2000;
+
 function testBackButton() {
     // Handle the back button
     e.preventDefault();
     e.stopPropagation();
+    alert("Backbutton");
     if(new Date().getTime() - lastTimeBackPress < timePeriodToExit){
         navigator.app.exitApp();
     } else {
+        alet("Dovrei mostrare il messaggio")
         window.plugins.toast.showWithOptions(
             {
               message: "Press again to exit.",
               duration: "short", // which is 2000 ms. "long" is 4000. Or specify the nr of ms yourself.
               position: "bottom",
-              addPixelsY: -40  // added a negative value to move it up a bit (default 0)
+              addPixelsY: -100  // added a negative value to move it up a bit (default 0)
             }
           );
 
