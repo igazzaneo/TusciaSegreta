@@ -11,10 +11,7 @@
     <icon src="icon.png" />
     <preference name="DisallowOverscroll" value="true" />
     <preference name="android-minSdkVersion" value="19" />
-    <preference name="android-targetSdkVersion" value="26"/>
-
-    <!--plugin name="cordova-plugin-battery-status" source="npm" spec="~1.1.1" />
-    <plugin name="cordova-plugin-camera" source="npm" spec="~2.1.1" /-->
+    <preference name="android-targetSdkVersion" value="26" />
     <plugin name="cordova-plugin-media-capture" source="npm" spec="~1.2.0" />
     <plugin name="cordova-plugin-console" source="npm" spec="~1.0.2" />
     <plugin name="cordova-plugin-contacts" source="npm" spec="~2.0.1" />
@@ -31,17 +28,10 @@
     <plugin name="cordova-plugin-statusbar" source="npm" spec="~2.1.2" />
     <plugin name="cordova-plugin-vibration" source="npm" spec="~2.1.0" />
     <plugin name="cordova-plugin-whitelist" source="npm" spec="~1.2.1" />
-    <!--plugin name="uk.co.workingedge.phonegap.plugin.launchnavigator" source="npm" /-->
     <plugin name="cordova-plugin-file-transfer" spec="~1.5.1" />
     <plugin name="cordova-plugin-file" spec="~6.0.1" />
     <plugin name="cordova-plugin-sqlite-2" spec="~1.0.4" />
     <plugin name="cordova-zip-plugin" source="npm" spec="~1.1.0" />
-    <!--plugin name="cordova-plugin-googlemaps">
-        <variable name="API_KEY_FOR_ANDROID" value="AIzaSyCF8z5AC-eGrKBJ4vEgL1KykEy2sKZuD1s" />
-        <variable name="API_KEY_FOR_IOS" value="AIzaSyCF8z5AC-eGrKBJ4vEgL1KykEy2sKZuD1s" />
-    </plugin-->
-
-
     <platform name="android">
         <icon qualifier="ldpi" src="res/icons/android/drawable-ldpi-icon.png" />
         <icon qualifier="mdpi" src="res/icons/android/drawable-mdpi-icon.png" />
@@ -62,34 +52,6 @@
         <splash qualifier="port-xxhdpi" src="res/screens/android/drawable-port-xxhdpi-screen.png" />
         <splash qualifier="port-xxxhdpi" src="res/screens/android/drawable-port-xxxhdpi-screen.png" />
     </platform>
-    <!--platform name="ios">
-        <icon height="57" platform="ios" src="res/icons/ios/icon.png" width="57" />
-        <icon height="114" platform="ios" src="res/icons/ios/icon@2x.png" width="114" />
-        <icon height="40" platform="ios" src="res/icons/ios/icon-40.png" width="40" />
-        <icon height="80" platform="ios" src="res/icons/ios/icon-40@2x.png" width="80" />
-        <icon height="50" platform="ios" src="res/icons/ios/icon-50.png" width="50" />
-        <icon height="100" platform="ios" src="res/icons/ios/icon-50@2x.png" width="100" />
-        <icon height="60" platform="ios" src="res/icons/ios/icon-60.png" width="60" />
-        <icon height="120" platform="ios" src="res/icons/ios/icon-60@2x.png" width="120" />
-        <icon height="180" platform="ios" src="res/icons/ios/icon-60@3x.png" width="180" />
-        <icon height="72" platform="ios" src="res/icons/ios/icon-72.png" width="72" />
-        <icon height="144" platform="ios" src="res/icons/ios/icon-72@2x.png" width="144" />
-        <icon height="76" platform="ios" src="res/icons/ios/icon-76.png" width="76" />
-        <icon height="152" platform="ios" src="res/icons/ios/icon-76@2x.png" width="152" />
-        <icon height="29" platform="ios" src="res/icons/ios/icon-small.png" width="29" />
-        <icon height="58" platform="ios" src="res/icons/ios/icon-small@2x.png" width="58" />
-        <icon height="87" platform="ios" src="res/icons/ios/icon-small@3x.png" width="87" />
-        <splash height="1136" platform="ios" src="res/screens/ios/Default-568h@2x~iphone.png" width="640" />
-        <splash height="1334" platform="ios" src="res/screens/ios/Default-667h.png" width="750" />
-        <splash height="2208" platform="ios" src="res/screens/ios/Default-736h.png" width="1242" />
-        <splash height="1242" platform="ios" src="res/screens/ios/Default-Landscape-736h.png" width="2208" />
-        <splash height="1536" platform="ios" src="res/screens/ios/Default-Landscape@2x~ipad.png" width="2048" />
-        <splash height="768" platform="ios" src="res/screens/ios/Default-Landscape~ipad.png" width="1024" />
-        <splash height="2048" platform="ios" src="res/screens/ios/Default-Portrait@2x~ipad.png" width="1536" />
-        <splash height="1024" platform="ios" src="res/screens/ios/Default-Portrait~ipad.png" width="768" />
-        <splash height="960" platform="ios" src="res/screens/ios/Default@2x~iphone.png" width="640" />
-        <splash height="480" platform="ios" src="res/screens/ios/Default~iphone.png" width="320" />
-    </platform-->
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
@@ -101,12 +63,7 @@
     <platform name="android">
         <allow-intent href="market:*" />
     </platform>
-    <!--platform name="ios">
-        <allow-intent href="itms:*" />
-        <allow-intent href="itms-apps:*" />
-    </platform-->
-    <!--preference name="PLAY_SERVICES_VERSION" value="15.0.1"/-->
-    <preference name='phonegap-version' value='cli-8.1.1' />
-    <preference name='pgb-builder-version' value='1' />
-    <!--engine name="android" spec="~7.0.0" /-->
+    <preference name="phonegap-version" value="cli-8.1.1" />
+    <preference name="pgb-builder-version" value="1" />
+    <plugin name="cordova-plugin-x-toast" spec="^2.7.2" />
 </widget>

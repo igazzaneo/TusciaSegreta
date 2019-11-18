@@ -82,6 +82,9 @@
     },
     "com.jjdltc.cordova.plugin.zip": {
       "PACKAGE_NAME": "it.itlogix.app.tuscia"
+    },
+    "cordova-plugin-x-toast": {
+      "PACKAGE_NAME": "it.itlogix.app.tuscia"
     }
   },
   "dependent_plugins": {
