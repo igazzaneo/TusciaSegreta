@@ -24,7 +24,7 @@ String.prototype.replaceAll = function(search, replacement) {
 
 document.addEventListener("deviceready", onDeviceReady, false);
 
-document.addEventListener("backbutton", testBackButton, false);
+
 
 var lastTimeBackPress=0;
 var timePeriodToExit=2000;
@@ -40,13 +40,20 @@ function testBackButton(e) {
     if(new Date().getTime() - lastTimeBackPress < timePeriodToExit) {
         navigator.app.exitApp();
     } else {
-        alert("Dovrei mostrare il messaggio")
+        //alert("Dovrei mostrare il messaggio")
         window.plugins.toast.showWithOptions(
             {
               message: "Press again to exit.",
               duration: "short", // which is 2000 ms. "long" is 4000. Or specify the nr of ms yourself.
               position: "bottom",
               addPixelsY: -100  // added a negative value to move it up a bit (default 0)
+            },
+            function(args) {
+                alert(args.event);
+                //This will print 'hide'
+            },
+            function(error) {
+                alert('toast error: ' + error);
             }
           );
 
@@ -93,6 +100,8 @@ document.addEventListener('prechange', function(event) {
 });
 
 function onDeviceReady() {
+
+  document.addEventListener("backbutton", testBackButton, false);
 
   getServerDBVersion();
 
