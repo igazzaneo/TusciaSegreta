@@ -32,12 +32,12 @@ var timePeriodToExit=2000;
 function testBackButton() {
     // Handle the back button
     e.preventDefault();
-    e.stopPropagation();
+    //e.stopPropagation();
     alert("Backbutton");
     if(new Date().getTime() - lastTimeBackPress < timePeriodToExit){
         navigator.app.exitApp();
     } else {
-        alet("Dovrei mostrare il messaggio")
+        alert("Dovrei mostrare il messaggio")
         window.plugins.toast.showWithOptions(
             {
               message: "Press again to exit.",
