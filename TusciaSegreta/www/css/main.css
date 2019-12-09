@@ -195,6 +195,7 @@ iframe {
   background-color: #fff;
   margin-bottom: 12px;
   box-shadow: 0 0 3px #000;
+	color: #000000;
 }
 
 .label-input100 {
@@ -221,7 +222,7 @@ iframe {
   background: transparent;
   font-family: Oswald-Medium;
   font-size: 15px;
-  color: #43383e;
+  color: #000000;
   line-height: 1.2;
   padding: 0 5px;
 }
@@ -349,6 +350,7 @@ textarea.input100 {
   font-size: 12px;
   color: #fff;
   line-height: 1.2;
+	font-weight: bold;
 }
 
 .wrap-contact100-form-btn:hover .contact100-form-bgbtn {
