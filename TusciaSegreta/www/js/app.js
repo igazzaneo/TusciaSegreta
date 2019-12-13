@@ -31,7 +31,7 @@ document.addEventListener("deviceready", onDeviceReady, false);
 
 function onDeviceReady() {
 
-  document.addEventListener("backbutton", onBackKeyDown, false);
+  document.addEventListener("backbutton", onBackKeyDown, true);
 
   getServerDBVersion();
 
