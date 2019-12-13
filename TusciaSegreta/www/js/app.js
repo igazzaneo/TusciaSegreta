@@ -22,8 +22,49 @@ String.prototype.replaceAll = function(search, replacement) {
     return target.replace(new RegExp(search, 'g'), replacement);
 };
 
-document.addEventListener("deviceready", onDeviceReady, false);
 
+function onLoad() {
+
+  document.addEventListener("deviceready", onDeviceReady, false);
+
+  document.addEventListener('prechange', function(event) {
+
+    stopVideo();
+
+    if(event.index == 3) {
+      // Selezionato il TAB percorso, avvio il controllo sulla distanza dal percorso
+
+      if(!rejectGps) {
+        timeoutGps = setInterval(function() {
+
+          var sitoLatitudine = $("#latitudine").val();
+          var sitoLongitudine = $("#longitudine").val();
+
+          if(checkDistanceFromStart(sitoLatitudine, sitoLongitudine) && !lc._active) {
+
+            if(confirm("Vuoi attivare la navigazione sul percorso?")) {
+              lc.start();
+
+            } else {
+              rejectGps = true;
+            }
+
+            clearTimeout(timeoutGps);
+
+          } else {
+            lc.stop();
+          }
+
+        }, 3000);
+      }
+
+    } else {
+      clearTimeout(timeoutGps);
+      stopFollowing();
+    }
+
+  });
+}
 
 
 var lastTimeBackPress=0;
@@ -61,50 +102,14 @@ function testBackButton(e) {
     }
 }
 
-document.addEventListener('prechange', function(event) {
 
-  stopVideo();
-
-  if(event.index == 3) {
-    // Selezionato il TAB percorso, avvio il controllo sulla distanza dal percorso
-
-    if(!rejectGps) {
-      timeoutGps = setInterval(function() {
-
-        var sitoLatitudine = $("#latitudine").val();
-        var sitoLongitudine = $("#longitudine").val();
-
-        if(checkDistanceFromStart(sitoLatitudine, sitoLongitudine) && !lc._active) {
-
-          if(confirm("Vuoi attivare la navigazione sul percorso?")) {
-            lc.start();
-
-          } else {
-            rejectGps = true;
-          }
-
-          clearTimeout(timeoutGps);
-
-        } else {
-          lc.stop();
-        }
-
-      }, 3000);
-    }
-
-  } else {
-    clearTimeout(timeoutGps);
-    stopFollowing();
-  }
-
-});
 
 function onDeviceReady() {
 
   //document.addEventListener("backbutton", testBackButton, false);
 
   document.addEventListener("backbutton", function (e) {
-        e.preventDefault(); alert("BackButton Pressed")
+        e.preventDefault(); alert("BackButton Pressed");
     }, false);
 
   getServerDBVersion();
