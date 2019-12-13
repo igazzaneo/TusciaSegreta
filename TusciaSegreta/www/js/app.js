@@ -33,17 +33,17 @@ String.prototype.replaceAll = function(search, replacement) {
 
 //  document.addEventListener("backbutton", onBackKeyDown, true);
 
-  getServerDBVersion();
+  //getServerDBVersion();
 
   //fn.gotoPage('map.html');
 
-  initDatabase();
+  //initDatabase();
 
-  getMapLocation();
+  //getMapLocation();
 
 //}
 
-function onBackKeyDown(e) {// Handle the back button
+/*function onBackKeyDown(e) {// Handle the back button
 
     navigator.notification.confirm(
             'Are you certain you want to close the app?',  // message
@@ -56,7 +56,7 @@ function onBackKeyDown(e) {// Handle the back button
             'Yes,No'          // buttonLabels
         );
     return false;
-}
+}*/
 
 
 document.addEventListener('prechange', function(event) {
