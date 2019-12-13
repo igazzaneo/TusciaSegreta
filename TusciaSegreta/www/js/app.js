@@ -25,10 +25,6 @@ String.prototype.replaceAll = function(search, replacement) {
 
 //document.addEventListener("deviceready", onDeviceReady, false);
 
-
-
-
-
 //function onDeviceReady() {
 
 //  document.addEventListener("backbutton", onBackKeyDown, true);
