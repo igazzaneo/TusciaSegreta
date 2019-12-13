@@ -56,6 +56,27 @@
         <script type="text/javascript" src="js/database.js"></script>
         <script type="text/javascript" src="js/map.js"></script>
 
+        <script>
+
+             document.addEventListener('deviceready', onDeviceReady.bind(this), false);
+
+             function onDeviceReady() {
+
+               document.addEventListener("backbutton", onBackKeyDown, false);
+
+             }
+
+             function onBackKeyDown(e){
+
+               e.preventDefault();
+
+               alert('quit');
+
+             }
+
+         
+         </script>
+
     </head>
     <body>
       <ons-splitter>

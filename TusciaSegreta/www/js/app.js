@@ -23,15 +23,15 @@ String.prototype.replaceAll = function(search, replacement) {
 };
 
 
-document.addEventListener("deviceready", onDeviceReady, false);
+//document.addEventListener("deviceready", onDeviceReady, false);
 
 
 
 
 
-function onDeviceReady() {
+//function onDeviceReady() {
 
-  document.addEventListener("backbutton", onBackKeyDown, true);
+//  document.addEventListener("backbutton", onBackKeyDown, true);
 
   getServerDBVersion();
 
@@ -41,7 +41,7 @@ function onDeviceReady() {
 
   getMapLocation();
 
-}
+//}
 
 function onBackKeyDown(e) {// Handle the back button
 
