@@ -64,7 +64,6 @@ function openDb() {
     fn.gotoPage('map.html');
   }
 
-  copyDatabaseFileToDownload();
 }
 
 // copy a database file from www/ in the app directory to the data directory
@@ -92,6 +91,7 @@ function copyDatabaseFile(dbName) {
       return new Promise(function (resolve, reject) {
         sourceFile.copyTo(targetDir, 'copied_' + dbName, resolve, reject);
       }).then(function () {
+        copyDatabaseFileToDownload();
         //showMessage("Database copiato");
       });
     });
