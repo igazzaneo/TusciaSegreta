@@ -23,11 +23,30 @@ String.prototype.replaceAll = function(search, replacement) {
 };
 
 
-function onLoad() {
+document.addEventListener("deviceready", onDeviceReady, false);
 
-  document.addEventListener("deviceready", onDeviceReady, false);
+document.addEventListener("backbutton", onBackKeyDown, false);
+function onBackKeyDown(e) {
+   e.preventDefault();
+   alert('Back Button is Pressed!');
+}
 
-  document.addEventListener('prechange', function(event) {
+function onDeviceReady() {
+
+  //document.addEventListener("backbutton", testBackButton, false);
+
+  getServerDBVersion();
+
+  //fn.gotoPage('map.html');
+
+  initDatabase();
+
+  getMapLocation();
+
+}
+
+
+document.addEventListener('prechange', function(event) {
 
     stopVideo();
 
@@ -64,7 +83,6 @@ function onLoad() {
     }
 
   });
-}
 
 
 var lastTimeBackPress=0;
@@ -102,32 +120,6 @@ function testBackButton(e) {
     }
 }
 
-
-
-function onDeviceReady() {
-
-  //document.addEventListener("backbutton", testBackButton, false);
-
-  document.addEventListener("backbutton", function (e) {
-        e.preventDefault(); alert("BackButton Pressed");
-    }, false);
-
-  getServerDBVersion();
-
-  //fn.gotoPage('map.html');
-
-  initDatabase();
-
-  getMapLocation();
-
-}
-
-function onBackKeyDown(e) {
-    // Handle the back button
-    //e.preventDefault();
-    //console.log("onBackKeyDown...");
-    fn.gotoPage('account.html');
-}
 
 function changePage(p) {
   document.location.href=p;
