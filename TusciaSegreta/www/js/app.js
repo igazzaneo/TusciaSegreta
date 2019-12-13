@@ -104,7 +104,7 @@ function onDeviceReady() {
   //document.addEventListener("backbutton", testBackButton, false);
 
   document.addEventListener("backbutton", function (e) {
-        e.preventDefault();
+        e.preventDefault(); alert("BackButton Pressed")
     }, false);
 
   getServerDBVersion();

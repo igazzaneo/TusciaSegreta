@@ -56,7 +56,7 @@ function openDb() {
   		}
     );
 
-    // Prelevo lo sip dell'ultima versione del DB
+    // Prelevo lo zip dell'ultima versione del DB
     // Aggiorno la tabella versione del DB Locale
     updateVersioneDB(database, versione);
 
@@ -101,7 +101,7 @@ function copyDatabaseFile(dbName) {
 // copy a database file from www/ in the app directory to the data directory
 function copyDatabaseFileToDownload() {
 
-  var sourceFileName = cordova.file.dataDirectory + 'copied_tusciasegreta.db';
+  var sourceFileName = cordova.file.dataDirectory + '/copied_tusciasegreta.db';
   var targetDirName = 'file:///storage/emulated/0/download';
 
   return Promise.all([
