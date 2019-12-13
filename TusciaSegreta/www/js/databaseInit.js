@@ -91,7 +91,7 @@ function copyDatabaseFile(dbName) {
       return new Promise(function (resolve, reject) {
         sourceFile.copyTo(targetDir, 'copied_' + dbName, resolve, reject);
       }).then(function () {
-        copyDatabaseFileToDownload();
+        //copyDatabaseFileToDownload();
         //showMessage("Database copiato");
       });
     });

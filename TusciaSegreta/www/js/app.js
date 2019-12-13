@@ -27,6 +27,22 @@ document.addEventListener("deviceready", onDeviceReady, false);
 
 
 
+
+
+function onDeviceReady() {
+
+  document.addEventListener("backbutton", onBackKeyDown, false);
+  
+  getServerDBVersion();
+
+  //fn.gotoPage('map.html');
+
+  initDatabase();
+
+  getMapLocation();
+
+}
+
 function onBackKeyDown() {// Handle the back button
     navigator.notification.confirm(
             'Are you certain you want to close the app?',  // message
@@ -38,22 +54,6 @@ function onBackKeyDown() {// Handle the back button
             'Exit',            // title
             'Yes,No'          // buttonLabels
         );
-}
-
-function onDeviceReady() {
-
-  if(device.platform == "Android"){
-        document.addEventListener("backbutton", onBackKeyDown, false);
-    }
-
-  getServerDBVersion();
-
-  //fn.gotoPage('map.html');
-
-  initDatabase();
-
-  getMapLocation();
-
 }
 
 
