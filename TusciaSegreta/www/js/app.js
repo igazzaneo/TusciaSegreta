@@ -101,7 +101,11 @@ document.addEventListener('prechange', function(event) {
 
 function onDeviceReady() {
 
-  document.addEventListener("backbutton", testBackButton, false);
+  //document.addEventListener("backbutton", testBackButton, false);
+
+  document.addEventListener("backbutton", function (e) {
+        e.preventDefault();
+    }, false);
 
   getServerDBVersion();
 
