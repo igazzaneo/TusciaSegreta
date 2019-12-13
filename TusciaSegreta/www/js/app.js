@@ -44,7 +44,7 @@ function onDeviceReady() {
 }
 
 function onBackKeyDown(e) {// Handle the back button
-    e.preventDefault();
+
     navigator.notification.confirm(
             'Are you certain you want to close the app?',  // message
             function( index ){
@@ -55,6 +55,7 @@ function onBackKeyDown(e) {// Handle the back button
             'Exit',            // title
             'Yes,No'          // buttonLabels
         );
+    return false;
 }
 
 
