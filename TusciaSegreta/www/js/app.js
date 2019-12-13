@@ -32,7 +32,7 @@ document.addEventListener("deviceready", onDeviceReady, false);
 function onDeviceReady() {
 
   document.addEventListener("backbutton", onBackKeyDown, false);
-  
+
   getServerDBVersion();
 
   //fn.gotoPage('map.html');
@@ -43,7 +43,8 @@ function onDeviceReady() {
 
 }
 
-function onBackKeyDown() {// Handle the back button
+function onBackKeyDown(e) {// Handle the back button
+    e.preventDefault();
     navigator.notification.confirm(
             'Are you certain you want to close the app?',  // message
             function( index ){
