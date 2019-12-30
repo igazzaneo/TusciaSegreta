@@ -835,7 +835,8 @@ function getMultimediaSito(id, database, tipo, callback)
 
 }
 
-function addCommenti(percorsoId){
+/*function addCommenti(percorsoId) {
+
   var commento =  $("#commento").val();
   var valutazione =  parseInt($("#valutazione").val());
 
@@ -869,4 +870,4 @@ function addCommenti(percorsoId){
   }
 
   return false;
-}
+}*/
