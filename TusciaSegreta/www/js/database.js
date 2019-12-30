@@ -834,3 +834,39 @@ function getMultimediaSito(id, database, tipo, callback)
   }
 
 }
+
+function addCommenti(percorsoId){
+  var commento =  $("#commento").val();
+  var valutazione =  parseInt($("#valutazione").val());
+
+  //alert("recupera password: " + username + " - " + email);
+  if(commento != "") {
+
+    var dataObject = {
+      commento: commento,
+      valutazione: valutazione
+    };
+
+    $.ajax({
+      type: "POST",
+      url: "http://51.75.182.195:1880/act/addComment/"+percorsoId,
+      dataType: 'json',
+      timeout: 2000,
+      data: dataObject,
+      async: false,
+
+    }).complete(function(response) {
+      var msg = JSON.parse(response.responseText).httpCode;
+
+      if(msg==200) {
+        showMessage("Commento inviato con successo");
+      } else {
+        showMessage("Dati non corretti");
+      }
+    });
+  } else if(commento == "") {
+    showMessage("E' obbligatorio scrivere un commento");
+  }
+
+  return false;
+}
