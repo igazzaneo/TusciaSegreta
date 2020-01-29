@@ -7,6 +7,8 @@
 
   window.fn.load = function(page) {
 
+    history.push(page);
+
     if(document.getElementById('mapid') != null)
     {
       if(page != 'map.html') {
@@ -23,7 +25,16 @@
 
   };
 
+  window.fn.historyBack = function(page) {
+
+    history = history.slice(0, -1);
+
+    content.load(page);
+  }
+
   window.fn.gotoPage = function(page) {
+
+    history.push(page);
 
     $("iframe").each(function() {
         var src= $(this).attr('src');
