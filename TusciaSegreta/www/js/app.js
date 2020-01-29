@@ -94,8 +94,7 @@ document.addEventListener('prechange', function(event) {
   });
 
 
-var lastTimeBackPress=0;
-var timePeriodToExit=2000;
+
 
 function testBackButton(e) {
     // Handle the back button
