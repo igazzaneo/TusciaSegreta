@@ -70,12 +70,15 @@
 
                 // Set a new handler
                 ons.setDefaultDeviceBackButtonListener(function(event) {
-                  ons.notification.confirm('Vuoi uscire?') // Ask for confirmation
+
+                  navigator.app.backHistory();
+
+                  /*ons.notification.confirm('Vuoi uscire?') // Ask for confirmation
                     .then(function(index) {
                       if (index === 1) { // OK button
                         navigator.app.exitApp(); // Close the app
                       }
-                    });
+                    });*/
                 });
               });
 
