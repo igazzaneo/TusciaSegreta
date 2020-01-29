@@ -71,6 +71,7 @@
                 // Set a new handler
                 ons.setDefaultDeviceBackButtonListener(function(event) {
 
+                  history.go(-1);
                   navigator.app.backHistory();
 
                   /*ons.notification.confirm('Vuoi uscire?') // Ask for confirmation
