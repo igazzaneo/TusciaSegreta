@@ -7,7 +7,7 @@
 
   window.fn.load = function(page) {
 
-    history.push(page);
+    history[history.length] = page;
 
     if(document.getElementById('mapid') != null)
     {
@@ -34,7 +34,7 @@
 
   window.fn.gotoPage = function(page) {
 
-    history.push(page);
+    history[history.length] = page;
 
     $("iframe").each(function() {
         var src= $(this).attr('src');
