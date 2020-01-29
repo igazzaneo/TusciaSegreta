@@ -78,23 +78,35 @@
                   if(new Date().getTime() - lastTimeBackPress < timePeriodToExit) {
                       navigator.app.exitApp();
                   } else {
-                    window.plugins.toast.showWithOptions(
-                        {
-                          message: "Premi di nuovo per chiudere l'app",
-                          duration: "short", // which is 2000 ms. "long" is 4000. Or specify the nr of ms yourself.
-                          position: "bottom",
-                          addPixelsY: -100  // added a negative value to move it up a bit (default 0)
-                        },
-                        function(args) {
-                            //alert(args.event);
-                            //This will print 'hide'
-                        },
-                        function(error) {
-                            //alert('toast error: ' + error);
-                        }
-                      );
 
-                    lastTimeBackPress=new Date().getTime();
+                    // Ho appena aperto l'app o sono sulla home, visualizzo il messaggio per l'uscita
+                    if(history.length == 0 || history[history.length-1]=='map.html') {
+
+                      window.plugins.toast.showWithOptions(
+                          {
+                            message: "Premi di nuovo per chiudere l'app",
+                            duration: "short", // which is 2000 ms. "long" is 4000. Or specify the nr of ms yourself.
+                            position: "bottom",
+                            addPixelsY: -100  // added a negative value to move it up a bit (default 0)
+                          },
+                          function(args) {
+                              //alert(args.event);
+                              //This will print 'hide'
+                          },
+                          function(error) {
+                              //alert('toast error: ' + error);
+                          }
+                        );
+
+                      lastTimeBackPress=new Date().getTime();
+
+                    } else {
+
+                      // cambio pagina ed elimino la pagina dove sto andando, uso una nuova funzione
+                      var ultimaPagina = history.slice(-1);
+                      fn.historyBack(ultimaPagina);
+                    }
+
                   }
 
                   //history.go(-1);
