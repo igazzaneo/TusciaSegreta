@@ -9,7 +9,7 @@ var history = new Array();
 
   window.fn.load = function(page) {
 
-    history.push(page);
+    history[0]= page;
 
     alert(history.length + " - " + history[history.length-1]);
 
@@ -36,7 +36,7 @@ var history = new Array();
 
   window.fn.gotoPage = function(page) {
 
-    history.push(page);
+    history[0]= page;
     alert(history.length + " - " + history[history.length-1]);
 
 

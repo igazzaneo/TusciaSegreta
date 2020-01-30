@@ -96,8 +96,8 @@ document.addEventListener('prechange', function(event) {
 
 function changePage(p) {
 
-  history.push(p);
-   
+  //history(p);
+
   document.location.href=p;
 }
 
