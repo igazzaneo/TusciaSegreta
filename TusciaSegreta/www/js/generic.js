@@ -10,7 +10,7 @@ var history = [];
   window.fn.load = function(page) {
 
     if(!history.length) {
-      alert("Lunghezza array: null";
+      alert("Lunghezza array: null");
       history[0] = page;
     } else {
       alert("Lunghezza array: " + history.length);
@@ -45,13 +45,13 @@ var history = [];
 
   window.fn.gotoPage = function(page) {
 
-    /*if(!history || !history.length) {
+    if(!history || !history.length) {
       alert("Lunghezza array: null";
       history[0] = page;
     } else {
       alert("Lunghezza array: " + history.length);
       history[history.length] = page;
-    }*/
+    }
 
     alert(history.length + " - " + history[history.length-1]);
 
