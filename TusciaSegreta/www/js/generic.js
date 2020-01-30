@@ -1,3 +1,5 @@
+var history = [];
+
   window.fn = {};
 
   window.fn.open = function() {
