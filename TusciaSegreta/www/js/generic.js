@@ -39,6 +39,7 @@ var history = new Array();
 
   window.fn.gotoPage = function(page) {
 
+    alert("Lunghezza array:" + history.length);
     history[history.length] = page;
     alert(history.length + " - " + history[history.length-1]);
 
