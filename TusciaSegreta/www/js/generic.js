@@ -9,7 +9,7 @@
 
     history[history.length] = page;
 
-    alert(history.length);
+    alert(history.length + " - " + history[history.length-1]);
 
     if(document.getElementById('mapid') != null)
     {
@@ -29,6 +29,7 @@
 
   window.fn.historyBack = function(page) {
 
+
     alert("Array da: " + history.length);
     history = history.slice(0, -1);
     alert("Array a: " + history.length);
@@ -38,7 +39,7 @@
   window.fn.gotoPage = function(page) {
 
     history[history.length] = page;
-    alert(history.length);
+    alert(history.length + " - " + history[history.length-1]);
 
 
     $("iframe").each(function() {
