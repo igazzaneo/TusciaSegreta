@@ -9,7 +9,7 @@ var history = new Array();
 
   window.fn.load = function(page) {
 
-    history[0]= page;
+    history[history.length] = page;
 
     alert(history.length + " - " + history[history.length-1]);
 
@@ -29,14 +29,17 @@ var history = new Array();
 
   };
 
-  window.fn.historyBack = function(page) {
+  window.fn.historyBack = function() {
+
+    var ultimaPagina = history[history.length-2];
+    alert("Vado alla pagina: " + ultimaPagina);
 
     content.load(page);
   }
 
   window.fn.gotoPage = function(page) {
 
-    history[0]= page;
+    history[history.length] = page;
     alert(history.length + " - " + history[history.length-1]);
 
 

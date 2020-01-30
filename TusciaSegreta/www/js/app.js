@@ -96,7 +96,7 @@ document.addEventListener('prechange', function(event) {
 
 function changePage(p) {
 
-  //history(p);
+  history[history.length] = p;
 
   document.location.href=p;
 }
