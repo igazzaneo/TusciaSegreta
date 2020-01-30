@@ -49,11 +49,11 @@ var history = [];
       alert("Lunghezza array: null");
       history[0] = page;
     } else {
-      alert("Lunghezza array: " + history.length);
+      alert("Lunghezza array: " + history.length + "-" + history[history.length-1]);
       history[history.length] = page;
     }
 
-    alert(history.length + " - " + history[history.length-1]);
+    //alert(history.length + " - " + history[history.length-1]);
 
 
     $("iframe").each(function() {
