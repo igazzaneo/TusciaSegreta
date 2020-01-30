@@ -1,4 +1,4 @@
-var history = new Array();
+var history = [];
 
   window.fn = {};
 
