@@ -1,4 +1,4 @@
-var history = [];
+var history = new Array();
 
   window.fn = {};
 
@@ -9,7 +9,7 @@ var history = [];
 
   window.fn.load = function(page) {
 
-    history[history.length] = page;
+    history.push(page);
 
     alert(history.length + " - " + history[history.length-1]);
 
@@ -31,16 +31,12 @@ var history = [];
 
   window.fn.historyBack = function(page) {
 
-
-    alert("Array da: " + history.length);
-    history = history.slice(0, -1);
-    alert("Array a: " + history.length);
     content.load(page);
   }
 
   window.fn.gotoPage = function(page) {
 
-    history[history.length] = page;
+    history.push(page);
     alert(history.length + " - " + history[history.length-1]);
 
 

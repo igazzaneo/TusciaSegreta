@@ -60,7 +60,7 @@
         <script>
               var lastTimeBackPress=0;
               var timePeriodToExit=2000;
-              
+
 
               ons.ready(function() {
 
@@ -103,8 +103,12 @@
                     } else {
 
                       // cambio pagina ed elimino la pagina dove sto andando, uso una nuova funzione
-                      var ultimaPagina = history[history.length-1];
+                      alert("Array da: " + history.length);
+                      var ultimaPagina = history.pop();
                       alert("Vado alla pagina: " + ultimaPagina);
+                      
+                      alert("Array a: " + history.length);
+
                       fn.historyBack(ultimaPagina);
                     }
 
