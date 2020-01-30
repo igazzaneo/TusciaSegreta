@@ -46,7 +46,7 @@ var history = [];
   window.fn.gotoPage = function(page) {
 
     if(!history || !history.length) {
-      alert("Lunghezza array: null";
+      alert("Lunghezza array: null");
       history[0] = page;
     } else {
       alert("Lunghezza array: " + history.length);
