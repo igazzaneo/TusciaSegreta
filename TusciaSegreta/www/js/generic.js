@@ -14,10 +14,10 @@ var history = [];
       history[0] = page;
     } else {
       alert("Lunghezza array: " + history.length);
-      history[history.length] = page;
+      history[history.length+1] = page;
     }
 
-    alert(history.length + " - " + history[history.length-1]);
+    alert(history.length + " - " + history[history.length]);
 
     if(document.getElementById('mapid') != null)
     {
@@ -49,8 +49,8 @@ var history = [];
       alert("Lunghezza array: null");
       history[0] = page;
     } else {
-      alert("Lunghezza array: " + history.length + "-" + history[0] + " - " + history[1]);
-      history[history.length] = page;
+      alert("Lunghezza array: " + history.length + "-" + history[history.length]);
+      history[history.length+1] = page;
     }
 
     //alert(history.length + " - " + history[history.length-1]);
