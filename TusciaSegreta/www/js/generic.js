@@ -49,7 +49,7 @@ var history = [];
       alert("Lunghezza array: null");
       history[0] = page;
     } else {
-      alert("Lunghezza array: " + history.length + "-" + history[history.length]);
+      alert("Lunghezza array: " + history.length + "-" + JSON.stringify(history));
       history[history.length+1] = page;
     }
 
