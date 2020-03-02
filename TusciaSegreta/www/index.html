@@ -80,7 +80,7 @@
                   } else {
 
                     // Ho appena aperto l'app o sono sulla home, visualizzo il messaggio per l'uscita
-                    if(getHistorySize() == 1) {
+                    if(checkHistory()) {
 
                       window.plugins.toast.showWithOptions(
                           {

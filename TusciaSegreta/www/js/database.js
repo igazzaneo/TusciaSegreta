@@ -870,7 +870,7 @@ function backHistory()
   var riga = localStorage.getObj('history');
 
   if(riga != null) {
-    var url = riga[riga.length-1];
+    var url = riga[riga.length-2];
 
     riga.length = riga.length-1;
 
@@ -890,6 +890,23 @@ function getHistorySize()
     return riga.length;
   else
     return 0;
+
+}
+
+function checkHistory()
+{
+  if(getHistorySize() == 1) {
+
+    var riga = localStorage.getObj('history');
+    if(riga[0] == 'map.html')
+      return true;
+    else {
+      return false;
+    }
+
+  } else {
+    return false;
+  }
 
 }
 
