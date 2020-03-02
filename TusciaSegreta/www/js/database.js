@@ -835,6 +835,65 @@ function getMultimediaSito(id, database, tipo, callback)
 
 }
 
+function saveHistory(url)
+{
+
+  var riga = localStorage.getObj('history');
+
+  // array di navigazione già in localstorage
+  if(riga != null) {
+    // aggiungo la pagina all'array
+    riga[riga.length] = url;
+  } else {
+    var riga = [];
+    riga[0] = url;
+  }
+
+  localStorage.setObj('history', riga);
+
+}
+
+function printHistory()
+{
+
+  var riga = localStorage.getObj('history');
+
+  if(riga != null) {
+    for(var p in riga)
+      alert("posizione: " + p + ": " + riga[p]);
+  }
+
+}
+
+function backHistory()
+{
+  var riga = localStorage.getObj('history');
+
+  if(riga != null) {
+    var url = riga[riga.length-1];
+
+    riga.length = riga.length-1;
+
+    var content = document.getElementById('content');
+    content.load(url);
+  }
+
+  localStorage.setObj('history', riga);
+
+}
+
+function getHistorySize()
+{
+  var riga = localStorage.getObj('history');
+
+  if(riga != null)
+    return riga.length;
+  else
+    return 0;
+
+}
+
+
 /*function addCommenti(percorsoId) {
 
   var commento =  $("#commento").val();

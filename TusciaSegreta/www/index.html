@@ -61,7 +61,7 @@
               var lastTimeBackPress=0;
               var timePeriodToExit=2000;
 
-              var history = new Array();
+              //var history = new Array();
               ons.ready(function() {
 
                 getServerDBVersion();
@@ -80,7 +80,7 @@
                   } else {
 
                     // Ho appena aperto l'app o sono sulla home, visualizzo il messaggio per l'uscita
-                    if(history.length == 1 || history[history.length-1]=='map.html') {
+                    if(getHistorySize() == 1) {
 
                       window.plugins.toast.showWithOptions(
                           {
@@ -103,7 +103,7 @@
                     } else {
 
                       // cambio pagina ed elimino la pagina dove sto andando, uso una nuova funzione
-                      fn.historyBack();
+                      backHistory();
                     }
 
                   }
