@@ -9,17 +9,6 @@
 
   window.fn.load = function(page) {
 
-    /*if(!history.length) {
-      alert("Lunghezza array: null");
-      history[0] = page;
-    } else {
-      alert("Lunghezza array: " + history.length);
-      history[history.length+1] = page;
-    }
-
-    alert(history.length + " - " + history[history.length]);
-    */
-
     saveHistory(page);
 
     if(document.getElementById('mapid') != null)
@@ -38,29 +27,11 @@
 
   };
 
-  /*window.fn.historyBack = function() {
-
-    var ultimaPagina = history[history.length-2];
-    alert("Vado alla pagina: " + ultimaPagina);
-
-    content.load(page);
-  }*/
-
   window.fn.gotoPage = function(page) {
-
-    /*if(!history || !history.length) {
-      alert("Lunghezza array: null");
-      history[0] = page;
-    } else {
-      alert("Lunghezza array: " + history.length + "-" + JSON.stringify(history));
-      history[history.length] = page;
-    }*/
-
-    //alert(history.length + " - " + history[history.length-1]);
 
     saveHistory(page);
 
-    printHistory();
+    //printHistory();
 
     $("iframe").each(function() {
         var src= $(this).attr('src');
