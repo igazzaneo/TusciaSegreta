@@ -64,9 +64,9 @@
               //var history = new Array();
               ons.ready(function() {
 
-                checkConnection();
-                
-                getServerDBVersion();
+                var statoConnessione = checkConnection();
+
+                getServerDBVersion(statoConnessione);
 
                 //fn.gotoPage('map.html');
 

@@ -100,6 +100,7 @@
 
 
   function checkConnection() {
+
     var networkState = navigator.connection.type;
 
     var states = {};
@@ -112,5 +113,5 @@
     states[Connection.CELL]     = 'Cell generic connection';
     states[Connection.NONE]     = 'No network connection';
 
-    alert('Connection type: ' + states[networkState]);
+    return networkState;
   }

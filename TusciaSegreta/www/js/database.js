@@ -1,4 +1,9 @@
-function getServerDBVersion() {
+function getServerDBVersion(statoConnessione) {
+
+  if(statoConnessione == Connection.NONE) {
+    alert('ATTENZIONE: Connessione dati assente. L\'app utilizzerà i dati presenti nel device.');
+    versione = "-1";
+  } else {
 
     return $.ajax({
         url:'http://51.75.182.195:1880/checkdb',
@@ -15,6 +20,9 @@ function getServerDBVersion() {
             versione = "-1";
         }
     });
+
+  }
+
 }
 
 function getServerDB() {
