@@ -15,6 +15,11 @@ function openDb() {
     getLocalDBVersion(database);
   }
 
+  if(versione == "-1") {
+    // Timeout dell'app
+    versione = versioneLocale;
+  }
+
   //alert("Versione DB cloud: " + versione + " - Versione locale: " + versioneLocale);
   if(versione != versioneLocale) {
 

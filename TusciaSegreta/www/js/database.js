@@ -2,11 +2,18 @@ function getServerDBVersion() {
 
     return $.ajax({
         url:'http://51.75.182.195:1880/checkdb',
+        timeout:3000,
         contentType: "application/json",
         dataType: "json",
         async: false
     }).done(function(response) {
       versione = response.versione;
+    }).fail(function(jqXHR, textStatus) {
+        if(textStatus === 'timeout')
+        {
+            alert('Failed from timeout');
+            versione = "-1";
+        }
     });
 }
 
