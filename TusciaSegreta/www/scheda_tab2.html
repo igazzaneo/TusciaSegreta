@@ -220,7 +220,7 @@
 
     function stopFollowing()
     {
-      //showMessage("StopFollowing");
+      showMessage("StopFollowing");
       lc.stop();
 
     }
@@ -263,7 +263,7 @@
       var start = L.marker([sitoLatitudine, sitoLongitudine]);
 
       var distanzaInMetri = position.getLatLng().distanceTo(start.getLatLng());
-
+      alert("Distanza in metri: " + distanzaInMetri)
       // Se distanza dal punto di partenza del percorso è inferiore a 500 metri attiva la navigazione
       if(distanzaInMetri<500)
         return true;
