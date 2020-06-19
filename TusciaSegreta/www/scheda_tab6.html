@@ -5,7 +5,7 @@
     <input type="hidden" id="longitudine">
 
     <script type='text/javascript'>
-
+      var chicago = {lat: 41.85, lng: -87.65};
       function renderGoogleMaps() {
 
         // Posizione del dispositivo
@@ -26,6 +26,8 @@
             },
             fullscreenControl: false
         });
+
+
 
         var centerControlDiv = document.createElement('div');
         var centerControl = new CenterControl(centerControlDiv, map, chicago);
