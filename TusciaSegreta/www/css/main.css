@@ -841,22 +841,3 @@ button.css3button {
   font-size: 12px; /* Set a font size */
   cursor: pointer; /* Mouse pointer on hover */
 }
-
-.swiper-container {
-	width: 100%;
-	height: auto;
-}
-.swiper-slide {
-	text-align: center;
-	font-size: 18px;
-	background: #fff;
-
-}
-/*.swiper-container .swiper-slide {
-	height: 300px;
-	line-height: 300px;
-}
-.swiper-container .swiper-slide:nth-child(2n) {
-	height: 500px;
-	line-height: 500px;
-}*/
