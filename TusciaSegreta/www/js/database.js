@@ -608,6 +608,7 @@ function setSitoCoords(sito) {
 
   $("#latitudine").val(sito[4]);
   $("#longitudine").val(sito[5]);
+  $("#nome_sito").val(sito[1]);
 
   renderGoogleMaps();
 }

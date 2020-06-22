@@ -1,0 +1,104 @@
+<ons-page>
+
+    <div id="mapid5"></div>
+    <input type="hidden" id="latitudine">
+    <input type="hidden" id="longitudine">
+
+    <script type='text/javascript'>
+      function renderGoogleMaps() {
+
+        // Posizione del dispositivo
+        var latitudine = getValueFromLocalStorage('latitudine');
+        var longitudine = getValueFromLocalStorage('longitudine');
+        var myposition = {lat: latitudine, lng: longitudine};
+
+        var map = new GMaps({
+            div: '#mapid5',
+            lat: latitudine,
+            lng: longitudine,
+            zoom: 10,
+            streetViewControl: false,
+            mapTypeId: 'roadmap',
+            mapTypeControl: false,
+            mapTypeControlOptions: {
+              style: google.maps.MapTypeControlStyle.DROPDOWN_MENU,
+              mapTypeIds: ['roadmap', 'satellite']
+            },
+            fullscreenControl: false
+        });
+
+        var contentString = '<div id="content">'+
+          '<div id="siteNotice">'+
+          '</div>'+
+          '<h1 id="firstHeading" class="firstHeading">Nome del sito</h1>'+
+          '<div id="bodyContent">'+
+          '<p>Questa è la tua posizione, abbiamo calcolato il percorso fino al parcheggio del sito "Nome del sito".<br><br>'+
+    			'Clicca sul pulsante per avviare la navigazione con Google MAPS.<br><br><br><b>Ricorda di aprire di nuovo l\'app non appena sarai arrivato, ti guideremo sul percorso.<br><br>BUON VIAGGIO!!!</p>'+
+          '</div>'+
+          '</div>';
+
+    		var infowindow = new google.maps.InfoWindow({
+    		    content: contentString
+    		});
+
+        var sitoLatitudine = $("#latitudine").val();
+        var sitoLongitudine = $("#longitudine").val();
+
+        map.addMarker({
+          lat: latitudine,
+          lng: longitudine,
+          icon: {
+            url: "./img/green-dot.png"
+          },
+          infoWindow: {content: contentString}
+        });
+
+        map.addMarker({
+          lat: sitoLatitudine,
+          lng: sitoLongitudine,
+          icon: {
+            url: "./img/red-dot.png"
+          }
+        });
+
+        map.drawRoute({
+          origin: [latitudine,longitudine],
+          destination: [sitoLatitudine, sitoLongitudine],
+          travelMode: 'driving',
+          strokeColor: '#131540',
+          strokeOpacity: 0.6,
+          strokeWeight: 6
+        });
+
+        map.addControl({
+          position: 'top_right',
+          content: 'AVVIA NAVIGAZIONE',
+          style: {
+            margin: '5px',
+            padding: '1px 6px',
+            border: 'solid 1px #717B87',
+            background: '#fff',
+            fontFamily: 'Oswald-Medium',
+            fontSize: '18px',
+          },
+          events: {
+            click: function(){
+              var sitoLatitudine = $("#latitudine").val();
+              var sitoLongitudine = $("#longitudine").val();
+              var geocoords = sitoLatitudine+','+sitoLongitudine;
+              if(confirm("Vuoi avviare la navigazione?\n\nRicorda di aprire di nuovo l'app per seguire il percorso.")) {
+                window.open('google.navigation:q=' + geocoords + '&mode=d', '_system');
+              }
+            }
+          }
+        });
+
+        stopVideo();
+
+      }
+
+      getSito(param , database, setSitoCoords);
+
+    </script>
+
+</ons-page>

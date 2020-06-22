@@ -3,72 +3,109 @@
     <div id="mapid5"></div>
     <input type="hidden" id="latitudine">
     <input type="hidden" id="longitudine">
+    <input type="hidden" id="nome_sito">
 
     <script type='text/javascript'>
+
       function renderGoogleMaps() {
 
         // Posizione del dispositivo
         var latitudine = getValueFromLocalStorage('latitudine');
         var longitudine = getValueFromLocalStorage('longitudine');
-        var myposition = {lat: latitudine, lng: longitudine};
-
-        var map = new GMaps({
-            div: '#mapid5',
-            lat: latitudine,
-            lng: longitudine,
-            zoom: 10,
-            streetViewControl: false,
-            mapTypeId: 'roadmap',
-            mapTypeControl: false,
-            mapTypeControlOptions: {
-              style: google.maps.MapTypeControlStyle.DROPDOWN_MENU,
-              mapTypeIds: ['roadmap', 'satellite']
-            },
-            fullscreenControl: false
-        });
+        var sitoLatitudine = $("#latitudine").val();
+        var sitoLongitudine = $("#longitudine").val();
 
         var contentString = '<div id="content">'+
           '<div id="siteNotice">'+
           '</div>'+
-          '<h1 id="firstHeading" class="firstHeading">Nome del sito</h1>'+
+          '<h1 id="firstHeading" class="firstHeading">' + $("#nome_sito").val() +'</h1>'+
           '<div id="bodyContent">'+
-          '<p>Questa è la tua posizione, abbiamo calcolato il percorso fino al parcheggio del sito "Nome del sito".<br><br>'+
+          '<p>Questa è la tua posizione, abbiamo calcolato il percorso fino al parcheggio del sito "' + $("#nome_sito").val() + '".<br><br>'+
     			'Clicca sul pulsante per avviare la navigazione con Google MAPS.<br><br><br><b>Ricorda di aprire di nuovo l\'app non appena sarai arrivato, ti guideremo sul percorso.<br><br>BUON VIAGGIO!!!</p>'+
           '</div>'+
           '</div>';
 
-    		var infowindow = new google.maps.InfoWindow({
-    		    content: contentString
-    		});
+        var markers = [
+                {
+                    "title": 'La tua posizione',
+                    "lat": latitudine,
+                    "lng": longitudine,
+                    "description": contentString
+                }
+            ,
+                {
+                    "title": 'Parcheggio del sito',
+                    "lat": sitoLatitudine,
+                    "lng": sitoLongitudine,
+                    "description": 'Inizio del percordo scelto'
+                }
 
-        var sitoLatitudine = $("#latitudine").val();
-        var sitoLongitudine = $("#longitudine").val();
+        ];
 
-        map.addMarker({
-          lat: latitudine,
-          lng: longitudine,
-          icon: {
-            url: "./img/green-dot.png"
-          },
-          infoWindow: infowindow
-        });
+        var mapOptions = {
+            center: new google.maps.LatLng(markers[0].lat, markers[0].lng),
+            zoom: 10,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        var map = new google.maps.Map(document.getElementById("mapid5"), mapOptions);
 
-        map.addMarker({
-          lat: sitoLatitudine,
-          lng: sitoLongitudine,
-          icon: {
-            url: "./img/red-dot.png"
-          }
-        });
+        var infoWindow = new google.maps.InfoWindow();
+        var lat_lng = new Array();
+        var latlngbounds = new google.maps.LatLngBounds();
+        for (i = 0; i < markers.length; i++) {
+            var data = markers[i]
+            var myLatlng = new google.maps.LatLng(data.lat, data.lng);
+            lat_lng.push(myLatlng);
+            var marker = new google.maps.Marker({
+                position: myLatlng,
+                map: map,
+                title: data.title
+            });
+            latlngbounds.extend(marker.position);
+            (function (marker, data) {
+                google.maps.event.addListener(marker, "click", function (e) {
+                    infoWindow.setContent(data.description);
+                    infoWindow.open(map, marker);
+                });
+            })(marker, data);
+        }
+        map.setCenter(latlngbounds.getCenter());
+        map.fitBounds(latlngbounds);
 
-        map.drawRoute({
-          origin: [latitudine,longitudine],
-          destination: [sitoLatitudine, sitoLongitudine],
-          travelMode: 'driving',
-          strokeColor: '#131540',
-          strokeOpacity: 0.6,
-          strokeWeight: 6
-        });
+        //***********ROUTING****************//
+
+        //Initialize the Path Array
+        var path = new google.maps.MVCArray();
+
+        //Initialize the Direction Service
+        var service = new google.maps.DirectionsService();
+
+        //Set the Path Stroke Color
+        var poly = new google.maps.Polyline({ map: map, strokeColor: '#4986E7' });
+
+        //Loop and Draw Path Route between the Points on MAP
+        for (var i = 0; i < lat_lng.length; i++) {
+            if ((i + 1) < lat_lng.length) {
+                var src = lat_lng[i];
+                var des = lat_lng[i + 1];
+                path.push(src);
+                poly.setPath(path);
+                service.route({
+                    origin: src,
+                    destination: des,
+                    travelMode: google.maps.DirectionsTravelMode.DRIVING
+                }, function (result, status) {
+                    if (status == google.maps.DirectionsStatus.OK) {
+                        for (var i = 0, len = result.routes[0].overview_path.length; i < len; i++) {
+                            path.push(result.routes[0].overview_path[i]);
+                        }
+                    }
+                });
+            }
+        }
+
+
+        /*
 
         map.addControl({
           position: 'top_right',
@@ -91,7 +128,7 @@
               }
             }
           }
-        });
+        });*/
 
         stopVideo();
 
