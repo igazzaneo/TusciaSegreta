@@ -115,12 +115,12 @@
 
       lc = L.control.locate({
         position: 'topleft',
-        clickBehavior: {
+        /*clickBehavior: {
           inView: 'setView',
           outOfView: 'setView',
           inViewNotFollowing: 'setView'
-        },
-        cacheLocation: false,
+        },*/
+        cacheLocation: true,
         icon: "fas fa-crosshairs",
         locatOptions: {
           enableHighAccuracy: true
@@ -239,7 +239,7 @@
           var distanzaInMetri = myPos.getLatLng().distanceTo(to.getLatLng());
           //alert(nodo);
 
-          if(distanzaInMetri<100000000) {
+          if(distanzaInMetri<20) {
             if($('#notification-div').css('display') == 'inline-block')
             {
               $("#mapid3").css('height', '100%');
@@ -264,7 +264,7 @@
 
       var distanzaInMetri = position.getLatLng().distanceTo(start.getLatLng());
       //alert("Distanza in metri: " + distanzaInMetri)
-      // Se distanza dal punto di partenza del percorso è inferiore a 500 metri attiva la navigazione
+      // Se distanza dal punto di partenza del percorso è inferiore a 250 metri attiva la navigazione
       if(distanzaInMetri<250)
         return true;
       else {
