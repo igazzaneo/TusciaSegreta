@@ -56,8 +56,16 @@
     		    content: contentString
     		});
 
+        // Creazione della mappa
+        var mapOptions = {
+            center: new google.maps.LatLng(markers[0].lat, markers[0].lng),
+            zoom: 12,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        var map = new google.maps.Map(document.getElementById("mapid5"), mapOptions);
+
         // Partenza del percorso in macchina
-        var data = markers[0]
+        var data = markers[0];
         var myLatlng = new google.maps.LatLng(data.lat, data.lng);
         var start = new google.maps.Marker({
             position: myLatlng,
@@ -71,7 +79,7 @@
         infowindow.open(map, start);
 
         // Arrivo del percorso in macchina
-        var data = markers[1]
+        var data = markers[1];
         var myLatlng = new google.maps.LatLng(data.lat, data.lng);
         var stop = new google.maps.Marker({
             position: myLatlng,
@@ -79,13 +87,7 @@
             title: data.title
         });
 
-        // Creazione della mappa
-        var mapOptions = {
-            center: new google.maps.LatLng(markers[0].lat, markers[0].lng),
-            zoom: 12,
-            mapTypeId: google.maps.MapTypeId.ROADMAP
-        };
-        var map = new google.maps.Map(document.getElementById("mapid5"), mapOptions);
+
 
         var lat_lng = new Array();
         var latlngbounds = new google.maps.LatLngBounds();
@@ -95,7 +97,7 @@
             lat_lng.push(myLatlng);
 
             latlngbounds.extend(marker.position);
-            
+
         }
         map.setCenter(latlngbounds.getCenter());
         map.fitBounds(latlngbounds);
