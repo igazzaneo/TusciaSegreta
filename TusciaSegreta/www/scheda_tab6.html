@@ -18,7 +18,7 @@
             zoom: 10,
             streetViewControl: false,
             mapTypeId: 'roadmap',
-            mapTypeControl: true,
+            mapTypeControl: false,
             mapTypeControlOptions: {
               style: google.maps.MapTypeControlStyle.DROPDOWN_MENU,
               mapTypeIds: ['roadmap', 'satellite']
@@ -28,12 +28,12 @@
 
         var marker = new google.maps.Marker({
     			map: map,
-    			draggable: true,
+    			draggable: false,
     			position: new google.maps.LatLng(latitudine, longitudine),
     			visible: true,
-          icon: {
+          /*icon: {
             url: "./img/green-dot.png"
-          }
+          }*/
     		});
 
         var contentString = '<div id="content">'+
