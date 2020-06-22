@@ -1,0 +1,64 @@
+<ons-page id="Scelta">
+
+    <!-- Initialize Swiper -->
+    <script>
+
+        var swiper = new Swiper('.swiper-container', {
+          autoHeight: true, //enable auto height
+          spaceBetween: 20,
+          pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+          },
+          navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+          },
+        });
+
+        function createCarousel(elenco) {
+
+            var innerHtml = "";
+
+            for(var x=0; x<elenco.length; x++) {
+              var immagine = elenco[x];
+              var html = "<div class='swiper-slide' data-hash='slide'" + (x+1) + "> " +
+                "<img src='" + cordova.file.dataDirectory + "/" + immagine[1] + "'><br>" +
+                "<p>" + immagine[2] + "</p>" +
+                "</div>";
+
+              innerHtml += html;
+            }
+
+            $("#carousel").html(innerHtml);
+
+
+        }
+
+        getGalleriaSito(param, database, createCarousel);
+
+
+  </script>
+
+  <ons-card>
+    <div class="swiper-container">
+      <div class="swiper-wrapper" id="carousel">
+        <!--div class="swiper-slide" data-hash="slide1">Slide 1</div>
+        <div class="swiper-slide" data-hash="slide2">Slide 2</div>
+        <div class="swiper-slide" data-hash="slide3">Slide 3</div>
+        <div class="swiper-slide" data-hash="slide4">Slide 4</div>
+        <div class="swiper-slide" data-hash="slide5">Slide 5</div>
+        <div class="swiper-slide" data-hash="slide6">Slide 6</div>
+        <div class="swiper-slide" data-hash="slide7">Slide 7</div>
+        <div class="swiper-slide" data-hash="slide8">Slide 8</div>
+        <div class="swiper-slide" data-hash="slide9">Slide 9</div>
+        <div class="swiper-slide" data-hash="slide10">Slide 10</div-->
+      </div>
+      <!-- Add Pagination -->
+      <div class="swiper-pagination"></div>
+      <!-- Add Arrows -->
+      <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div>
+    </div>
+  </ons-card>
+</ons-page>
