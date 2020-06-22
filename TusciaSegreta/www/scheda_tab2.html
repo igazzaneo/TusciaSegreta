@@ -265,10 +265,23 @@
       var distanzaInMetri = position.getLatLng().distanceTo(start.getLatLng());
       //alert("Distanza in metri: " + distanzaInMetri)
       // Se distanza dal punto di partenza del percorso è inferiore a 250 metri attiva la navigazione
-      if(distanzaInMetri<250)
+      if(distanzaInMetri<1)
         return true;
       else {
-        return false;
+        // non sono vicino all'inizio del percorso, controllo i nodi.
+        var check = false;
+        for(var x=0; x<waypoint.length; x++) {
+          var nodo = waypoint[x];
+
+          var to = L.marker([nodo[1], nodo[2]]);
+
+          distanzaInMetri = position.getLatLng().distanceTo(to.getLatLng());
+
+          if(distanzaInMetri < 250) {
+            check = true;
+          }
+        }
+        return check;
       }
 
     }
