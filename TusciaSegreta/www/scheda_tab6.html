@@ -10,6 +10,7 @@
         // Posizione del dispositivo
         var latitudine = getValueFromLocalStorage('latitudine');
         var longitudine = getValueFromLocalStorage('longitudine');
+        var myposition = {lat: latitudine, lng: longitudine};
 
         var map = new GMaps({
             div: '#mapid5',
@@ -29,7 +30,7 @@
         var marker = new google.maps.Marker({
     			map: map,
     			draggable: false,
-    			position: new google.maps.LatLng(latitudine, longitudine),
+    			position: myposition,
     			visible: true,
           /*icon: {
             url: "./img/green-dot.png"
