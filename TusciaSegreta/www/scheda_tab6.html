@@ -29,43 +29,32 @@
         var marker = new google.maps.Marker({
     			map: map,
     			draggable: true,
-    			position: new google.maps.LatLng(latitudina, longitudine),
+    			position: new google.maps.LatLng(latitudine, longitudine),
     			visible: true,
           icon: {
             url: "./img/green-dot.png"
           }
     		});
 
-    		var boxText = document.createElement("div");
-    		boxText.style.cssText = "border: 1px solid black; margin-top: 8px; background: yellow; padding: 5px;";
-    		boxText.innerHTML = "City Hall, Sechelt<br>British Columbia<br>Canada";
+        var contentString = '<div id="content">'+
+          '<div id="siteNotice">'+
+          '</div>'+
+          '<h1 id="firstHeading" class="firstHeading">Nome del sito</h1>'+
+          '<div id="bodyContent">'+
+          '<p>Questa è la tua posizione, abbiamo calcolato il percorso fino al parcheggio del sito "Nome del sito".<br><br>'+
+    			'Clicca sul pulsante per avviare la navigazione con Google MAPS.<br><br><br><b>Ricorda di aprire di nuovo l\'app non appena sarai arrivato, ti guideremo sul percorso.<br><br>BUON VIAGGIO!!!</p>'+
+          '</div>'+
+          '</div>';
 
-    		var myOptions = {
-    			 content: boxText
-    			,disableAutoPan: false
-    			,maxWidth: 0
-    			,pixelOffset: new google.maps.Size(-140, 0)
-    			,zIndex: null
-    			,boxStyle: {
-    			  background: "url('https://github.com/googlemaps/v3-utility-library/blob/master/archive/infobox/examples/tipbox.gif') no-repeat"
-    			  ,opacity: 0.75
-    			  ,width: "280px"
-    			 }
-    			,closeBoxMargin: "10px 2px 2px 2px"
-    			,closeBoxURL: "https://www.google.com/intl/en_us/mapfiles/close.gif"
-    			,infoBoxClearance: new google.maps.Size(1, 1)
-    			,isHidden: false
-    			,pane: "floatPane"
-    			,enableEventPropagation: false
-    		};
-
-    		google.maps.event.addListener(marker, "click", function (e) {
-    			ib.open(theMap, this);
+    		var infowindow = new google.maps.InfoWindow({
+    		    content: contentString
     		});
 
-    		var ib = new InfoBox(myOptions);
+        marker.addListener('click', function() {
+  		    infowindow.open(map, marker);
+  		  });
 
-    		ib.open(theMap, marker);
+  			infowindow.open(map, marker);
 
         var sitoLatitudine = $("#latitudine").val();
         var sitoLongitudine = $("#longitudine").val();
