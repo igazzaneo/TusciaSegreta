@@ -1,0 +1,54 @@
+<ons-page id="Scelta">
+  <script>
+    function createCarousel(elenco) {
+
+      var innerHtml = "";
+
+      for(var x=0; x<elenco.length; x++) {
+        var immagine = elenco[x];
+        var html = "<div class='item'> " +
+          "<div><div class='scheda-details'>" +
+          "<img src='" + cordova.file.dataDirectory + "/" + immagine[1] + "' class='scheda-image'>" +
+          "</div>" +
+          "<div class='testimonial-say'>" +
+          "<span class='client-say'>" +
+          "<p>" + immagine[2] + "</p>" +
+          "</span></div></div></div>";
+
+        innerHtml += html;
+      }
+
+      $("#carousel").html(innerHtml);
+
+      $('.owl-carousel').owlCarousel({
+          loop:true,
+          margin:10,
+          nav:true,
+          responsive:{
+              0:{
+                  items:1
+              },
+              600:{
+                  items:1
+              },
+              1000:{
+                  items:1
+              }
+          }
+      })
+    }
+
+    getGalleriaSito(param, database, createCarousel);
+
+    $("iframe").each(function() {
+        var src= $(this).attr('src');
+        $(this).attr('src',src);
+    });
+  </script>
+
+  <ons-card>
+    <div class="owl-carousel owl-theme" align="center" id="carousel">
+
+    </div>
+  </ons-card>
+</ons-page>

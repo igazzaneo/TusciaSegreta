@@ -1,54 +1,66 @@
 <ons-page id="Scelta">
-  <script>
-    function createCarousel(elenco) {
 
-      var innerHtml = "";
+    <!-- Initialize Swiper -->
+    <script>
+        var swiper = new Swiper('.swiper-container', {
+          spaceBetween: 30,
+          hashNavigation: {
+            watchState: true,
+          },
+          pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+          },
+          navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+          },
+        });
 
-      for(var x=0; x<elenco.length; x++) {
-        var immagine = elenco[x];
-        var html = "<div class='item'> " +
-          "<div><div class='scheda-details'>" +
-          "<img src='" + cordova.file.dataDirectory + "/" + immagine[1] + "' class='scheda-image'>" +
-          "</div>" +
-          "<div class='testimonial-say'>" +
-          "<span class='client-say'>" +
-          "<p>" + immagine[2] + "</p>" +
-          "</span></div></div></div>";
 
-        innerHtml += html;
-      }
+        function createCarousel(elenco) {
 
-      $("#carousel").html(innerHtml);
+            var innerHtml = "";
 
-      $('.owl-carousel').owlCarousel({
-          loop:true,
-          margin:10,
-          nav:true,
-          responsive:{
-              0:{
-                  items:1
-              },
-              600:{
-                  items:1
-              },
-              1000:{
-                  items:1
-              }
-          }
-      })
-    }
+            for(var x=0; x<elenco.length; x++) {
+              var immagine = elenco[x];
+              var html = "<div class='swiper-slide' data-hash='slide'" + (x+1) + "> " +
+                "<img src='" + cordova.file.dataDirectory + "/" + immagine[1] + "'><br>" +
+                "<p>" + immagine[2] + "</p>" +
+                "</div>";
 
-    getGalleriaSito(param, database, createCarousel);
+              innerHtml += html;
+            }
 
-    $("iframe").each(function() {
-        var src= $(this).attr('src');
-        $(this).attr('src',src);
-    });
+            $("#carousel").html(innerHtml);
+
+
+        }
+
+        getGalleriaSito(param, database, createCarousel);
+
+
   </script>
 
   <ons-card>
-    <div class="owl-carousel owl-theme" align="center" id="carousel">
-
+    <div class="swiper-container">
+      <div class="swiper-wrapper" id="carousel">
+        <!--div class="swiper-slide" data-hash="slide1">Slide 1</div>
+        <div class="swiper-slide" data-hash="slide2">Slide 2</div>
+        <div class="swiper-slide" data-hash="slide3">Slide 3</div>
+        <div class="swiper-slide" data-hash="slide4">Slide 4</div>
+        <div class="swiper-slide" data-hash="slide5">Slide 5</div>
+        <div class="swiper-slide" data-hash="slide6">Slide 6</div>
+        <div class="swiper-slide" data-hash="slide7">Slide 7</div>
+        <div class="swiper-slide" data-hash="slide8">Slide 8</div>
+        <div class="swiper-slide" data-hash="slide9">Slide 9</div>
+        <div class="swiper-slide" data-hash="slide10">Slide 10</div-->
+      </div>
+      <!-- Add Pagination -->
+      <div class="swiper-pagination"></div>
+      <!-- Add Arrows -->
+      <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div>
     </div>
   </ons-card>
 </ons-page>

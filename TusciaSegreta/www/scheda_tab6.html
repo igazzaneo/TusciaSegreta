@@ -30,12 +30,13 @@
         var geocoords = sitoLatitudine+','+sitoLongitudine;
 
         var contentString = '<div id="content">'+
-          '<div id="siteNotice">'+
-          '</div>'+
-          '<h1 id="firstHeading" class="firstHeading">' + $("#nome_sito").val() +'</h1>'+
+          //'<div id="siteNotice">'+
+          //'</div>'+
+          '<h3 id="firstHeading" class="firstHeading">' + $("#nome_sito").val() +'</h3>'+
           '<div id="bodyContent">'+
-          '<p>Questa è la tua posizione, abbiamo calcolato il percorso fino al parcheggio del sito "' + $("#nome_sito").val() + '".<br><br>'+
-    			'Clicca sul pulsante per avviare la navigazione con Google MAPS.<br><br><br><b>Ricorda di aprire di nuovo l\'app non appena sarai arrivato, ti guideremo sul percorso.<br><br>BUON VIAGGIO!!!<br></p>'+
+          //'<p>Questa è la tua posizione, abbiamo calcolato il percorso fino al parcheggio del sito "' + $("#nome_sito").val() + '".<br><br>'+
+          '<p>' +
+    			'Clicca sul pulsante per avviare la navigazione con Google MAPS.<br><b>Ricorda di aprire di nuovo l\'app non appena sarai arrivato, ti guideremo sul percorso.<br>BUON VIAGGIO!!!</p>'+
           '<p><button class="btn" onclick="gotoRoute()"><i class="fas fa-car"></i> Avvia navigazione</button>' +
           '</p>'
           '</div>'+
