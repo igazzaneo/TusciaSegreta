@@ -5,7 +5,6 @@
     <input type="hidden" id="longitudine">
 
     <script type='text/javascript'>
-      var chicago = {lat: 41.85, lng: -87.65};
       function renderGoogleMaps() {
 
         // Posizione del dispositivo
@@ -27,25 +26,57 @@
             fullscreenControl: false
         });
 
+        var marker = new google.maps.Marker({
+    			map: map,
+    			draggable: true,
+    			position: new google.maps.LatLng(latitudina, longitudine),
+    			visible: true,
+          icon: {
+            url: "./img/green-dot.png"
+          }
+    		});
 
+    		var boxText = document.createElement("div");
+    		boxText.style.cssText = "border: 1px solid black; margin-top: 8px; background: yellow; padding: 5px;";
+    		boxText.innerHTML = "City Hall, Sechelt<br>British Columbia<br>Canada";
 
-        var centerControlDiv = document.createElement('div');
-        var centerControl = new CenterControl(centerControlDiv, map, chicago);
+    		var myOptions = {
+    			 content: boxText
+    			,disableAutoPan: false
+    			,maxWidth: 0
+    			,pixelOffset: new google.maps.Size(-140, 0)
+    			,zIndex: null
+    			,boxStyle: {
+    			  background: "url('https://github.com/googlemaps/v3-utility-library/blob/master/archive/infobox/examples/tipbox.gif') no-repeat"
+    			  ,opacity: 0.75
+    			  ,width: "280px"
+    			 }
+    			,closeBoxMargin: "10px 2px 2px 2px"
+    			,closeBoxURL: "https://www.google.com/intl/en_us/mapfiles/close.gif"
+    			,infoBoxClearance: new google.maps.Size(1, 1)
+    			,isHidden: false
+    			,pane: "floatPane"
+    			,enableEventPropagation: false
+    		};
 
-        centerControlDiv.index = 1;
-        centerControlDiv.style['padding-top'] = '10px';
-        map.controls[google.maps.ControlPosition.LEFT_CENTER].push(centerControlDiv);
+    		google.maps.event.addListener(marker, "click", function (e) {
+    			ib.open(theMap, this);
+    		});
+
+    		var ib = new InfoBox(myOptions);
+
+    		ib.open(theMap, marker);
 
         var sitoLatitudine = $("#latitudine").val();
         var sitoLongitudine = $("#longitudine").val();
 
-        map.addMarker({
+        /*map.addMarker({
           lat: latitudine,
           lng: longitudine,
           icon: {
             url: "./img/green-dot.png"
           }
-        });
+        });*/
 
         map.addMarker({
           lat: sitoLatitudine,
@@ -64,7 +95,7 @@
           strokeWeight: 6
         });
 
-        /*map.addControl({
+        map.addControl({
           position: 'top_right',
           content: 'AVVIA NAVIGAZIONE',
           style: {
@@ -85,7 +116,7 @@
               }
             }
           }
-        });*/
+        });
 
         stopVideo();
 
