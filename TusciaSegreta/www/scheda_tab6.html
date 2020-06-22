@@ -42,32 +42,60 @@
 
         ];
 
+        var contentString = '<div id="content">'+
+          '<div id="siteNotice">'+
+          '</div>'+
+          '<h1 id="firstHeading" class="firstHeading">Nome del sito</h1>'+
+          '<div id="bodyContent">'+
+          '<p>Questa è la tua posizione, abbiamo calcolato il percorso fino al parcheggio del sito "Nome del sito".<br><br>'+
+    			'Clicca sul pulsante per avviare la navigazione con Google MAPS.<br><br><br><b>Ricorda di aprire di nuovo l\'app non appena sarai arrivato, ti guideremo sul percorso.<br><br>BUON VIAGGIO!!!</p>'+
+          '</div>'+
+          '</div>';
+
+    		var infowindow = new google.maps.InfoWindow({
+    		    content: contentString
+    		});
+
+        // Partenza del percorso in macchina
+        var data = markers[0]
+        var myLatlng = new google.maps.LatLng(data.lat, data.lng);
+        var start = new google.maps.Marker({
+            position: myLatlng,
+            map: map,
+            title: data.title
+        });
+
+        start.addListener('click', function() {
+           infowindow.open(map, start);
+        });
+        infowindow.open(map, start);
+
+        // Arrivo del percorso in macchina
+        var data = markers[1]
+        var myLatlng = new google.maps.LatLng(data.lat, data.lng);
+        var stop = new google.maps.Marker({
+            position: myLatlng,
+            map: map,
+            title: data.title
+        });
+
+        // Creazione della mappa
         var mapOptions = {
             center: new google.maps.LatLng(markers[0].lat, markers[0].lng),
-            zoom: 10,
+            zoom: 12,
             mapTypeId: google.maps.MapTypeId.ROADMAP
         };
         var map = new google.maps.Map(document.getElementById("mapid5"), mapOptions);
 
-        var infoWindow = new google.maps.InfoWindow();
         var lat_lng = new Array();
         var latlngbounds = new google.maps.LatLngBounds();
         for (i = 0; i < markers.length; i++) {
             var data = markers[i]
             var myLatlng = new google.maps.LatLng(data.lat, data.lng);
             lat_lng.push(myLatlng);
-            var marker = new google.maps.Marker({
-                position: myLatlng,
-                map: map,
-                title: data.title
-            });
+
             latlngbounds.extend(marker.position);
-            (function (marker, data) {
-                google.maps.event.addListener(marker, "click", function (e) {
-                    infoWindow.setContent(data.description);
-                    infoWindow.open(map, marker);
-                });
-            })(marker, data);
+            
         }
         map.setCenter(latlngbounds.getCenter());
         map.fitBounds(latlngbounds);
