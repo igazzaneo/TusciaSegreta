@@ -8,7 +8,7 @@
     <script type='text/javascript'>
 
       function gotoRoute() {
-        
+
         var sitoLatitudine = $("#latitudine").val();
         var sitoLongitudine = $("#longitudine").val();
 
@@ -82,7 +82,7 @@
         start.addListener('click', function() {
            infowindow.open(map, start);
         });
-        infowindow.open(map, start);
+        //infowindow.open(map, start);
 
         // Arrivo del percorso in macchina
         var data = markers[1];
@@ -96,17 +96,17 @@
 
 
         var lat_lng = new Array();
-        var latlngbounds = new google.maps.LatLngBounds();
+        //var latlngbounds = new google.maps.LatLngBounds();
         for (i = 0; i < markers.length; i++) {
             var data = markers[i]
             var myLatlng = new google.maps.LatLng(data.lat, data.lng);
-            lat_lng.push(myLatlng);
+            lat_lng[i] = myLatlng;
 
-            latlngbounds.extend(marker.position);
+            //latlngbounds.extend(marker.position);
 
         }
-        map.setCenter(latlngbounds.getCenter());
-        map.fitBounds(latlngbounds);
+        //map.setCenter(latlngbounds.getCenter());
+        //map.fitBounds(latlngbounds);
 
         //***********ROUTING****************//
 
@@ -119,8 +119,25 @@
         //Set the Path Stroke Color
         var poly = new google.maps.Polyline({ map: map, strokeColor: '#4986E7' });
 
+        var src = lat_lng[0];
+        var des = lat_lng[1];
+
+        path.push(src);
+        poly.setPath(path);
+        service.route({
+            origin: src,
+            destination: des,
+            travelMode: google.maps.DirectionsTravelMode.DRIVING
+        }, function (result, status) {
+            if (status == google.maps.DirectionsStatus.OK) {
+                for (var i = 0, len = result.routes[0].overview_path.length; i < len; i++) {
+                    path.push(result.routes[0].overview_path[i]);
+                }
+            }
+        });
+
         //Loop and Draw Path Route between the Points on MAP
-        for (var i = 0; i < lat_lng.length; i++) {
+        /*for (var i = 0; i < lat_lng.length; i++) {
             if ((i + 1) < lat_lng.length) {
                 var src = lat_lng[i];
                 var des = lat_lng[i + 1];
@@ -138,7 +155,7 @@
                     }
                 });
             }
-        }
+        }*/
 
 
         /*
