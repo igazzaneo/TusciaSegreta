@@ -259,7 +259,6 @@
       for(var x=0; x<waypoint.length; x++) {
 
         var wp = waypoint[x];
-alert("verificaNodo - Coordinate: " + wp[1] + " - " + wp[2]);
 
         var to = L.marker([wp[1], wp[2]]);
 
@@ -268,7 +267,7 @@ alert("verificaNodo - Coordinate: " + wp[1] + " - " + wp[2]);
         var d = to.getLatLng().distanceTo(position.getLatLng());
 alert("verificaNodo - Distanza in metri: " + d);
         if(distanzaInMetri < 20) {
-          check = true;
+          to.bindPopup(wp[5] + " - " + wp[4]).openPopup();
         }
       }
 
