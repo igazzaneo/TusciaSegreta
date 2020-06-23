@@ -234,7 +234,7 @@
 
       for(var x=0; x<waypoint.length; x++) {
 
-          var nodo = waypoint[x];
+          var nodo = waypoint[0];
 
           var to = L.marker([nodo[1], nodo[2]]);
 
@@ -268,7 +268,7 @@
       var start = L.marker([sitoLatitudine, sitoLongitudine]);
 
       var distanzaInMetri = position.getLatLng().distanceTo(start.getLatLng());
-      alert("checkDistanceFromStart - Distanza in metri: " + distanzaInMetri)
+
       // Se distanza dal punto di partenza del percorso è inferiore a 250 metri attiva la navigazione
       if(distanzaInMetri<1) // HO messo 1 metro per provare la navigazione tramite vicinanza con i WP
         return true;
@@ -281,7 +281,7 @@
           var to = L.marker([nodo[1], nodo[2]]);
 
           distanzaInMetri = position.getLatLng().distanceTo(to.getLatLng());
-
+alert("checkDistanceFromStart - Distanza in metri2: " + distanzaInMetri);
           if(distanzaInMetri < 250) {
             check = true;
           }
