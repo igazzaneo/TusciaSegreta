@@ -265,7 +265,16 @@
         var d = to.getLatLng().distanceTo(position.getLatLng());
 //alert("verificaNodo - Distanza in metri: " + d);
         if(distanzaInMetri < 20) {
-          to.bindPopup(wp[5] + " - " + wp[4]).openPopup();
+          //to.bindPopup(wp[5] + " - " + wp[4]).openPopup();
+          $("#notification-div").html("<div>"+wp[5] + " - " + wp[4]+"</div>");
+          if($('#notification-div').css('display') == 'inline-block')
+          {
+            $("#mapid3").css('height', '100%');
+            $("#notification-div").css('display', 'none').css('height', '40%');
+          } else {
+            $("#mapid3").css('height', '60%');
+            $("#notification-div").css('display', 'inline-block').css('height', '40%');
+          }
         }
       }
 
