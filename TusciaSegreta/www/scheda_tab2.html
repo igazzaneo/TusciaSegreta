@@ -230,9 +230,9 @@
     function verificaNodo()
     {
 
-      var myPos = L.marker(getValueFromLocalStorage('latitudine'), getValueFromLocalStorage('longitudine'));
+      var position = L.marker(getValueFromLocalStorage('latitudine'), getValueFromLocalStorage('longitudine'));
 
-      for(var x=0; x<waypoint.length; x++) {
+      /*for(var x=0; x<waypoint.length; x++) {
 
           var nodo = waypoint[0];
 
@@ -245,15 +245,28 @@
 
             to.bindPopup(nodo[5] + " - " + nodo[4]).openPopup();
 
-            /*if($('#notification-div').css('display') == 'inline-block')
+            / *if($('#notification-div').css('display') == 'inline-block')
             {
               $("#mapid3").css('height', '100%');
               $("#notification-div").css('display', 'none').css('height', '40%');
             } else {
               $("#mapid3").css('height', '60%');
               $("#notification-div").css('display', 'inline-block').css('height', '40%');
-            }*/
+            }* /
           }
+      }*/
+
+      for(var x=0; x<waypoint.length; x++) {
+
+        var nodo = waypoint[x];
+
+        var to = L.marker([nodo[1], nodo[2]]);
+
+        var distanzaInMetri = position.getLatLng().distanceTo(to.getLatLng());
+alert("verificaNodo - Distanza in metri: " + distanzaInMetri);
+        if(distanzaInMetri < 20) {
+          check = true;
+        }
       }
 
     }
