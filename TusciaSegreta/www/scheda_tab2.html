@@ -231,9 +231,9 @@
     {
 
       var myPos = L.marker(getValueFromLocalStorage('latitudine'), getValueFromLocalStorage('longitudine'));
-alert("Verifica nodo!!!! - " + waypoint.length);
+//alert("Verifica nodo!!!! - " + waypoint.length);
       for(var x=0; x<waypoint.length; x++) {
-
+alert("Verifica nodo!!!! - " + waypoint.length + " - " + waypoint[0]);
           var nodo = waypoint[x];
 
           var to = L.marker([nodo[1], nodo[2]]);
