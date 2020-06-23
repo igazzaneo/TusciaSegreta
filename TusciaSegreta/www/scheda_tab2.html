@@ -218,8 +218,6 @@
 
     renderMap();
 
-
-
     function stopFollowing()
     {
       //showMessage("StopFollowing");
@@ -258,9 +256,10 @@
 
       for(var x=0; x<waypoint.length; x++) {
 
-        var nodo = waypoint[x];
+        var wp = waypoint[x];
+alert("verificaNodo - Distanza in metri: " + wp[1] + " - " + wp[2]);
 
-        var to = L.marker([nodo[1], nodo[2]]);
+        var to = L.marker([wp[1], wp[2]]);
 
         var distanzaInMetri = position.getLatLng().distanceTo(to.getLatLng());
 alert("verificaNodo - Distanza in metri: " + distanzaInMetri);
