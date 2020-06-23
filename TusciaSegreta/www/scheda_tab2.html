@@ -230,9 +230,9 @@
 
       var myPos = L.marker(getValueFromLocalStorage('latitudine'), getValueFromLocalStorage('longitudine'));
 
-      for(var x=0; x<nodi.length; x++) {
+      for(var x=0; x<waypoint.length; x++) {
 
-          var nodo = nodi[x];
+          var nodo = waypoint[x];
 
           var to = L.marker([nodo[1], nodo[2]]);
 
@@ -240,14 +240,17 @@
           //alert(nodo);
 
           if(distanzaInMetri<20) {
-            if($('#notification-div').css('display') == 'inline-block')
+
+            to.bindPopup(nodo[5] + " - " + nodo[4]).openPopup();
+
+            /*if($('#notification-div').css('display') == 'inline-block')
             {
               $("#mapid3").css('height', '100%');
               $("#notification-div").css('display', 'none').css('height', '40%');
             } else {
               $("#mapid3").css('height', '60%');
               $("#notification-div").css('display', 'inline-block').css('height', '40%');
-            }
+            }*/
           }
       }
 
@@ -265,7 +268,7 @@
       var distanzaInMetri = position.getLatLng().distanceTo(start.getLatLng());
       //alert("Distanza in metri: " + distanzaInMetri)
       // Se distanza dal punto di partenza del percorso è inferiore a 250 metri attiva la navigazione
-      if(distanzaInMetri<1)
+      if(distanzaInMetri<1) // HO messo 1 metro per provare la navigazione tramite vicinanza con i WP
         return true;
       else {
         // non sono vicino all'inizio del percorso, controllo i nodi.
