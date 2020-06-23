@@ -257,12 +257,12 @@
       for(var x=0; x<waypoint.length; x++) {
 
         var wp = waypoint[x];
-alert("verificaNodo - Distanza in metri: " + wp[1] + " - " + wp[2]);
+alert("verificaNodo - Coordinate: " + wp[1] + " - " + wp[2]);
 
         var to = L.marker([wp[1], wp[2]]);
 
-        var distanzaInMetri = position.getLatLng().distanceTo(to.getLatLng());
-alert("verificaNodo - Distanza in metri: " + distanzaInMetri);
+        var d = to.getLatLng().distanceTo(position.getLatLng());
+alert("verificaNodo - Distanza in metri: " + d);
         if(distanzaInMetri < 20) {
           check = true;
         }
@@ -293,7 +293,6 @@ alert("verificaNodo - Distanza in metri: " + distanzaInMetri);
           var to = L.marker([nodo[1], nodo[2]]);
 
           distanzaInMetri = position.getLatLng().distanceTo(to.getLatLng());
-alert("checkDistanceFromStart - Distanza in metri2: " + distanzaInMetri);
           if(distanzaInMetri < 250) {
             check = true;
           }
