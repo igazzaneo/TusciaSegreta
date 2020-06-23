@@ -218,6 +218,8 @@
 
     renderMap();
 
+
+
     function stopFollowing()
     {
       //showMessage("StopFollowing");
@@ -229,7 +231,7 @@
     {
 
       var myPos = L.marker(getValueFromLocalStorage('latitudine'), getValueFromLocalStorage('longitudine'));
-
+alert("Verifica nodo!!!! - " + waypoint.length);
       for(var x=0; x<waypoint.length; x++) {
 
           var nodo = waypoint[x];

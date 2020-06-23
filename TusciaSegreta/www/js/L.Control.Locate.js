@@ -745,8 +745,8 @@ You can find the project at: https://github.com/domoritz/leaflet-locatecontrol
 
             this._drawMarker();
             this._updateContainerStyle();
-
             verificaNodo();
+
 
             switch (this.options.setView) {
                 case 'once':
