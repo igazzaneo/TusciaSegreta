@@ -228,7 +228,9 @@
     function verificaNodo()
     {
       getMapLocation();
-      var position = L.marker(getValueFromLocalStorage('latitudine'), getValueFromLocalStorage('longitudine'));
+      var latitudine = getValueFromLocalStorage('latitudine');
+      var longitudine = getValueFromLocalStorage('longitudine');
+      var position = L.marker([latitudine, longitudine]);
 
       /*for(var x=0; x<waypoint.length; x++) {
 
