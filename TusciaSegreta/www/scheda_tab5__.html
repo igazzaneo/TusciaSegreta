@@ -19,6 +19,10 @@
         innerHtml += html;
       }
 
+      // Aggiungo statico solo per Grotta porcina id=26
+      if(param == 26)
+        innertHtml += "<iframe id=\"video\" width=\"100%\" height=\"300\" src=\"img/video/grottaporcina.mp4\" frameborder=\"0\" allowfullscreen class=\"video\"></iframe>"
+
       $("#galleria").html(innerHtml);
     }
 
