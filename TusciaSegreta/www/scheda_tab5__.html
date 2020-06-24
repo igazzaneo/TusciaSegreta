@@ -21,7 +21,7 @@
 
       // Aggiungo statico solo per Grotta porcina id=26
       if(param == 26 || param==82) {
-        innertHtml += "<ons-carousel-item style='background-color:#ffffff;'>" +
+        var html = "<ons-carousel-item style='background-color:#ffffff;'>" +
           "<div class='item-label'>AAAAA" +
           //"<video width='100' height='240' controls><source src='img/video/grottaporcina.mp4' type='video/mp4'></video>" +
           "</div>" +
@@ -29,7 +29,9 @@
           "<span class='client-say'>" +
           "<p>Video Grotta Porcina</p>" +
           "</span></div></ons-carousel-item>";
-        }
+
+          innerHtml += html;
+      }
 
 
       $("#galleria").html(innerHtml);
