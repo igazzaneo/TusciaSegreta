@@ -264,7 +264,7 @@
 
         var d = to.getLatLng().distanceTo(position.getLatLng());
 //alert("verificaNodo - Distanza in metri: " + d);
-        if(d <= 20) {
+        if(d <= 15) {
           //to.bindPopup(wp[5] + " - " + wp[4]).openPopup();
           $("#notification-div").html("<div>"+wp[5] + " - " + wp[4]+"</div>");
 
@@ -298,7 +298,7 @@
       var distanzaInMetri = position.getLatLng().distanceTo(start.getLatLng());
 
       // Se distanza dal punto di partenza del percorso è inferiore a 250 metri attiva la navigazione
-      if(distanzaInMetri<1) // HO messo 1 metro per provare la navigazione tramite vicinanza con i WP
+      if(distanzaInMetri<200) // HO messo 1 metro per provare la navigazione tramite vicinanza con i WP
         return true;
       else {
         // non sono vicino all'inizio del percorso, controllo i nodi.
@@ -309,7 +309,7 @@
           var to = L.marker([nodo[1], nodo[2]]);
 
           distanzaInMetri = position.getLatLng().distanceTo(to.getLatLng());
-          if(distanzaInMetri < 250) {
+          if(distanzaInMetri < 200) {
             check = true;
           }
         }
