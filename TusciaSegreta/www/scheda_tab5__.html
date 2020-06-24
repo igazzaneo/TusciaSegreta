@@ -1,6 +1,5 @@
 <ons-page>
   <script>
-    getGalleriaSito(param, database, createCarousel);
 
     function createCarousel(elenco) {
 
@@ -21,7 +20,10 @@
       }
 
       $("#galleria").html(innerHtml);
+    }
 
+
+      getGalleriaSito(param, database, createCarousel);
 
   </script>
     <ons-toolbar>
