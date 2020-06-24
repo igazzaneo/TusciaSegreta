@@ -20,7 +20,7 @@
         innerHtml += html;
       }
 
-      $("#myCarousel").html(innerHtml);
+      $("#galleria").html(innerHtml);
 
 
   </script>
@@ -28,13 +28,13 @@
       <div class="left">
         <ons-toolbar-button onclick="myCarousel.prev()"><</ons-toolbar-button>
       </div>
-      <div class="center">Carousel</div>
+      <div class="center">Galleria</div>
       <div class="right">
         <ons-toolbar-button onclick="myCarousel.next()">></ons-toolbar-button>
       </div>
     </ons-toolbar>
 
     <ons-carousel id="myCarousel" initial-index="1" swipeable overscrollable auto-scroll auto-refresh fullscreen auto-scroll-ratio="0.2">
-      
+      <div id="galleria"></div>
     </ons-carousel>
   </ons-page>
