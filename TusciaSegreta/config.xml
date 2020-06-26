@@ -53,14 +53,15 @@
         <splash qualifier="port-xxxhdpi" src="res/screens/android/drawable-port-xxxhdpi-screen.png" />
     </platform>
     <access origin="*" />
-    <allow-intent href="http://*/*" />
+    <!--allow-intent href="http://*/*" />
     <allow-navigation href="http://51.75.182.195:1880/*" />
     <allow-intent href="https://*/*" />
     <allow-intent href="tel:*" />
     <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
-    <allow-intent href="maps:*" />
+    <allow-intent href="maps:*" /-->
+    <allow-intent href="*" />
     <platform name="android">
         <allow-intent href="market:*" />
         <!--edit-config file="app/src/main/AndroidManifest.xml" mode="merge" target="/manifest/application">
