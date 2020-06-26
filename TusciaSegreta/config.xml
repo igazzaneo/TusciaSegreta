@@ -65,6 +65,7 @@
         <!--edit-config file="app/src/main/AndroidManifest.xml" mode="merge" target="/manifest/application">
           <application android:usesCleartextTraffic="true" />
         </edit-config-->
+        <allow-navigation href="http://51.75.182.195:1880/*" />
     </platform>
     <preference name="phonegap-version" value="cli-8.1.1" />
     <preference name="pgb-builder-version" value="1" />
