@@ -6,15 +6,14 @@ function getServerDBVersion(statoConnessione) {
   } else {
 
     return $.ajax({
-        //url:'http://51.75.182.195:1880/checkdb',
-        url:'http://portquiz.net/',
+        url:'http://51.75.182.195:1880/checkdb',
         timeout:3000,
         contentType: "application/json",
         dataType: "json",
         async: false
     }).done(function(response) {
-      //versione = response.versione;
-      versione=-1;
+      versione = response.versione;
+      
     }).fail(function(jqXHR, textStatus) {
 
         alert(textStatus);
