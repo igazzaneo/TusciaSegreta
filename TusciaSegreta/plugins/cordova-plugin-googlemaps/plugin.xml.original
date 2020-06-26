@@ -234,7 +234,7 @@
     <resource-file src="src/android/frameworks/tbxml-android.aar" target="app/src/libs/tbxml-android.aar"/>
 
     <config-file target="AndroidManifest.xml" parent="/manifest/application">
-      <meta-data android:name="com.google.android.geo.API_KEY" android:value="(API_KEY_FOR_ANDROID)"/>
+      <meta-data android:name="com.google.android.geo.API_KEY" android:value="$API_KEY_FOR_ANDROID"/>
       <!-- Google Play Services SDK -->
       <meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version"/>
       <!-- for Android 9 or above -->
@@ -260,12 +260,12 @@
 
     <!-- Minimum required version of Google Play Services SDK for this plugin is 12.0.1. You need to specify this version number for all other plugins that use google play services sdk. https://developers.google.com/android/guides/releases -->
     <preference name="PLAY_SERVICES_VERSION" default="15.0.1"/>
-    <framework src="com.google.android.gms:play-services-maps:15.0.1"/>
-    <framework src="com.google.android.gms:play-services-location:15.0.1"/>
+    <framework src="com.google.android.gms:play-services-maps:$PLAY_SERVICES_VERSION"/>
+    <framework src="com.google.android.gms:play-services-location:$PLAY_SERVICES_VERSION"/>
 
     <!-- Minimum required version of Android Support library v4 for this plugin. https://developers.google.com/android/guides/releases -->
     <preference name="ANDROID_SUPPORT_V4_VERSION" default="27.+"/>
-    <framework src="com.android.support:support-core-utils:27.+"/>
+    <framework src="com.android.support:support-core-utils:$ANDROID_SUPPORT_V4_VERSION"/>
 
     <!-- Base messages -->
     <resource-file src="src/android/res/values/pgm_strings.xml" target="res/values/pgm_strings.xml"/>
@@ -445,15 +445,15 @@
     <resource-file src="src/ios/strings/pgm_Localizable_vi.json" target="pgm_Localizable_vi.json"/>
 
     <config-file target="*-Info.plist" parent="Google Maps API Key">
-      <string>(API_KEY_FOR_IOS)</string>
+      <string>$API_KEY_FOR_IOS</string>
     </config-file>
 
     <config-file target="*-Info.plist" parent="NSLocationWhenInUseUsageDescription">
-      <string>This app wants to get your location while this app runs only.</string>
+      <string>$LOCATION_WHEN_IN_USE_DESCRIPTION</string>
     </config-file>
 
     <config-file target="*-Info.plist" parent="NSLocationAlwaysUsageDescription">
-      <string>This app wants to get your location always, even this app runs in background.</string>
+      <string>$LOCATION_ALWAYS_USAGE_DESCRIPTION</string>
     </config-file>
 
     <config-file target="*-Info.plist" parent="LSApplicationQueriesSchemes">

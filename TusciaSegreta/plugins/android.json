@@ -85,6 +85,9 @@
     },
     "cordova-plugin-x-toast": {
       "PACKAGE_NAME": "it.itlogix.app.tuscia"
+    },
+    "cordova-plugin-cleartext": {
+      "PACKAGE_NAME": "it.itlogix.app.tuscia"
     }
   },
   "dependent_plugins": {

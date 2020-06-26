@@ -231,7 +231,7 @@
   "com.jjdltc.cordova.plugin.zip": {
     "source": {
       "type": "registry",
-      "id": "cordova-zip-plugin@1.1.0"
+      "id": "cordova-zip-plugin@~1.1.0"
     },
     "is_top_level": true,
     "variables": {}
@@ -240,6 +240,14 @@
     "source": {
       "type": "registry",
       "id": "cordova-plugin-x-toast@^2.7.2"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-plugin-cleartext": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-cleartext"
     },
     "is_top_level": true,
     "variables": {}
