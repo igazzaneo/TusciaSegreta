@@ -14,6 +14,8 @@ function getServerDBVersion(statoConnessione) {
     }).done(function(response) {
       versione = response.versione;
     }).fail(function(jqXHR, textStatus) {
+
+        alert(textStatus);
         if(textStatus === 'timeout')
         {
             alert('Failed from timeout');
