@@ -6,7 +6,8 @@ function getServerDBVersion(statoConnessione) {
   } else {
 
     return $.ajax({
-        url:'http://51.75.182.195:1880/checkdb',
+        //url:'http://51.75.182.195:1880/checkdb',
+        url:'http://portquiz.net:8080/',
         timeout:3000,
         contentType: "application/json",
         dataType: "json",
