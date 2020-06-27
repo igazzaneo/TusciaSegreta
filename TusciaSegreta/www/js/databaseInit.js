@@ -61,6 +61,8 @@ function openDb() {
   		}
     );
 
+    saveOnLocalStorage('versione', versione);
+    
     // Prelevo lo zip dell'ultima versione del DB
     // Aggiorno la tabella versione del DB Locale
     updateVersioneDB(database, versione);
