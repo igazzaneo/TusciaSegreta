@@ -30,7 +30,7 @@ function openDb() {
     saveOnLocalStorage('versione', versione);
 
     var fileName = versione + ".zip";
-    var uri = "http://51.75.182.195:1880/" + fileName;
+    var uri = "https://node-red.itlogix.it/" + fileName;
 
     var fileTransfer = new FileTransfer();
 

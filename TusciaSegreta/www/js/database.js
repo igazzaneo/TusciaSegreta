@@ -6,14 +6,14 @@ function getServerDBVersion(statoConnessione) {
   } else {
 
     return $.ajax({
-        url:'http://51.75.182.195:1880/checkdb',
+        url:'https://node-red.itlogix.it/checkdb',
         timeout:3000,
         contentType: "application/json",
         dataType: "json",
         async: false
     }).done(function(response) {
       versione = response.versione;
-      
+
     }).fail(function(jqXHR, textStatus) {
 
         alert(textStatus);
@@ -31,7 +31,7 @@ function getServerDBVersion(statoConnessione) {
 function getServerDB() {
 
   return $.ajax({
-      url:'http://51.75.182.195:1880/getdb',
+      url:'https://node-red.itlogix.it/getdb',
       contentType: "application/json",
       dataType: "json",
       async: false
@@ -55,7 +55,7 @@ function recuperaPassword() {
 
     $.ajax({
       type: "POST",
-      url: "http://51.75.182.195:1880/recoverPassword",
+      url: "https://node-red.itlogix.it/recoverPassword",
       dataType: 'json',
       timeout: 2000,
       data: dataObject,
@@ -91,7 +91,7 @@ function locateUser() {
 
   $.ajax({
     type: "POST",
-    url: "http://51.75.182.195:1880/locateUser",
+    url: "https://node-red.itlogix.it/locateUser",
     dataType: 'json',
     timeout: 2000,
     data: dataObject,
@@ -325,7 +325,7 @@ function registerUserOnCloud(email, nome_utente, password, cellulare, cognome, n
 
     $.ajax({
       type: "POST",
-      url: "http://51.75.182.195:1880/adduser",
+      url: "https://node-red.itlogix.it/adduser",
       dataType: 'json',
       timeout: 2000,
       data: dataObject,
@@ -945,7 +945,7 @@ function checkHistory()
 
     $.ajax({
       type: "POST",
-      url: "http://51.75.182.195:1880/act/addComment/"+percorsoId,
+      url: "https://node-red.itlogix.it/act/addComment/"+percorsoId,
       dataType: 'json',
       timeout: 2000,
       data: dataObject,
