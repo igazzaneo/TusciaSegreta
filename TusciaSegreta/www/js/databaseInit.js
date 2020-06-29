@@ -20,7 +20,7 @@ function openDb() {
     versione = versioneLocale;
   }
 
-  alert("Versione DB cloud: " + versione + " - Versione locale: " + versioneLocale);
+  //alert("Versione DB cloud: " + versione + " - Versione locale: " + versioneLocale);
   if(versione != versioneLocale) {
 
     // Prelevo il JSON del DB dal server
@@ -62,7 +62,7 @@ function openDb() {
     );
 
     saveOnLocalStorage('versione', versione);
-    
+
     // Prelevo lo zip dell'ultima versione del DB
     // Aggiorno la tabella versione del DB Locale
     updateVersioneDB(database, versione);
