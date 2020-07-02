@@ -229,7 +229,8 @@
         L.marker([wp[1],wp[2]], {
           icon: L.BeautifyIcon.icon(wptOptions),
           draggable: false
-        }).bindPopup(wp[5] + " - " + wp[4]).openPopup().addTo(map);
+        }).bindPopup(wp[5], 'autoClose: false').addTo(map).openPopup();
+
       });
 
       //waypoint = nodi;
