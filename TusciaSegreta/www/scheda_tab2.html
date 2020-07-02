@@ -88,7 +88,7 @@
       var map = new L.Map('mapid3',{
           center: new L.LatLng(42.585280, 11.933396),
           zoom: 9,
-          layers: [roads]
+          layers: [satellite]
       });
 
       // Bottone sulla mappa per elevationdiv
@@ -121,8 +121,9 @@
           inViewNotFollowing: 'setView'
         },*/
         cacheLocation: true,
+        keepCurrentZoomLevel: true,
         icon: "fas fa-crosshairs",
-        locatOptions: {
+        locateOptions: {
           enableHighAccuracy: true
         },
         showCompass: true,
@@ -283,6 +284,14 @@
         var to = L.marker([wp[1], wp[2]]);
 
         var d = to.getLatLng().distanceTo(position.getLatLng());
+
+
+        // 02/07/2020: viterbo ITLOGIX
+        /*
+        calcolare la distanza minima tra tutti i nodi, all'uscita del ciclo utilizzare le info del nodo più vicino
+        se tipo_multimedia_id=9 mettere icona "percorso" e info, altrimenti renderizzare con il tipo di multimedia (audio o video o immagini)
+        */
+
 //alert("verificaNodo - Distanza in metri: " + d);
         if(d <= 15) {
           //to.bindPopup(wp[5] + " - " + wp[4]).openPopup();
