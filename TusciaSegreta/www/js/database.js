@@ -31,8 +31,8 @@ function getServerDBVersion(statoConnessione) {
 function getServerDB() {
 
   return $.ajax({
-      url:'https://node-red.itlogix.it/getdb',
-      //url:'https://node-red.itlogix.it/getdevelopmentdb',
+      //url:'https://node-red.itlogix.it/getdb',
+      url:'https://node-red.itlogix.it/getdevelopmentdb',
       contentType: "application/json",
       dataType: "json",
       async: false
