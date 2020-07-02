@@ -131,7 +131,7 @@
 
       getPercorsoSito(param, database, map, renderElevationMap);
       getNodiPercorsoSito(param, database, map, renderNodesMap);
-
+      getNodiStaticiPercorsoSito(param, database, map, renderStaticNodesMap);
     };
 
     function renderElevationMap(percorso, map)
@@ -214,6 +214,25 @@
       });
 
       waypoint = nodi;
+    }
+
+    function renderStaticNodesMap(nodi, map)
+    {
+      var wptOptions = {
+          iconShape: 'doughnut',
+          borderWidth: 5,
+          borderColor: '#000000'
+      };
+
+      // Visualizzo i Wp sulla mappa presi dalla tabella dei nodi del percorso.
+      nodi.forEach(function(wp) {
+        L.marker([wp[1],wp[2]], {
+          icon: L.BeautifyIcon.icon(wptOptions),
+          draggable: false
+        }).bindPopup(wp[5] + " - " + wp[4]).openPopup().addTo(map);
+      });
+
+      //waypoint = nodi;
     }
 
     renderMap();

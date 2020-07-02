@@ -640,13 +640,45 @@ function getPercorsoSito(id, database, map, callback)
   }
 }
 
+/* funcione per prelevare i nodi da visualizzare dinamicamente sul percorso con multimedia o semplici info di percorso */
+/* modifica del 02/07/2020 */
 function getNodiPercorsoSito(id, database, map, callback)
 {
   if(database != null) {
     database.transaction(function(transaction) {
 
-      transaction.executeSql('SELECT nodo.id, nodo.latitudine, nodo.longitudine, nodo.percorso_id, nodo.descrizione, nodo.nome from nodo inner join percorso on percorso.id=nodo.percorso_id where percorso.sito_id=?', [id], function(transaction, resultSet) {
+      //transaction.executeSql('SELECT nodo.id, nodo.latitudine, nodo.longitudine, nodo.percorso_id, nodo.descrizione, nodo.nome from nodo inner join percorso on percorso.id=nodo.percorso_id where percorso.sito_id=?', [id], function(transaction, resultSet) {
+      transaction.executeSql('SELECT nodo.id, nodo.latitudine, nodo.longitudine, nodo.percorso_id, nodo.descrizione, nodo.nome,	multimedia.descrizione, multimedia.tipo_multimedia_idfrom nodo inner join percorso on percorso.id=nodo.percorso_id left join nodo_ha_multimedia on nodo.id=nodo_ha_multimedia.nodo_idleft join multimedia on multimedia.id=nodo_ha_multimedia.multimedia_idwhere percorso.sito_id=82 and (multimedia.tipo_multimedia_id is null or multimedia.tipo_multimedia_id<>9)', [id], function(transaction, resultSet) {
+        var elenco = new Array();
 
+        for(var x = 0; x < resultSet.rows.length; x++) {
+
+          var riga = new Array();
+          riga[0] = resultSet.rows.item(x).id;
+          riga[1] = resultSet.rows.item(x).latitudine;
+          riga[2] = resultSet.rows.item(x).longitudine;
+          riga[3] = resultSet.rows.item(x).percorso_id;
+          riga[4] = resultSet.rows.item(x).descrizione;
+          riga[5] = resultSet.rows.item(x).nome;
+
+          elenco[x] = riga;
+        }
+
+        callback(elenco, map);
+
+      }, dbSelecterror);
+    });
+
+  }
+}
+
+function getNodiStaticiPercorsoSito(id, database, map, callback)
+{
+  if(database != null) {
+    database.transaction(function(transaction) {
+
+      //transaction.executeSql('SELECT nodo.id, nodo.latitudine, nodo.longitudine, nodo.percorso_id, nodo.descrizione, nodo.nome from nodo inner join percorso on percorso.id=nodo.percorso_id where percorso.sito_id=?', [id], function(transaction, resultSet) {
+      transaction.executeSql('SELECT nodo.id, nodo.latitudine, nodo.longitudine, nodo.percorso_id, nodo.descrizione, nodo.nome,	multimedia.descrizione, multimedia.tipo_multimedia_idfrom nodo inner join percorso on percorso.id=nodo.percorso_id left join nodo_ha_multimedia on nodo.id=nodo_ha_multimedia.nodo_idleft join multimedia on multimedia.id=nodo_ha_multimedia.multimedia_idwhere percorso.sito_id=82 and multimedia.tipo_multimedia_id=9', [id], function(transaction, resultSet) {
         var elenco = new Array();
 
         for(var x = 0; x < resultSet.rows.length; x++) {
