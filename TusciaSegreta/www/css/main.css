@@ -848,6 +848,7 @@ button.css3button {
 .column {
   float: left;
   padding: 10px;
+	background-color: #FFFFFF;
   /*height: 300px; /* Should be removed. Only for demonstration */
 }
 
@@ -864,4 +865,5 @@ button.css3button {
   content: "";
   display: table;
   clear: both;
+	background-color: #FFFFFF;
 }

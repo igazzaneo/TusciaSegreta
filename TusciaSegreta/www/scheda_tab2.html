@@ -96,10 +96,10 @@
         if($('#elevation-div').css('display') == 'inline-block')
         {
           $("#mapid3").css('height', '100%');
-          $("#elevation-div").css('display', 'none').css('height', '40%');
+          $("#elevation-div").css('display', 'none').css('height', '30%');
         } else {
-          $("#mapid3").css('height', '60%');
-          $("#elevation-div").css('display', 'inline-block').css('height', '40%');
+          $("#mapid3").css('height', '70%');
+          $("#elevation-div").css('display', 'inline-block').css('height', '30%');
         }
 
       }).addTo( map );
@@ -313,17 +313,29 @@
         if(minDistWp <= 15) {
 
           var html = '<div class="row">' +
-            '<div class="column left" style="background-color:#aaa;">' +
+            '<div class="column left">' +
             '<p><img src="./img/directions.png"></p></div>' +
-            '<div class="column right" style="background-color:#bbb;"> ' +
+            '<div class="column right"> ' +
             '<p><b>'+minWp[4]+'</b></p>' +
             '<p>'+minWp[5]+'</p></div>' +
             '</div>';
 
+          // Gestione del WP come punto direzionale non ha multimdia collegati
           if(minWp[7] == null || minWp[7] == 'null') {
             $("#notification-div").html(html);
           } else {
-            $("#notification-div").html("<div>Qui deve andarci la gestione dei media</div>");
+
+            if(minWp[7] == 10) {
+              // Il WP ha un video associato
+              $("#notification-div").html("<div><p>"+minWp[6]+"</p><video width='100%' controls><source src='"+cordova.file.dataDirectory + "/" + minWp[8]+"' type='video/mp4'></video></div>");
+            } else if(minWp[7] == 2 || minWp[7] == 3 || minWp[7] == 4) {
+              // Il WP ha una immagine associata
+              $("#notification-div").html("<div><p>"+minWp[6]+"</p><img width='100%'src='"+cordova.file.dataDirectory + "/" + minWp[8]+"'></div>");
+            } else if(minWp[7] == 5 || minWp[7] == 6 || minWp[7] == 7 || minWp[7] == 8) {
+              $("#notification-div").html("<div><p>"+minWp[6]+"</p>" +
+                "<audio src='audioguide/" + minWp[8] + "' controls></audio></div>");
+            }
+
           }
 
           // restringo la mappa, visualizzo il div e nascondo l'altimetria
