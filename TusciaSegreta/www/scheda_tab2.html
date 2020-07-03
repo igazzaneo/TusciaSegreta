@@ -85,19 +85,6 @@
         textColor: '#000000'
       };
 
-      /***  little hack starts here ***/
-      L.Map = L.Map.extend({
-          openPopup: function(popup) {
-              //        this.closePopup();  // just comment this
-              this._popup = popup;
-
-              return this.addLayer(popup).fire('popupopen', {
-                  popup: this._popup
-              });
-          }
-      }); /***  end of hack ***/
-
-
       var map = new L.Map('mapid3',{
           center: new L.LatLng(42.585280, 11.933396),
           zoom: 9,
@@ -233,6 +220,7 @@
     function renderStaticNodesMap(nodi, map)
     {
       var wptOptions = {
+          icon: 'fa-info-circle',
           iconShape: 'doughnut',
           borderWidth: 5,
           borderColor: '#000000'
@@ -247,7 +235,7 @@
         L.marker([wp[1],wp[2]], {
           icon: L.BeautifyIcon.icon(wptOptions),
           draggable: false
-        }).addTo(map).bindPopup("<b>Hello world!</b>").openPopup();
+        }).addTo(map).bindPopup(wp[5]);
       });
 
       //waypoint = nodi;
