@@ -240,7 +240,7 @@
         L.marker([wp[1],wp[2]], {
           icon: L.BeautifyIcon.icon(options),
           draggable: false
-        }).bindTooltip("Prima", {permanent: true, className: "my-label", offset: [0, 0] }).addTo(map);
+        }).bindTooltip(wp[5], {permanent: true, className: "my-label", offset: [0, 0] }).addTo(map);
       });
 
       //waypoint = nodi;
