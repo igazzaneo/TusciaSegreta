@@ -277,6 +277,8 @@
           }
       }*/
 
+      var minDistWp=0;
+      var minWp;
       for(var x=0; x<waypoint.length; x++) {
 
         var wp = waypoint[x];
@@ -285,6 +287,12 @@
 
         var d = to.getLatLng().distanceTo(position.getLatLng());
 
+        // Se la distanza del punto attuale è minore della distanza minima, la imposto e prendo il WP come roferimento
+        if(minDistWp==0 || d<minDistWp) {
+          minDistWp=d;
+          minWp = to;
+        }
+      }
 
         // 02/07/2020: viterbo ITLOGIX
         /*
@@ -292,10 +300,14 @@
         se tipo_multimedia_id=9 mettere icona "percorso" e info, altrimenti renderizzare con il tipo di multimedia (audio o video o immagini)
         */
 
-//alert("verificaNodo - Distanza in metri: " + d);
-        if(d <= 15) {
-          //to.bindPopup(wp[5] + " - " + wp[4]).openPopup();
-          $("#notification-div").html("<div>"+wp[5] + " - " + wp[4]+"</div>");
+        //alert("verificaNodo - Distanza in metri: " + d);
+        if(minDistWp <= 15) {
+
+          if(minWp[7] == null || minWp[7] == 'null') {
+            $("#notification-div").html("<div><div style='width: 30%;'><img src='./img/directions.png'></div><div style='width: 70%'>" + minWp[4] + "-" + minWp[5] + "</div></div>");
+          } else {
+            $("#notification-div").html("<div>Qui deve andarci la gestione dei media</div>");
+          }
 
           // restringo la mappa, visualizzo il div e nascondo l'altimetria
           $("#mapid3").css('height', '60%');
@@ -311,7 +323,6 @@
             $("#elevation-div").css('display', 'none').css('height', '40%');
           }
         }
-      }
 
     }
 

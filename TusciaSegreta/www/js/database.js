@@ -648,7 +648,7 @@ function getNodiPercorsoSito(id, database, map, callback)
     database.transaction(function(transaction) {
 
       //transaction.executeSql('SELECT nodo.id, nodo.latitudine, nodo.longitudine, nodo.percorso_id, nodo.descrizione, nodo.nome from nodo inner join percorso on percorso.id=nodo.percorso_id where percorso.sito_id=?', [id], function(transaction, resultSet) {
-      transaction.executeSql('SELECT nodo.id, nodo.latitudine, nodo.longitudine, nodo.percorso_id, nodo.descrizione, nodo.nome,	multimedia.descrizione, multimedia.tipo_multimedia_id from nodo inner join percorso on percorso.id=nodo.percorso_id left join nodo_ha_multimedia on nodo.id=nodo_ha_multimedia.nodo_id left join multimedia on multimedia.id=nodo_ha_multimedia.multimedia_id where percorso.sito_id=? and (multimedia.tipo_multimedia_id is null or multimedia.tipo_multimedia_id<>9)', [id], function(transaction, resultSet) {
+      transaction.executeSql('SELECT nodo.id, nodo.latitudine, nodo.longitudine, nodo.percorso_id, nodo.descrizione, nodo.nome,	multimedia.descrizione as multimedia_descr, multimedia.tipo_multimedia_id, multimedia.oggetto from nodo inner join percorso on percorso.id=nodo.percorso_id left join nodo_ha_multimedia on nodo.id=nodo_ha_multimedia.nodo_id left join multimedia on multimedia.id=nodo_ha_multimedia.multimedia_id where percorso.sito_id=? and (multimedia.tipo_multimedia_id is null or multimedia.tipo_multimedia_id<>9)', [id], function(transaction, resultSet) {
         var elenco = new Array();
 
         for(var x = 0; x < resultSet.rows.length; x++) {
@@ -660,6 +660,9 @@ function getNodiPercorsoSito(id, database, map, callback)
           riga[3] = resultSet.rows.item(x).percorso_id;
           riga[4] = resultSet.rows.item(x).descrizione;
           riga[5] = resultSet.rows.item(x).nome;
+          riga[6] = resultSet.rows.item(x).multimedia_descr;
+          riga[7] = resultSet.rows.item(x).tipo_multimedia_id;
+          riga[8] = resultSet.rows.item(x).oggetto;
 
           elenco[x] = riga;
         }
