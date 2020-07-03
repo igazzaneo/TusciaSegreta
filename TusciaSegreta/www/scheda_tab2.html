@@ -219,10 +219,13 @@
 
     function renderStaticNodesMap(nodi, map)
     {
-      var wptOptions = {
-          icon: 'fa-info-circle',
-          borderWidth: 5,
-          borderColor: '#000000'
+      var options = {
+        icon: 'fas fa-info-circle',
+        borderColor: '#000000',
+        borderWidth: 2,
+        iconSize: [20, 20],
+        popupAnchor: [15, -7],
+        innerIconStyle: 'font-size:15px;padding-top:4px;color: #000000'
       };
 
       // Visualizzo i Wp sulla mappa presi dalla tabella dei nodi del percorso.
@@ -232,7 +235,7 @@
           draggable: false
         }).bindPopup(wp[5], 'autoClose: false').addTo(map).openPopup();*/
         L.marker([wp[1],wp[2]], {
-          icon: 'fa-info-circle',
+          icon: L.BeautifyIcon.icon(options),
           draggable: false
         }).addTo(map).bindPopup(wp[5]);
       });
