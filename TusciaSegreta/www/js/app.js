@@ -85,7 +85,7 @@ function controlloDistanzaDaSiti(elenco)
   } else if(minimaDistanza<=250) {
     // Sono a meno di 250 metri dall'inizio del percorso, vado direttamente nella scheda del sito con impostato il tab Percorso
     if(confirm("Sei in prossimità dell'inizio del percorso '" + minSito[1] + "'\n\nVuoi iniziare la visita?")) {
-      //window.open('google.navigation:q=' + geocoords + '&mode=d', '_system');
+
       changePageWithParam2('scheda.html', minSito[0]);
       //document.querySelector('ons-tabbar').setActiveTab(3);
     }
@@ -169,6 +169,7 @@ function changePageWithParam2(p, param)
   saveOnLocalStorage('param', param);
 
   fn.gotoPage(p+"?param=" + param);
+  alert(document.querySelector('ons-tabbar').getActiveTab());
   document.querySelector('ons-tabbar').setActiveTab(3);
 }
 
