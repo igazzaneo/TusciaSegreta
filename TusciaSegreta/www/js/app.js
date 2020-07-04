@@ -39,6 +39,15 @@ String.prototype.replaceAll = function(search, replacement) {
 
 //}
 
+document.addEventListener("resume", onResume, false);
+function onResume() {
+    //setTimeout(function() {
+            // TODO: do your thing!
+    //    }, 0);
+
+    alert("Applicazione In Resume");
+}
+
 /*function onBackKeyDown(e) {// Handle the back button
 
     navigator.notification.confirm(
