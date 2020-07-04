@@ -352,12 +352,13 @@
                 // Il WP ha una immagine associata
                 $("#notification-div").html("<p>"+minWp[6]+"</p><img id='waypoint' class='img_gpx' src='"+cordova.file.dataDirectory + "/" + minWp[8] + "' data-file='" + minWp[8] + "'>");
               } else if(minWp[7] == 5 || minWp[7] == 6 || minWp[7] == 7 || minWp[7] == 8) {
+                alert(cordova.file.dataDirectory + "/" + minWp[8]);
                 $("#notification-div").html("<p>"+minWp[6]+"</p>" +
                   "<audio id='waypoint' src='" + cordova.file.dataDirectory + "/" + minWp[8] + "' controls data-file='" + minWp[8] + "'></audio>");
               }
 
               $("#mapid3").css('height', '60%');
-              $("#notification-div").css('display', 'inline-block').css('height', '38%');
+              $("#notification-div").css('display', 'inline-block').css('height', '35%');
               $("#elevation-div").css('display', 'none').css('height', '40%');
 
             }
