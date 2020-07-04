@@ -116,6 +116,8 @@ document.addEventListener('prechange', function(event) {
 
     stopVideo();
 
+    alert("Prechange");
+
     if(event.index == 3) {
       // Selezionato il TAB percorso, avvio il controllo sulla distanza dal percorso
 
