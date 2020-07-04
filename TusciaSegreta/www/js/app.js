@@ -169,8 +169,8 @@ function changePageWithParam2(p, param)
   saveOnLocalStorage('param', param);
 
   fn.gotoPage(p+"?param=" + param);
-  alert(document.querySelector('ons-tabbar').getActiveTab());
-  document.querySelector('ons-tabbar').setActiveTab(3);
+  //alert(document.querySelector('ons-tabbar').getActiveTab());
+  //document.querySelector('ons-tabbar').setActiveTab(3);
 }
 
 function emptyLocalStorageFromObject()
