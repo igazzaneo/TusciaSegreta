@@ -342,7 +342,8 @@
               if(minWp[8] == elemento.dataset.file)
                 visible = true; // il waypoint più vicino è lo stesso già visualizzato, non devo fare nulla
             }
-            var altezzaDiv = "0%";
+            var altezzaDiv  = "0%";
+            var altezzaDiv2 = "0%";
 
             if(!visible) {
               // il waypoint più vicino non è visualizzato o è diverso da quello visualizzato, devo mostrare i media collegati.
@@ -350,24 +351,27 @@
 
                 // Il WP ha un video associato
                 $("#notification-div").html("<p>"+minWp[6]+"</p><video id='waypoint' class='videoInsert' controls data-file='" + minWp[8] + "'><source src='"+cordova.file.dataDirectory + "/" + minWp[8]+"' type='video/mp4'></video>");
-                altezzaDiv = "35%";
+                altezzaDiv  = "35%";
+                altezzaDiv2 = "63%";
 
               } else if(minWp[7] == 2 || minWp[7] == 3 || minWp[7] == 4) {
 
                 // Il WP ha una immagine associata
                 $("#notification-div").html("<p>"+minWp[6]+"</p><img id='waypoint' class='img_gpx' src='"+cordova.file.dataDirectory + "/" + minWp[8] + "' data-file='" + minWp[8] + "'>");
-                altezzaDiv = "35%";
+                altezzaDiv  = "35%";
+                altezzaDiv2 = "63%";
 
               } else if(minWp[7] == 5 || minWp[7] == 6 || minWp[7] == 7 || minWp[7] == 8) {
 
                 // File audio
                 $("#notification-div").html("<p>"+minWp[6]+"</p>" +
                   "<audio id='waypoint' src='" + cordova.file.dataDirectory + "/" + minWp[8] + "' controls data-file='" + minWp[8] + "'></audio>");
-                altezzaDiv = "20%";
+                altezzaDiv  = "20%";
+                altezzaDiv2 = "78%";
 
               }
 
-              $("#mapid3").css('height', '60%');
+              $("#mapid3").css('height', altezzaDiv2);
               $("#notification-div").css('display', 'inline-block').css('height', altezzaDiv);
               $("#elevation-div").css('display', 'none').css('height', '40%');
 
