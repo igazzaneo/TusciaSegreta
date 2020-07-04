@@ -79,15 +79,15 @@ function controlloDistanzaDaSiti(elenco)
 
   if(minimaDistanza>250 && minimaDistanza<=1000) {
     // Sono a meno di un Km dal percorso e a più di 250 metri, segnalo il percorso e vado alla scheda
-    if(confirm("Sei vicino al sito '" + sito[1] + "'<br>Vuoi visualizzare la scheda informativa?")) {
-      changePageWithParam('scheda.html', sito[0]);
+    if(confirm("Sei vicino al sito '" + minSito[1] + "'\n\nVuoi visualizzare la scheda informativa?")) {
+      changePageWithParam('scheda.html', minSito[0]);
     }
   } else if(minimaDistanza<=250) {
     // Sono a meno di 250 metri dall'inizio del percorso, vado direttamente nella scheda del sito con impostato il tab Percorso
-    if(confirm("Sei in prossimità dell'inizio del percorso '" + sito[1] + "'<br>Vuoi iniziare la visita?")) {
+    if(confirm("Sei in prossimità dell'inizio del percorso '" + minSito[1] + "'\n\nVuoi iniziare la visita?")) {
       //window.open('google.navigation:q=' + geocoords + '&mode=d', '_system');
-      changePageWithParam('scheda.html', sito[0]);
-      document.querySelector('ons-tabbar').setActiveTab(3);
+      changePageWithParam2('scheda.html', minSito[0]);
+      //document.querySelector('ons-tabbar').setActiveTab(3);
     }
 
   }
@@ -162,6 +162,14 @@ function changePageWithParam(p, param)
 
   fn.gotoPage(p+"?param=" + param);
 
+}
+
+function changePageWithParam2(p, param)
+{
+  saveOnLocalStorage('param', param);
+
+  fn.gotoPage(p+"?param=" + param);
+  document.querySelector('ons-tabbar').setActiveTab(3);
 }
 
 function emptyLocalStorageFromObject()
