@@ -606,7 +606,7 @@ function setSitoInfo(sito) {
   $(".title").html(sito[1]);
   document.getElementById('video').src=sito[3].toString().replace(/watch\?v=/g, "embed/");
   $(".content").html(sito[2]+"<br><br><br><br><br><br>");
-  var carattteristiche = "<div><div style='width: 30%'><i class='fas "+ sito[8][2] +"'></i><span>" + sito[8][0] + "</span></div>" +
+  var caratteristiche = "<div><div style='width: 30%'><i class='fas "+ sito[8][2] +"'></i><span>" + sito[8][0] + "</span></div>" +
     "<div style='width: 30%'><i class='fas "+ sito[9][2] +"'></i><span>" + sito[9][0] + "</span></div>" +
     "<div style='width: 30%'><i class='fas "+ sito[10][2] +"'></i><span>" + sito[10][0] + "</span></div></div>";
   $(".caratteristiche").html(caratteristiche);
