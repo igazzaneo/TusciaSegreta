@@ -39,6 +39,8 @@ String.prototype.replaceAll = function(search, replacement) {
 
 //}
 
+document.addEventListener("deviceready", onResume, false);
+
 document.addEventListener("resume", onResume, false);
 function onResume() {
     //setTimeout(function() {
