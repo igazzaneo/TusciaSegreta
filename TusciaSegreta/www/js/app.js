@@ -79,18 +79,18 @@ function controlloDistanzaDaSiti(elenco)
 
   }
 
-  if(minimaDistanza>250 && minimaDistanza<=1000) {
+  if(minimaDistanza>200 && minimaDistanza<=1000) {
     // Sono a meno di un Km dal percorso e a più di 250 metri, segnalo il percorso e vado alla scheda
     if(confirm("Sei vicino al sito '" + minSito[1] + "'\n\nVuoi visualizzare la scheda informativa?")) {
       changePageWithParam('scheda.html', minSito[0]);
     }
-  } else if(minimaDistanza<=250) {
+  } else if(minimaDistanza<=200) {
     // Sono a meno di 250 metri dall'inizio del percorso, vado direttamente nella scheda del sito con impostato il tab Percorso
-    if(confirm("Sei in prossimità dell'inizio del percorso '" + minSito[1] + "'\n\nVuoi iniziare la visita?")) {
+    //if(confirm("Sei in prossimità dell'inizio del percorso '" + minSito[1] + "'\n\nVuoi iniziare la visita?")) {
 
       changePageWithParam2('scheda.html', minSito[0]);
       //document.querySelector('ons-tabbar').setActiveTab(3);
-    }
+    //}
 
   }
 
