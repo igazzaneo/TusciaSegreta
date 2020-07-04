@@ -4,9 +4,7 @@
       var tab = getValueFromLocalStorage('tab');
 
 
-      document.addEventListener('load', function(event) {
-          alert("Load");
-
+      document.addEventListener('init', function(event) {
           document.querySelector('ons-tabbar').setActiveTab(tab);
       });
   </script>

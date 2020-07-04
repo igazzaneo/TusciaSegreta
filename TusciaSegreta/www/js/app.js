@@ -112,11 +112,11 @@ function controlloDistanzaDaSiti(elenco)
 }*/
 
 
-document.addEventListener('prechange', function(event) {
+document.addEventListener('postchange', function(event) {
 
     stopVideo();
 
-    alert("Prechange");
+    alert("postchange");
 
     if(event.index == 3) {
       // Selezionato il TAB percorso, avvio il controllo sulla distanza dal percorso
