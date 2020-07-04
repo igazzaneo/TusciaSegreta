@@ -1,7 +1,7 @@
 <ons-page>
     <div id="mapid3" style="width: 100%; height: 100%;"></div>
     <div id="elevation-div" style="width: 100%; height:40%;"></div>
-    <div id="notification-div" style="width: 100%; height:40%;"></div>
+    <div id="notification-div"></div>
     <!--br/>
     <div>
       <ons-list>
@@ -96,10 +96,10 @@
         if($('#elevation-div').css('display') == 'inline-block')
         {
           $("#mapid3").css('height', '100%');
-          $("#elevation-div").css('display', 'none').css('height', '30%');
+          $("#elevation-div").css('display', 'none').css('height', '0%');
         } else {
-          $("#mapid3").css('height', '70%');
-          $("#elevation-div").css('display', 'inline-block').css('height', '30%');
+          $("#mapid3").css('height', '60%');
+          $("#elevation-div").css('display', 'inline-block').css('height', '39%');
         }
 
       }).addTo( map );
@@ -342,31 +342,39 @@
               if(minWp[8] == elemento.dataset.file)
                 visible = true; // il waypoint più vicino è lo stesso già visualizzato, non devo fare nulla
             }
+            var altezzaDiv = "0%";
 
             if(!visible) {
               // il waypoint più vicino non è visualizzato o è diverso da quello visualizzato, devo mostrare i media collegati.
               if(minWp[7] == 10) {
+
                 // Il WP ha un video associato
                 $("#notification-div").html("<p>"+minWp[6]+"</p><video id='waypoint' class='videoInsert' controls data-file='" + minWp[8] + "'><source src='"+cordova.file.dataDirectory + "/" + minWp[8]+"' type='video/mp4'></video>");
+                altezzaDiv = "35%";
+
               } else if(minWp[7] == 2 || minWp[7] == 3 || minWp[7] == 4) {
+
                 // Il WP ha una immagine associata
                 $("#notification-div").html("<p>"+minWp[6]+"</p><img id='waypoint' class='img_gpx' src='"+cordova.file.dataDirectory + "/" + minWp[8] + "' data-file='" + minWp[8] + "'>");
+                altezzaDiv = "35%";
+
               } else if(minWp[7] == 5 || minWp[7] == 6 || minWp[7] == 7 || minWp[7] == 8) {
-                alert(cordova.file.dataDirectory + "/" + minWp[8]);
+
+                // File audio
                 $("#notification-div").html("<p>"+minWp[6]+"</p>" +
                   "<audio id='waypoint' src='" + cordova.file.dataDirectory + "/" + minWp[8] + "' controls data-file='" + minWp[8] + "'></audio>");
+                altezzaDiv = "20%";
+
               }
 
               $("#mapid3").css('height', '60%');
-              $("#notification-div").css('display', 'inline-block').css('height', '35%');
+              $("#notification-div").css('display', 'inline-block').css('height', altezzaDiv);
               $("#elevation-div").css('display', 'none').css('height', '40%');
 
             }
 
 
           }
-
-
 
         } else {
           // Il div delle info è visibile ma mi sono allontanato dal punto e lo nascondo.
