@@ -159,7 +159,7 @@ function changePage(p) {
 function changePageWithParam(p, param)
 {
   saveOnLocalStorage('param', param);
-
+  removeFromLocalStorage('tab');
   fn.gotoPage(p+"?param=" + param);
 
 }
@@ -167,6 +167,7 @@ function changePageWithParam(p, param)
 function changePageWithParam2(p, param)
 {
   saveOnLocalStorage('param', param);
+  saveOnLocalStorage('tab', '3');
 
   fn.gotoPage(p+"?param=" + param);
   //alert(document.querySelector('ons-tabbar').getActiveTab());

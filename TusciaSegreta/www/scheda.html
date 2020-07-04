@@ -1,7 +1,13 @@
 <ons-page>
   <script>
       var param = getValueFromLocalStorage('param');
-      document.querySelector('ons-tabbar').setActiveTab(3);
+      var tab = getValueFromLocalStorage('tab');
+
+      document.addEventListener('init', function(event) {
+          alert('This is a lifecycle event! - ' + tab);
+          document.querySelector('ons-tabbar').setActiveTab(tab);
+
+      });
   </script>
   <ons-toolbar style="background-color: #000000">
     <div class="left" style="width: 50px">
@@ -16,6 +22,7 @@
   </ons-toolbar>
 
   <ons-tabbar position="auto">
+
       <ons-tab page="scheda_tab1.html" label="Sito" icon="fa-file-alt" active></ons-tab>
       <ons-tab page="scheda_tab5__.html" label="Media" icon="fa-camera-retro"></ons-tab>
       <ons-tab page="guida_acquistata.html" label="Guida" icon="fa-headphones-alt"></ons-tab>
