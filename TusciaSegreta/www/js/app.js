@@ -62,7 +62,7 @@ function controlloDistanzaDaSiti(elenco)
   // Uscita = 2 meno di 250
   var uscita=0;
   var minimaDistanza=0;
-  var
+  var minSito;
   for(var x=0; x<elenco.length; x++) {
 
     var sito = elenco[x];
