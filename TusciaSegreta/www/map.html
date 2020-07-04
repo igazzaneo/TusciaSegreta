@@ -31,6 +31,8 @@
     </div>
     <div id="mapid"></div>
   <script>
+    document.addEventListener("load", onResume, false);
+
     function initMap() {
 
       var roads = L.gridLayer.googleMutant({
