@@ -66,8 +66,8 @@ function controlloDistanzaDaSiti(elenco)
   for(var x=0; x<elenco.length; x++) {
 
     var sito = elenco[x];
-    var sitoLongitudine = ;
-    var sitoLatitudine = ;
+    var sitoLatitudine = sito[4];
+    var sitoLongitudine = sito[5];
 
     var start = L.marker([sitoLatitudine, sitoLongitudine]);
 
