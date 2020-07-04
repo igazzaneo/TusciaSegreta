@@ -56,13 +56,10 @@ function controlloDistanzaDaSiti(elenco)
   var latitudine = getValueFromLocalStorage('latitudine');
   var longitudine = getValueFromLocalStorage('longitudine');
   var position = L.marker([latitudine, longitudine]);
-  var minSito;
-  // Uscita = 0 distante da tutti i siti
-  // Uscita = 1 oltre 250 ma meno di 1 km
-  // Uscita = 2 meno di 250
-  var uscita=0;
+
   var minimaDistanza=0;
   var minSito;
+
   for(var x=0; x<elenco.length; x++) {
 
     var sito = elenco[x];
@@ -80,12 +77,12 @@ function controlloDistanzaDaSiti(elenco)
 
   }
 
-  if(minimaDistanza>250 && distanzaInMetri<=1000) {
+  if(minimaDistanza>250 && minimaDistanza<=1000) {
     // Sono a meno di un Km dal percorso e a più di 250 metri, segnalo il percorso e vado alla scheda
     if(confirm("Sei vicino al sito '" + sito[1] + "'<br>Vuoi visualizzare la scheda informativa?")) {
       changePageWithParam('scheda.html', sito[0]);
     }
-  } else if(distanzaInMetri<=250) {
+  } else if(minimaDistanza<=250) {
     // Sono a meno di 250 metri dall'inizio del percorso, vado direttamente nella scheda del sito con impostato il tab Percorso
     if(confirm("Sei in prossimità dell'inizio del percorso '" + sito[1] + "'<br>Vuoi iniziare la visita?")) {
       //window.open('google.navigation:q=' + geocoords + '&mode=d', '_system');
