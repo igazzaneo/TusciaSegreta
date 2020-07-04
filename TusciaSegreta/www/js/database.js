@@ -473,6 +473,39 @@ function checkLoggedAndGoToPage(page) {
   }
 }
 
+function getCoordinateInizioSiti(database, callback) {
+
+  database.transaction(function(transaction) {
+
+    var sql = "select sito.* from sito order by sito.id";
+
+    transaction.executeSql(sql, [],  function(transaction, resultSet) {
+
+      var elenco = new Array();
+
+      for(var x = 0; x < resultSet.rows.length; x++) {
+
+        riga = new Array();
+        riga[0] = resultSet.rows.item(x).id;
+        riga[1] = resultSet.rows.item(x).denominazione;
+        riga[2] = resultSet.rows.item(x).descrizione;
+        riga[3] = resultSet.rows.item(x).video;
+        riga[4] = resultSet.rows.item(x).latitudine;
+        riga[5] = resultSet.rows.item(x).longitudine;
+        riga[6] = resultSet.rows.item(x).miniatura;
+        riga[7] = resultSet.rows.item(x).descrizione_breve;
+
+        elenco[x] = riga;
+
+      }
+
+      callback(elenco);
+
+    }, dbSelecterror);
+  });
+
+}
+
 
 function getElencoSiti(database, map, callback) {
 
