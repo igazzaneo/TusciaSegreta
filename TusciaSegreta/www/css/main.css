@@ -834,7 +834,7 @@ button.css3button {
 }
 
 .btn {
-  background-color: DodgerBlue; /* Blue background */
+  background-color: #ff0000; /* RED background */
   border: none; /* Remove borders */
   color: white; /* White text */
   padding: 12px 16px; /* Some padding */

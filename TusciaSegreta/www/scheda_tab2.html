@@ -323,31 +323,42 @@
           // Gestione del WP come punto direzionale non ha multimdia collegati
           if(minWp[7] == null || minWp[7] == 'null') {
             $("#notification-div").html(html);
+
+            // restringo la mappa, visualizzo il div e nascondo l'altimetria
+            $("#mapid3").css('height', '80%');
+            $("#notification-div").css('display', 'inline-block').css('height', '20%');
+            $("#elevation-div").css('display', 'none').css('height', '40%');
+
           } else {
+
+            // Verifico se già sto visualizzando qualcosa con id=waypoint per verificare che sia il nodo che ha distanza minore
+            // Nel caso si vericasse questa situazione non imposto il valore SRC delle tre tipologie (immagine, audio, video) per evitare LOOP
 
             if(minWp[7] == 10) {
               // Il WP ha un video associato
-              $("#notification-div").html("<div><p>"+minWp[6]+"</p><video width='100%' controls><source src='"+cordova.file.dataDirectory + "/" + minWp[8]+"' type='video/mp4'></video></div>");
+              $("#notification-div").html("<div><p>"+minWp[6]+"</p><video id='waypoint' height='100%' controls data-file='" + minWp[8] + "'><source src='"+cordova.file.dataDirectory + "/" + minWp[8]+"' type='video/mp4'></video></div>");
             } else if(minWp[7] == 2 || minWp[7] == 3 || minWp[7] == 4) {
               // Il WP ha una immagine associata
-              $("#notification-div").html("<div><p>"+minWp[6]+"</p><img width='100%'src='"+cordova.file.dataDirectory + "/" + minWp[8]+"'></div>");
+              $("#notification-div").html("<div><p>"+minWp[6]+"</p><img id='waypoint' height='100%'src='"+cordova.file.dataDirectory + "/" + minWp[8] + "' data-file='" + minWp[8] + "'></div>");
             } else if(minWp[7] == 5 || minWp[7] == 6 || minWp[7] == 7 || minWp[7] == 8) {
               $("#notification-div").html("<div><p>"+minWp[6]+"</p>" +
-                "<audio src='audioguide/" + minWp[8] + "' controls></audio></div>");
+                "<audio id='waypoint' src='audioguide/" + minWp[8] + "' controls data-file='" + minWp[8] + "'></audio></div>");
             }
+
+            $("#mapid3").css('height', '60%');
+            $("#notification-div").css('display', 'inline-block').css('height', '40%');
+            $("#elevation-div").css('display', 'none').css('height', '40%');
 
           }
 
-          // restringo la mappa, visualizzo il div e nascondo l'altimetria
-          $("#mapid3").css('height', '60%');
-          $("#notification-div").css('display', 'inline-block').css('height', '40%');
-          $("#elevation-div").css('display', 'none').css('height', '40%');
+
 
         } else {
           // Il div delle info è visibile ma mi sono allontanato dal punto e lo nascondo.
           if($('#notification-div').css('display') == 'inline-block')
           {
             $("#mapid3").css('height', '100%');
+            $("#notification-div").html("<div></div>"); // Elimino qualsiasi contenuto dal div
             $("#notification-div").css('display', 'none').css('height', '40%');
             $("#elevation-div").css('display', 'none').css('height', '40%');
           }
