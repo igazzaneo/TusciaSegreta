@@ -347,13 +347,13 @@
               // il waypoint più vicino non è visualizzato o è diverso da quello visualizzato, devo mostrare i media collegati.
               if(minWp[7] == 10) {
                 // Il WP ha un video associato
-                $("#notification-div").html("<div><p>"+minWp[6]+"</p><video id='waypoint' class='videoInsert' controls data-file='" + minWp[8] + "'><source src='"+cordova.file.dataDirectory + "/" + minWp[8]+"' type='video/mp4'></video></div>");
+                $("#notification-div").html("<p>"+minWp[6]+"</p><video id='waypoint' class='videoInsert' controls data-file='" + minWp[8] + "'><source src='"+cordova.file.dataDirectory + "/" + minWp[8]+"' type='video/mp4'></video>");
               } else if(minWp[7] == 2 || minWp[7] == 3 || minWp[7] == 4) {
                 // Il WP ha una immagine associata
-                $("#notification-div").html("<div><p>"+minWp[6]+"</p><img id='waypoint' class='img_gpx' src='"+cordova.file.dataDirectory + "/" + minWp[8] + "' data-file='" + minWp[8] + "'></div>");
+                $("#notification-div").html("<p>"+minWp[6]+"</p><img id='waypoint' class='img_gpx' src='"+cordova.file.dataDirectory + "/" + minWp[8] + "' data-file='" + minWp[8] + "'>");
               } else if(minWp[7] == 5 || minWp[7] == 6 || minWp[7] == 7 || minWp[7] == 8) {
-                $("#notification-div").html("<div><p>"+minWp[6]+"</p>" +
-                  "<audio id='waypoint' src='audioguide/" + minWp[8] + "' controls data-file='" + minWp[8] + "'></audio></div>");
+                $("#notification-div").html("<p>"+minWp[6]+"</p>" +
+                  "<audio id='waypoint' src='" + cordova.file.dataDirectory + "/" + minWp[8] + "' controls data-file='" + minWp[8] + "'></audio>");
               }
 
               $("#mapid3").css('height', '60%');
