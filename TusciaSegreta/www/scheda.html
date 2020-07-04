@@ -4,7 +4,7 @@
       var tab = getValueFromLocalStorage('tab');
 
       $(function() {
-        document.querySelector('ons-tabbar').setActiveTab(tab);
+        document.getElementById('sitoTab').setActiveTab(tab);
       });
       //document.addEventListener('init', function(event) {
         //alert("Init");
@@ -24,7 +24,7 @@
     </div>
   </ons-toolbar>
 
-  <ons-tabbar position="auto">
+  <ons-tabbar id="sitoTab" position="auto">
 
       <ons-tab page="scheda_tab1.html" label="Sito" icon="fa-file-alt" active></ons-tab>
       <ons-tab page="scheda_tab5__.html" label="Media" icon="fa-camera-retro"></ons-tab>
