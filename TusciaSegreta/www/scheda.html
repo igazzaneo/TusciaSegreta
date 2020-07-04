@@ -3,14 +3,12 @@
       var param = getValueFromLocalStorage('param');
       var tab = getValueFromLocalStorage('tab');
 
-      $(function() {
-        document.getElementById('sitoTab').setActiveTab(tab);
-      });
-      //document.addEventListener('init', function(event) {
-        //alert("Init");
 
-          //document.querySelector('ons-tabbar').setActiveTab(tab);
-      //});
+      document.addEventListener('load', function(event) {
+          alert("Load");
+
+          document.querySelector('ons-tabbar').setActiveTab(tab);
+      });
   </script>
   <ons-toolbar style="background-color: #000000">
     <div class="left" style="width: 50px">
@@ -24,7 +22,7 @@
     </div>
   </ons-toolbar>
 
-  <ons-tabbar id="sitoTab" position="auto">
+  <ons-tabbar position="auto">
 
       <ons-tab page="scheda_tab1.html" label="Sito" icon="fa-file-alt" active></ons-tab>
       <ons-tab page="scheda_tab5__.html" label="Media" icon="fa-camera-retro"></ons-tab>
