@@ -350,7 +350,7 @@
               if(minWp[7] == 10) {
 
                 // Il WP ha un video associato
-                $("#notification-div").html("<p>"+minWp[6]+"</p><video id='waypoint' class='videoInsert' controls data-file='" + minWp[8] + "'><source src='"+cordova.file.dataDirectory + "/" + minWp[8]+"' type='video/mp4'></video>");
+                $("#notification-div").html("<p>"+minWp[6]+"</p><div width='100%'><video id='waypoint' class='videoInsert' controls data-file='" + minWp[8] + "'><source src='"+cordova.file.dataDirectory + "/" + minWp[8]+"' type='video/mp4'></video></div>");
                 altezzaDiv  = "35%";
                 altezzaDiv2 = "63%";
 
