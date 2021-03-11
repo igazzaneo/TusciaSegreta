@@ -13,7 +13,7 @@ function getServerDBVersion(statoConnessione) {
         async: false
     }).done(function(response) {
       versione = response.versione;
-
+      alert(versione);
     }).fail(function(jqXHR, textStatus) {
 
         alert(textStatus);
