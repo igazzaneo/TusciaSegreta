@@ -77,7 +77,7 @@
 
   </platform-->
 
-    <preference name="phonegap-version" value="cli-7.1.0" />
+    <preference name="phonegap-version" value="cli-7.0.1" />
     <preference name="pgb-builder-version" value="1" />
     <preference name="AndroidPersistentFileLocation" value="Compatibility" />
 
