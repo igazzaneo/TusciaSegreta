@@ -11,7 +11,7 @@
     <content src="index.html" />
     <icon src="icon.png" />
     <preference name="DisallowOverscroll" value="true" />
-    <preference name="android-minSdkVersion" value="19" />
+    <preference name="android-minSdkVersion" value="25" />
     <preference name="android-targetSdkVersion" value="28" />
     <platform name="android">
         <edit-config file="app/src/main/AndroidManifest.xml" mode="merge" target="/manifest/application">
@@ -77,7 +77,7 @@
 
   </platform-->
 
-    <preference name="phonegap-version" value="cli-8.1.1" />
+    <preference name="phonegap-version" value="cli-9.0.0" />
     <preference name="pgb-builder-version" value="1" />
     <preference name="AndroidPersistentFileLocation" value="Compatibility" />
 
