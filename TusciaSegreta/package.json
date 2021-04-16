@@ -3,9 +3,7 @@
   "version": "1.0.0",
   "displayName": "Tuscia Segreta",
   "cordova": {
-    "platforms": [
-      "android"
-    ],
+    "platforms": [],
     "plugins": {
       "cordova-plugin-sqlite-2": {},
       "cordova-plugin-x-toast": {},
