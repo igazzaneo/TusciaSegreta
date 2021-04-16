@@ -2,22 +2,60 @@
   <ons-toolbar style="background-color: #000000">
     <div class="left" style="width: 50px">
       <ons-toolbar-button onclick="fn.open()">
-        <ons-icon icon="fa-info" size="40px"></ons-icon>
+        <ons-icon icon="fa-info" size="35px" style="color: #FFFFFF"></ons-icon>
       </ons-toolbar-button>
     </div>
-    <div class="center"><img src="img/logo_tool.png" height="55px"></div>
+    <div class="center"><img src="img/logo_home.png" height="55px"></div>
     <div class="right" style="width: 50px">
-      <ons-toolbar-button icon="fa-user" size="40px" onclick="fn.gotoPage('accesso.html')"></ons-toolbar-button>
+      <ons-toolbar-button icon="fa-user" size="40px" onclick="fn.gotoPage('accesso.html')" style="color: #FFFFFF"></ons-toolbar-button>
     </div>
   </ons-toolbar>
 
     <ons-card style="background-color: #adadad; color: #ffffff; padding: 1px; text-align: center;">
       <div class="title">
-        Scegli il sito da esplorare
+        Scegli il sito da visitare
       </div>
     </ons-card>
     <div id="esplora"></div>
     <script type="text/javascript">
-      generaTabellaSiti('esplora');
+
+      function tabellaElencoSiti(map, elenco)
+      {
+        //showMessage(elenco);
+        var siti = elenco;
+
+        var tabella = "";
+        for(i=0; i<siti.length; i++) {
+
+            var sito = siti[i];
+
+            var difficolta = sito[8][0];
+            var durata = sito[9][0];
+            var lunghezza = sito[10][0];
+
+            tabella += "<div><table style=\"width: 100%;\"><tbody><tr>" +
+              "<td style=\"width: 25%; height: 100%; text-align: center; vertical-align: middle;\" onclick=\"changePageWithParam('scheda.html', " + sito[0] + ")\"><img src=\""+cordova.file.dataDirectory + "/" + sito[6] +"\" width=\"180px\"></td>" +
+             "<td style=\"width: 75%; vertical-align: top;\">" +
+                "<table style=\"width: 100%;\">" +
+                "<tbody>" +
+                "<tr><td style=\"font-weight: bold;\" colspan=\"3\"  onclick=\"changePageWithParam('scheda.html', " + sito[0] + ")\">" + sito[1] + "</td></tr>" +
+                "<tr><td colspan=\"3\">" + sito[7] + "</td></tr>" +
+                "<tr><td class=\"facile\">" + difficolta + "</td><td class=\"lunghezza\">" + lunghezza + " km</td><td class=\"durata\">" + durata +" min</td></tr>" +
+                "<tr><td colspan=\"3\">Commenti<div id='trail-rating'><ul class='ratings'><li class='average'><span id='rating' class='rating star3_5'>&nbsp;</span></li></ul></div></td></tr>" +
+                "<tr><td colspan=\"3\" align=\"right\"><button type=\"button\" value=\"\" class=\"css3button\" onclick=\"changePageWithParam('scheda.html', " + sito[0] + ")\">  SCHEDA  </button>&nbsp;&nbsp;&nbsp;<button type=\"button\" value=\"\" class=\"css3button\" onclick=\"startNavigation(" + sito[4] + ", " + sito[5] + ")\">  VAI AL PERCORSO  </button></td></tr>" +
+              "</tbody>" +
+              "</table>" +
+            "</td>" +
+           "</tr></tbody></table></div><div><hr class=\"style-three\"></div>";
+
+        }
+
+        $('#esplora').html(tabella);
+
+      }
+
+      getElencoSiti(database, null, tabellaElencoSiti);
+
+      //generaTabellaSiti('esplora');
     </script>
 </ons-page>

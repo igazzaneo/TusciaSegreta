@@ -1,6 +1,14 @@
 cordova.define('cordova/plugin_list', function(require, exports, module) {
 module.exports = [
     {
+        "file": "plugins/com.jjdltc.cordova.plugin.zip/www/JJzip.js",
+        "id": "com.jjdltc.cordova.plugin.zip.JJzip",
+        "pluginId": "com.jjdltc.cordova.plugin.zip",
+        "clobbers": [
+            "JJzip"
+        ]
+    },
+    {
         "file": "plugins/cordova-plugin-actionsheet/www/ActionSheet.js",
         "id": "cordova-plugin-actionsheet.ActionSheet",
         "pluginId": "cordova-plugin-actionsheet",
@@ -394,6 +402,22 @@ module.exports = [
         ]
     },
     {
+        "file": "plugins/cordova-plugin-zip/zip.js",
+        "id": "cordova-plugin-zip.Zip",
+        "pluginId": "cordova-plugin-zip",
+        "clobbers": [
+            "zip"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-downloader/www/download.js",
+        "id": "cordova-plugin-downloader.download",
+        "pluginId": "cordova-plugin-downloader",
+        "clobbers": [
+            "download"
+        ]
+    },
+    {
         "file": "plugins/cordova-plugin-file-transfer/www/FileTransferError.js",
         "id": "cordova-plugin-file-transfer.FileTransferError",
         "pluginId": "cordova-plugin-file-transfer",
@@ -415,6 +439,45 @@ module.exports = [
         "pluginId": "cordova-plugin-file-transfer",
         "clobbers": [
             "window.FileTransfer"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-network-information/www/network.js",
+        "id": "cordova-plugin-network-information.network",
+        "pluginId": "cordova-plugin-network-information",
+        "clobbers": [
+            "navigator.connection",
+            "navigator.network.connection"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-network-information/www/Connection.js",
+        "id": "cordova-plugin-network-information.Connection",
+        "pluginId": "cordova-plugin-network-information",
+        "clobbers": [
+            "Connection"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-network-information/src/browser/network.js",
+        "id": "cordova-plugin-network-information.NetworkInfoProxy",
+        "pluginId": "cordova-plugin-network-information",
+        "runs": true
+    },
+    {
+        "file": "plugins/cordova-plugin-file-md5/www/md5chksum.js",
+        "id": "cordova-plugin-file-md5.md5chksum",
+        "pluginId": "cordova-plugin-file-md5",
+        "clobbers": [
+            "md5chksum"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-file-downloader/www/downloader.min.js",
+        "id": "cordova-plugin-file-downloader.downloader",
+        "pluginId": "cordova-plugin-file-downloader",
+        "clobbers": [
+            "downloader"
         ]
     },
     {
@@ -549,29 +612,6 @@ module.exports = [
         "runs": true
     },
     {
-        "file": "plugins/cordova-plugin-network-information/www/network.js",
-        "id": "cordova-plugin-network-information.network",
-        "pluginId": "cordova-plugin-network-information",
-        "clobbers": [
-            "navigator.connection",
-            "navigator.network.connection"
-        ]
-    },
-    {
-        "file": "plugins/cordova-plugin-network-information/www/Connection.js",
-        "id": "cordova-plugin-network-information.Connection",
-        "pluginId": "cordova-plugin-network-information",
-        "clobbers": [
-            "Connection"
-        ]
-    },
-    {
-        "file": "plugins/cordova-plugin-network-information/src/browser/network.js",
-        "id": "cordova-plugin-network-information.NetworkInfoProxy",
-        "pluginId": "cordova-plugin-network-information",
-        "runs": true
-    },
-    {
         "file": "plugins/cordova-plugin-splashscreen/www/splashscreen.js",
         "id": "cordova-plugin-splashscreen.SplashScreen",
         "pluginId": "cordova-plugin-splashscreen",
@@ -626,11 +666,20 @@ module.exports = [
             "navigator.notification",
             "navigator"
         ]
+    },
+    {
+        "file": "plugins/cordova-plugin-x-toast/www/Toast.js",
+        "id": "cordova-plugin-x-toast.Toast",
+        "pluginId": "cordova-plugin-x-toast",
+        "clobbers": [
+            "window.plugins.toast"
+        ]
     }
 ];
 module.exports.metadata = 
 // TOP OF METADATA
 {
+    "com.jjdltc.cordova.plugin.zip": "1.1.0",
     "cordova-plugin-actionsheet": "2.3.3",
     "cordova-plugin-battery-status": "1.1.2",
     "cordova-plugin-camera": "2.1.1",
@@ -641,18 +690,23 @@ module.exports.metadata =
     "cordova-plugin-device-orientation": "1.0.7",
     "cordova-plugin-dialogs": "1.2.1",
     "cordova-plugin-file": "6.0.1",
+    "cordova-plugin-zip": "3.1.0",
+    "cordova-plugin-downloader": "0.0.4",
     "cordova-plugin-file-transfer": "1.5.1",
+    "cordova-plugin-network-information": "1.2.1",
+    "cordova-plugin-file-md5": "0.3.3",
+    "cordova-plugin-file-downloader": "0.4.0",
     "cordova-plugin-geolocation": "2.1.0",
     "cordova-plugin-globalization": "1.0.9",
     "cordova-plugin-inappbrowser": "1.3.0",
     "cordova-plugin-media": "2.2.0",
     "cordova-plugin-media-capture": "1.2.0",
-    "cordova-plugin-network-information": "1.2.1",
     "cordova-plugin-splashscreen": "3.2.2",
     "cordova-plugin-sqlite-2": "1.0.4",
     "cordova-plugin-statusbar": "2.1.3",
     "cordova-plugin-vibration": "2.1.6",
-    "cordova-plugin-whitelist": "1.2.2"
+    "cordova-plugin-whitelist": "1.2.2",
+    "cordova-plugin-x-toast": "2.7.2"
 }
 // BOTTOM OF METADATA
 });

@@ -1,93 +1,196 @@
 <ons-page>
 
     <div id="mapid5"></div>
+    <input type="hidden" id="latitudine">
+    <input type="hidden" id="longitudine">
+    <input type="hidden" id="nome_sito">
 
     <script type='text/javascript'>
 
-      var latitudine = getValueFromLocalStorage('latitudine');
-      var longitudine = getValueFromLocalStorage('longitudine');
+      function gotoRoute() {
 
-      var map = new GMaps({
-          div: '#mapid5',
-          lat: latitudine,
-          lng: longitudine,
-          zoom: 10,
-      });
+        var sitoLatitudine = $("#latitudine").val();
+        var sitoLongitudine = $("#longitudine").val();
 
-      var latlngs = [{lat:latitudine, lng:longitudine}, {lat:"42.511", lng:"11.625"}];
+        var geocoords = sitoLatitudine+','+sitoLongitudine;
 
-      for (var i in latlngs) {
-
-        var latlng = new google.maps.LatLng(latlngs[i].lat, latlngs[i].lng);
-
-        map.addMarker({
-          lat: latlngs[i].lat,
-          lng: latlngs[i].lng,
-
-        });
+        if(confirm("Vuoi avviare la navigazione?\n\nRicorda di aprire di nuovo l'app per seguire il percorso.")) {
+          window.open('google.navigation:q=' + geocoords + '&mode=d', '_system');
+        }
       }
 
-      /*
-      var marginiMappa = new google.maps.LatLngBounds();
+      function renderGoogleMaps() {
 
-      var latlngs = [{lat:latitudine, lng:longitudine}, {lat:"42.511", lng:"11.625"}];
+        // Posizione del dispositivo
+        var latitudine = getValueFromLocalStorage('latitudine');
+        var longitudine = getValueFromLocalStorage('longitudine');
+        var sitoLatitudine = $("#latitudine").val();
+        var sitoLongitudine = $("#longitudine").val();
 
-      for (var i in latlngs) {
+        var geocoords = sitoLatitudine+','+sitoLongitudine;
 
-        var latlng = new google.maps.LatLng(latlngs[i].lat, latlngs[i].lng);
+        var contentString = '<div id="content">'+
+          //'<div id="siteNotice">'+
+          //'</div>'+
+          '<h3 id="firstHeading" class="firstHeading">' + $("#nome_sito").val() +'</h3>'+
+          '<div id="bodyContent">'+
+          //'<p>Questa è la tua posizione, abbiamo calcolato il percorso fino al parcheggio del sito "' + $("#nome_sito").val() + '".<br><br>'+
+          '<p>' +
+    			'Clicca sul pulsante per avviare la navigazione con Google MAPS.<br><b>Ricorda di aprire di nuovo l\'app non appena sarai arrivato, ti guideremo sul percorso.<br>BUON VIAGGIO!!!</p>'+
+          '<p><button class="btn" onclick="gotoRoute()"><i class="fas fa-car"></i> Avvia navigazione</button>' +
+          '</p>'
+          '</div>'+
+          '</div>';
 
-        /*var marker = new google.maps.Marker({
-          position: latlng,
-          map: map,
+        var markers = [
+                {
+                    "title": 'La tua posizione',
+                    "lat": latitudine,
+                    "lng": longitudine,
+                    "description": contentString
+                }
+            ,
+                {
+                    "title": 'Parcheggio del sito',
+                    "lat": sitoLatitudine,
+                    "lng": sitoLongitudine,
+                    "description": 'Inizio del percordo scelto'
+                }
+
+        ];
+
+        var infowindow = new google.maps.InfoWindow({
+    		    content: contentString
+    		});
+
+        // Creazione della mappa
+        var mapOptions = {
+            center: new google.maps.LatLng(markers[0].lat, markers[0].lng),
+            zoom: 12,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        var map = new google.maps.Map(document.getElementById("mapid5"), mapOptions);
+
+        // Partenza del percorso in macchina
+        var data = markers[0];
+        var myLatlng = new google.maps.LatLng(data.lat, data.lng);
+        var start = new google.maps.Marker({
+            position: myLatlng,
+            map: map,
+            title: data.title
         });
 
-        marginiMappa.extend(latlng);
+        start.addListener('click', function() {
+           infowindow.open(map, start);
+        });
+        //infowindow.open(map, start);
 
-      }*/
+        // Arrivo del percorso in macchina
+        var data = markers[1];
+        var myLatlng = new google.maps.LatLng(data.lat, data.lng);
+        var stop = new google.maps.Marker({
+            position: myLatlng,
+            map: map,
+            title: data.title
+        });
 
 
 
-      // Center on city
-      //map.setCenter(center);
+        var lat_lng = new Array();
+        //var latlngbounds = new google.maps.LatLngBounds();
+        for (i = 0; i < markers.length; i++) {
+            var data = markers[i]
+            var myLatlng = new google.maps.LatLng(data.lat, data.lng);
+            lat_lng[i] = myLatlng;
 
-      // Center on center map bounds
-      //map.setCenter(marginiMappa.getCenter());
+            //latlngbounds.extend(marker.position);
 
-      /*google.maps.event.addListenerOnce(map, 'bounds_changed', function(event) {
-        this.setZoom(map.getZoom()-1);
-
-        if (this.getZoom() > 15) {
-          this.setZoom(15);
         }
-      });
-      map.fitBounds(marginiMappa);*/
+        //map.setCenter(latlngbounds.getCenter());
+        //map.fitBounds(latlngbounds);
 
-      map.drawRoute({
-        origin: [latitudine,longitudine],
-        destination: [42.511,11.625],
-        travelMode: 'driving',
-        strokeColor: '#131540',
-        strokeOpacity: 0.6,
-        strokeWeight: 6
-      });
+        //***********ROUTING****************//
+
+        //Initialize the Path Array
+        var path = new google.maps.MVCArray();
+
+        //Initialize the Direction Service
+        var service = new google.maps.DirectionsService();
+
+        //Set the Path Stroke Color
+        var poly = new google.maps.Polyline({ map: map, strokeColor: '#4986E7' });
+
+        var src = lat_lng[0];
+        var des = lat_lng[1];
+
+        path.push(src);
+        poly.setPath(path);
+        service.route({
+            origin: src,
+            destination: des,
+            travelMode: google.maps.DirectionsTravelMode.DRIVING
+        }, function (result, status) {
+            if (status == google.maps.DirectionsStatus.OK) {
+                for (var i = 0, len = result.routes[0].overview_path.length; i < len; i++) {
+                    path.push(result.routes[0].overview_path[i]);
+                }
+            }
+        });
+
+        //Loop and Draw Path Route between the Points on MAP
+        /*for (var i = 0; i < lat_lng.length; i++) {
+            if ((i + 1) < lat_lng.length) {
+                var src = lat_lng[i];
+                var des = lat_lng[i + 1];
+                path.push(src);
+                poly.setPath(path);
+                service.route({
+                    origin: src,
+                    destination: des,
+                    travelMode: google.maps.DirectionsTravelMode.DRIVING
+                }, function (result, status) {
+                    if (status == google.maps.DirectionsStatus.OK) {
+                        for (var i = 0, len = result.routes[0].overview_path.length; i < len; i++) {
+                            path.push(result.routes[0].overview_path[i]);
+                        }
+                    }
+                });
+            }
+        }*/
 
 
-      /*map.travelRoute({
-        origin: [latitudine,longitudine],
-        destination: [42.585280, 11.933396],
-        travelMode: 'driving',
-        step: function(e) {
-          $('#instructions').append('<li>'+e.instructions+'</li>');
-          $('#instructions li:eq(' + e.step_number + ')').delay(450 * e.step_number).fadeIn(200, function() {
-            map.drawPolyline({
-              path: e.path,
-              strokeColor: '#131540',
-              strokeOpacity: 0.6,
-              strokeWeight: 6
-            });
-          });
-        }
-      });*/
+        /*
+
+        map.addControl({
+          position: 'top_right',
+          content: 'AVVIA NAVIGAZIONE',
+          style: {
+            margin: '5px',
+            padding: '1px 6px',
+            border: 'solid 1px #717B87',
+            background: '#fff',
+            fontFamily: 'Oswald-Medium',
+            fontSize: '18px',
+          },
+          events: {
+            click: function(){
+              var sitoLatitudine = $("#latitudine").val();
+              var sitoLongitudine = $("#longitudine").val();
+              var geocoords = sitoLatitudine+','+sitoLongitudine;
+              if(confirm("Vuoi avviare la navigazione?\n\nRicorda di aprire di nuovo l'app per seguire il percorso.")) {
+                window.open('google.navigation:q=' + geocoords + '&mode=d', '_system');
+              }
+            }
+          }
+        });*/
+
+        infowindow.open(map, start);
+
+        stopVideo();
+
+      }
+
+      getSito(param , database, setSitoCoords);
 
     </script>
 

@@ -1,6 +1,25 @@
 <ons-page id="Scelta">
   <script>
-    $(document).ready(function(){
+    function createCarousel(elenco) {
+
+      var innerHtml = "";
+
+      for(var x=0; x<elenco.length; x++) {
+        var immagine = elenco[x];
+        var html = "<div class='item'> " +
+          "<div><div class='scheda-details'>" +
+          "<img src='" + cordova.file.dataDirectory + "/" + immagine[1] + "' class='scheda-image'>" +
+          "</div>" +
+          "<div class='testimonial-say'>" +
+          "<span class='client-say'>" +
+          "<p>" + immagine[2] + "</p>" +
+          "</span></div></div></div>";
+
+        innerHtml += html;
+      }
+
+      $("#carousel").html(innerHtml);
+
       $('.owl-carousel').owlCarousel({
           loop:true,
           margin:10,
@@ -17,59 +36,19 @@
               }
           }
       })
+    }
+
+    getGalleriaSito(param, database, createCarousel);
+
+    $("iframe").each(function() {
+        var src= $(this).attr('src');
+        $(this).attr('src',src);
     });
   </script>
 
   <ons-card>
-    <div class="owl-carousel owl-theme" align="center">
-        <div class="item">
-          <div>
-            <div class="scheda-details">
-              <img src="img/percorsi/eremo/foto1.jpg" class="scheda-image">
-            </div>
-            <div class="testimonial-say">
-              <span class="client-say">
-                <p>Una breve descrizione della foto</p>
-              </span>
-            </div>
-          </div>
-        </div>
-        <div class="item">
-          <div>
-            <div class="scheda-details">
-              <img src="img/percorsi/eremo/foto2.jpg" class="scheda-image">
-            </div>
-            <div class="testimonial-say">
-              <span class="client-say">
-                <p>Una breve descrizione della foto</p>
-              </span>
-            </div>
-          </div>
-        </div>
-        <div class="item">
-          <div>
-            <div class="scheda-details">
-              <img src="img/percorsi/eremo/foto3.jpg" class="scheda-image">
-            </div>
-            <div class="testimonial-say">
-              <span class="client-say">
-                <p>Una breve descrizione della foto</p>
-              </span>
-            </div>
-          </div>
-        </div>
-        <div class="item">
-          <div>
-            <div class="scheda-details">
-              <img src="img/percorsi/eremo/foto4.jpg" class="scheda-image">
-            </div>
-            <div class="testimonial-say">
-              <span class="client-say">
-                <p>Una breve descrizione della foto</p>
-              </span>
-            </div>
-          </div>
-        </div>
+    <div class="owl-carousel owl-theme" align="center" id="carousel">
+
     </div>
   </ons-card>
 </ons-page>

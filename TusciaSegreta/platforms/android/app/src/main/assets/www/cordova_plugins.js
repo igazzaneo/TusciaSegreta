@@ -597,6 +597,22 @@ module.exports = [
     "clobbers": [
       "JJzip"
     ]
+  },
+  {
+    "id": "cordova-plugin-x-toast.Toast",
+    "file": "plugins/cordova-plugin-x-toast/www/Toast.js",
+    "pluginId": "cordova-plugin-x-toast",
+    "clobbers": [
+      "window.plugins.toast"
+    ]
+  },
+  {
+    "id": "cordova-plugin-cleartext.CordovaPluginsCleartext",
+    "file": "plugins/cordova-plugin-cleartext/www/CordovaPluginsCleartext.js",
+    "pluginId": "cordova-plugin-cleartext",
+    "clobbers": [
+      "cordova.plugins.CordovaPluginsCleartext"
+    ]
   }
 ];
 module.exports.metadata = 
@@ -629,7 +645,9 @@ module.exports.metadata =
   "cordova-plugin-file-md5": "0.3.3",
   "cordova-plugin-file-downloader": "0.4.0",
   "cordova-plugin-downloader": "0.0.4",
-  "com.jjdltc.cordova.plugin.zip": "1.1.0"
+  "com.jjdltc.cordova.plugin.zip": "1.1.0",
+  "cordova-plugin-x-toast": "2.7.2",
+  "cordova-plugin-cleartext": "1.0.0"
 };
 // BOTTOM OF METADATA
 });

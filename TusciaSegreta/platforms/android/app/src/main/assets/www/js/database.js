@@ -1,16 +1,28 @@
+function getServerDBVersion(statoConnessione) {
 
-/* Gestione versione del DB */
-//var elencoSiti = new Array();
-function getServerDBVersion() {
+  if(statoConnessione == Connection.NONE) {
+    alert('ATTENZIONE: Connessione dati assente. L\'app utilizzerà i dati presenti nel device.');
+    versione = "-1";
+  } else {
 
     return $.ajax({
         url:'http://51.75.182.195:1880/checkdb',
+        timeout:3000,
         contentType: "application/json",
         dataType: "json",
         async: false
     }).done(function(response) {
       versione = response.versione;
+    }).fail(function(jqXHR, textStatus) {
+        if(textStatus === 'timeout')
+        {
+            alert('Failed from timeout');
+            versione = "-1";
+        }
     });
+
+  }
+
 }
 
 function getServerDB() {
@@ -22,6 +34,71 @@ function getServerDB() {
       async: false
   }).done(elaboraDb);
 
+}
+
+function recuperaPassword() {
+
+  var form = $("#passwordForm");
+	$("#loginButton",form).attr("disabled","disabled");
+
+	var username = $("#username", form).val();
+	var email = $("#email", form).val();
+  //alert("recupera password: " + username + " - " + email);
+  if(username != "" && email != "") {
+
+    var dataObject = {};
+    dataObject['nome_utente'] = username;
+    dataObject['email'] = email;
+
+    $.ajax({
+      type: "POST",
+      url: "http://51.75.182.195:1880/recoverPassword",
+      dataType: 'json',
+      timeout: 2000,
+      data: dataObject,
+      async: false,
+
+    }).complete(function(response) {
+      var msg = JSON.parse(response.responseText).httpCode;
+
+      if(msg==200) {
+        showMessage("Ti abbiamo inviato una mail con la nuova password.");
+      } else {
+        showMessage("Username ed email non coincidono");
+        $("#loginButton").removeAttr("disabled");
+      }
+    });
+  } else if(username == "") {
+    showMessage("Nome utente obbligatorio");
+    $("#loginButton").removeAttr("disabled");
+  } else if(email == "") {
+    showMessage("Email obbligatoria");
+    $("#loginButton").removeAttr("disabled");
+  }
+
+  return false;
+}
+
+function locateUser() {
+
+  var dataObject = {};
+  dataObject['username'] = getValueFromLocalStorage('nome_utente')=='0'?'guest':getValueFromLocalStorage('nome_utente');
+  dataObject['latitudine'] = getValueFromLocalStorage('latitudine');
+  dataObject['longitudine'] = getValueFromLocalStorage('longitudine');
+
+  $.ajax({
+    type: "POST",
+    url: "http://51.75.182.195:1880/locateUser",
+    dataType: 'json',
+    timeout: 2000,
+    data: dataObject,
+    async: true,
+    //success: console.log("Ok"),
+    //error: processUserAddResponse,
+  }).complete(function(response) {
+    var esito = response.responseText;
+    //showMessage("Esito: " + esito);
+  });
 }
 
 
@@ -110,6 +187,10 @@ function createSqlQuery(tableName, columns, obj) {
       this.generatedSqlQuery = this.generatedSqlQuery.slice(0, -1);
     }
     console.log(generatedSqlQuery);
+
+    //if(tableName == 'caratteristica')
+    //  alert(this.generatedSqlQuery);
+
     return this.generatedSqlQuery;
   }
 
@@ -171,7 +252,7 @@ function registrazioneDaApp() {
 
   if(email != "" && nome_utente != "" && password != '' && cellulare != '' && cognome != '' && nome != '') {
 
-    registraUtente(email, nome_utente, password, cellulare, cognome, nome, database);
+    registraUtente(email, nome_utente, password, cellulare, cognome, nome, database, logIn);
     //registerUserOnCloud(email, nome_utente, password, cellulare, cognome, nome);
 
   } else {
@@ -187,18 +268,18 @@ function processDone(response) {
 
   //console.log("Done...");
   var esito = JSON.parse(response.responseText).httpCode
-  showMessage("risposta: " + esito);
+  //showMessage("risposta: " + esito);
 
-  if(esito.indexOf("200") != -1) {
+  /*if(esito.indexOf("200") != -1) {
     registraUtente(email, nome_utente, password, cellulare, cognome, nome, database);
   } else if(esito == 401) {
     showMessage("Nome utente e/o indirizzo email già presenti.");
   } else {
     showMessage("Errore nella registrazione, riprovare più tardi.");
-  }
+  }*/
 }
 
-function registraUtente(email, nome_utente, password, cellulare, cognome, nome, database) {
+function registraUtente(email, nome_utente, password, cellulare, cognome, nome, database, callback) {
   //showMessage("RegistrazioneUtente su DB locale...");
   // Effettuo la cancellazione preventiva dei record per evitare di avere più di un utente nel DB locale
   database.transaction(function(transaction) {
@@ -207,7 +288,12 @@ function registraUtente(email, nome_utente, password, cellulare, cognome, nome, 
     transaction.executeSql('select count(*) as recordCount from utente', [], function(ignored, resultSet) {
       //showMessage("Utenti trovati: " + resultSet.rows.item(0).recordCount)
       if(resultSet.rows.item(0).recordCount > 0 ) {
-        logIn(nome_utente, password);
+
+        var latitudine = getValueFromLocalStorage('latitudine');
+        var longitudine = getValueFromLocalStorage('longitudine');
+        registerUserOnCloud(email, nome_utente, password, cellulare, cognome, nome, latitudine, longitudine);
+
+        callback(nome_utente, password);
       }
     });
 
@@ -220,7 +306,7 @@ function registraUtente(email, nome_utente, password, cellulare, cognome, nome, 
 
 }
 
-function registerUserOnCloud(email, nome_utente, password, cellulare, cognome, nome) {
+function registerUserOnCloud(email, nome_utente, password, cellulare, cognome, nome, latitudine, longitudine) {
 
     var dataObject = {};
     dataObject['email'] = email;
@@ -229,8 +315,10 @@ function registerUserOnCloud(email, nome_utente, password, cellulare, cognome, n
     dataObject['telefono'] = cellulare;
     dataObject['cognome'] = cognome;
     dataObject['nome'] = nome;
+    dataObject['latitudine'] = latitudine;
+    dataObject['longitudine'] = longitudine;
 
-    console.log("function Called with parameter: " + email + " - " + nome_utente + " - " + password + " - " + cellulare + " - " + cognome + " - " + nome);
+    //console.log("function Called with parameter: " + email + " - " + nome_utente + " - " + password + " - " + cellulare + " - " + cognome + " - " + nome);
 
     $.ajax({
       type: "POST",
@@ -238,7 +326,7 @@ function registerUserOnCloud(email, nome_utente, password, cellulare, cognome, n
       dataType: 'json',
       timeout: 2000,
       data: dataObject,
-      async: false,
+      async: true,
       //success: console.log("Ok"),
       //error: processUserAddResponse,
     })
@@ -320,7 +408,6 @@ function logIn(login, password) {
 
         // Utente presente e credenziali ok
         //showMessage("Benvenuto: " + resultSet.rows.item(0).nome_utente + " - " + resultSet.rows.item(0).email + " - " + resultSet.rows.item(0).password + " - " + resultSet.rows.item(0).cellulare);
-
         saveOnLocalStorage("loggedUser", "1");
         saveOnLocalStorage("id", resultSet.rows.item(0).id);
         saveOnLocalStorage("nome_utente", resultSet.rows.item(0).nome_utente);
@@ -331,7 +418,7 @@ function logIn(login, password) {
         saveOnLocalStorage("cellulare", resultSet.rows.item(0).cellulare);
         saveOnLocalStorage("lingua", resultSet.rows.item(0).lingua);
 
-        showMessage('Login avvenuto con successo');
+        //showMessage('Login avvenuto con successo');
         fn.gotoPage("accesso_effettuato.html");
 
       } else {
@@ -383,83 +470,124 @@ function checkLoggedAndGoToPage(page) {
 }
 
 
-function getElencoSiti(database) {
+function getElencoSiti(database, map, callback) {
 
   if(database == null) {
-    // DEBUG
+
+    showMessage("Database non inizializzato");
+
     var elenco = new Array();
 
     var riga = new Array();
-    riga[0] = 1;
-    riga[1] = "Qui c'è la denominazione del sito - 1";
-    riga[2] = "Qui c'è la descrizione estesa del sito3";
-    riga[3] = "http://www.linkdelvideo1";
-    riga[4] = '42.585280';
-    riga[5] = '11.933396';
+    riga[0] = "1";
+    riga[1] = "denominazione";
+    riga[2] = "descrizione";
+    riga[3] = "resultSet.rows.item(x).video";
+    riga[4] = "42.585280";
+    riga[5] = "11.933396";
+    riga[6] = "foto_25.jpg";
 
     elenco[0] = riga;
 
-    riga = new Array();
-    riga[0] = 2;
-    riga[1] = "Qui c'è la denominazione del sito - 2";
-    riga[2] = "Qui c'è la descrizione estesa del sito3";
-    riga[3] = "http://www.linkdelvideo2";
-    riga[4] = '42.885280';
-    riga[5] = '11.733396';
-
-    elenco[1] = riga;
-
-    riga = new Array();
-    riga[0] = 3;
-    riga[1] = "Qui c'è la denominazione del sito - 3";
-    riga[2] = "Qui c'è la descrizione estesa del sito3";
-    riga[3] = "http://www.linkdelvideo3";
-    riga[4] = '42.685280';
-    riga[5] = '11.433396';
-
-    elenco[2] = riga;
-
-    localStorage.setObj('elencoSiti', elenco);
+    callback(map, elenco);
 
   } else {
+
     database.transaction(function(transaction) {
-      transaction.executeSql('SELECT * FROM sito', [],  saveElencoSiti, dbSelecterror);
+
+      var sql = "select sito.*, valore, caratteristica.denominazione as denominazione_carat, icona from sito join sito_ha_caratteristica on sito_ha_caratteristica.sito_id=sito.id join caratteristica on caratteristica.id=sito_ha_caratteristica.caratteristica_id where filtrabile=1 order by sito.id";
+
+      transaction.executeSql(sql, [],  function(transaction, resultSet) {
+
+        var elenco = new Array();
+
+        var sitoId=0, index=0;
+        for(var x = 0; x < resultSet.rows.length; x++) {
+
+            var riga;
+            if(resultSet.rows.item(x).id != sitoId) {
+
+              sitoId=resultSet.rows.item(x).id;
+
+              // Nuovo sito, creo la riga e inserisco i dati del sito
+              riga = new Array();
+              riga[0] = resultSet.rows.item(x).id;
+              riga[1] = resultSet.rows.item(x).denominazione;
+              riga[2] = resultSet.rows.item(x).descrizione;
+              riga[3] = resultSet.rows.item(x).video;
+              riga[4] = resultSet.rows.item(x).latitudine;
+              riga[5] = resultSet.rows.item(x).longitudine;
+              riga[6] = resultSet.rows.item(x).miniatura;
+              riga[7] = resultSet.rows.item(x).descrizione_breve;
+
+              var carat = new Array();
+              carat[0] = resultSet.rows.item(x).valore;
+              carat[1] = resultSet.rows.item(x).denominazione_carat;
+              carat[2] = resultSet.rows.item(x).icona;
+
+              riga[riga.length]=carat;
+
+              elenco[index] = riga;
+
+              index++;
+
+            } else {
+
+              riga = elenco[elenco.length-1];
+
+              var carat = new Array();
+              carat[0] = resultSet.rows.item(x).valore;
+              carat[1] = resultSet.rows.item(x).denominazione_carat;
+              carat[2] = resultSet.rows.item(x).icona;
+
+              riga[riga.length]=carat;
+
+              elenco[elenco.length-1] = riga;
+            }
+
+        }
+
+        callback(map, elenco);
+
+      }, dbSelecterror);
     });
   }
 
-
-
 }
 
-function saveElencoSiti(tx, resultSet) {
-
-    var elenco = new Array();
-
-    for(var x = 0; x < resultSet.rows.length; x++) {
-
-        var riga = new Array();
-        riga[0] = resultSet.rows.item(x).id;
-        riga[1] = resultSet.rows.item(x).denominazione;
-        riga[2] = resultSet.rows.item(x).descrizione;
-        riga[3] = resultSet.rows.item(x).video;
-        riga[4] = resultSet.rows.item(x).latitudine;
-        riga[5] = resultSet.rows.item(x).longitudine;
-        riga[6] = resultSet.rows.item(x).miniatura;
-
-        elenco[x] = riga;
-
-    }
-
-    localStorage.setObj('elencoSiti', elenco);
-}
-
-function getSito(id, database)
+function getSito(id, database, callback)
 {
   if(database != null) {
 
     database.transaction(
         function(transaction) {
-          transaction.executeSql('select * from sito where id=?', [id], saveSito, dbSelecterror);
+
+          var sql = "select sito.*, valore, caratteristica.denominazione as denominazione_carat, icona from sito join sito_ha_caratteristica on sito_ha_caratteristica.sito_id=sito.id join caratteristica on caratteristica.id=sito_ha_caratteristica.caratteristica_id where sito.id=? and filtrabile=1"
+
+          transaction.executeSql(sql, [id], function(transaction, resultSet) {
+
+            var riga = new Array();
+            riga[0] = resultSet.rows.item(0).id;
+            riga[1] = resultSet.rows.item(0).denominazione;
+            riga[2] = resultSet.rows.item(0).descrizione;
+            riga[3] = resultSet.rows.item(0).video;
+            riga[4] = resultSet.rows.item(0).latitudine;
+            riga[5] = resultSet.rows.item(0).longitudine;
+            riga[6] = resultSet.rows.item(0).miniatura;
+            riga[7] = resultSet.rows.item(0).descrizione_breve;
+
+            for(var x=0; x<resultSet.rows.length; x++) {
+              var carat = new Array();
+              carat[0]=resultSet.rows.item(x).valore;
+              carat[1]=resultSet.rows.item(x).denominazione_carat;
+              carat[2]=resultSet.rows.item(x).icona;
+
+              riga[riga.length]=carat;
+            }
+
+            callback(riga);
+
+          }, dbSelecterror);
         }
     );
 
@@ -469,38 +597,20 @@ function getSito(id, database)
 
 }
 
-function saveSito(tx, resultSet)
-{
-  if(tx == null && resultSet == null) {
+function setSitoInfo(sito) {
 
-    var riga = new Array();
-    riga[0] = Math.floor(Math.random() * (+100 - +1)) + 1 ;
-    riga[1] = "Qui c'è la denominazione del sito" + riga[0];
-    riga[2] = "Qui c'è la descrizione estesa del sito" + riga[0];
-    riga[3] = "http://www.linkdelvideo";
-    riga[4] = '42.585280';
-    riga[5] = '11.933396';
+  $(".title").html(sito[1]);
+  document.getElementById('video').src=sito[3].toString().replace(/watch\?v=/g, "embed/");
+  $(".content").html(sito[2]+"<br><br><br><br><br><br>");
+}
 
-    localStorage.setObj('sito', riga);
+function setSitoCoords(sito) {
 
-  } else {
+  $("#latitudine").val(sito[4]);
+  $("#longitudine").val(sito[5]);
+  $("#nome_sito").val(sito[1]);
 
-    var riga = new Array();
-    riga[0] = resultSet.rows.item(0).id;
-    riga[1] = resultSet.rows.item(0).denominazione;
-    riga[2] = resultSet.rows.item(0).descrizione;
-    riga[3] = resultSet.rows.item(0).video;
-    riga[4] = resultSet.rows.item(0).latitudine;
-    riga[5] = resultSet.rows.item(0).longitudine;
-    riga[6] = resultSet.rows.item(0).miniatura;
-
-    //showMessage("GetSito: " + riga);
-
-    $(".title").html(riga[1]);
-    document.getElementById('video').src=riga[3];
-    $(".content").html(riga[2]);
-  }
-
+  renderGoogleMaps();
 }
 
 function getPercorsoSito(id, database, map, callback)
@@ -556,7 +666,116 @@ function getNodiPercorsoSito(id, database, map, callback)
   }
 }
 
+function getGalleriaSito(id, database, callback)
+{
 
+  if(database != null) {
+
+    database.transaction(function(transaction) {
+
+        transaction.executeSql('select multimedia.id, multimedia.oggetto, multimedia.descrizione from multimedia join sito_ha_multimedia on multimedia.id=sito_ha_multimedia.multimedia_id where sito_ha_multimedia.sito_id=? and multimedia.stato=1 and multimedia.tipo_multimedia_id=2', [id],
+
+          function(transaction, resultSet) {
+            var elenco = new Array();
+
+            for(var x=0; x<resultSet.rows.length; x++) {
+
+              var riga = new Array();
+              riga[0] = resultSet.rows.item(x).id;
+              riga[1] = resultSet.rows.item(x).oggetto;
+              riga[2] = resultSet.rows.item(x).descrizione;
+
+              elenco[x] = riga;
+            }
+
+            callback(elenco);
+
+          }, dbSelecterror);
+    });
+  } else {
+    showMessage('Database non inizializzato');
+  }
+
+}
+
+
+function getPuntiInteresseSito(id, database, map, callback)
+{
+
+  if(database != null) {
+
+    database.transaction(function(transaction) {
+
+        transaction.executeSql('select punto_di_interesse.id, punto_di_interesse.denominazione, punto_di_interesse.descrizione, telefono, latitudine, longitudine, sito_web, indirizzo, icona, tipo_punto_di_interesse_id, tipo_punto_di_interesse.denominazione as punto_interesse_deno ' +
+            'from sito_ha_punto_di_interesse join punto_di_interesse on punto_di_interesse.id=sito_ha_punto_di_interesse.punto_di_interesse_id ' +
+            'join tipo_punto_di_interesse on tipo_punto_di_interesse.id=punto_di_interesse.tipo_punto_di_interesse_id ' +
+            'where sito_id=? order by tipo_punto_di_interesse_id', [id],
+
+          function(transaction, resultSet) {
+
+            var elenco = new Array();
+
+            for(var x=0; x<resultSet.rows.length; x++) {
+
+              var riga = new Array();
+              riga[0] = resultSet.rows.item(x).id;
+              riga[1] = resultSet.rows.item(x).denominazione;
+              riga[2] = resultSet.rows.item(x).descrizione;
+              riga[3] = resultSet.rows.item(x).telefono;
+              riga[4] = resultSet.rows.item(x).sito_web;
+              riga[5] = resultSet.rows.item(x).latitudine;
+              riga[6] = resultSet.rows.item(x).longitudine;
+              riga[7] = resultSet.rows.item(x).icona;
+              riga[8] = resultSet.rows.item(x).tipo_punto_di_interesse_id;
+              riga[9] = resultSet.rows.item(x).indirizzo;
+              riga[10] = resultSet.rows.item(x).punto_interesse_deno;
+
+              elenco[x] = riga;
+            }
+
+            callback(map, elenco);
+
+          }, dbSelecterror);
+    });
+  } else {
+    showMessage('Database non inizializzato');
+  }
+
+}
+
+
+function getTipoPuntiInteresse(database, callback)
+{
+
+  if(database != null) {
+
+    database.transaction(function(transaction) {
+
+        transaction.executeSql('select * from tipo_punto_di_interesse', [],
+
+          function(transaction, resultSet) {
+
+            var elenco = new Array();
+
+            for(var x=0; x<resultSet.rows.length; x++) {
+
+              var riga = new Array();
+              riga[0] = resultSet.rows.item(x).id;
+              riga[1] = resultSet.rows.item(x).denominazione;
+              riga[2] = resultSet.rows.item(x).icona;
+
+              elenco[x] = riga;
+            }
+
+            callback(elenco);
+
+          }, dbSelecterror);
+    });
+  } else {
+    showMessage('Database non inizializzato');
+  }
+
+}
 
 function getCaratteristichePercorsoSito(id, database)
 {
@@ -600,53 +819,147 @@ function saveCaratteristiche(tx, resultSet)
     }
 }
 
-function generaTabellaSiti(pagina)
+function getMultimediaSito(id, database, tipo, callback)
 {
-  var siti = localStorage.getObj('elencoSiti');
 
-  var tabella = "";
-  for(i=0; i<siti.length; i++) {
+  if(database != null) {
 
-      var sito = siti[i];
-      //showMessage(sito);
-      //localStorage.removeObj('caratteristiche');
-      getCaratteristichePercorsoSito(sito[0], database);
+    database.transaction(function(transaction) {
 
-      var caratteristiche = localStorage.getObj('caratteristiche');
-      //showMessage(caratteristiche);
-      var diff, lung, durata;
-      for(j=0; j<caratteristiche.length; j++) {
+        transaction.executeSql('select multimedia.id, multimedia.oggetto, multimedia.descrizione from multimedia join sito_ha_multimedia on multimedia.id=sito_ha_multimedia.multimedia_id where sito_ha_multimedia.sito_id=? and multimedia.stato=1 and multimedia.tipo_multimedia_id=?', [id, tipo],
 
-        var car = caratteristiche[j];
+          function(transaction, resultSet) {
+            var elenco = new Array();
 
-        //showMessage("caratteristica:" + car)
+            for(var x=0; x<resultSet.rows.length; x++) {
 
-        if(car[5]=='Difficoltà') {
-          diff = car[3];
-        } else if(car[5]=='Lunghezza') {
-          lung = car[3];
-        } else if(car[5]=='Durata') {
-          durata = car[3];
-        }
-      }
+              var riga = new Array();
+              riga[0] = resultSet.rows.item(x).id;
+              riga[1] = resultSet.rows.item(x).oggetto;
+              riga[2] = resultSet.rows.item(x).descrizione;
 
-      tabella += "<div><table style=\"width: 100%;\"><tbody><tr>" +
-       "<td style=\"width: 25%; height: 100%; text-align: center; vertical-align: middle;\"><img src=\"img/percorsi/eremo/foto1.jpg\" width=\"180px\"></td>" +
-       "<td style=\"width: 75%; vertical-align: top;\">" +
-          "<table style=\"width: 100%;\">" +
-          "<tbody>" +
-          "<tr><td style=\"font-weight: bold;\" colspan=\"3\">" + sito[1] + "</td></tr>" +
-          "<tr><td colspan=\"3\">" + sito[2] + "</td></tr>" +
-          "<tr><td class=\"facile\">" + diff + "</td><td class=\"lunghezza\">" + lung + " km</td><td class=\"durata\">" + durata +" min</td></tr>" +
-          "<tr><td colspan=\"3\">Commenti<div id='trail-rating'><ul class='ratings'><li class='average'><span id='rating' class='rating star3_5'>&nbsp;</span></li></ul></div></td></tr>" +
-          "<tr><td colspan=\"3\" align=\"right\"><button type=\"button\" value=\"\" class=\"css3button\" onclick=\"changePageWithParam('scheda.html', " + sito[0] + ")\">  " + pagina.toUpperCase() + "  </button></td></tr>" +
-        "</tbody>" +
-        "</table>" +
-      "</td>" +
-     "</tr></tbody></table></div><div><hr class=\"style-three\"></div>";
+              elenco[x] = riga;
+            }
 
+            callback(elenco);
+
+          }, dbSelecterror);
+    });
+  } else {
+    showMessage('Database non inizializzato');
   }
 
-  $('#' + pagina).append(tabella);
+}
+
+function saveHistory(url)
+{
+
+  var riga = localStorage.getObj('history');
+
+  // array di navigazione già in localstorage
+  if(riga != null) {
+    // aggiungo la pagina all'array
+    riga[riga.length] = url;
+  } else {
+    var riga = [];
+    riga[0] = url;
+  }
+
+  localStorage.setObj('history', riga);
 
 }
+
+function printHistory()
+{
+
+  var riga = localStorage.getObj('history');
+
+  if(riga != null) {
+    for(var p in riga)
+      alert("posizione: " + p + ": " + riga[p]);
+  }
+
+}
+
+function backHistory()
+{
+  var riga = localStorage.getObj('history');
+
+  if(riga != null) {
+    var url = riga[riga.length-2];
+
+    riga.length = riga.length-1;
+
+    var content = document.getElementById('content');
+    content.load(url);
+  }
+
+  localStorage.setObj('history', riga);
+
+}
+
+function getHistorySize()
+{
+  var riga = localStorage.getObj('history');
+
+  if(riga != null)
+    return riga.length;
+  else
+    return 0;
+
+}
+
+function checkHistory()
+{
+  if(getHistorySize() == 1) {
+
+    var riga = localStorage.getObj('history');
+    if(riga[0] == 'map.html')
+      return true;
+    else {
+      return false;
+    }
+
+  } else {
+    return false;
+  }
+
+}
+
+
+/*function addCommenti(percorsoId) {
+
+  var commento =  $("#commento").val();
+  var valutazione =  parseInt($("#valutazione").val());
+
+  //alert("recupera password: " + username + " - " + email);
+  if(commento != "") {
+
+    var dataObject = {
+      commento: commento,
+      valutazione: valutazione
+    };
+
+    $.ajax({
+      type: "POST",
+      url: "http://51.75.182.195:1880/act/addComment/"+percorsoId,
+      dataType: 'json',
+      timeout: 2000,
+      data: dataObject,
+      async: false,
+
+    }).complete(function(response) {
+      var msg = JSON.parse(response.responseText).httpCode;
+
+      if(msg==200) {
+        showMessage("Commento inviato con successo");
+      } else {
+        showMessage("Dati non corretti");
+      }
+    });
+  } else if(commento == "") {
+    showMessage("E' obbligatorio scrivere un commento");
+  }
+
+  return false;
+}*/

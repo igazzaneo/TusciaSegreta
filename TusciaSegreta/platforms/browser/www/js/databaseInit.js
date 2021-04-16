@@ -14,6 +14,12 @@ function openDb() {
     // Sul localstorage non è memorizzato nulla, la prelevo dal DB
     getLocalDBVersion(database);
   }
+
+  if(versione == "-1") {
+    // Timeout dell'app
+    versione = versioneLocale;
+  }
+
   //alert("Versione DB cloud: " + versione + " - Versione locale: " + versioneLocale);
   if(versione != versioneLocale) {
 
@@ -23,32 +29,46 @@ function openDb() {
     // Memorizzo la versione del DB che ho prelevato
     saveOnLocalStorage('versione', versione);
 
-    // Prelevo lo sip dell'ultima versione del DB
-    // Aggiorno la tabella versione del DB Locale
-    //updateVersioneDB(database, versione);
+    var fileName = versione + ".zip";
+    var uri = "https://node-red.itlogix.it/" + fileName;
 
+    var fileTransfer = new FileTransfer();
+
+    var elem = document.getElementById("myBar");
+    fileTransfer.onprogress = function(progressEvent) {
+      var percent =  progressEvent.loaded / progressEvent.total * 100;
+      percent = Math.round(percent);
+
+      elem.style.width = percent + '%';
+      elem.innerHTML = percent * 1  + '%';
+
+    };
+  	fileTransfer.download(uri, cordova.file.dataDirectory + fileName,
+  		function(entry) {
+
+        var PathToFileInString  = cordova.file.dataDirectory + fileName;
+        var PathToResultZip     = cordova.file.dataDirectory;
+        JJzip.unzip(PathToFileInString, {target:PathToResultZip},
+          function(data){
+            //showMessage("Unzip completato: " + data.success);
+            fn.gotoPage('map.html');
+          },function(error){
+            showMessage("Errore nel caricamento delle risorse: " + error.message)
+          });
+  		},
+  		function(err) {
+  			showMessage("Errore: " + err);
+  		}
+    );
+
+    // Prelevo lo zip dell'ultima versione del DB
+    // Aggiorno la tabella versione del DB Locale
+    updateVersioneDB(database, versione);
+
+  } else {
+    fn.gotoPage('map.html');
   }
 
-  var fileName = versione + ".zip";
-  var uri = "http://51.75.182.195:1880/" + fileName;
-
-  var fileTransfer = new FileTransfer();
-
-
-  fileTransfer.onprogress = function(progressEvent) {
-    var percent =  progressEvent.loaded / progressEvent.total * 100;
-    percent = Math.round(percent);
-    showMessage(percent);
-  };
-	fileTransfer.download(uri, cordova.file.dataDirectory + fileName,
-		function(entry) {
-			showMessage("OK");
-		},
-		function(err) {
-			showMessage("Errore: " + err);
-		});
-
-  copyDatabaseFileToDownload();
 }
 
 // copy a database file from www/ in the app directory to the data directory
@@ -76,7 +96,8 @@ function copyDatabaseFile(dbName) {
       return new Promise(function (resolve, reject) {
         sourceFile.copyTo(targetDir, 'copied_' + dbName, resolve, reject);
       }).then(function () {
-        showMessage("Database copiato");
+        //copyDatabaseFileToDownload();
+        //showMessage("Database copiato");
       });
     });
   });
@@ -85,7 +106,7 @@ function copyDatabaseFile(dbName) {
 // copy a database file from www/ in the app directory to the data directory
 function copyDatabaseFileToDownload() {
 
-  var sourceFileName = cordova.file.dataDirectory + 'copied_tusciasegreta.db';
+  var sourceFileName = cordova.file.dataDirectory + '/copied_tusciasegreta.db';
   var targetDirName = 'file:///storage/emulated/0/download';
 
   return Promise.all([
@@ -109,6 +130,8 @@ function copyDatabaseFileToDownload() {
         sourceFile.copyTo(targetDir, 'copied_tusciasegreta.db', resolve, reject);
       }).then(function () {
         //showMessage("Database copiato");
+      }).catch(function(e) {
+        showMessage("Errore nella copia del file: " + e.message);
       });
     });
   });

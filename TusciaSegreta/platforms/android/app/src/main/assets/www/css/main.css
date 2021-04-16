@@ -195,6 +195,7 @@ iframe {
   background-color: #fff;
   margin-bottom: 12px;
   box-shadow: 0 0 3px #000;
+	color: #000000;
 }
 
 .label-input100 {
@@ -221,7 +222,7 @@ iframe {
   background: transparent;
   font-family: Oswald-Medium;
   font-size: 15px;
-  color: #43383e;
+  color: #000000;
   line-height: 1.2;
   padding: 0 5px;
 }
@@ -349,6 +350,7 @@ textarea.input100 {
   font-size: 12px;
   color: #fff;
   line-height: 1.2;
+	font-weight: bold;
 }
 
 .wrap-contact100-form-btn:hover .contact100-form-bgbtn {
@@ -677,6 +679,7 @@ button.css3button {
 
 .scheda-image {
     width: 100%;
+		height: auto;
     position: relative;
     top: 0;
     border-radius: 20px;
@@ -688,8 +691,14 @@ button.css3button {
 
 
 
-#mapid, #mapid2, #mapid3, #mapid4, #mapid5 {
+#mapid, #mapid2, #mapid3, #mapid4 {
 	height: 100%;
+	width: 100%;
+}
+
+#mapid5 {
+	width: 100%;
+	height: 95%;
 }
 
 #searchwrapper {
@@ -822,4 +831,13 @@ button.css3button {
 @keyframes fadeout {
     from {bottom: 30px; opacity: 1;}
     to {bottom: 60px; opacity: 0;}
+}
+
+.btn {
+  background-color: DodgerBlue; /* Blue background */
+  border: none; /* Remove borders */
+  color: white; /* White text */
+  padding: 12px 16px; /* Some padding */
+  font-size: 12px; /* Set a font size */
+  cursor: pointer; /* Mouse pointer on hover */
 }

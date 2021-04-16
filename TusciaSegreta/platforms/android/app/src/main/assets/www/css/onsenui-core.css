@@ -1,4 +1,4 @@
-/*! onsenui - v2.10.4 - 2018-07-20 */
+/*! onsenui - v2.10.10 - 2019-07-29 */
 ons-page, ons-navigator,
 ons-tabbar,
 ons-gesture-detector {
@@ -469,6 +469,14 @@ limitations under the License.
 
 .ons-icon--5x {
   font-size: 5em;
+}
+
+/**
+ * ons-icon with Font Awesome backward compatibility
+ */
+.ons-icon.fa {
+  font-family: 'Font Awesome 5 Brands', 'Font Awesome 5 Free';
+  font-weight: 900;
 }
 
 ons-input, ons-radio, ons-checkbox, ons-search-input {

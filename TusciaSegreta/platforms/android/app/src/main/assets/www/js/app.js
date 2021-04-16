@@ -2,7 +2,9 @@ var rowCount = 0;
 var database = null;
 var versione = null;
 var versioneLocale = null;
-//var percorso;
+var timeoutGps;
+var lc;
+var rejectGps=false;
 
 Storage.prototype.setObj = function(key, obj) {
     this.removeItem(key);
@@ -20,32 +22,82 @@ String.prototype.replaceAll = function(search, replacement) {
     return target.replace(new RegExp(search, 'g'), replacement);
 };
 
-document.addEventListener("deviceready", onDeviceReady, false);
 
-function onDeviceReady() {
+//document.addEventListener("deviceready", onDeviceReady, false);
 
-  getServerDBVersion();
+//function onDeviceReady() {
 
-  initDatabase();
+//  document.addEventListener("backbutton", onBackKeyDown, true);
 
-  getMapLocation();
+  //getServerDBVersion();
 
-  setTimeout(
-    function() {
-      getElencoSiti(database);
-      fn.gotoPage('map.html');
-    }, 2000
-  );
-}
+  //fn.gotoPage('map.html');
 
-function onBackKeyDown(e) {
-    // Handle the back button
-    //e.preventDefault();
-    //console.log("onBackKeyDown...");
-    fn.gotoPage('account.html');
-}
+  //initDatabase();
+
+  //getMapLocation();
+
+//}
+
+/*function onBackKeyDown(e) {// Handle the back button
+
+    navigator.notification.confirm(
+            'Are you certain you want to close the app?',  // message
+            function( index ){
+                if( index == 1 ){//look at the docs for this part
+                    navigator.app.exitApp();
+                }
+            },              // callback to invoke with index of button pressed
+            'Exit',            // title
+            'Yes,No'          // buttonLabels
+        );
+    return false;
+}*/
+
+
+document.addEventListener('prechange', function(event) {
+
+    stopVideo();
+
+    if(event.index == 3) {
+      // Selezionato il TAB percorso, avvio il controllo sulla distanza dal percorso
+
+      if(!rejectGps) {
+        timeoutGps = setInterval(function() {
+
+          var sitoLatitudine = $("#latitudine").val();
+          var sitoLongitudine = $("#longitudine").val();
+
+          if(checkDistanceFromStart(sitoLatitudine, sitoLongitudine) && !lc._active) {
+
+            if(confirm("Vuoi attivare la navigazione sul percorso?")) {
+              lc.start();
+
+            } else {
+              rejectGps = true;
+            }
+
+            clearTimeout(timeoutGps);
+
+          } else {
+            lc.stop();
+          }
+
+        }, 3000);
+      }
+
+    } else {
+      clearTimeout(timeoutGps);
+      stopFollowing();
+    }
+
+  });
+
 
 function changePage(p) {
+
+  saveHistory(p);
+
   document.location.href=p;
 }
 
@@ -72,7 +124,7 @@ function checkIfFileExists(path){
     window.resolveLocalFileSystemURL(path, fileExists, fileDoesNotExist);
 }
 function fileExists(fileEntry){
-    alert("File " + fileEntry.fullPath + " exists!");
+    //alert("File " + fileEntry.fullPath + " exists!");
 }
 function fileDoesNotExist(){
     console.log("file does not exist");

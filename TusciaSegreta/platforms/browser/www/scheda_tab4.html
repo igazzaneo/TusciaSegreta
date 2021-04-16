@@ -4,164 +4,250 @@
 
   <script type='text/javascript'>
 
-    var roads = L.gridLayer.googleMutant({
-       type: 'roadmap'	// valid values are 'roadmap', 'satellite', 'terrain' and 'hybrid'
-    })
+    function renderInteressiMap() {
 
-    var satellite = L.gridLayer.googleMutant({
-       type: 'satellite'	// valid values are 'roadmap', 'satellite', 'terrain' and 'hybrid'
-    })
+      var roads = L.gridLayer.googleMutant({
+         type: 'roadmap'	// valid values are 'roadmap', 'satellite', 'terrain' and 'hybrid'
+      })
 
-    var terrain = L.gridLayer.googleMutant({
-       type: 'terrain'	// valid values are 'roadmap', 'satellite', 'terrain' and 'hybrid'
-    })
+      var satellite = L.gridLayer.googleMutant({
+         type: 'satellite'	// valid values are 'roadmap', 'satellite', 'terrain' and 'hybrid'
+      })
 
-    var hybrid = L.gridLayer.googleMutant({
-       type: 'hybrid'	// valid values are 'roadmap', 'satellite', 'terrain' and 'hybrid'
-    })
+      var terrain = L.gridLayer.googleMutant({
+         type: 'terrain'	// valid values are 'roadmap', 'satellite', 'terrain' and 'hybrid'
+      })
 
-    var albergo = {
-      icon: 'fa fa-bed',
-      /*iconShape: 'marker',*/
-      borderColor: '#000000',
-      borderWidth: 2,
-      iconSize: [30, 30],
-      /*popupAnchor: [100, -10],*/
-      popupAnchor: [15, -7],
-      innerIconStyle: 'font-size:20px;padding-top:4px;color: #000000'
-    };
+      var hybrid = L.gridLayer.googleMutant({
+         type: 'hybrid'	// valid values are 'roadmap', 'satellite', 'terrain' and 'hybrid'
+      })
 
-    var ristorante = {
-      icon: 'fa fa-utensils',
-      /*iconShape: 'marker',*/
-      borderColor: '#000000',
-      borderWidth: 2,
-      iconSize: [30, 30],
-      /*popupAnchor: [100, -10],*/
-      popupAnchor: [15, -7],
-      innerIconStyle: 'font-size:20px;padding-top:4px;color: #000000'
-    };
+      var percorso = {
+        icon: 'fas fa-hiking',
+        /*iconShape: 'marker',*/
+        borderColor: '#000000',
+        borderWidth: 2,
+        iconSize: [30, 30],
+        /*popupAnchor: [100, -10],*/
+        popupAnchor: [15, -7],
+        innerIconStyle: 'font-size:20px;padding-top:4px;color: #000000'
+      };
 
-    var percorso = {
-      icon: 'fas fa-hiking',
-      /*iconShape: 'marker',*/
-      borderColor: '#000000',
-      borderWidth: 2,
-      iconSize: [30, 30],
-      /*popupAnchor: [100, -10],*/
-      popupAnchor: [15, -7],
-      innerIconStyle: 'font-size:20px;padding-top:4px;color: #000000'
-    };
+      /*var ristorantiLayer = L.layerGroup();
 
-    var altro = {
-      icon: 'fas fa-archway',
-      /*iconShape: 'marker',*/
-      borderColor: '#000000',
-      borderWidth: 2,
-      iconSize: [30, 30],
-      /*popupAnchor: [100, -10],*/
-      popupAnchor: [15, -7],
-      innerIconStyle: 'font-size:20px;padding-top:4px;color: #000000'
-    };
+      var alberghiLayer = L.layerGroup();
 
-    var ristorantiLayer = L.layerGroup();
+      var altroLayer = L.layerGroup();
 
-    var alberghiLayer = L.layerGroup();
+      var map = new L.Map('mapid2',{
+          center: new L.LatLng(42.511,11.625),
+          zoom: 10,
+          layers: [roads, ristorantiLayer, alberghiLayer, altroLayer]
+      });*/
 
-    var altroLayer = L.layerGroup();
+      var map = new L.Map('mapid2',{
+          center: new L.LatLng(42.511,11.625),
+          zoom: 10,
+          layers: [roads]
+      });
 
-    // Ristoranti
-    L.marker([42.5429779,11.7524407], {
-      icon: L.BeautifyIcon.icon(ristorante),
-      draggable: false
-    }).bindPopup("<b>Trattoria da Salvatore</b><br/><a href='#' onclick=\"fn.load('scheda.html')\">Vai alla scheda</a>").addTo(ristorantiLayer);
+      var baseLayers = {
+          "Standard": roads,
+          "Satellite": satellite,
+          "Altimetria": terrain,
+          "Ibrido": hybrid,
 
-    L.marker([42.5443869,11.7542646], {
-      icon: L.BeautifyIcon.icon(ristorante),
-      draggable: false
-    }).bindPopup("<b>Ranuccio Ii Il Ristorante Di Rendina Carmela</b><br/><a href='#' onclick=\"fn.load('scheda.html')\">Vai alla scheda</a>").addTo(ristorantiLayer);
+      };
 
-    L.marker([42.5430115,11.759157], {
-      icon: L.BeautifyIcon.icon(ristorante),
-      draggable: false
-    }).bindPopup("<b>Ristorante Pizzeria La Fiaba</b><br/><a href='#' onclick=\"fn.load('scheda.html')\">Vai alla scheda</a>").addTo(ristorantiLayer);
+      /*var overlays = {
+          "Ristoranti": ristorantiLayer,
+          "Alberghi": alberghiLayer,
+          "Altre attività": altroLayer,
+      };
 
-    L.marker([42.5485465,11.7238484], {
-      icon: L.BeautifyIcon.icon(ristorante),
-      draggable: false
-    }).bindPopup("<b>Pizzeria del Sole</b><br/><a href='#' onclick=\"fn.load('scheda.html')\">Vai alla scheda</a>").addTo(ristorantiLayer);
+      L.control.layers(baseLayers, overlays).addTo(map);*/
 
-    L.marker([42.5464611,11.7394451], {
-      icon: L.BeautifyIcon.icon(ristorante),
-      draggable: false
-    }).bindPopup("<b>Ristorante Osteria Unicorno</b><br/><a href='#' onclick=\"fn.load('scheda.html')\">Vai alla scheda</a>").addTo(ristorantiLayer);
+      L.control.layers(baseLayers).addTo(map);
 
-    // Bed and breakfast
-    L.marker([42.5497755,11.7269168], {
-      icon: L.BeautifyIcon.icon(albergo),
-      draggable: false
-    }).bindPopup("<b>B&B Il Gelsomino</b><br/><a href='#' onclick=\"fn.load('scheda.html')\">Vai alla scheda</a>").addTo(alberghiLayer);
+      //getSito(param, database, render)
+      getPuntiInteresseSito(param, database, map, renderInteresseMarker);
 
-    L.marker([42.5490681,11.7240522], {
-      icon: L.BeautifyIcon.icon(albergo),
-      draggable: false
-    }).bindPopup("<b>Bed and Breakfast Residenza Farnese</b><br/><a href='#' onclick=\"fn.load('scheda.html')\">Vai alla scheda</a>").addTo(alberghiLayer);
+      getPuntiInteresseSito(param, database, map, renderListaInteressi);
 
-    L.marker([42.5444219,11.7516173], {
-      icon: L.BeautifyIcon.icon(albergo),
-      draggable: false
-    }).bindPopup("<b>B&B Castrum</b><br/><a href='#' onclick=\"fn.load('scheda.html')\">Vai alla scheda</a>").addTo(alberghiLayer);
+      stopVideo();
 
-    L.marker([42.5506449,11.7268525], {
-      icon: L.BeautifyIcon.icon(albergo),
-      draggable: false
-    }).bindPopup("<b>B&B Il bottino</b><br/><a href='#' onclick=\"fn.load('scheda.html')\">Vai alla scheda</a>").addTo(alberghiLayer);
+    }
 
-    L.marker([42.5494357,11.7267666], {
-      icon: L.BeautifyIcon.icon(albergo),
-      draggable: false
-    }).bindPopup("<b>Ostello Ortensi</b><br/><a href='#' onclick=\"fn.load('scheda.html')\">Vai alla scheda</a>").addTo(alberghiLayer);
+    function renderInteresseMarker(map, elenco) {
 
-    // altre attività
-    L.marker([42.5440272,11.7568503], {
-      icon: L.BeautifyIcon.icon(altro),
-      draggable: false
-    }).bindPopup("<b>Museo Civico 'Pietro e Turiddo Lotti'</b><br/><a href='#' onclick=\"fn.load('scheda.html')\">Vai alla scheda</a>").addTo(altroLayer);
+      var albergo = {
+        icon: 'fa fa-bed',
+        /*iconShape: 'marker',*/
+        borderColor: '#000000',
+        borderWidth: 2,
+        iconSize: [30, 30],
+        /*popupAnchor: [100, -10],*/
+        popupAnchor: [15, -7],
+        innerIconStyle: 'font-size:20px;padding-top:4px;color: #000000'
+      };
 
-    L.marker([42.5494633,11.7276893], {
-      icon: L.BeautifyIcon.icon(altro),
-      draggable: false
-    }).bindPopup("<b>Museo Civico 'Ferrante Rittatore Vonwiller'</b><br/><a href='#' onclick=\"fn.load('scheda.html')\">Vai alla scheda</a>").addTo(altroLayer);
+      var ristorante = {
+        icon: 'fa fa-utensils',
+        /*iconShape: 'marker',*/
+        borderColor: '#000000',
+        borderWidth: 2,
+        iconSize: [30, 30],
+        /*popupAnchor: [100, -10],*/
+        popupAnchor: [15, -7],
+        innerIconStyle: 'font-size:20px;padding-top:4px;color: #000000'
+      };
 
-    var map = new L.Map('mapid2',{
-        center: new L.LatLng(42.511,11.625),
-        zoom: 10,
-        layers: [roads, ristorantiLayer, alberghiLayer, altroLayer]
-    });
+      var altro = {
+        icon: 'fas fa-university',
+        /*iconShape: 'marker',*/
+        borderColor: '#000000',
+        borderWidth: 2,
+        iconSize: [30, 30],
+        /*popupAnchor: [100, -10],*/
+        popupAnchor: [15, -7],
+        innerIconStyle: 'font-size:20px;padding-top:4px;color: #000000'
+      };
+
+      for(var x=0; x<elenco.length; x++) {
+
+        var riga = elenco[x];
+
+        var icona;
+        // controllo il tipo di punto di interesse per impostare il relativo marker
+        if(riga[8] == 1) {
+          icona=albergo;
+        } else if(riga[8] == 2) {
+          icona=ristorante;
+        } else {
+          icona=altro;
+        }
+
+        var descrizione = "<b>" +riga[1] + "</b><br/>" + riga[2] + "</br>" + riga[9];
+
+        L.marker([riga[5],riga[6]], {
+          icon: L.BeautifyIcon.icon(icona),
+          draggable: false
+        }).bindPopup(descrizione).addTo(map);
+      }
+
+    }
+
+    function renderListaInteressi(map, elenco) {
+
+      var innerHtml = "<ons-list>";
+
+      var tipoInteresseId=0;
+
+      for(var x=0, j=0; x<elenco.length; x++) {
+
+        j += 1;
+        var riga = elenco[x];
+
+        if(riga[8] != tipoInteresseId) {
+
+          tipoInteresseId = riga[8];
+
+          var item = "<ons-list-item expandable id='item" + j + "' onclick='openSection(" + j + ")'>" +
+            "<div class='left'><ons-icon modifier='bed' icon='" + riga[7] + "' class='list-item__icon' tappable></ons-icon></div>" +
+            riga[10];
+
+          if(x!=0) {
+            item = "</ons-list-item>" + item;
+          }
+
+          innerHtml += item;
+
+          // Div contenente i dati dell'attività da inserire
+          var content =
+            "<div class='expandable-content'>" +
+            "<div style='content'>" +
+              "<table style='width: 100%;'>" +
+              "<tbody>" +
+              "<tr>" +
+                "<td style='font-weight: bold;' colspan='3'>" + riga[1] + "</td>" +
+              "</tr>" +
+              "<tr>" +
+                "<td colspan='3'>" + riga[9] + "</td>" +
+              "</tr>" +
+              "<tr>" +
+                "<td colspan='3'>" + riga[3] + "</td>" +
+              "</tr>" +
+              "<tr>" +
+                "<td colspan='3'>" + riga[4] + "</td>" +
+              "</tr>" +
+              "</tbody>" +
+              "</table>" +
+            "</div>" +
+            "<div><hr class='style-three'></div>" +
+            "</div>";
+
+            innerHtml += content;
+
+
+        } else {
+
+          var content =
+            "<div class='expandable-content'>" +
+            "<div style='content'>" +
+              "<table style='width: 100%;'>" +
+              "<tbody>" +
+              "<tr>" +
+                "<td style='font-weight: bold;' colspan='3'>" + riga[1] + "</td>" +
+              "</tr>" +
+              "<tr>" +
+                "<td colspan='3'>" + riga[9] + "</td>" +
+              "</tr>" +
+              "<tr>" +
+                "<td colspan='3'>" + riga[3] + "</td>" +
+              "</tr>" +
+              "<tr>" +
+                "<td colspan='3'>" + riga[4] + "</td>" +
+              "</tr>" +
+              "</tbody>" +
+              "</table>" +
+            "</div>" +
+            "<div><hr class='style-three'></div>" +
+            "</div>";
+
+            innerHtml += content;
+        }
+
+
+        //innerHtml += item;
+
+      }
+
+      innerHtml += "</ons-list-item></ons-list>";
+
+      //showMessage("innerHTML: " + innerHtml);
+
+      $("#listaPuntiInteresse").html(innerHtml);
+
+    }
+
+    renderInteressiMap();
+
+
+
+/*
     // Marker del percorso
     L.marker([42.511,11.625], {
       icon: L.BeautifyIcon.icon(percorso),
       draggable: false
     }).bindPopup("<b>Eremo di Poggio Conte</b><br /><img src='img/percorsi/eremo/foto2.jpg' width='130px'><br/><div id='trail-rating'><ul class='ratings'><li class='average'><span id='rating' class='rating star3_5'>&nbsp;</span></li></ul></div><br/><div class=\"divTable\"><div class=\"divTableRow\"><div class=\"divTableHead1\">Facile</div><div class=\"divTableHead2\">2,1 Km</div><div class=\"divTableHead3\">25 m</div></div></div><br/><a href='#' onclick=\"fn.load('scheda.html')\">Vai alla scheda</a>").addTo(map);
+*/
 
-    var baseLayers = {
-        "Standard": roads,
-        "Satellite": satellite,
-        "Altimetria": terrain,
-        "Ibrido": hybrid,
-
-    };
-
-    var overlays = {
-        "Ristoranti": ristorantiLayer,
-        "Alberghi": alberghiLayer,
-        "Altre attività": altroLayer,
-    };
-
-    L.control.layers(baseLayers, overlays).addTo(map);
 
   </script>
-  <ons-list>
+
+  <div id="listaPuntiInteresse" style="height: 60%"></div>
+
+  <!--ons-list>
     <ons-list-header>L'eremo di Poggio Conte</ons-list-header>
     <ons-list-item expandable id="item1" onclick="openSection(1)">
       <div class="left">
@@ -373,15 +459,6 @@
         <div><hr class="style-three"></div>
       </div>
     </ons-list-item>
+  </ons-list-->
 
-
-    <!--ons-list-item>
-      <div class="left">
-        <ons-icon modifier="parking" icon="fa-parking" class="list-item__icon" tappable></ons-icon>
-      </div>
-      <div class="center">
-        Parcheggio
-      </div>
-    </ons-list-item-->
-  </ons-list>
 </ons-page>

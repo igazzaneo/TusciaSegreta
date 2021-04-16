@@ -831,7 +831,7 @@ GMaps.prototype.createMarker = function(options) {
     }
 
     if (marker.infoWindow) {
-      self.hideInfoWindows();
+      //self.hideInfoWindows();
       marker.infoWindow.open(self.map, marker);
     }
   });
